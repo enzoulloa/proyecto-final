@@ -58,6 +58,9 @@ module.exports = (sequelize) => {
       },
       review: {
         type: DataTypes.ARRAY(DataTypes.TEXT),
+      },
+      address: {
+        type: DataTypes.STRING,
       }
   },
   {

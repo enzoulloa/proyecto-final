@@ -21,12 +21,12 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       cel: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         allowNull: false,
         unique: true,
       },
       role: {
-        type: DataTypes.ENUM(1,2,3,4),
+        type: DataTypes.INTEGER,
         defaultValue: 1,
       },
       photo: {
