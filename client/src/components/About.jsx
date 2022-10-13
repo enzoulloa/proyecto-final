@@ -29,56 +29,56 @@ export default function About () {
                         <img src={img}/>
                         <div className="Member-Text">
                             <h1>Mariano</h1>
-                            <h3>Un capo</h3>
+                            <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum expedita, incidunt necessitatibus vitae ipsam aliquid. Pariatur porro recusandae in. Cum, facilis assumenda? Magni aliquam reprehenderit eum nemo quod quae fuga.</h3>
                         </div>
                     </div>
                     <div className="Member">
                         <img src={img}/>
                         <div className="Member-Text">
-                            <h1>Enzo</h1>
-                            <h3>Un capo</h3>
+                            <h1>Enzo 🥵</h1>
+                            <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum expedita, incidunt necessitatibus vitae ipsam aliquid. Pariatur porro recusandae in. Cum, facilis assumenda? Magni aliquam reprehenderit eum nemo quod quae fuga.</h3>
                         </div>
                     </div>
                     <div className="Member">
                         <img src={img}/>
                         <div className="Member-Text">
                             <h1>Agustín</h1>
-                            <h3>Un capo</h3>
+                            <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum expedita, incidunt necessitatibus vitae ipsam aliquid. Pariatur porro recusandae in. Cum, facilis assumenda? Magni aliquam reprehenderit eum nemo quod quae fuga.</h3>
                         </div>
                     </div>
                     <div className="Member">
                         <img src={img}/>
                         <div className="Member-Text">
                             <h1>Tomás 🌹</h1>
-                            <h3>Un capo</h3>
+                            <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum expedita, incidunt necessitatibus vitae ipsam aliquid. Pariatur porro recusandae in. Cum, facilis assumenda? Magni aliquam reprehenderit eum nemo quod quae fuga.</h3>
                         </div>
                     </div>
                     <div className="Member">
                         <img src={img}/>
                         <div className="Member-Text">
                             <h1>Juan</h1>
-                            <h3>Un capo</h3>
+                            <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum expedita, incidunt necessitatibus vitae ipsam aliquid. Pariatur porro recusandae in. Cum, facilis assumenda? Magni aliquam reprehenderit eum nemo quod quae fuga.</h3>
                         </div>
                     </div>
                     <div className="Member">
                         <img src={img}/>
                         <div className="Member-Text">
                             <h1>Bautista</h1>
-                            <h3>Un capo</h3>
+                            <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum expedita, incidunt necessitatibus vitae ipsam aliquid. Pariatur porro recusandae in. Cum, facilis assumenda? Magni aliquam reprehenderit eum nemo quod quae fuga.</h3>
                         </div>
                     </div>
                     <div className="Member">
                         <img src={img}/>
                         <div className="Member-Text">
                             <h1>Franco</h1>
-                            <h3>Un capo</h3>
+                            <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum expedita, incidunt necessitatibus vitae ipsam aliquid. Pariatur porro recusandae in. Cum, facilis assumenda? Magni aliquam reprehenderit eum nemo quod quae fuga.</h3>
                         </div>
                     </div>
                     <div className="Member">
                         <img src={img}/>
                         <div className="Member-Text">
                             <h1>Juan</h1>
-                            <h3>Un capo</h3>
+                            <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum expedita, incidunt necessitatibus vitae ipsam aliquid. Pariatur porro recusandae in. Cum, facilis assumenda? Magni aliquam reprehenderit eum nemo quod quae fuga.</h3>
                         </div>
                     </div>
                 </div>

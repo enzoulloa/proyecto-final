@@ -12,6 +12,7 @@
         padding: 10px;
 
         .Logo {
+            padding-top: 10px;
             width: 30%;
 
             img {
@@ -45,8 +46,10 @@
         .Members {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            row-gap: 0;
-            justify-content: space-around;
+            row-gap: 1px;
+            justify-content: space-evenly;
+            height: 50%;
+            // align-items: stretch;
 
             .Member {
                 // display: grid;
@@ -58,10 +61,10 @@
                 align-items: flex-start;
                 padding: 1rem;
                 // padding-bottom: 0;
-                // border: 1px solid gray;
+                border: 1px solid gray;
                 margin: 10px;
                 margin-bottom: 0;
-                height: 70%;
+                height: 80%;
 
                 img {
                     width: 40%;
@@ -75,10 +78,14 @@
 
                     h1 {
                         margin: 0;
+                        font-size: 40px;
                     }
 
                     h3 {
+                        width: 100%;
+                        height: 100%;
                         margin: 0;
+                        font-size: 10px;
                     }
                 }
 
