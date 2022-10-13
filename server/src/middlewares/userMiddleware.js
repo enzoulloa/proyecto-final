@@ -15,7 +15,8 @@ const getUsers = async () => {
          email: user.email,
          password: passwordEncripted ? passwordEncripted : user.password,
          cel: user.cel,
-         role: user.role
+         role: user.role,
+         photo: user.photo ? user.photo : 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg'
         }
       })
     })

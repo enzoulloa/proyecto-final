@@ -1,12 +1,16 @@
 const { Router } = require("express");
 const { User } = require("../db.js");
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { getUsers } = require("../middlewares/userMiddleware.js");
 
 const router = Router();
 
 router.get('/', async (req,res)=>{
-    await getUsers()
+    let find = await User.findAll({order: ['id']})
+    if(find.length < 1){
+        await getUsers()
+    }
+
     let users = await User.findAll({order:['id']})
     return res.send(users)
 })

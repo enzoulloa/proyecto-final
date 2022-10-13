@@ -61,7 +61,7 @@ module.exports = (sequelize) => {
       },
       address: {
         type: DataTypes.STRING,
-      },
+      }
   },
   {
     timestamps: false

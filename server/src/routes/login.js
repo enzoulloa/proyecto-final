@@ -62,4 +62,4 @@ app.post('/validate', async (req, res) => {
 })
 
 
-module.exporst = app;
+module.exports = app;
