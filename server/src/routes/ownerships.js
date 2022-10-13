@@ -21,7 +21,7 @@ router.get('/:id', async (req,res) =>{
 })
 
 router.post('/', async (req,res)=>{
-    const { name,location,rooms,garage,m2,type,rating,expenses,seller,description,images,state,price,floors,review} = req.body
+    const { name,location,rooms,garage,m2,type,rating,expenses,seller,description,images,state,price,floors,review,address} = req.body
     if(!location || !rooms || !type || !price || !name || !state){
         return res.status(409).send('Error: location, rooms, type, price, name and state cant be null')
     }else{
@@ -42,7 +42,8 @@ router.post('/', async (req,res)=>{
                 state,
                 price,
                 floors,
-                review
+                review,
+                address
             })
             return res.status(200).send('Proccess complete succeffully')
         }
