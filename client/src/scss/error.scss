@@ -1,0 +1,20 @@
+.error{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #111823;
+  width: 100%;
+  height: 100%;
+  color: #E4E4E2; 
+  font-size: 2rem;
+
+  img{
+  height: 30%;
+  } 
+  h2{
+    text-align: center;
+  }
+}
