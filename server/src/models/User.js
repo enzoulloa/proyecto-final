@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, ENUM } = require('sequelize');
 module.exports = (sequelize) => {
   sequelize.define('User', {
     id: {
@@ -20,16 +20,18 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      reviews: {
-        type: DataTypes.ARRAY(DataTypes.TEXT),
-        allowNull: true,
-        defaultValue: null,
+      cel: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true,
       },
-      favorites: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: true,
-        defaultValue: null,
+      role: {
+        type: DataTypes.ENUM(1,2,3,4),
+        defaultValue: 1,
       },
+      photo: {
+        type: DataTypes.STRING(512)
+      }
   },
   {
     timestamps: false
