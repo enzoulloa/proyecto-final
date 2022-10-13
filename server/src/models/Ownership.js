@@ -61,11 +61,7 @@ module.exports = (sequelize) => {
       },
       address: {
         type: DataTypes.STRING,
-<<<<<<< HEAD
       }
-=======
-      },
->>>>>>> 60d4511178d7dd4ee6662e4d478eaac9f8b8425e
   },
   {
     timestamps: false
