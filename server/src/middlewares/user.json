@@ -3,42 +3,56 @@
         "id":1,
         "name":"Juan",
         "email": "prueba.test1@mailk.com",
-        "password": "12345"
+        "password": "12345",
+        "role": 1,
+        "cel": 2235635871
     },
     {
         "id":2,
         "name":"Bautista",
         "email": "prueba.test2@mailk.com",
-        "password": "12345"
+        "password": "12345",
+        "role": 1,
+        "cel": 2236335225
     },
     {
         "id":3,
         "name":"Manuel",
         "email": "prueba.test3@mailk.com",
-        "password" : "Hola mundo"
+        "password" : "Hola mundo",
+        "role": 1,
+        "cel": 2235635126
     },
     {
         "id":4,
         "name":"Enzo",
         "email": "prueba.test4@mailk.com",
-        "password" : "a77a4532ss"
+        "password" : "a77a4532ss",
+        "role": 2,
+        "cel": 2235825126
     },
     {
         "id":5,
         "name":"Mariano",
         "email": "prueba.test5@mailk.com",
-        "password" : "12www34ga5435ha443"
+        "password" : "12www34ga5435ha443",
+        "role": 2,
+        "cel": 2234845126
     },
     {
         "id":6,
         "name":"Agustin",
         "email": "prueba.test6@mailk.com",
-        "password" : "34g23T4h32"
+        "password" : "34g23T4h32",
+        "role": 2,
+        "cel": 2234936191
     },
     {
         "id":7,
         "name":"Leonardo",
         "email": "prueba.test7@mailk.com",
-        "password" : "g346ws5545"
+        "password" : "g346ws5545",
+        "role": 3,
+        "cel": 2236635800
     }
 ]
