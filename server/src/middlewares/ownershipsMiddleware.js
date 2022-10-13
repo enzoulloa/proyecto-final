@@ -1,5 +1,5 @@
 const { Ownership } = require("../db.js");
-const ownerships = require('./ownership.json')
+const ownerships = require("./ownership.json");
 
 
 const getOwnerships = async () => {
@@ -22,6 +22,7 @@ const getOwnerships = async () => {
           price: ownership.price,
           floors: ownership.floors,
           review: ownership.review,
+          address: ownership.address
         }
       })
     })

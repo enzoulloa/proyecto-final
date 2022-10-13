@@ -2,7 +2,7 @@
 
 # Team Project - real estate
 
-<p align="right">
+<p align="center">
   <img height="200" src="./project.jpg" />
 </p>
 
