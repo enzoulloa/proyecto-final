@@ -1,0 +1,29 @@
+#card-container{
+    position: absolute;
+    margin: 20px;
+    padding: 10px;
+}
+.img-card{
+    width: 460px;
+    height: 353px;
+}
+#card-container h2{
+    font-size: 26px;
+}
+.description-card{
+    margin-top: 5px;
+    font-size: 18px;
+}
+.ico-card{
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+}
+.ico-card img{
+    width: 19px;
+    height: 15px;
+    padding: 0 8px;
+}
+.text-ico{
+    font-size: 12px;
+}
