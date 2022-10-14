@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Ownership } = require("../db.js");
+const { Ownership, Op } = require("../db.js");
 const { getOwnerships } = require("../middlewares/ownershipsMiddleware.js");
 
 const router = Router();
@@ -7,15 +7,38 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     await getOwnerships();
-    const { rooms } = req.query;
-    if (rooms) {
-      let filterOs = await Ownership.findAll({
+    const { rooms, location } = req.query;
+    if (location && rooms) {
+      let filterOsLocationRooms = await Ownership.findAll({
+        where: {
+          location: {[Op.iLike] : location},
+          rooms: rooms,
+        },
+      });
+      filterOsLocationRooms.length
+        ? res.status(200).send(filterOsLocationRooms)
+        : res
+            .status(400)
+            .send("There are no properties that match your search");
+    } else if (location) {
+      let filterOsLocation = await Ownership.findAll({
+        where: {
+          location: {[Op.iLike] : location},
+        },
+      });
+      filterOsLocation.length
+        ? res.status(200).send(filterOsLocation)
+        : res
+            .status(404)
+            .send("No properties were found with that number of rooms");
+    } else if (rooms) {
+      let filterOsRooms = await Ownership.findAll({
         where: {
           rooms: rooms,
         },
       });
-      filterOs
-        ? res.status(200).send(filterOs)
+      filterOsRooms
+        ? res.status(200).send(filterOsRooms)
         : res
             .status(404)
             .send("No properties were found with that number of rooms");
