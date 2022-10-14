@@ -1,0 +1,131 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+footer{
+    width: 1920px;
+    height: 477px;
+    background-color: #1A242F;
+    color: #fff;
+}
+.title_cont{
+    height: 150px;
+    width: 350px;
+    left: 150px;
+    top: 55px;
+    position: absolute;
+    margin-top: 60px;
+    margin-left: 60px;
+}
+.title_cont h2{
+    
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+.title_cont p{
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+.redes_ul{
+    height: 10%;
+}
+.redes_cont img{    
+    width: 20px;
+    height: 20px;
+}
+.redes_cont a{
+    padding: 5px;
+}
+.redes_cont a:hover{
+    background-color: #aaa;
+    border: 50px;
+}
+.copiRight-cont{
+    position: absolute;
+    top: 431px;
+    width: 1920px;
+    background-color: #1A242F;
+    border-top: #303A44 solid 1px;
+    padding-top: 13px;
+    font-size: 10px;
+}
+.copiRight-cont p{
+    position: absolute;
+    margin: 0 10%;
+}
+.disenadores{
+    left: 1330px;
+}
+.div_Alquilar{
+    position: absolute;
+    top: 120px;
+    left: 730px;
+}
+.div_Alquilar h2{
+    font-size: 26px;
+    margin-bottom: 9px;
+}
+.div_Alquilar li{
+    list-style: none;
+    padding: 2px;
+    font-size: 18px;
+}
+.div_Alquilar Link{
+    text-decoration: none;
+}
+
+
+.div_Comprar{
+    position: absolute;
+    top: 120px;
+    left: 980px;
+}
+.div_Comprar h2{
+    font-size: 26px;
+    margin-bottom: 9px;
+}
+.div_Comprar li{
+    list-style: none;
+    padding: 2px;
+    font-size: 18px;
+}
+.div_Comprar Link{
+    text-decoration: none;
+}
+
+
+.div_Vender{
+    position: absolute;
+    top: 120px;
+    left: 1230px;
+}
+.div_Vender h2{
+    font-size: 26px;
+    margin-bottom: 9px;
+}
+.div_Vender li{
+    list-style: none;
+    padding: 2px;
+    font-size: 18px;
+}
+.div_Vender Link{
+    text-decoration: none;
+}
+
+.div_Help{
+    position: absolute;
+    top: 120px;
+    left: 1490px;
+}
+.div_Help h2{
+    font-size: 26px;
+    margin-bottom: 9px;
+}
+.div_Help li{
+    list-style: none;
+    padding: 2px;
+    font-size: 18px;
+}
+.div_Help Link{
+    text-decoration: none;
+}
