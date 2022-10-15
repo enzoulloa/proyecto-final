@@ -17,10 +17,20 @@ export default function SearchBar() {
   return (
     <div>
       <form>
-        <label>Busca tu propiedad:</label>
+        <label className="searchText">Busca tu propiedad:</label>
         <div>
-          <input type="text" value={searchTerm} onChange={handleInput} />
-          <input type="button" value="Search" onClick={handleSearch} />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={handleInput}
+            className="search"
+          />
+          <input
+            type="button"
+            value="Go!"
+            onClick={handleSearch}
+            className="searchIco"
+          />
         </div>
       </form>
     </div>
