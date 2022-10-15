@@ -1,4 +1,4 @@
-import { GET_OWNERSHIPS, GET_USERS, LOADING, GET_DETAIL, CLEAR_DETAIL, REMOVE_OWNERSHIP, REMOVE_USER } from "./common";
+import { GET_OWNERSHIPS, GET_USERS, LOADING, GET_DETAIL, CLEAR_DETAIL, REMOVE_OWNERSHIP, REMOVE_USER, POST_PROPERTY } from "./common";
 
 const initialState = {
   ownerships: [],
@@ -7,6 +7,7 @@ const initialState = {
   error: false,
   response: null,
   Details: [],
+    // propertiesToCheck: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -34,6 +35,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         loading: true,
       };
+
+    case POST_PROPERTY: 
+      return {
+        ...state
+      }
+
       
       case GET_DETAIL:
         return {

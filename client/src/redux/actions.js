@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { GET_OWNERSHIPS, GET_USERS, LOADING, GET_DETAIL, CLEAR_DETAIL, REMOVE_OWNERSHIP, REMOVE_USER } from "./common";
+import { GET_OWNERSHIPS, GET_USERS, LOADING, GET_DETAIL, CLEAR_DETAIL, REMOVE_OWNERSHIP, REMOVE_USER, POST_PROPERTY, SELL_FORM } from "./common";
+
 
 export function GetOwnerships() {
   return async function (dispatch) {
@@ -23,6 +24,23 @@ export function GetUsers(){
         })
     }
 }
+
+
+export function postProperty(payload){
+  return async function (dispatch){
+    const response = await axios.post('localhost:3001/ownerships/', payload);
+    return dispatch({
+      type: POST_PROPERTY,
+      payload: response.data
+    });
+  };
+};
+
+// export function sellFormPost(payload){
+//   return {
+//     type: SELL_FORM,
+//     payload
+//   };
 
 export function getDetail(id) {
   return async function(dispatch){
@@ -84,4 +102,5 @@ export function getDetail(id) {
         }
     }
   }
+
 

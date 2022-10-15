@@ -1,0 +1,12 @@
+.FormContainer {
+    border: 1px solid black;
+    background-color: #121B25;
+    // font: white;
+
+    .FieldContainer {
+        display: flex;
+        justify-content: space-around;
+
+        color: white;
+    }
+}
