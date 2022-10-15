@@ -2,6 +2,8 @@ import About from "../components/About";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import SearchBar from "../components/SearchBar";
+import Detail from "../components/detail/Detail.jsx";
 import Error from "../components/Error"
 import Loading from "../components/Loading"
 import FiltersCards from "../components/FilterCards"
@@ -9,6 +11,7 @@ import FiltersHome from "../components/FiltersHome";
 import Paginated from "../components/Paginate";
 import Home from "../components/Home/Home";
 import Listing from "../components/Listing/Listing";
+
 
 function App() {
   return (
@@ -19,6 +22,7 @@ function App() {
         <Route path="/search" element={<FiltersHome />} />
         <Route path="/error" element={<Error />} />
         <Route path="/loading" element={<Loading />} />
+        <Route path="/detail/:id" element={<Detail />}/>
         <Route path="/filterCards" element={<FiltersCards />} />
         <Route exact path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
