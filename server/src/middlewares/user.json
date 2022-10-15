@@ -5,7 +5,8 @@
         "email": "prueba.test1@mailk.com",
         "password": "12345",
         "role": 1,
-        "cel": 2235635871
+        "cel": 2235635871,
+        "photo": null
     },
     {
         "id":2,
@@ -13,7 +14,8 @@
         "email": "prueba.test2@mailk.com",
         "password": "12345",
         "role": 1,
-        "cel": 2236335225
+        "cel": 2236335225,
+        "photo": null
     },
     {
         "id":3,
@@ -21,7 +23,8 @@
         "email": "prueba.test3@mailk.com",
         "password" : "Hola mundo",
         "role": 1,
-        "cel": 2235635126
+        "cel": 2235635126,
+        "photo": "https://static.independent.co.uk/2021/11/10/08/ESP-CEL_PEOPLE-PAUL_RUUD_73783.jpg?width=1200"
     },
     {
         "id":4,
@@ -29,7 +32,8 @@
         "email": "prueba.test4@mailk.com",
         "password" : "a77a4532ss",
         "role": 2,
-        "cel": 2235825126
+        "cel": 2235825126,
+        "photo": null
     },
     {
         "id":5,
@@ -37,15 +41,17 @@
         "email": "prueba.test5@mailk.com",
         "password" : "12www34ga5435ha443",
         "role": 2,
-        "cel": 2234845126
+        "cel": 2234845126,
+        "photo": null
     },
     {
         "id":6,
-        "name":"Agustin",
+        "name":"Agustina",
         "email": "prueba.test6@mailk.com",
         "password" : "34g23T4h32",
         "role": 2,
-        "cel": 2234936191
+        "cel": 2234936191,
+        "photo": "https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/02/Female_Portrait_1296x728-header-1296x729.jpg?w=1155&h=2268"
     },
     {
         "id":7,
@@ -53,6 +59,7 @@
         "email": "prueba.test7@mailk.com",
         "password" : "g346ws5545",
         "role": 3,
-        "cel": 2236635800
+        "cel": 2236635800,
+        "photo": null
     }
 ]

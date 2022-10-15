@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { Sequelize } = require('sequelize');
+const { Sequelize, Op } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
@@ -48,19 +48,14 @@ modelDefiners.forEach(model => model(sequelize));
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
-
-const { User, Ownership, Favorite, Review, Score, } = sequelize.models;
+const { User, Ownership } = sequelize.models;
 
 User.belongsToMany(Ownership, {through: 'UserOwnerships'})
-User.hasMany(Review);
-User.hasMany(Favorite);
 Ownership.hasOne(User, {through: 'UserOwnerships'});
-Ownership.hasMany(Score);
-Score.belongsTo(Ownership);
-Review.belongsTo(User);
-Favorite.belongsTo(User);
+
 
 module.exports = {
   ...sequelize.models,
   conn: sequelize,
+  Op
 };

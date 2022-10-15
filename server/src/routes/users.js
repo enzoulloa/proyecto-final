@@ -1,12 +1,16 @@
 const { Router } = require("express");
 const { User } = require("../db.js");
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { getUsers } = require("../middlewares/userMiddleware.js");
 
 const router = Router();
 
 router.get('/', async (req,res)=>{
-    await getUsers()
+    let find = await User.findAll({order: ['id']})
+    if(find.length < 1){
+        await getUsers()
+    }
+
     let users = await User.findAll({order:['id']})
     return res.send(users)
 })
@@ -23,11 +27,11 @@ if(find){
 
 router.post('/register', async (req,res)=>{
 const {name,email,password,cel,photo} = req.body
-let findName = User.findAll({where: {name: name}})
-let findEmail = User.findAll({where: {email: email}})
+let findName = await User.findAll({where: {name: name}})
+let findEmail = await User.findAll({where: {email: email}})
 try{if(!name || !email || !password){
     return res.status(412).send('Parameters name, email and password cant be null')
-} else if(findName || findEmail){
+} else if(findName.length || findEmail.length){
     return res.status(409).send('User already exist')
 }else{
     let encrypted = await bcrypt.hash(password, 10)

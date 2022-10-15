@@ -5,14 +5,13 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background: #121b25;
-  padding-left: 10px;
-  padding-right: 10px;
+  margin: 0 0 10px 2%;
+  z-index: 9999;
 }
 
 .nav p {
   font-size: 25px;
-  color: antiquewhite;
+  color: #d6d6d6;
 }
 
 .linksContainer {
@@ -31,7 +30,7 @@
 .link:hover {
   width: 100px;
   color: #d6d6d6;
-  text-decoration: underline 4px #1aa090;
+  text-decoration: underline 2px #1aa090;
 }
 
 .loginContainer {
