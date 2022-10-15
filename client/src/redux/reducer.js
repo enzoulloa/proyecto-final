@@ -1,8 +1,9 @@
-import { GET_OWNERSHIPS, GET_USERS, LOADING } from "./common";
+import { GET_OWNERSHIPS, GET_USERS, LOADING, POST_PROPERTY } from "./common";
 
 const initialState = {
   properties: [],
   propertyDetail: [],
+  // propertiesToCheck: [],
   loading: false,
   error: false,
   response: null,
@@ -33,7 +34,10 @@ function rootReducer(state = initialState, action) {
         ...state,
         loading: true,
       };
-
+    case POST_PROPERTY: 
+      return {
+        ...state
+      }
     default:
       return state;
   }
