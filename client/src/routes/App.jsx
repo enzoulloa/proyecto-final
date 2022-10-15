@@ -6,18 +6,21 @@ import SearchBar from "../components/SearchBar";
 import Error from "../components/Error"
 import Loading from "../components/Loading"
 import Paginated from "../components/Paginate";
+import Home from "../components/Home/Home";
+import Listing from "../components/Listing/Listing";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/paginated" element={<Paginated />} />
-        <Route path="/about" element={<About />} />
         <Route path="/nav" element={<NavBar />} />
         <Route path="/search" element={<SearchBar />} />
         <Route path="/error" element={<Error />} />
         <Route path="/loading" element={<Loading />} />
-        <Route path="/" />
+        <Route exact path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/listings" element={<Listing />} />
       </Routes>
     </BrowserRouter>
   );

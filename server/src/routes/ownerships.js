@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
     if (location && rooms) {
       let filterOsLocationRooms = await Ownership.findAll({
         where: {
-          location: {[Op.iLike] : location},
+          location: {[Op.iRegexp] : location},
           rooms: rooms,
         },
       });
@@ -19,18 +19,18 @@ router.get("/", async (req, res) => {
         ? res.status(200).send(filterOsLocationRooms)
         : res
             .status(400)
-            .send("There are no properties that match your search");
+            .send("There are no ownerships that match your search");
     } else if (location) {
       let filterOsLocation = await Ownership.findAll({
         where: {
-          location: {[Op.iLike] : location},
+          location: {[Op.iRegexp] : location},
         },
       });
       filterOsLocation.length
         ? res.status(200).send(filterOsLocation)
         : res
             .status(404)
-            .send("No properties were found with that number of rooms");
+            .send("No ownerships were found with that number of rooms");
     } else if (rooms) {
       let filterOsRooms = await Ownership.findAll({
         where: {
@@ -41,7 +41,7 @@ router.get("/", async (req, res) => {
         ? res.status(200).send(filterOsRooms)
         : res
             .status(404)
-            .send("No properties were found with that number of rooms");
+            .send("No ownerships were found with that number of rooms");
     } else {
       let ownerships = await Ownership.findAll({ order: ["id"] });
       return res.send(ownerships);
@@ -92,7 +92,8 @@ router.post("/", async (req, res) => {
           "Error: location, rooms, type, price, name and state cant be null"
         );
     } else {
-      if (findName && type != "department") {
+      let findName = Ownership.findAll({where:{name: name}})
+      if (findName.length && type != "department") {
         return res.status(412).send("Error: ownership already exist");
       } else {
         Ownership.create({
