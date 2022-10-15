@@ -1,14 +1,18 @@
 import NavBar from "../NavBar/NavBar";
 import "../../scss/home.scss";
-import SearchBar from "../SearchBar/SearchBar";
 import Footer from "../Footer/Footer";
+import FiltersHome from "../FiltersHome";
+import HomeCards from "../HomeCards";
 
 export default function Home() {
   return (
     <div className="home">
-      <NavBar />
       <div className="containerI">
-        <SearchBar />
+        <FiltersHome />
+      </div>
+
+      <div>
+        <HomeCards />
       </div>
       <div className="containerK">
         <Footer />

@@ -9,7 +9,6 @@ const img =
 export default function About() {
   return (
     <div className="About">
-      <NavBar />
       {/* <div className="Logo">
                 <img src="https://res.cloudinary.com/dwgp6lmlt/image/upload/v1665608338/photo_dbm6i5.jpg"/>
             </div> */}

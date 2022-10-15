@@ -1,8 +1,19 @@
-import { GET_OWNERSHIPS, GET_USERS, LOADING, GET_DETAIL, CLEAR_DETAIL, REMOVE_OWNERSHIP, REMOVE_USER } from "./common";
+import {
+  GET_OWNERSHIPS,
+  GET_USERS,
+  LOADING,
+  GET_DETAIL,
+  CLEAR_DETAIL,
+  REMOVE_OWNERSHIP,
+  REMOVE_USER,
+  FILTER_BY_OP,
+  filterByOp,
+} from "./common";
 
 const initialState = {
   ownerships: [],
   ownershipDetail: [],
+  ownershipsFiltered: [],
   loading: false,
   error: false,
   response: null,
@@ -15,6 +26,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         ownerships: action.payload,
+        ownershipsFiltered: action.payload,
         loading: false,
         error: false,
         response: null,
@@ -34,28 +46,36 @@ function rootReducer(state = initialState, action) {
         ...state,
         loading: true,
       };
-      
-      case GET_DETAIL:
-        return {
-            ...state,
-            Details: action.payload
-    };
+
+    case FILTER_BY_OP:
+      const ownerships = state.ownerships;
+      const ownershipsFilteredByOp = filterByOp(ownerships, action.payload);
+      return {
+        ...state,
+        filteredOwnerships: ownershipsFilteredByOp,
+      };
+
+    case GET_DETAIL:
+      return {
+        ...state,
+        Details: action.payload,
+      };
 
     case CLEAR_DETAIL:
-        return {
-            ...state,
-            Details: []
-    };
+      return {
+        ...state,
+        Details: [],
+      };
 
     case REMOVE_OWNERSHIP:
       return {
-          ...state,
-      }
+        ...state,
+      };
 
     case REMOVE_USER:
-        return {
-            ...state,
-        }
+      return {
+        ...state,
+      };
 
     default:
       return state;
