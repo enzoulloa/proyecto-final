@@ -1,6 +1,6 @@
 import React from "react";
-import "../scss/filters.scss"
 import search from "../assets/search.svg"
+import "../scss/filtersHome.scss"
 
 export default function FiltersHome(){
   return(
