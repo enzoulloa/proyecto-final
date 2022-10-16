@@ -23,15 +23,14 @@ export default function Listing() {
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(ownerships.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(ownerships.length / itemsPerPage));
+    setCurrentItems(ownerships?.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(ownerships?.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, ownerships]);
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % ownerships.length;
     setItemOffset(newOffset);
   };
-  console.log(ownerships.map((o) => o.state));
   return (
     <div className="listings">
       <FiltersCards ownerships={ownerships} />

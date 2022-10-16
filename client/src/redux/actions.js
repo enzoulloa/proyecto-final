@@ -9,6 +9,8 @@ import {
   REMOVE_OWNERSHIP,
   REMOVE_USER,
   FILTER_BY_OP,
+  FILTER_BY_TYPE,
+  ORDER_OWNERSHIPS,
 } from "./common";
 
 export function GetOwnerships() {
@@ -38,6 +40,24 @@ export function filterByOperation(operation) {
     return dispatch({
       type: FILTER_BY_OP,
       payload: operation,
+    });
+  };
+}
+
+export function filterByType(type) {
+  return function (dispatch) {
+    return dispatch({
+      type: FILTER_BY_TYPE,
+      payload: type,
+    });
+  };
+}
+
+export function orderOwnerships(payload) {
+  return function (dispatch) {
+    return dispatch({
+      type: ORDER_OWNERSHIPS,
+      payload: payload,
     });
   };
 }

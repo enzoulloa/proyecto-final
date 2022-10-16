@@ -13,6 +13,7 @@ export default function Cards({ ownerships }) {
           price={o.price}
           rooms={o.rooms}
           type={o.type}
+          id={o.id}
         />
       ))}
     </div>

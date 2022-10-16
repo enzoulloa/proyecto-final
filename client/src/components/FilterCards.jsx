@@ -1,15 +1,25 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { filterByOperation } from "../redux/actions";
-import { filterByOp } from "../redux/common";
+import {
+  filterByOperation,
+  filterByType,
+  orderOwnerships,
+} from "../redux/actions";
 import "../scss/filterCards.scss";
 
-export default function FiltersCards({ ownerships }) {
+export default function FiltersCards() {
   const dispatch = useDispatch();
 
   const handleFilterByOperation = (e) => {
     dispatch(filterByOperation(e.target.value));
-    console.log(e.target.value);
+  };
+
+  const handleFilterByType = (e) => {
+    dispatch(filterByType(e.target.value));
+  };
+
+  const handleOrder = (e) => {
+    dispatch(orderOwnerships(e.target.value));
   };
 
   return (
@@ -23,25 +33,25 @@ export default function FiltersCards({ ownerships }) {
             Tipo de operacion
           </option>
           <option value="for sell">Quiero comprar</option>
-          <option value="">Quiero vender</option>
+          {/* <option value="">Quiero vender</option> */}
           <option value="for rent">Quiero alquilar</option>
         </select>
 
-        <select name="" id="">
+        <select name="" id="" onChange={handleFilterByType}>
           <option selected={true} disabled="disabled">
             Tipo de propiedad
           </option>
-          <option value="">Casa</option>
-          <option value="">Departamento</option>
-          <option value="">Ph</option>
+          <option value="house">Casa</option>
+          <option value="department">Departamento</option>
+          <option value="PH">Ph</option>
         </select>
 
-        <select name="" id="">
+        <select name="" id="" onChange={handleOrder}>
           <option selected={true} disabled="disabled">
             Ordenar por
           </option>
-          <option value="">Menor precio</option>
-          <option value="">Mayor precio</option>
+          <option value="ASC">Menor precio</option>
+          <option value="DESC">Mayor precio</option>
         </select>
       </div>
     </div>

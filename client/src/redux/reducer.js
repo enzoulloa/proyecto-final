@@ -1,3 +1,4 @@
+import { orderOwnerships } from "./actions";
 import {
   GET_OWNERSHIPS,
   GET_USERS,
@@ -8,6 +9,10 @@ import {
   REMOVE_USER,
   FILTER_BY_OP,
   filterByOp,
+  FILTER_BY_TYPE,
+  filterByType,
+  ORDER_OWNERSHIPS,
+  order,
 } from "./common";
 
 const initialState = {
@@ -52,7 +57,26 @@ function rootReducer(state = initialState, action) {
       const ownershipsFilteredByOp = filterByOp(ownerships, action.payload);
       return {
         ...state,
-        filteredOwnerships: ownershipsFilteredByOp,
+        ownershipsFiltered: ownershipsFilteredByOp,
+      };
+
+    case FILTER_BY_TYPE:
+      const ownershipsToFilter = state.ownerships;
+      const ownershipsFilteredByType = filterByType(
+        ownershipsToFilter,
+        action.payload
+      );
+      return {
+        ...state,
+        ownershipsFiltered: ownershipsFilteredByType,
+      };
+
+    case ORDER_OWNERSHIPS:
+      const ownershipsToOrder = state.ownershipsFiltered;
+      const ownershipsOrdered = order(ownershipsToOrder, action.payload);
+      return {
+        ...state,
+        ownershipsFiltered: ownershipsOrdered,
       };
 
     case GET_DETAIL:

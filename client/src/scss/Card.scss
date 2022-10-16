@@ -1,7 +1,10 @@
 #card-container {
   margin: 20px;
   padding: 10px;
-  color: #d6d6d6;
+  background: #ffffff;
+  border: 1px solid #d6d6d6;
+  border-radius: 8px;
+  color: black;
 }
 .img-card {
   width: 250px;
@@ -9,15 +12,18 @@
 }
 #card-container h2 {
   font-size: 26px;
+  color: black;
 }
 .description-card {
   margin-top: 5px;
   font-size: 18px;
+  color: black;
 }
 .ico-card {
   display: flex;
   align-items: center;
   margin: 15px 0;
+  color: black;
 }
 .ico-card img {
   width: 19px;
@@ -26,4 +32,8 @@
 }
 .text-ico {
   font-size: 12px;
+}
+
+#card-container Link {
+  text-decoration: none;
 }
