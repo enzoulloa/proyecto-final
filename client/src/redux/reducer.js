@@ -7,8 +7,11 @@ import {
   REMOVE_OWNERSHIP,
   REMOVE_USER,
   FILTER_BY_OP,
+  REMOVE_USER,
+  POST_PROPERTY, 
   filterByOp,
 } from "./common";
+
 
 const initialState = {
   ownerships: [],
@@ -18,6 +21,7 @@ const initialState = {
   error: false,
   response: null,
   Details: [],
+    // propertiesToCheck: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -60,6 +64,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         Details: action.payload,
       };
+
+    case POST_PROPERTY: 
+      return {
+        ...state
+      }
 
     case CLEAR_DETAIL:
       return {

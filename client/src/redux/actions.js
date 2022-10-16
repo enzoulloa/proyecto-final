@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -9,7 +10,10 @@ import {
   REMOVE_OWNERSHIP,
   REMOVE_USER,
   FILTER_BY_OP,
+  POST_PROPERTY,
+  SELL_FORM
 } from "./common";
+
 
 export function GetOwnerships() {
   return async function (dispatch) {
@@ -41,6 +45,23 @@ export function filterByOperation(operation) {
     });
   };
 }
+
+
+export function postProperty(payload){
+  return async function (dispatch){
+    const response = await axios.post('localhost:3001/ownerships/', payload);
+    return dispatch({
+      type: POST_PROPERTY,
+      payload: response.data
+    });
+  };
+};
+
+// export function sellFormPost(payload){
+//   return {
+//     type: SELL_FORM,
+//     payload
+//   };
 
 export function getDetail(id) {
   return async function (dispatch) {
@@ -88,23 +109,4 @@ export function removeOwnership(id) {
   };
 }
 
-export function removeUser(id) {
-  return async function (dispatch) {
-    try {
-      const response = await axios.delete(
-        `http://localhost:3001/deleteUsers/${id}`
-      );
-      return dispatch({
-        type: REMOVE_USER,
-        payload: response.data,
-      });
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Error 412",
-        text: "Cant delete user",
-        footer: "Check if user id is correct, and try again",
-      });
-    }
-  };
-}
+
