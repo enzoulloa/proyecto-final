@@ -8,14 +8,17 @@ import NavBar from "../components/NavBar/NavBar";
 import SellForm from "../components/SellForm";
 // import Alternative from "../components/Alternative";
 
+
 function App() {
   return (
     <BrowserRouter>
+      <NavBar />
       <Routes>
         <Route path="/sell" element={<SellForm/>} />
         <Route exact path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/listings" element={<Listing />} />
+        <Route path="/detail/:id" element={<Detail />} />
       </Routes>
     </BrowserRouter>
   );

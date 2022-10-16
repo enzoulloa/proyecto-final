@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import ReactPaginate from 'react-paginate';
+import React, { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 import axios from "axios";
-import "./paginate.css"
-
-
+import "./paginate.css";
 
 export default function Paginated() {
-    const [ownership, setOwnership] = useState([])
-    const [currentItems, setCurrentItems] = useState([]);
-    const [pageCount, setPageCount] = useState(0);
-    const [itemOffset, setItemOffset] = useState(0);
-    const itemsPerPage = 6;
+  const [ownership, setOwnership] = useState([]);
+  const [currentItems, setCurrentItems] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 6;
 
-    useEffect(() => {
-        axios.get("http://localhost:3001/ownerships").then( ownerships => {
-            setOwnership(ownerships.data)
-        })
-    }, [])
+  useEffect(() => {
+    axios.get("http://localhost:3001/ownerships").then((ownerships) => {
+      setOwnership(ownerships.data);
+    });
+  }, []);
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -29,26 +27,27 @@ export default function Paginated() {
     setItemOffset(newOffset);
   };
 
-    return (
-        <div>
-            <div>
-                {currentItems.map(e => {
-                    return <h1>{e.name}</h1>
-                })}
-            </div>
-            <ReactPaginate
-                breakLabel="..."
-                nextLabel="next >"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={3}
-                pageCount={pageCount}
-                previousLabel="< previous"
-                renderOnZeroPageCount={null}
-                containerClassName="pagination"
-                pageLinkClassName='page-num'
-                previousLinkClassName='page-num'
-                nextLinkClassName='page-num'
-                activeClassName='active'
-            />
-        </div>
-  );}
+  return (
+    <div>
+      <div>
+        {currentItems.map((e) => {
+          return <h1>{e.name}</h1>;
+        })}
+      </div>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={3}
+        pageCount={pageCount}
+        previousLabel="< previous"
+        renderOnZeroPageCount={null}
+        containerClassName="pagination"
+        pageLinkClassName="page-num"
+        previousLinkClassName="page-num"
+        nextLinkClassName="page-num"
+        activeClassName="active"
+      />
+    </div>
+  );
+}
