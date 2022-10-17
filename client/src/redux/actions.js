@@ -11,7 +11,8 @@ import {
   REMOVE_USER,
   FILTER_BY_OP,
   POST_PROPERTY,
-  SELL_FORM
+  SELL_FORM,
+  GET_STATUS_LOGIN
 } from "./common";
 
 
@@ -107,6 +108,13 @@ export function removeOwnership(id) {
       });
     }
   };
+}
+
+export function GetStatusLogin(e){
+  return{
+    type: GET_STATUS_LOGIN,
+    payload: e,
+  }
 }
 
 

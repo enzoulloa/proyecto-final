@@ -7,9 +7,9 @@ import {
   REMOVE_OWNERSHIP,
   REMOVE_USER,
   FILTER_BY_OP,
-  REMOVE_USER,
   POST_PROPERTY, 
   filterByOp,
+  GET_STATUS_LOGIN
 } from "./common";
 
 
@@ -21,6 +21,7 @@ const initialState = {
   error: false,
   response: null,
   Details: [],
+  statuslogin: '',
     // propertiesToCheck: [],
 };
 
@@ -85,6 +86,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+    case GET_STATUS_LOGIN:
+      return{
+        ...state,
+        statuslogin: action.payload
+      }
 
     default:
       return state;
