@@ -2,9 +2,9 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { GET_OWNERSHIPS, GET_USERS, LOADING, GET_DETAIL, CLEAR_DETAIL, REMOVE_OWNERSHIP, REMOVE_USER } from "./common";
 
-export default function GetOwnerships() {
+export function GetOwnerships() {
   return async function (dispatch) {
-    dispatch({ type: LOADING, payload });
+    dispatch({ type: LOADING });
     const res = await axios.get(`http://localhost:3001/ownerships`);
     return dispatch({
       type: GET_OWNERSHIPS,
@@ -12,7 +12,6 @@ export default function GetOwnerships() {
     });
   };
 }
-
 
 export function GetUsers(){
     return async function (dispatch){
@@ -85,3 +84,4 @@ export function getDetail(id) {
         }
     }
   }
+

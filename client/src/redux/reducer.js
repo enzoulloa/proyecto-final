@@ -1,8 +1,8 @@
 import { GET_OWNERSHIPS, GET_USERS, LOADING, GET_DETAIL, CLEAR_DETAIL, REMOVE_OWNERSHIP, REMOVE_USER } from "./common";
 
 const initialState = {
-  properties: [],
-  propertyDetail: [],
+  ownerships: [],
+  ownershipDetail: [],
   loading: false,
   error: false,
   response: null,
@@ -14,7 +14,7 @@ function rootReducer(state = initialState, action) {
     case GET_OWNERSHIPS:
       return {
         ...state,
-        properties: action.payload,
+        ownerships: action.payload,
         loading: false,
         error: false,
         response: null,
