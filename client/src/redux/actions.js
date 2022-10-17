@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -9,12 +8,13 @@ import {
   CLEAR_DETAIL,
   REMOVE_OWNERSHIP,
   REMOVE_USER,
-  FILTER_BY_OP,
+  FILTER_BY,
+  ORDER_OWNERSHIPS,
   POST_PROPERTY,
   SELL_FORM,
   GET_STATUS_LOGIN
-} from "./common";
 
+} from "./common";
 
 export function GetOwnerships() {
   return async function (dispatch) {
@@ -38,25 +38,60 @@ export function GetUsers() {
   };
 }
 
-export function filterByOperation(operation) {
+export function filterBy(filters) {
   return function (dispatch) {
     return dispatch({
-      type: FILTER_BY_OP,
-      payload: operation,
+      type: FILTER_BY,
+      payload: filters,
     });
   };
 }
 
+// export function filterByType(type) {
+//   return function (dispatch) {
+//     return dispatch({
+//       type: FILTER_BY_TYPE,
+//       payload: type,
+//     });
+//   };
+// }
 
-export function postProperty(payload){
-  return async function (dispatch){
-    const response = await axios.post('localhost:3001/ownerships/', payload);
+export function orderOwnerships(payload) {
+  return function (dispatch) {
     return dispatch({
-      type: POST_PROPERTY,
-      payload: response.data
+      type: ORDER_OWNERSHIPS,
+      payload: payload,
     });
   };
-};
+}
+
+export function postProperty(payload) {
+  console.log(payload);
+  return async function (dispatch) {
+    const response = await axios.post("http://localhost:3001/ownerships/", {
+      name: payload.name,
+      location: payload.location,
+      rooms: payload.rooms,
+      garage: payload.garage,
+      type: payload.type,
+      m2: payload.m2,
+      rating: 5,
+      expenses: payload.expenses,
+      seller: "Enzo",
+      description: "De chill",
+      images: payload.images,
+      state: payload.state,
+      price: payload.price,
+      floors: payload.floors,
+      reviews: ["a", "b"],
+      address: payload.address,
+    });
+    return dispatch({
+      type: POST_PROPERTY,
+      payload: response.data,
+    });
+  };
+}
 
 // export function sellFormPost(payload){
 //   return {
@@ -110,11 +145,11 @@ export function removeOwnership(id) {
   };
 }
 
+
 export function GetStatusLogin(e){
   return{
     type: GET_STATUS_LOGIN,
     payload: e,
   }
 }
-
 

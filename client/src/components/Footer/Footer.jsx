@@ -82,7 +82,7 @@ export default function Footer() {
               <Link>Contactar</Link>
             </li>
             <li>
-              <Link>Formulario</Link>
+              <Link to="/sell">Formulario</Link>
             </li>
           </ul>
         </div>

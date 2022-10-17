@@ -11,6 +11,13 @@ export default function Card({
   type,
   id,
 }) {
+  if (
+    images ===
+    "https://www.pngplay.com/wp-content/uploads/2/Trollface-No-Background.png"
+  ) {
+    images =
+      "https://dchba.org/wp-content/uploads/2020/06/house-placeholder.png";
+  }
   return (
     <div id="card-container">
       <Link to={`/detail/${id}`}>
@@ -23,7 +30,7 @@ export default function Card({
           <img src="https://cdn-icons-png.flaticon.com/512/618/618911.png" />
           <p className="text-ico">{type}</p>
           <img src="https://cdn-icons-png.flaticon.com/512/353/353760.png" />
-          <p className="text-ico">{price}</p>
+          <p className="text-ico">${price}</p>
         </div>
       </Link>
     </div>

@@ -14,9 +14,6 @@ export default function Home() {
       <div>
         <HomeCards />
       </div>
-      <div className="containerK">
-        <Footer />
-      </div>
     </div>
   );
 }

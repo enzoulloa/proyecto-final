@@ -22,7 +22,7 @@ export default function HomeCards() {
                   la mayoría de los listados, incluidas cosas que no encontrarás
                   en ningún otro lugar.
                 </p>
-                <Link>Buscar casas</Link>
+                <Link to="/listings">Buscar casas</Link>
               </div>
             </div>
           </li>
@@ -38,7 +38,7 @@ export default function HomeCards() {
                   comprar en la red de alquiler más grande hasta solicitar y
                   pagar el alquiler.
                 </p>
-                <Link>Encontrar alquileres</Link>
+                <Link to="listings">Encontrar alquileres</Link>
               </div>
             </div>
           </li>
@@ -53,7 +53,7 @@ export default function HomeCards() {
                   No importa qué camino tome para vender su casa, podemos
                   ayudarlo a lograr una venta exitosa.
                 </p>
-                <Link>Mire sus opciones</Link>
+                <Link to='/sell'>Mire sus opciones</Link>
               </div>
             </div>
           </li>

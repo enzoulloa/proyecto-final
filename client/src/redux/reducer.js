@@ -6,12 +6,11 @@ import {
   CLEAR_DETAIL,
   REMOVE_OWNERSHIP,
   REMOVE_USER,
-  FILTER_BY_OP,
+  FILTER_BY,
   POST_PROPERTY, 
   filterByOp,
   GET_STATUS_LOGIN
 } from "./common";
-
 
 const initialState = {
   ownerships: [],
@@ -23,6 +22,7 @@ const initialState = {
   Details: [],
   statuslogin: '',
     // propertiesToCheck: [],
+
 };
 
 function rootReducer(state = initialState, action) {
@@ -32,6 +32,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         ownerships: action.payload,
         ownershipsFiltered: action.payload,
+        ownershipDetail: [],
         loading: false,
         error: false,
         response: null,
@@ -52,29 +53,43 @@ function rootReducer(state = initialState, action) {
         loading: true,
       };
 
-    case FILTER_BY_OP:
-      const ownerships = state.ownerships;
-      const ownershipsFilteredByOp = filterByOp(ownerships, action.payload);
+    // case FILTER_BY:
+    //   const ownerships = state.ownerships;
+    //   const ownershipsFilteredByOp = filterByOp(ownerships, action.payload);
+    //   return {
+    //     ...state,
+    //     ownershipsFiltered: ownershipsFilteredByOp,
+    //   };
+
+    case FILTER_BY:
+      const ownershipsToFilter = state.ownerships;
+      const ownershipsFilteredByType = filterBy(
+        ownershipsToFilter,
+        action.payload
+      );
       return {
         ...state,
-        filteredOwnerships: ownershipsFilteredByOp,
+        ownershipsFiltered: ownershipsFilteredByType,
+      };
+
+    case ORDER_OWNERSHIPS:
+      const ownershipsToOrder = state.ownershipsFiltered;
+      const ownershipsOrdered = order(ownershipsToOrder, action.payload);
+      return {
+        ...state,
+        ownershipsFiltered: ownershipsOrdered,
       };
 
     case GET_DETAIL:
       return {
         ...state,
-        Details: action.payload,
+        ownershipDetail: action.payload,
       };
 
-    case POST_PROPERTY: 
-      return {
-        ...state
-      }
-
-    case CLEAR_DETAIL:
+    case POST_PROPERTY:
       return {
         ...state,
-        Details: [],
+        response: action.payload,
       };
 
     case REMOVE_OWNERSHIP:
