@@ -6,11 +6,10 @@ import {
   CLEAR_DETAIL,
   REMOVE_OWNERSHIP,
   REMOVE_USER,
-  POST_PROPERTY,
   FILTER_BY,
-  ORDER_OWNERSHIPS,
-  order,
-  filterBy,
+  POST_PROPERTY, 
+  filterByOp,
+  GET_STATUS_LOGIN
 } from "./common";
 
 const initialState = {
@@ -21,7 +20,9 @@ const initialState = {
   error: false,
   response: null,
   Details: [],
-  // propertiesToCheck: [],
+  statuslogin: '',
+    // propertiesToCheck: [],
+
 };
 
 function rootReducer(state = initialState, action) {
@@ -100,6 +101,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+    case GET_STATUS_LOGIN:
+      return{
+        ...state,
+        statuslogin: action.payload
+      }
 
     default:
       return state;

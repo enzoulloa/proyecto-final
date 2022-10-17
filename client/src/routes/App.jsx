@@ -7,6 +7,7 @@ import Listing from "../components/Listing/Listing";
 import NavBar from "../components/NavBar/NavBar";
 import SellForm from "../components/SellForm";
 import Footer from "../components/Footer/Footer";
+import Login from "../components/Login/Login";
 // import Alternative from "../components/Alternative";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/listings" element={<Listing />} />
         <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/login" element={<Login/>} />
       </Routes>
       <div className="containerK">
         <Footer />

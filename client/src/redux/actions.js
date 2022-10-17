@@ -12,6 +12,8 @@ import {
   ORDER_OWNERSHIPS,
   POST_PROPERTY,
   SELL_FORM,
+  GET_STATUS_LOGIN
+
 } from "./common";
 
 export function GetOwnerships() {
@@ -142,3 +144,12 @@ export function removeOwnership(id) {
     }
   };
 }
+
+
+export function GetStatusLogin(e){
+  return{
+    type: GET_STATUS_LOGIN,
+    payload: e,
+  }
+}
+
