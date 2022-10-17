@@ -8,6 +8,7 @@ export const CLEAR_DETAIL = "CLEAR_DETAIL";
 export const REMOVE_OWNERSHIP = "REMOVE_OWNERSHIP";
 export const REMOVE_USER = "REMOVE_USER";
 export const FILTER_BY_OP = "FILTER_BY_OP";
+export const GET_STATUS_LOGIN = 'GET_STATUS_LOGIN';
 
 export function filterByOp(ownerships, op) {
   const newOwnerships = ownerships.filter((o) => o.state === op);
