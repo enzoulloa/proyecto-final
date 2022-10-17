@@ -7,9 +7,10 @@ import {
   REMOVE_OWNERSHIP,
   REMOVE_USER,
   FILTER_BY,
-  POST_PROPERTY, 
-  filterByOp,
-  GET_STATUS_LOGIN
+  POST_PROPERTY,
+  filterBy,
+  GET_STATUS_LOGIN,
+  ORDER_OWNERSHIPS,
 } from "./common";
 
 const initialState = {
@@ -20,9 +21,8 @@ const initialState = {
   error: false,
   response: null,
   Details: [],
-  statuslogin: '',
-    // propertiesToCheck: [],
-
+  statuslogin: "",
+  // propertiesToCheck: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -102,10 +102,10 @@ function rootReducer(state = initialState, action) {
         ...state,
       };
     case GET_STATUS_LOGIN:
-      return{
+      return {
         ...state,
-        statuslogin: action.payload
-      }
+        statuslogin: action.payload,
+      };
 
     default:
       return state;

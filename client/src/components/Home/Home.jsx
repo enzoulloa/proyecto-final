@@ -1,7 +1,6 @@
-import NavBar from "../NavBar/NavBar";
 import "../../scss/home.scss";
-import Footer from "../Footer/Footer";
 import FiltersHome from "../FiltersHome";
+import Footer from "../Footer/Footer";
 import HomeCards from "../HomeCards";
 
 export default function Home() {
@@ -10,7 +9,6 @@ export default function Home() {
       <div className="containerI">
         <FiltersHome />
       </div>
-
       <div>
         <HomeCards />
       </div>

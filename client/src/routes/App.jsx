@@ -9,6 +9,7 @@ import SellForm from "../components/SellForm";
 import Footer from "../components/Footer/Footer";
 import Login from "../components/Login/Login";
 // import Alternative from "../components/Alternative";
+import "../scss/home.scss";
 
 function App() {
   return (
@@ -20,11 +21,11 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/listings" element={<Listing />} />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/login" element={<Login/>} />
+        <Route path="/login" element={<Login />} />
       </Routes>
-      <div className="containerK">
+      {/* <div className="containerK">
         <Footer />
-      </div>
+      </div> */}
     </BrowserRouter>
   );
 }
