@@ -1,21 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  filterByOperation,
-  filterByType,
-  orderOwnerships,
-} from "../redux/actions";
+import { filterBy, orderOwnerships } from "../redux/actions";
 import "../scss/filterCards.scss";
 
 export default function FiltersCards() {
   const dispatch = useDispatch();
+  const [filterParams, setFilterParams] = useState({ op: "", type: "" });
 
-  const handleFilterByOperation = (e) => {
-    dispatch(filterByOperation(e.target.value));
-  };
-
-  const handleFilterByType = (e) => {
-    dispatch(filterByType(e.target.value));
+  const handleFilter = (e) => {
+    const value = { ...filterParams, [e.target.name]: e.target.value };
+    setFilterParams(value);
+    dispatch(filterBy(value));
   };
 
   const handleOrder = (e) => {
@@ -28,17 +23,16 @@ export default function FiltersCards() {
         <input type="text" placeholder="¿Donde queres mudarte?"></input>
       </div>
       <div className="containerFilterCards-select">
-        <select name="" id="" onChange={handleFilterByOperation}>
-          <option selected={true} disabled="disabled">
+        <select name="op" id="" onChange={handleFilter}>
+          <option disabled="disabled" selected={true}>
             Tipo de operacion
           </option>
           <option value="for sell">Quiero comprar</option>
-          {/* <option value="">Quiero vender</option> */}
           <option value="for rent">Quiero alquilar</option>
         </select>
 
-        <select name="" id="" onChange={handleFilterByType}>
-          <option selected={true} disabled="disabled">
+        <select name="type" id="" onChange={handleFilter}>
+          <option disabled="disabled" selected={true}>
             Tipo de propiedad
           </option>
           <option value="house">Casa</option>

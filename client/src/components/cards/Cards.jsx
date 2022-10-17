@@ -7,7 +7,7 @@ export default function Cards({ ownerships }) {
       {ownerships?.map((o) => (
         <Card
           key={o.id}
-          images={o.images[1]}
+          images={o.images[0]}
           name={o.name}
           location={o.location}
           price={o.price}

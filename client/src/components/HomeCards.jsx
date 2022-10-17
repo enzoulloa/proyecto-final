@@ -53,7 +53,7 @@ export default function HomeCards() {
                   No importa qué camino tome para vender su casa, podemos
                   ayudarlo a lograr una venta exitosa.
                 </p>
-                <Link>Mire sus opciones</Link>
+                <Link to='/sell'>Mire sus opciones</Link>
               </div>
             </div>
           </li>

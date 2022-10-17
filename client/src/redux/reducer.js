@@ -1,4 +1,3 @@
-import { orderOwnerships } from "./actions";
 import {
   GET_OWNERSHIPS,
   GET_USERS,
@@ -7,12 +6,11 @@ import {
   CLEAR_DETAIL,
   REMOVE_OWNERSHIP,
   REMOVE_USER,
-  FILTER_BY_OP,
-  filterByOp,
-  FILTER_BY_TYPE,
-  filterByType,
+  POST_PROPERTY,
+  FILTER_BY,
   ORDER_OWNERSHIPS,
   order,
+  filterBy,
 } from "./common";
 
 const initialState = {
@@ -23,6 +21,7 @@ const initialState = {
   error: false,
   response: null,
   Details: [],
+  // propertiesToCheck: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -32,6 +31,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         ownerships: action.payload,
         ownershipsFiltered: action.payload,
+        ownershipDetail: [],
         loading: false,
         error: false,
         response: null,
@@ -52,17 +52,17 @@ function rootReducer(state = initialState, action) {
         loading: true,
       };
 
-    case FILTER_BY_OP:
-      const ownerships = state.ownerships;
-      const ownershipsFilteredByOp = filterByOp(ownerships, action.payload);
-      return {
-        ...state,
-        ownershipsFiltered: ownershipsFilteredByOp,
-      };
+    // case FILTER_BY:
+    //   const ownerships = state.ownerships;
+    //   const ownershipsFilteredByOp = filterByOp(ownerships, action.payload);
+    //   return {
+    //     ...state,
+    //     ownershipsFiltered: ownershipsFilteredByOp,
+    //   };
 
-    case FILTER_BY_TYPE:
+    case FILTER_BY:
       const ownershipsToFilter = state.ownerships;
-      const ownershipsFilteredByType = filterByType(
+      const ownershipsFilteredByType = filterBy(
         ownershipsToFilter,
         action.payload
       );
@@ -82,13 +82,13 @@ function rootReducer(state = initialState, action) {
     case GET_DETAIL:
       return {
         ...state,
-        Details: action.payload,
+        ownershipDetail: action.payload,
       };
 
-    case CLEAR_DETAIL:
+    case POST_PROPERTY:
       return {
         ...state,
-        Details: [],
+        response: action.payload,
       };
 
     case REMOVE_OWNERSHIP:

@@ -11,6 +11,13 @@ export default function Card({
   type,
   id,
 }) {
+  if (
+    images ===
+    "https://www.pngplay.com/wp-content/uploads/2/Trollface-No-Background.png"
+  ) {
+    images =
+      "https://dchba.org/wp-content/uploads/2020/06/house-placeholder.png";
+  }
   return (
     <div id="card-container">
       <Link to={`/detail/${id}`}>

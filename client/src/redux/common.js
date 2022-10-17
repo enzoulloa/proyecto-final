@@ -1,21 +1,27 @@
 export const GET_OWNERSHIPS = "GET_OWNERSHIPS";
 export const LOADING = "LOADING";
 export const GET_USERS = "GET_USERS";
+export const POST_PROPERTY = "POST_PROPERTY";
+export const SELL_FORM = "SELL_FORM";
 export const GET_DETAIL = "GET_DETAIL";
 export const CLEAR_DETAIL = "CLEAR_DETAIL";
 export const REMOVE_OWNERSHIP = "REMOVE_OWNERSHIP";
 export const REMOVE_USER = "REMOVE_USER";
-export const FILTER_BY_OP = "FILTER_BY_OP";
-export const FILTER_BY_TYPE = "FILTER_BY_TYPE";
+export const FILTER_BY = "FILTER_BY";
+// export const FILTER_BY_TYPE = "FILTER_BY_TYPE";
 export const ORDER_OWNERSHIPS = "ORDER_OWNERSHIPS";
 
-export function filterByOp(ownerships, op) {
-  const newOwnerships = ownerships.filter((o) => o.state === op);
-  return newOwnerships;
-}
-
-export function filterByType(ownerships, type) {
-  const newOwnerships = ownerships.filter((o) => o.type === type);
+export function filterBy(ownerships, filters) {
+  console.log(filters);
+  const newOwnerships = ownerships.filter((o) => {
+    if (filters.type && filters.op) {
+      return o.type === filters.type && o.state === filters.op;
+    } else if (!filters.op) {
+      return o.type === filters.type;
+    }
+    return o.state === filters.op;
+  });
+  console.log(newOwnerships);
   return newOwnerships;
 }
 

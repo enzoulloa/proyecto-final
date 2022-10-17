@@ -8,9 +8,10 @@ import {
   CLEAR_DETAIL,
   REMOVE_OWNERSHIP,
   REMOVE_USER,
-  FILTER_BY_OP,
-  FILTER_BY_TYPE,
+  FILTER_BY,
   ORDER_OWNERSHIPS,
+  POST_PROPERTY,
+  SELL_FORM,
 } from "./common";
 
 export function GetOwnerships() {
@@ -35,23 +36,23 @@ export function GetUsers() {
   };
 }
 
-export function filterByOperation(operation) {
+export function filterBy(filters) {
   return function (dispatch) {
     return dispatch({
-      type: FILTER_BY_OP,
-      payload: operation,
+      type: FILTER_BY,
+      payload: filters,
     });
   };
 }
 
-export function filterByType(type) {
-  return function (dispatch) {
-    return dispatch({
-      type: FILTER_BY_TYPE,
-      payload: type,
-    });
-  };
-}
+// export function filterByType(type) {
+//   return function (dispatch) {
+//     return dispatch({
+//       type: FILTER_BY_TYPE,
+//       payload: type,
+//     });
+//   };
+// }
 
 export function orderOwnerships(payload) {
   return function (dispatch) {
@@ -61,6 +62,40 @@ export function orderOwnerships(payload) {
     });
   };
 }
+
+export function postProperty(payload) {
+  console.log(payload);
+  return async function (dispatch) {
+    const response = await axios.post("http://localhost:3001/ownerships/", {
+      name: payload.name,
+      location: payload.location,
+      rooms: payload.rooms,
+      garage: payload.garage,
+      type: payload.type,
+      m2: payload.m2,
+      rating: 5,
+      expenses: payload.expenses,
+      seller: "Enzo",
+      description: "De chill",
+      images: payload.images,
+      state: payload.state,
+      price: payload.price,
+      floors: payload.floors,
+      reviews: ["a", "b"],
+      address: payload.address,
+    });
+    return dispatch({
+      type: POST_PROPERTY,
+      payload: response.data,
+    });
+  };
+}
+
+// export function sellFormPost(payload){
+//   return {
+//     type: SELL_FORM,
+//     payload
+//   };
 
 export function getDetail(id) {
   return async function (dispatch) {
@@ -103,27 +138,6 @@ export function removeOwnership(id) {
         title: "Error 412",
         text: "Cant delete ownership",
         footer: "Check if ownership id is correct, and try again",
-      });
-    }
-  };
-}
-
-export function removeUser(id) {
-  return async function (dispatch) {
-    try {
-      const response = await axios.delete(
-        `http://localhost:3001/deleteUsers/${id}`
-      );
-      return dispatch({
-        type: REMOVE_USER,
-        payload: response.data,
-      });
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Error 412",
-        text: "Cant delete user",
-        footer: "Check if user id is correct, and try again",
       });
     }
   };

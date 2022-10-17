@@ -7,6 +7,7 @@ import NavBar from "../NavBar/NavBar";
 import "../../scss/Listings.scss";
 import FiltersCards from "../FilterCards";
 import ReactPaginate from "react-paginate";
+import Error from "../Error";
 
 export default function Listing() {
   const dispatch = useDispatch();
@@ -31,12 +32,15 @@ export default function Listing() {
     const newOffset = (event.selected * itemsPerPage) % ownerships.length;
     setItemOffset(newOffset);
   };
+
   return (
     <div className="listings">
       <FiltersCards ownerships={ownerships} />
       <div className="cardsContainer">
         {loading ? (
           <Loading />
+        ) : !ownerships.length ? (
+          <Error />
         ) : (
           <div>
             <Cards ownerships={currentItems} />

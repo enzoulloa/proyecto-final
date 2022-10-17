@@ -21,12 +21,9 @@ export default function Detail() {
 
   useEffect(() => {
     dispatch(getDetail(id));
-    return () => {
-      dispatch(clearDetail());
-    };
-  }, [dispatch, id]);
+  }, [dispatch]);
 
-  const ownership = useSelector((state) => state.Details);
+  const ownership = useSelector((state) => state.ownershipDetail);
 
   const handleDelete = () => {
     const id = ownership.id;
@@ -116,11 +113,11 @@ export default function Detail() {
               <img src={imgSrc} key={index} alt={index + "img"} />
             ))}
           </h5>
-          {user.role >= 3 ? (
+          {/* {user.role >= 3 ? (
             <button onClick={handleDelete} className="bt">
               Remove ownership
             </button>
-          ) : null}
+          ) : null} */}
         </div>
       ) : (
         <div className="loading">
