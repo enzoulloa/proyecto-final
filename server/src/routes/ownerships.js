@@ -7,7 +7,7 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     await getOwnerships();
-    const { rooms, location, type } = req.query;
+    const { rooms, location, type, min, max} = req.query;
     if (location && rooms) {
       let filterOsLocationRooms = await Ownership.findAll({
         where: {
@@ -42,6 +42,39 @@ router.get("/", async (req, res) => {
         : res
             .status(404)
             .send("No ownerships were found with that number of rooms");
+    }else if (min && max) {
+      let filterPrice = await Ownership.findAll({
+        where: {
+          price: {[Op.between]: [min, max]}
+        }
+      })
+      filterPrice.length
+        ? res.status(200).send(filterPrice)
+        : res
+            .status(404)
+            .send("There are no ownerships that match your search");
+    } else if (min){
+      let filterMinPrice = await Ownership.findAll({
+        where: {
+          price: {[Op.gt]: min}
+        }
+      })
+      filterMinPrice.length
+        ? res.status(200).send(filterMinPrice)
+        : res
+            .status(404)
+            .send("There are no ownerships that match your search");
+    }else if (max){
+      let filterMaxPrice = await Ownership.findAll({
+        where: {
+          price: {[Op.lt]: max}
+        }
+      })
+      filterMaxPrice.length
+        ? res.status(200).send(filterMaxPrice)
+        : res
+            .status(404)
+            .send("There are no ownerships that match your search");
     }else if (type){
       let filterOsType = await Ownership.findAll({
         where: {
