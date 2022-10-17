@@ -7,7 +7,7 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     await getOwnerships();
-    const { rooms, location } = req.query;
+    const { rooms, location, type } = req.query;
     if (location && rooms) {
       let filterOsLocationRooms = await Ownership.findAll({
         where: {
@@ -30,18 +30,29 @@ router.get("/", async (req, res) => {
         ? res.status(200).send(filterOsLocation)
         : res
             .status(404)
-            .send("No ownerships were found with that number of rooms");
+            .send("No ownerships were found in that location");
     } else if (rooms) {
       let filterOsRooms = await Ownership.findAll({
         where: {
           rooms: rooms,
         },
       });
-      filterOsRooms
+      filterOsRooms.length
         ? res.status(200).send(filterOsRooms)
         : res
             .status(404)
             .send("No ownerships were found with that number of rooms");
+    }else if (type){
+      let filterOsType = await Ownership.findAll({
+        where: {
+          type: {[Op.iLike] : type}
+        }
+      });
+      filterOsType.length
+        ? res.status(200).send(filterOsType)
+        : res
+            .status(404)
+            .send("Couldn't find that type of ownership");
     } else {
       let ownerships = await Ownership.findAll({ order: ["id"] });
       return res.send(ownerships);
