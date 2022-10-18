@@ -13,7 +13,6 @@ const getOwnerships = async () => {
           garage: ownership.garage,
           m2: ownership.m2,
           type: ownership.type,
-          rating: ownership.rating,
           expenses: ownership.expenses,
           seller: ownership.seller,
           description: ownership.description,
