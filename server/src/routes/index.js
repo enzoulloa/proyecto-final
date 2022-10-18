@@ -6,11 +6,12 @@ const deleteUsers = require('./deleteUser.js')
 const deleteOwnerships = require('./deleteOwnership.js')
 const login = require('./login.js')
 const logout = require('./logout.js')
+const ownershipTypes = require('./ownershipTypes')
 const admin = require('./createOrUpdate.js')
-
 
 api.use('/users', users)
 api.use('/ownerships', ownerships)
+api.use('/ownershipTypes', ownershipTypes)
 api.use('/deleteUsers', deleteUsers)
 api.use('/deleteOwnerships', deleteOwnerships)
 api.use('/login', login)
