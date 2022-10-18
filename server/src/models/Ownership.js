@@ -27,15 +27,11 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       type: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('Casa','PH','Departamento','Duplex','Terreno','Cochera'),
         allowNull: false,
       },
-      rating: {
-        type: DataTypes.DECIMAL,
-        defaultValue: 0.0,
-      },
       expenses: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
       },
       seller: {
         type: DataTypes.STRING(30),
@@ -51,7 +47,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
       },
       price: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
       },
       floors: {
         type: DataTypes.INTEGER,
