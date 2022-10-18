@@ -7,7 +7,7 @@ section {
   position: relative;
   width: 100%;
   height: 92.7vh;
-  background: #1a242f;
+  background: #0d2133;
 }
 section .page {
   position: absolute;
@@ -64,6 +64,52 @@ section .page .welcome .sign_in {
   visibility: visible;
   transition: 0.5s;
 }
+section .page .welcome .sign_in_google{
+  position: absolute;
+  top: 60%;
+  left: 25%;
+  margin: 30px 0;
+  width: 150px;
+  height: 55px;
+  font-size: 11px;
+  text-align: center;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  background: rgba(0, 0, 0, 0.7);
+  border: s;
+  font-family: "Poppins";
+  color: lin;
+  cursor: pointer;
+  opacity: 1;
+  visibility: visible;
+  transition: 0.5s;
+}
+.sup1{
+  color: #3369e8;
+  font-size: 15px;
+}
+.sup2{
+  color: #d50f25;
+  font-size: 15px;
+}
+.sup3{
+  color: #eeb211;
+  font-size: 15px;
+}
+.sup4{
+  color: #3369e8;
+  font-size: 15px;
+}
+.sup5{
+  color: #009925;
+  font-size: 15px;
+}
+.sup6{
+  color: #d50f25;
+  font-size: 15px;
+}
+
 section .page .welcome .btn {
   position: absolute;
   top: 57.5%;
@@ -109,10 +155,18 @@ section .page .sign_up {
 }
 section .page .sign_up h2 {
   position: relative;
-  margin: 50px 0;
+  margin-top: 50px;
+  margin-bottom: 20px;
   padding: 0;
   font-family: "Poppins";
   color: #000;
+}
+.sign_up p{
+  color: #000;
+  font-size: 8px;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 section .page .sign_up input {
   margin: 5px 0;
@@ -125,7 +179,8 @@ section .page .sign_up input {
 }
 section .page .sign_up input[type="text"],
 section .page .sign_up input[type="email"],
-section .page .sign_up input[type="password"] {
+section .page .sign_up input[type="password"],
+section .page .sign_up input[type="number"] {
   border: none;
   outline: none;
   border-bottom: 1px solid #000;
@@ -133,9 +188,22 @@ section .page .sign_up input[type="password"] {
 }
 section .page .sign_up input[type="text"]:focus,
 section .page .sign_up input[type="email"]:focus,
-section .page .sign_up input[type="password"]:focus {
+section .page .sign_up input[type="password"]:focus,
+section .page .sign_up input[type="number"]:focus {
   border-bottom-color: #26a69a;
   transition: 0.5s;
+}
+section .page .sign_up .up-off{
+  width: 150px;
+  height: 40px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  background: rgb(126, 126, 126);
+  color: #fff;
+  border-radius: 30px;
+  transition: 0.5s;
+  cursor: no-drop;
 }
 section .page .sign_up .up {
   width: 150px;

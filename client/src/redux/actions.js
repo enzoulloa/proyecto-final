@@ -153,3 +153,10 @@ export function GetStatusLogin(e){
   }
 }
 
+export function UserRegister(payload){
+    return async function(dispatch){
+      const newUser = await axios.post('http://localhost:3001/users/register', payload)
+      return newUser
+    }
+}
+
