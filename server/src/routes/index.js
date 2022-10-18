@@ -7,6 +7,7 @@ const deleteOwnerships = require('./deleteOwnership.js')
 const login = require('./login.js')
 const logout = require('./logout.js')
 const ownershipTypes = require('./ownershipTypes')
+const admin = require('./createOrUpdate.js')
 
 api.use('/users', users)
 api.use('/ownerships', ownerships)
@@ -15,5 +16,7 @@ api.use('/deleteUsers', deleteUsers)
 api.use('/deleteOwnerships', deleteOwnerships)
 api.use('/login', login)
 api.use('/logout', logout)
+api.use('/create', admin)
+
 
 module.exports = api;

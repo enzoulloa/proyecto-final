@@ -1,23 +1,26 @@
-.container{
+.containerE {
   display: flex;
   flex-direction: row;
-  height: 600px;
- 
-  ul{
+  height: 800px;
+  background: #121b25;
+  padding: 25px;
+  align-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+  ul {
     width: 100%;
     height: 600px;
     display: flex;
     list-style-type: none;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
 
-    li{
+    li {
       width: 25%;
     }
   }
 
-  .homecards{
-    margin: 20px;
+  .homecards {
     display: flex;
     justify-content: center;
     justify-items: center;
@@ -31,39 +34,37 @@
     border-radius: 8px;
     padding: 5%;
 
-    &-text{
+    &-text {
       padding: 2%;
       width: 80%;
       font-size: 1rem;
 
-      h4{ 
+      h4 {
         font-weight: bold;
         font-size: 1.5rem;
       }
 
-      p{
+      p {
         padding: 3%;
       }
 
-      a{
+      a {
         padding: 3% 15%;
         border-radius: 8px;
-        color: #dfdcdc;
+        color: #fffffe;
         margin: 0 auto;
-        background-color: #1BA191;
-        border: #000 solid thin;
-        cursor:pointer;
+        background-color: #1ba191;
+        border: none;
+        cursor: pointer;
       }
-    
     }
 
-    &-image{
+    &-image {
       width: 100%;
       height: 100%;
 
-      img{
+      img {
         border-radius: 5px;
-        padding: 0.8rem;
         width: 100%;
         height: 100%;
         object-fit: cover;
