@@ -1,0 +1,303 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,700");
+body {
+  margin: 0;
+  padding: 0;
+}
+section {
+  position: relative;
+  width: 100%;
+  height: 92.7vh;
+  background: #0d2133;
+}
+section .page {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 400px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
+}
+section .page .welcome {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 400px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background: #203142;
+  text-align: center;
+  transition: 1s cubic-bezier(0.95, 0.32, 0.37, 1.31);
+  z-index: 2;
+}
+section .page .welcome h2 {
+  text-align: center;
+  margin: 50px 0;
+  font-family: "Poppins";
+  letter-spacing: 2px;
+  color: #fff;
+}
+section .page .welcome p {
+  padding: 0 25px;
+  text-align: center;
+  font-family: "Poppins";
+  color: #fff;
+  font-weight: 300;
+}
+section .page .welcome .sign_in {
+  margin: 30px 0;
+  width: 150px;
+  height: 40px;
+  text-align: center;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  background: transparent;
+  border: 1px solid #fff;
+  font-family: "Poppins";
+  color: #fff;
+  cursor: pointer;
+  opacity: 1;
+  visibility: visible;
+  transition: 0.5s;
+}
+section .page .welcome .sign_in_google{
+  position: absolute;
+  top: 60%;
+  left: 25%;
+  margin: 30px 0;
+  width: 150px;
+  height: 55px;
+  font-size: 11px;
+  text-align: center;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  background: rgba(0, 0, 0, 0.7);
+  border: s;
+  font-family: "Poppins";
+  color: lin;
+  cursor: pointer;
+  opacity: 1;
+  visibility: visible;
+  transition: 0.5s;
+}
+.sup1{
+  color: #3369e8;
+  font-size: 15px;
+}
+.sup2{
+  color: #d50f25;
+  font-size: 15px;
+}
+.sup3{
+  color: #eeb211;
+  font-size: 15px;
+}
+.sup4{
+  color: #3369e8;
+  font-size: 15px;
+}
+.sup5{
+  color: #009925;
+  font-size: 15px;
+}
+.sup6{
+  color: #d50f25;
+  font-size: 15px;
+}
+
+section .page .welcome .btn {
+  position: absolute;
+  top: 57.5%;
+  left: 25%;
+  width: 150px;
+  height: 40px;
+  text-align: center;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  background: transparent;
+  border: 1px solid #fff;
+  font-family: "Poppins";
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+}
+section .page .welcome .btn.active {
+  opacity: 1;
+  visibility: visible;
+  transition: 0.5s;
+  transition-delay: 0.5s;
+}
+section .page .welcome .sign_in.active {
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+  transition: 0.5s;
+  transition-delay: 0.5s;
+}
+section .page .sign_up {
+  position: absolute;
+  top: 0;
+  left: 300px;
+  width: 500px;
+  height: 100%;
+  text-align: center;
+  transition: 1s cubic-bezier(0.95, 0.32, 0.37, 1.31);
+  z-index: 1;
+  opacity: 1;
+  visibility: visible;
+}
+section .page .sign_up h2 {
+  position: relative;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  padding: 0;
+  font-family: "Poppins";
+  color: #000;
+}
+.sign_up p{
+  color: #000;
+  font-size: 8px;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+section .page .sign_up input {
+  margin: 5px 0;
+  width: 300px;
+  height: 30px;
+  font-family: "Poppins";
+  color: #000;
+  font-weight: 700;
+  background-color: #fff;
+}
+section .page .sign_up input[type="text"],
+section .page .sign_up input[type="email"],
+section .page .sign_up input[type="password"],
+section .page .sign_up input[type="number"] {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000;
+  transition: 0.5s;
+}
+section .page .sign_up input[type="text"]:focus,
+section .page .sign_up input[type="email"]:focus,
+section .page .sign_up input[type="password"]:focus,
+section .page .sign_up input[type="number"]:focus {
+  border-bottom-color: #26a69a;
+  transition: 0.5s;
+}
+section .page .sign_up .up-off{
+  width: 150px;
+  height: 40px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  background: rgb(126, 126, 126);
+  color: #fff;
+  border-radius: 30px;
+  transition: 0.5s;
+  cursor: no-drop;
+}
+section .page .sign_up .up {
+  width: 150px;
+  height: 40px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  background: #000;
+  color: #fff;
+  border-radius: 30px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+section .page .sign_up .up:hover {
+  background: transparent;
+  border: 2px solid #000;
+  color: #000;
+  font-weight: 700;
+}
+section .page .welcome.active {
+  background: #000;
+  color: #fff;
+  left: 62.5%;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  transition: 1s cubic-bezier(0.95, 0.32, 0.37, 1.31);
+  z-index: 2;
+}
+section .page .sign_up.active {
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: 1s cubic-bezier(0.95, 0.32, 0.37, 1.31);
+}
+section .page .login {
+  position: absolute;
+  top: 0;
+  left: 300px;
+  width: 500px;
+  height: 100%;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+}
+
+section .page .login h2 {
+  position: relative;
+  margin: 50px 0;
+  padding: 0;
+  font-family: "Poppins";
+}
+section .page .login input {
+  margin: 5px 0;
+  width: 300px;
+  height: 30px;
+  font-family: "Poppins";
+  color: #000;
+  font-weight: 700;
+}
+section .page .login input[type="email"],
+section .page .login input[type="password"] {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000;
+  transition: 0.5s;
+}
+section .page .login input[type="email"]:focus,
+section .page .login input[type="password"]:focus {
+  border-bottom-color: #2ecc71;
+  transition: 0.5s;
+}
+section .page .login .in {
+  width: 150px;
+  height: 40px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  background: #000;
+  color: #fff;
+  border-radius: 30px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+section .page .login .in:hover {
+  background: transparent;
+  border: 2px solid #000;
+  color: #000;
+  font-weight: 700;
+}
+section .page .login.active {
+  left: 0;
+  opacity: 1;
+  visibility: visible;
+  transition: 1s cubic-bezier(0.95, 0.32, 0.37, 1.31);
+}

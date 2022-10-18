@@ -1,20 +1,21 @@
-import React from "react";
-import './Cards.css';
+import Card from "./Card";
+import "../../scss/Cards.scss";
 
-export default function Card({images, name, location, price, rooms, type}){
-    return(
-        <div id="card-container">
-            <img className='img-card' src={images}/>
-            <h2>{name}</h2>
-            <p className="description-card">{location}</p>
-            <div className="ico-card">
-                <img src="https://cdn-icons-png.flaticon.com/512/2286/2286105.png"/>
-                <p className="text-ico">{rooms} Habitaciones</p>
-                <img src="https://cdn-icons-png.flaticon.com/512/618/618911.png"/>
-                <p className="text-ico">{type}</p>
-                <img src="https://cdn-icons-png.flaticon.com/512/353/353760.png"/>
-                <p className="text-ico">{price}</p>
-            </div>
-        </div>
-    )
+export default function Cards({ ownerships }) {
+  return (
+    <div className="cardsGrid">
+      {ownerships?.map((o) => (
+        <Card
+          key={o.id}
+          images={o.images[0]}
+          name={o.name}
+          location={o.location}
+          price={o.price}
+          rooms={o.rooms}
+          type={o.type}
+          id={o.id}
+        />
+      ))}
+    </div>
+  );
 }

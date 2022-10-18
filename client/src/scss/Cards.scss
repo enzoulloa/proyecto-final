@@ -1,0 +1,8 @@
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: center;
+  justify-content: space-evenly;
+  margin-top: 5%;
+}

@@ -31,7 +31,13 @@ if(!userDB){
     }, process.env.SEED_AUTENTICATION ,{
         expiresIn: process.env.TOKEN_OFF
     })
-
+    const cOptions = {
+        expiresIn: new Date(
+            Date.now()+process.env.COOKIE_EXPIRES
+        ),
+        httpOnly: true
+    }
+    res.cookie('login', token, cOptions)
     return res.status(200).json({
         ok: true,
         session: token,

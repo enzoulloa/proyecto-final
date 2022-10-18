@@ -1,35 +1,34 @@
-.loading{
-  position:fixed;
-  left:0;
-  top:0;
+.loading {
+  // position:fixed;
+  // left: 0;
+  // top: 0;
   width: 100%;
-  height: 100%;
+  height: 750px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #111823;
-
-  img{
+  background: #121b25;
+  z img {
     width: 8%;
   }
 
-  &-label{
+  &-label {
     padding-left: 30px;
     font-size: 8rem;
-    color:#E4E4E2;
+    color: #e4e4e2;
     margin-left: 12px;
     animation: fade 1s ease-in infinite;
   }
 }
 
-.loading--color{
-  .loading-label{
+.loading--color {
+  .loading-label {
     color: #111823;
   }
 }
 
-@keyframes fade{
-  to{
+@keyframes fade {
+  to {
     opacity: 0;
   }
 }

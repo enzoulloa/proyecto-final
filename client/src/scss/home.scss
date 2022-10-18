@@ -1,0 +1,47 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  background: #121b25;
+  color: #d6d6d6;
+  position: relative;
+}
+
+.title {
+  font-size: 60px;
+  margin-bottom: 0;
+}
+
+.text {
+  width: 700px;
+  height: 60px;
+  font-size: 18px;
+}
+
+.containerI {
+  height: 900px;
+  background: url("../assets/pexels-aleksejs-bergmanis-681333.jpg") no-repeat;
+  background-size: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search {
+  height: 30px;
+  width: 350px;
+  border-radius: 10px 0 0 10px;
+  border: none none 1px none;
+}
+
+.searchIco {
+  height: 32px;
+  width: 50px;
+  border: none;
+  border-radius: 0 10px 10px 0;
+  margin-top: 15px;
+}
+
+.searchText {
+  font-size: 30px;
+  color: #ffffff;
+}
