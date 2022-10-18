@@ -1,62 +1,15 @@
 const { Router } = require("express");
 const { Ownership, Op } = require("../db.js");
-const { getOwnerships } = require("../middlewares/ownershipsMiddleware.js");
+const { filterOwnerships } = require("./functions/filterOwnerships.js");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    await getOwnerships();
-    const { rooms, location, type } = req.query;
-    if (location && rooms) {
-      let filterOsLocationRooms = await Ownership.findAll({
-        where: {
-          location: {[Op.iRegexp] : location},
-          rooms: rooms,
-        },
-      });
-      filterOsLocationRooms.length
-        ? res.status(200).send(filterOsLocationRooms)
-        : res
-            .status(400)
-            .send("There are no ownerships that match your search");
-    } else if (location) {
-      let filterOsLocation = await Ownership.findAll({
-        where: {
-          location: {[Op.iRegexp] : location},
-        },
-      });
-      filterOsLocation.length
-        ? res.status(200).send(filterOsLocation)
-        : res
-            .status(404)
-            .send("No ownerships were found in that location");
-    } else if (rooms) {
-      let filterOsRooms = await Ownership.findAll({
-        where: {
-          rooms: rooms,
-        },
-      });
-      filterOsRooms.length
-        ? res.status(200).send(filterOsRooms)
-        : res
-            .status(404)
-            .send("No ownerships were found with that number of rooms");
-    }else if (type){
-      let filterOsType = await Ownership.findAll({
-        where: {
-          type: {[Op.iLike] : type}
-        }
-      });
-      filterOsType.length
-        ? res.status(200).send(filterOsType)
-        : res
-            .status(404)
-            .send("Couldn't find that type of ownership");
-    } else {
-      let ownerships = await Ownership.findAll({ order: ["id"] });
-      return res.send(ownerships);
-    }
+    let ownerships = await filterOwnerships(req.query);
+    ownerships.length
+      ? res.send(ownerships)
+      : res.status(404).send("Couldn't find ownerships with that description");
   } catch (error) {
     console.log(error);
   }
@@ -103,7 +56,7 @@ router.post("/", async (req, res) => {
           "Error: location, rooms, type, price, name and state cant be null"
         );
     } else {
-      let findName = Ownership.findAll({where:{name: name}})
+      let findName = Ownership.findAll({ where: { name: name } });
       if (findName.length && type != "department") {
         return res.status(412).send("Error: ownership already exist");
       } else {
