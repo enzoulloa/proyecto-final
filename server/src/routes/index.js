@@ -5,7 +5,7 @@ const ownerships = require('./ownerships.js')
 const deleteUsers = require('./deleteUser.js')
 const deleteOwnerships = require('./deleteOwnership.js')
 const login = require('./login.js')
-const admin = require('./create.js')
+const admin = require('./createOrUpdate.js')
 
 api.use('/users', users)
 api.use('/ownerships', ownerships)

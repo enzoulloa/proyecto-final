@@ -9,21 +9,21 @@ router.post('/admin', async (req,res)=>{
     let findName = await User.findAll({where: {name: name}})
     let findEmail = await User.findAll({where: {email: email}})
     try {
-        if (!name || !email || !password) {
-            return res.status(412).send('Parameters name, email and password cant be null')
+        if (!name || !email || !password || !cel) {
+            return res.status(412).send('Parameters name, cel, email and password cant be null')
         } else if(findName.length || findEmail.length){
             return res.status(409).send('User already exist')
         }else{
             let encrypted = await bcrypt.hash(password, 10)
-            let userCreate = await User.create({
+            await User.create({
                 name,
                 email,
                 password: encrypted,
                 cel,
                 photo: photo ? photo : 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg',
+                role: 2
             })
-            let admin = await userCreate.update({role: 3})
-            return res.status(200).send(admin)
+            return res.status(200).send("Usuario creado")
         }}
         catch(e){
             console.log(e)
@@ -32,15 +32,15 @@ router.post('/admin', async (req,res)=>{
     }   
 );
 
-router.put("/admin/:id", async (req, res) => {
-    let idUser = req.params.id;
+router.put("/admin/:email", async (req, res) => {
+    let emailUser = req.params.email;
     try {
-        let user = await findByPk(idUser)
+        let user = await User.findOne({where: {email: emailUser}})
         if (!user) {
             return res.status(400).send('The user does not exist')
         }
-        user.update({ role: 3 })
-        
+        user.update({ role: 2 })
+        res.status(200).send(user)
     } catch (error) {
         console.log(e)
         return res.status(500).send('Error: see console to fix it')
