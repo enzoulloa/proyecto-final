@@ -11,6 +11,7 @@ export const FILTER_BY = "FILTER_BY";
 // export const FILTER_BY_TYPE = "FILTER_BY_TYPE";
 export const ORDER_OWNERSHIPS = "ORDER_OWNERSHIPS";
 export const GET_STATUS_LOGIN = 'GET_STATUS_LOGIN';
+export const REGISTER_USER = "REGISTER_USER";
 
 
 export function filterBy(ownerships, filters) {
