@@ -12,6 +12,7 @@ import {
   GET_STATUS_LOGIN,
   ORDER_OWNERSHIPS,
   REGISTER_USER,
+  FILTER_CARDS,
 } from "./common";
 
 const initialState = {
@@ -64,10 +65,7 @@ function rootReducer(state = initialState, action) {
 
     case FILTER_BY:
       const ownershipsToFilter = state.ownerships;
-      const ownershipsFilteredByType = filterBy(
-        ownershipsToFilter,
-        action.payload
-      );
+      const ownershipsFilteredByType = filterBy(ownershipsToFilter, action.payload);
       return {
         ...state,
         ownershipsFiltered: ownershipsFilteredByType,
@@ -108,9 +106,14 @@ function rootReducer(state = initialState, action) {
         statuslogin: action.payload,
       };
     case REGISTER_USER:
-      return{
+      return {
         ...state,
-      }
+      };
+    case FILTER_CARDS:
+      return {
+        ...state,
+        ownershipsFiltered: action.payload,
+      };
 
     default:
       return state;

@@ -12,8 +12,7 @@ import {
   ORDER_OWNERSHIPS,
   POST_PROPERTY,
   SELL_FORM,
-  GET_STATUS_LOGIN
-
+  GET_STATUS_LOGIN,
 } from "./common";
 
 export function GetOwnerships() {
@@ -102,9 +101,7 @@ export function postProperty(payload) {
 export function getDetail(id) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(
-        `http://localhost:3001/ownerships/${id}`
-      );
+      const response = await axios.get(`http://localhost:3001/ownerships/${id}`);
       return dispatch({
         type: GET_DETAIL,
         payload: response.data,
@@ -127,9 +124,7 @@ export function clearDetail() {
 export function removeOwnership(id) {
   return async function (dispatch) {
     try {
-      const response = await axios.delete(
-        `http://localhost:3001/deleteOwnerships/${id}`
-      );
+      const response = await axios.delete(`http://localhost:3001/deleteOwnerships/${id}`);
       return dispatch({
         type: REMOVE_OWNERSHIP,
         payload: response.data,
@@ -145,18 +140,31 @@ export function removeOwnership(id) {
   };
 }
 
-
-export function GetStatusLogin(e){
-  return{
+export function GetStatusLogin(e) {
+  return {
     type: GET_STATUS_LOGIN,
     payload: e,
-  }
+  };
 }
 
-export function UserRegister(payload){
-    return async function(dispatch){
-      const newUser = await axios.post('http://localhost:3001/users/register', payload)
-      return newUser
+export function UserRegister(payload) {
+  return async function (dispatch) {
+    const newUser = await axios.post("http://localhost:3001/users/register", payload);
+    return newUser;
+  };
+}
+
+export function filterCards(search) {
+  return async function (dispatch) {
+    try {
+      const newHouses = await axios.get(`http://localhost:3001/ownerships?${search}`);
+      if (newHouses.data.length === 0) throw new Error("No se encontró ninguna casa");
+      return dispatch({
+        type: "FILTER_CARDS",
+        payload: newHouses.data,
+      });
+    } catch (error) {
+      console.log(error);
     }
+  };
 }
-
