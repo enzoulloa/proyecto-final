@@ -20,7 +20,6 @@ async function filterOwnerships({ rooms, location, type, min, max, garage }) {
       ...filter.garage,
     },
   });
-  console.log(min);
   return ownerships;
 }
 
