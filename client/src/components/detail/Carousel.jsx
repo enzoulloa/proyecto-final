@@ -14,7 +14,7 @@ export default function Carousel(props) {
     }
 
     const next = () => {
-        const condition = selectedIndex < images.length - 1;
+        const condition = selectedIndex < images.length;
         const nextIndex = condition ? selectedIndex + 1 : 0;
         setSelectedImage(images[nextIndex]);
         setSelectedIndex(nextIndex);
@@ -22,11 +22,14 @@ export default function Carousel(props) {
 
     return (
         <div>
-            <img src={selectedImage} className="img-carousel"/>
-            <div className="div-carousel">
-                <button onClick={previous} className="btn-carousel">{"< anterior"}</button>
-                <button onClick={next} className="btn-carousel">{" siguiente >"}</button>
-            </div>
+            {images.length > 1 ? (
+            <div>
+                    <img src={selectedImage} className="img-carousel" alt={`imagen ${selectedImage}`} />
+                <div className="div-carousel">
+                    <button onClick={previous} className="btn-carousel">{"< anterior"}</button>
+                    <button onClick={next} className="btn-carousel">{" siguiente >"}</button>
+                </div>
+            </div>) : ( <img src={images[0]} className="img-carousel" alt={`imagen ${images[0]}`}/>)}
         </div>
     )
 }
