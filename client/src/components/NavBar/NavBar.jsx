@@ -23,15 +23,12 @@ export default function NavBar() {
         <div className="loginContainer">
           {
             isAuthenticated? 
-            <div>
+            <div className="cont-user-nav">
               <Link to={`/user/${user.nickname}`}>
-              <img src={user.picture}/>
+              <img src={user.picture} className='img_user'/>
               </Link>
-              <button onClick={()=>logout()}>salir</button>
+              <button onClick={()=>logout()} className='btn_logout'>salir</button>
             </div>:
-            <div></div>
-          }
-          {
             location.pathname !== '/signin' && location.pathname !== '/signup' &&
             (
               <div className="div_register_cont">

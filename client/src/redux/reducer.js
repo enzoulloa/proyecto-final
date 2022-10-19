@@ -12,6 +12,7 @@ import {
   GET_STATUS_LOGIN,
   ORDER_OWNERSHIPS,
   REGISTER_USER,
+  LOGIN_USER
 } from "./common";
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
   response: null,
   Details: [],
   statuslogin: true,
+  user: '',
   // propertiesToCheck: [],
 };
 
@@ -110,6 +112,11 @@ function rootReducer(state = initialState, action) {
     case REGISTER_USER:
       return{
         ...state,
+      }
+    case LOGIN_USER:
+      return{
+        ...state,
+        user: action.payload
       }
 
     default:

@@ -82,7 +82,7 @@ export default function SignUp(){
 			password: singUp.password,
 			phone: singUp.phone,
 		}
-		dispatch(UserRegister(singUp));
+		dispatch(UserRegister(post));
 		setSingUp({
 			name: '',
 			email:'',
@@ -104,7 +104,7 @@ export default function SignUp(){
 					<ButtonGoogle/>
 				</div>
 				<div className="sign_up">
-					<form>
+					<form onSubmit={()=>handleSubmit()}>
 					<h2>Registrate</h2>
 					<input type="text" name="name" placeholder="Nombre Completo" value={singUp.name} onChange={e=>handdleCheckSingUp(e)} autocomplete="off" required/><br/>
 					{ errors.name && (<p>{errors.name}</p>)}

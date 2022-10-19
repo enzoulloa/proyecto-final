@@ -8,6 +8,7 @@ export const CLEAR_DETAIL = "CLEAR_DETAIL";
 export const REMOVE_OWNERSHIP = "REMOVE_OWNERSHIP";
 export const REMOVE_USER = "REMOVE_USER";
 export const FILTER_BY = "FILTER_BY";
+export const LOGIN_USER = "LOGIN_USER";
 // export const FILTER_BY_TYPE = "FILTER_BY_TYPE";
 export const ORDER_OWNERSHIPS = "ORDER_OWNERSHIPS";
 export const GET_STATUS_LOGIN = 'GET_STATUS_LOGIN';
