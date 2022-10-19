@@ -5,6 +5,7 @@ import { Link} from "react-router-dom";
 import { GetStatusLogin } from '../../../redux/actions.js'
 import './SignIn.scss';
 import ButtonGoogle from "../Login Google/ButtonGoogle.jsx";
+import { LoginUser } from "../../../redux/actions.js";
 
 export default function SignIn(){
 
@@ -47,6 +48,9 @@ export default function SignIn(){
 			setErrors(validate(value))
 	}
 	
+	function handlerSubmit(){
+		dispatch(LoginUser(signIn))
+	}
 
     return(
 		<section>
@@ -60,7 +64,7 @@ export default function SignIn(){
 					<ButtonGoogle/>
 	    		</div>
 	    		<div className="sign_up">
-	    			<form>
+	    			<form onSubmit={()=> handlerSubmit()}>
 	    			<h2>Iniciar Sesion.</h2>
 	    			<input type="email" name="email" placeholder="Email" onChange={e=>handdleCheckSingIn(e)} required/><br/>
 					{ errors.email && (<p>{errors.email}</p>)}
