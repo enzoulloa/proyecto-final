@@ -1,18 +1,19 @@
 const { Router } = require("express");
 const { Ownership, Op } = require("../db.js");
 const { filterOwnerships } = require("./functions/filterOwnerships.js");
-const { getOwnerships } = require('../middlewares/ownershipsMiddleware.js')
+const { getOwnerships } = require("../middlewares/ownershipsMiddleware.js");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    let exist = await Ownership.findOne({where:{id: 1}})
-    if(!exist){await getOwnerships()}
+    let exist = await Ownership.findOne({ where: { id: 1 } });
+    if (!exist) {
+      await getOwnerships();
+    }
+    console.log(req.query, "--------------");
     let ownerships = await filterOwnerships(req.query);
-    ownerships.length
-      ? res.send(ownerships)
-      : res.status(404).send("Couldn't find ownerships with that description");
+    ownerships.length ? res.send(ownerships) : res.status(404).send("Couldn't find ownerships with that description");
   } catch (error) {
     console.log(error);
   }
@@ -53,11 +54,7 @@ router.post("/", async (req, res) => {
       address,
     } = req.body;
     if (!location || !rooms || !type || !price || !name || !state) {
-      return res
-        .status(409)
-        .send(
-          "Error: location, rooms, type, price, name and state cant be null"
-        );
+      return res.status(409).send("Error: location, rooms, type, price, name and state cant be null");
     } else {
       let findName = Ownership.findAll({ where: { name: name } });
       if (findName.length && type != "department") {
