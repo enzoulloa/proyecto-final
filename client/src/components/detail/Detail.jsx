@@ -8,6 +8,7 @@ import {
 } from "../../redux/actions.js";
 import Swal from "sweetalert2";
 import "./detail.scss";
+import Carousel from "./Carousel.jsx";
 
 export default function Detail() {
   const { id } = useParams();
@@ -83,36 +84,83 @@ export default function Detail() {
     <div className="container">
       {ownership.id ? (
         <div className="inner">
-          <h1 className="h1">{ownership.name}</h1>
-          <h4 className="h4">Localidad:&nbsp;{ownership.location}</h4>
-          <p className="p">Habitaciones:&nbsp;{ownership.rooms}</p>
-          <p className="p">
-            Cochera:&nbsp;{ownership.garage === true ? "Tiene" : "No tiene"}
-          </p>
-          <p className="p">Metros cuadrados:&nbsp;{ownership.m2}</p>
-          <p className="p">Tipo de propiedad:&nbsp;{ownership.type}</p>
-          <p className="p">Puntuacion:&nbsp;{ownership.rating}</p>
-          <p className="p">Expensas:&nbsp;{ownership.expenses}</p>
-          <p className="p">Vendedor:&nbsp;{ownership.seller}</p>
-          <p className="p">Descripcion:&nbsp;{ownership.description}</p>
-          <p className="p">Estado:&nbsp;{ownership.state}</p>
-          <h3>Precio:&nbsp;${price}</h3>
-          <p className="p">Plantas:&nbsp;{ownership.floors}</p>
-          <h3>
-            Comentarios:
+          <div className="row-detail titulo-detail">
+            <h1 className="h1">{ownership.name}</h1>
+            <h1>Precio:&nbsp;${price}</h1>
+          </div>
+          <div className="div-detail">
+            <Carousel images={ownership.images} />
+            {/*ownership.images?.map((imgSrc, index) => (
+              <img src={imgSrc} key={index} alt={index + "img"} />
+            ))*/}
+          </div>
+          <div className="div-detail">
+            <h2>Descripcion</h2>
+            <br/>
+            <p className="p">{ownership.description}</p>
+          </div>
+          <div className="div-detail">
+            <h2>Caracteristicas</h2>
+            <hr className="hr-detail"/>
+            <br/>
+            <div className="row-detail">
+              <div className="caract-detail">
+                <div className="row-detail div-prop-detail">
+                  <h4>Precio:&nbsp;</h4>
+                  <h4>${price}</h4>
+                </div>
+                <div className="row-detail div-prop-detail">
+                  <h4 className="h4">Localidad:&nbsp;</h4>
+                  <h4>{ownership.location}</h4>
+                </div>
+                <div className="row-detail div-prop-detail">
+                  <h4 className="p">Direccion:&nbsp;</h4>
+                  <h4>{ownership.address}</h4>
+                </div>
+                <div className="row-detail div-prop-detail">
+                  <h4 className="p">Metros cuadrados:&nbsp;</h4>
+                  <h4>{ownership.m2}</h4>
+                </div>
+                <div className="row-detail div-prop-detail">
+                  <h4 className="p">Tipo de propiedad:&nbsp;</h4>
+                  <h4>{ownership.type}</h4>
+                </div>
+              </div>
+              <div className="caract-detail">
+                <div className="row-detail div-prop-detail">
+                  <h4>Plantas:&nbsp;</h4>
+                  <h4>{ownership.floors}</h4>
+                </div>
+                <div className="row-detail div-prop-detail">
+                  <h4 className="h4">Habitaciones:&nbsp;</h4>
+                  <h4>{ownership.rooms}</h4>
+                </div>
+                <div className="row-detail div-prop-detail">
+                  <h4 className="p">Cochera:&nbsp;</h4>
+                  <h4>{ownership.garage === true ? "Tiene" : "No tiene"}</h4>
+                </div>
+                <div className="row-detail div-prop-detail">
+                  <h4 className="p">Expensas:&nbsp;</h4>
+                  <h4>{ownership.expenses}</h4>
+                </div>
+                <div className="row-detail div-prop-detail">
+                  <h4 className="p">Vendedor:&nbsp;</h4>
+                  <h4>{ownership.seller}</h4>
+                </div>
+                <div className="row-detail div-prop-detail">
+                  <h4 className="p">Estado:&nbsp;</h4>
+                  <h4>{ownership.state}</h4>
+                </div>
+              </div>  
+            </div>
+          </div>
+          <div className="div-detail">
+            <h3>Comentarios:</h3>
             <br />
             {ownership.review?.map((rev, index) => (
               <p key={index}>{rev}</p>
             ))}
-          </h3>
-          <p className="p">Direccion:&nbsp;{ownership.address}</p>
-          <h5 className="images">
-            Imagenes:&nbsp;
-            <br />
-            {ownership.images?.map((imgSrc, index) => (
-              <img src={imgSrc} key={index} alt={index + "img"} />
-            ))}
-          </h5>
+          </div>
           {/* {user.role >= 3 ? (
             <button onClick={handleDelete} className="bt">
               Remove ownership
