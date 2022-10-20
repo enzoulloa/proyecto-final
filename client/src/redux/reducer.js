@@ -21,9 +21,11 @@ const initialState = {
   ownerships: [],
   ownershipDetail: [],
   ownershipsFiltered: [],
+  users: [],
   loading: false,
   error: false,
   response: null,
+  statuslogin: true,
   Details: [],
   user: '',
   // propertiesToCheck: [],
@@ -111,8 +113,10 @@ function rootReducer(state = initialState, action) {
         statuslogin: action.payload,
       };
     case REGISTER_USER:
-      return{
+      return {
         ...state,
+      };
+
       }
     case LOGIN_USER:
       return{
