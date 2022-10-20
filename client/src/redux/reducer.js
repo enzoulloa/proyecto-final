@@ -23,7 +23,6 @@ const initialState = {
   error: false,
   response: null,
   Details: [],
-  statuslogin: true,
   user: '',
   // propertiesToCheck: [],
 };

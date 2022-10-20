@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { GetStatusLogin, UserRegister } from '../../../redux/actions.js';
 import ButtonGoogle from "../Login Google/ButtonGoogle.jsx";
@@ -8,6 +8,7 @@ import ButtonGoogle from "../Login Google/ButtonGoogle.jsx";
 export default function SignUp(){
 
 	const dispatch = useDispatch();
+	const navigate = useNavigate()
 
 	const [errors, setErrors] = useState({ Error:'error inicial'})
 	const [singUp, setSingUp] = useState ({
@@ -80,7 +81,7 @@ export default function SignUp(){
 			name: singUp.name,
 			email: singUp.email,
 			password: singUp.password,
-			phone: singUp.phone,
+			cel: singUp.phone,
 		}
 		dispatch(UserRegister(post));
 		setSingUp({
@@ -90,6 +91,7 @@ export default function SignUp(){
 			password2:'',
 			phone: '',
 		})
+		navigate('/')
 	}
 
     return(

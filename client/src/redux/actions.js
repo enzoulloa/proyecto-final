@@ -164,10 +164,10 @@ export function UserRegister(payload){
 export function LoginUser(payload){
   return async function(dispatch){
     const LoginUser = await axios.post('http://localhost:3001/login',payload)
-    return{
+    return dispatch({
       type: LOGIN_USER,
       payload: LoginUser.data
-    }
+    })
   }
 }
 
