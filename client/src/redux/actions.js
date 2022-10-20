@@ -12,7 +12,7 @@ import {
   ORDER_OWNERSHIPS,
   POST_PROPERTY,
   SELL_FORM,   
-  MERCADO_PAGO
+  MERCADO_PAGO,
   GET_STATUS_LOGIN,
   LOGIN_USER,
   EXIT_SESSION,
@@ -216,5 +216,4 @@ export function LoginUserAuth0(payload){
       payload: 'USUARIO AUTH0 LOGUEADO'
     }
   }
-}
 }

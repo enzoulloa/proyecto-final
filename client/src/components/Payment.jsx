@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMercadopago } from "react-sdk-mercadopago";
-import { mercadoPago } from "../redux/actions";
+import './payment.scss';
 
 export default function Payment({ paymentId }) {
   const dispatch = useDispatch();

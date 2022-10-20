@@ -127,11 +127,11 @@ export default function Detail() {
         <div className="inner">
 
           <h1 className="h1">{ownership.name}</h1>
-          <Payment
+          {/* <Payment
               name={ownership.name}
               price={ownership.price}
               paymentId={paymentId}
-            />
+            /> */}
           <h4 className="h4">Localidad:&nbsp;{ownership.location}</h4>
           <p className="p">Habitaciones:&nbsp;{ownership.rooms}</p>
           <p className="p">
@@ -148,6 +148,7 @@ export default function Detail() {
           <p className="p">Plantas:&nbsp;{ownership.floors}</p>
           <h3>
             Comentarios:
+          </h3>
           <div className="row-detail titulo-detail div-titulo-detail ">
             <h2 className="h1">{ownership.name}</h2>
             <h2>Precio:&nbsp;${price}</h2>
@@ -218,6 +219,11 @@ export default function Detail() {
               </div>  
             </div>
           </div>
+          <Payment
+              name={ownership.name}
+              price={ownership.price}
+              paymentId={paymentId}
+            />
           <div className="div-detail">
             <h3>Comentarios:</h3>
             <br />
