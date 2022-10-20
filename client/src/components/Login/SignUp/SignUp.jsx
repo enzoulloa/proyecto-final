@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { GetStatusLogin, UserRegister } from '../../../redux/actions.js';
+import {UserRegister } from '../../../redux/actions.js';
 import ButtonGoogle from "../Login Google/ButtonGoogle.jsx";
 
 export default function SignUp(){
@@ -91,7 +91,8 @@ export default function SignUp(){
 			password2:'',
 			phone: '',
 		})
-		navigate('/')
+		navigate('/signin')
+		alert('Usuario Registrado')
 	}
 
     return(
@@ -108,15 +109,15 @@ export default function SignUp(){
 				<div className="sign_up">
 					<form onSubmit={()=>handleSubmit()}>
 					<h2>Registrate</h2>
-					<input type="text" name="name" placeholder="Nombre Completo" value={singUp.name} onChange={e=>handdleCheckSingUp(e)} autocomplete="off" required/><br/>
+					<input type="text" name="name" placeholder="Nombre Completo" value={singUp.name} onChange={e=>handdleCheckSingUp(e)} required/><br/>
 					{ errors.name && (<p>{errors.name}</p>)}
-					<input type="email" name="email" placeholder="Email" onChange={e=>handdleCheckSingUp(e)} autocomplete="off" required/><br/>
+					<input type="email" name="email" placeholder="Email" onChange={e=>handdleCheckSingUp(e)} required/><br/>
 					{ errors.email && (<p>{errors.email}</p>)}
-					<input type="password" name="password" placeholder="Contraseña" onChange={e=>handdleCheckSingUp(e)} autocomplete="off" required/><br/>
+					<input type="password" name="password" placeholder="Contraseña" onChange={e=>handdleCheckSingUp(e)} required/><br/>
 					{ errors.password && (<p>{errors.password}</p>)}
-					<input type="password" name="password2" placeholder="Verifica la Contraseña" onChange={e=>handdleCheckSingUp(e)} autocomplete="off" required/><br/>
+					<input type="password" name="password2" placeholder="Verifica la Contraseña" onChange={e=>handdleCheckSingUp(e)} required/><br/>
 					{ errors.password2 && (<p>{errors.password2}</p>)}
-					<input type="number" name="phone" placeholder="Numero" onChange={e=>handdleCheckSingUp(e)} autocomplete="off" required/><br/>
+					<input type="number" name="phone" placeholder="Numero" onChange={e=>handdleCheckSingUp(e)} required/><br/>
 					{ errors.phone&& (<p>{errors.phone}</p>)}
 					{
 						Object.keys(errors).length !== 0?
