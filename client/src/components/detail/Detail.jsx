@@ -84,9 +84,9 @@ export default function Detail() {
     <div className="container">
       {ownership.id ? (
         <div className="inner">
-          <div className="row-detail titulo-detail">
-            <h1 className="h1">{ownership.name}</h1>
-            <h1>Precio:&nbsp;${price}</h1>
+          <div className="row-detail titulo-detail div-titulo-detail ">
+            <h2 className="h1">{ownership.name}</h2>
+            <h2>Precio:&nbsp;${price}</h2>
           </div>
           <div className="div-detail">
             <Carousel images={ownership.images} />
@@ -107,7 +107,7 @@ export default function Detail() {
               <div className="caract-detail">
                 <div className="row-detail div-prop-detail">
                   <h4>Precio:&nbsp;</h4>
-                  <h4>${price}</h4>
+                  <h4 className="price-detail">${price}</h4>
                 </div>
                 <div className="row-detail div-prop-detail">
                   <h4 className="h4">Localidad:&nbsp;</h4>
