@@ -15,14 +15,16 @@ router.get('/', async (req,res)=>{
     return res.send(users)
 })
 
-router.get('/:id', async (req,res) =>{
-    const { id } = req.params
-let find = await User.findOne({where:{id: id}})
+router.get('/:name', async (req,res) =>{
+    const { name } = req.params
+    try{let find = await User.findOne({where:{name: name}})
 if(find){
-    res.status(200).send(find)
+   return res.status(200).send(find)
 }else{
-    res.status(404).send('Error 404, not found')
-}
+   return res.status(404).send('Error 404, not found')
+}}
+catch(e){console.log(e)
+return res.status(500).send('Error de protocolo, mirar consola para mas detalle')}
 })
 
 router.post('/register', async (req,res)=>{
