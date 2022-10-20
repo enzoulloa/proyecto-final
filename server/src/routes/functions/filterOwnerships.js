@@ -5,7 +5,7 @@ async function filterOwnerships({ rooms, location, type, min, max, garage }) {
 
   if (rooms) filter.rooms = { rooms };
   if (location) filter.location = { location: { [Op.iRegexp]: location } };
-  if (type) filter.type = { type: { [Op.iLike]: type } };
+  if (type) filter.type = { type };
   if (min) filter.price = { price: { [Op.gt]: min } };
   if (max) filter.price = { price: { [Op.lt]: max } };
   if (min && max) filter.price = { price: { [Op.between]: [min, max] } };
@@ -20,7 +20,6 @@ async function filterOwnerships({ rooms, location, type, min, max, garage }) {
       ...filter.garage,
     },
   });
-  console.log(min);
   return ownerships;
 }
 

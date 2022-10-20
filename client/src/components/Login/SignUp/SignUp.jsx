@@ -1,13 +1,15 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { GetStatusLogin, UserRegister } from '../../../redux/actions.js';
+import {UserRegister } from '../../../redux/actions.js';
 import ButtonGoogle from "../Login Google/ButtonGoogle.jsx";
+import Swal from "sweetalert2";
 
 export default function SignUp(){
 
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const [errors, setErrors] = useState({ Error:'error inicial'})
 	const [singUp, setSingUp] = useState ({
@@ -18,8 +20,8 @@ export default function SignUp(){
 		phone: '',
 	})
 
-	function handlerLogin(){
-		dispatch(GetStatusLogin(true))
+	function alert(){
+		Swal.fire('Usuario Creado Correctamente','Ya puedes ingresar con tu cuenta', 'success')
 	}
 
 	function validate(e){
@@ -80,9 +82,9 @@ export default function SignUp(){
 			name: singUp.name,
 			email: singUp.email,
 			password: singUp.password,
-			phone: singUp.phone,
+			cel: singUp.phone,
 		}
-		dispatch(UserRegister(singUp));
+		dispatch(UserRegister(post));
 		setSingUp({
 			name: '',
 			email:'',
@@ -90,6 +92,8 @@ export default function SignUp(){
 			password2:'',
 			phone: '',
 		})
+		alert()
+		navigate('/signin')
 	}
 
     return(
@@ -104,17 +108,17 @@ export default function SignUp(){
 					<ButtonGoogle/>
 				</div>
 				<div className="sign_up">
-					<form>
+					<form onSubmit={()=>handleSubmit()}>
 					<h2>Registrate</h2>
-					<input type="text" name="name" placeholder="Nombre Completo" value={singUp.name} onChange={e=>handdleCheckSingUp(e)} autocomplete="off" required/><br/>
+					<input type="text" name="name" placeholder="Nombre Completo" value={singUp.name} onChange={e=>handdleCheckSingUp(e)} required/><br/>
 					{ errors.name && (<p>{errors.name}</p>)}
-					<input type="email" name="email" placeholder="Email" onChange={e=>handdleCheckSingUp(e)} autocomplete="off" required/><br/>
+					<input type="email" name="email" placeholder="Email" onChange={e=>handdleCheckSingUp(e)} required/><br/>
 					{ errors.email && (<p>{errors.email}</p>)}
-					<input type="password" name="password" placeholder="Contraseña" onChange={e=>handdleCheckSingUp(e)} autocomplete="off" required/><br/>
+					<input type="password" name="password" placeholder="Contraseña" onChange={e=>handdleCheckSingUp(e)} required/><br/>
 					{ errors.password && (<p>{errors.password}</p>)}
-					<input type="password" name="password2" placeholder="Verifica la Contraseña" onChange={e=>handdleCheckSingUp(e)} autocomplete="off" required/><br/>
+					<input type="password" name="password2" placeholder="Verifica la Contraseña" onChange={e=>handdleCheckSingUp(e)} required/><br/>
 					{ errors.password2 && (<p>{errors.password2}</p>)}
-					<input type="number" name="phone" placeholder="Numero" onChange={e=>handdleCheckSingUp(e)} autocomplete="off" required/><br/>
+					<input type="number" name="phone" placeholder="Numero" onChange={e=>handdleCheckSingUp(e)} required/><br/>
 					{ errors.phone&& (<p>{errors.phone}</p>)}
 					{
 						Object.keys(errors).length !== 0?
