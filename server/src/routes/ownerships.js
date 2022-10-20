@@ -1,11 +1,14 @@
 const { Router } = require("express");
 const { Ownership, Op } = require("../db.js");
 const { filterOwnerships } = require("./functions/filterOwnerships.js");
+const { getOwnerships } = require('../middlewares/ownershipsMiddleware.js')
 
 const router = Router();
 
 router.get("/", async (req, res) => {
   try {
+    let exist = await Ownership.findOne({where:{id: 1}})
+    if(!exist){await getOwnerships()}
     let ownerships = await filterOwnerships(req.query);
     ownerships.length
       ? res.send(ownerships)

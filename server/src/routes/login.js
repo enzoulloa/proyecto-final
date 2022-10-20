@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { User } = require('../db.js');
+const { User, UserAuth0 } = require('../db.js');
 
 const app = express();
 
@@ -67,5 +67,40 @@ app.post('/validate', async (req, res) => {
     }
 })
 
+app.post('/auth0', async (req,res) => {
+    const { email, name, photo } = req.body;
+    let userAuth0 = {email: email, name: name, photo: photo};
+    const validate = User.findOne({where:{email: email}});
+    if(!validate){
+        const exist = UserAuth0.findOne({where:{email: email}});
+        if(!exist){
+            UserAuth0.create({
+                email,
+                name,
+                photo: photo ? photo : 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg',
+             })
+        }
+      return res.status(200).send({email: email, name:name,photo:photo})
+    } else {
+        let token = jwt.sign({
+            user: userAuth0,
+        }, process.env.SEED_AUTENTICATION ,{
+            expiresIn: process.env.TOKEN_OFF
+        })
+        const cOptions = {
+            expiresIn: new Date(
+                Date.now()+process.env.COOKIE_EXPIRES
+            ),
+            httpOnly: true
+        }
+        res.cookie('loginAuth0', token, cOptions)
+        return res.status(200).json({
+            ok: true,
+            session: token,
+            photo: userAuth0.photo,
+            name: userAuth0.name,
+        })
+    }
+})
 
 module.exports = app;
