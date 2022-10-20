@@ -14,7 +14,8 @@ import {
   SELL_FORM,
   GET_STATUS_LOGIN,
   LOGIN_USER,
-  EXIT_SESSION
+  EXIT_SESSION,
+  LOGIN_USER_AUTH0,
 
 } from "./common";
 
@@ -181,6 +182,18 @@ export function ExitSession(){
       type: EXIT_SESSION,
       payload: 'USUARIO NO LOGUEADO'
     })
+  }
+}
+
+export function LoginUserAuth0(payload){
+  return async function(dispatch){
+    const LoginUserAuth0 = await axios.post('http://localhost:3001/login/auth0',payload)
+    localStorage.setItem('UserLogin', JSON.stringify(LoginUserAuth0.data))
+    console.log(LoginUserAuth0.data)
+    return{
+      type:LOGIN_USER_AUTH0,
+      payload: 'USUARIO AUTH0 LOGUEADO'
+    }
   }
 }
 

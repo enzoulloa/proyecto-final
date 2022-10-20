@@ -4,11 +4,12 @@ import { Link, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import {UserRegister } from '../../../redux/actions.js';
 import ButtonGoogle from "../Login Google/ButtonGoogle.jsx";
+import Swal from "sweetalert2";
 
 export default function SignUp(){
 
 	const dispatch = useDispatch();
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	const [errors, setErrors] = useState({ Error:'error inicial'})
 	const [singUp, setSingUp] = useState ({
@@ -19,8 +20,8 @@ export default function SignUp(){
 		phone: '',
 	})
 
-	function handlerLogin(){
-		dispatch(GetStatusLogin(true))
+	function alert(){
+		Swal.fire('Usuario Creado Correctamente','Ya puedes ingresar con tu cuenta', 'success')
 	}
 
 	function validate(e){
@@ -91,8 +92,8 @@ export default function SignUp(){
 			password2:'',
 			phone: '',
 		})
+		alert()
 		navigate('/signin')
-		alert('Usuario Registrado')
 	}
 
     return(
