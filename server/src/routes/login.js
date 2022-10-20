@@ -43,6 +43,7 @@ if(!userDB){
         session: token,
         photo: userDB.photo,
         name: userDB.name,
+        role: userDB.role,
     })
 }
 })
