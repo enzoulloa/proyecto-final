@@ -1,23 +1,26 @@
 import { Link, useLocation } from "react-router-dom";
 import "../../scss/navbar.scss";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useSelector } from "react-redux";
-import Cookies from 'universal-cookie'
+import { ExitSession } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 
 export default function NavBar() {
 
-  const user = useSelector((state)=>state.user)
+  const dispatch = useDispatch()
+  const statusUser = useSelector((state)=>state.user)
+  
+  useEffect(()=>{
+    statusUser
+  },[statusUser])
+
+  const user = JSON.parse(localStorage.getItem('UserLogin'))
   let location = useLocation();
   
-  if(user.name){
-    localStorage.setItem('UserLogin', JSON.stringify(user))
+  function handlerExitSession(){
+    dispatch(ExitSession())
   }
-
-  const userLogin= JSON.parse( localStorage.getItem('UserLogin'));
-  console.log(userLogin.name)
   
-
   return (
     <div className="nav">
       <Link to="/">
@@ -29,12 +32,12 @@ export default function NavBar() {
         </Link>
         <div className="loginContainer">
           {
-            user.name? 
+            user? 
             <div className="cont-user-nav">
               <Link to={`/user/${user.name}`}>
               <img src={user.photo} className='img_user'/>
               </Link>
-              <button className='btn_logout'>salir</button>
+              <button className='btn_logout' onClick={()=>handlerExitSession()}>salir</button>
             </div>:
             location.pathname !== '/signin' && location.pathname !== '/signup' &&
             (
