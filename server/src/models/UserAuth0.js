@@ -3,7 +3,6 @@ module.exports = (sequelize) => {
   sequelize.define('UserAuth0', {
     email: {
         type: DataTypes.STRING,
-        allowNull: false,
         unique: true,
       },
     name: {
