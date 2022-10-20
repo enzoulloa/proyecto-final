@@ -10,8 +10,12 @@ import Footer from "../components/Footer/Footer";
 import SignUp from "../components/Login/SignUp/SignUp";
 import SignIn from "../components/Login/SignIn/SignIn";
 import Error from "../components/Error";
-// import Alternative from "../components/Alternative";
 import "../scss/home.scss";
+import UserDetails from "../components/UserDetails/UserDetails";
+import UserDashboard from "../components/UserDetails/components/UserDashboard";
+import UserFavorites from "../components/UserDetails/components/UserFavorites";
+import UserChangePassword from "../components/UserDetails/components/UserChangePassword";
+import UserModifyInfo from "../components/UserDetails/components/UserModifyInfo";
 
 function App() {
   return (
@@ -23,10 +27,15 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/listings" element={<Listing />} />
         <Route path="/ownerships/detail/:id" element={<Detail />} />
-        <Route path="/signin" element={<SignIn/>}/>
-        <Route path="/signup" element={<SignUp/>}/>
-        <Route path="/user/detail" />
-        <Route path="*" element={<Error/>}/>
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/user/profile" element={<UserDetails />}>
+          <Route path="info" element={<UserDashboard />} />
+          <Route path="favorites" element={<UserFavorites />} />
+          <Route path="changepw" element={<UserChangePassword />} />
+          <Route path="modify_info" element={<UserModifyInfo />} />
+        </Route>
+        <Route path="*" element={<Error />} />
       </Routes>
       <div className="containerK">
         <Footer />

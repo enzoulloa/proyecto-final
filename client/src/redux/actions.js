@@ -12,8 +12,7 @@ import {
   ORDER_OWNERSHIPS,
   POST_PROPERTY,
   SELL_FORM,
-  GET_STATUS_LOGIN
-
+  GET_STATUS_LOGIN,
 } from "./common";
 
 export function GetOwnerships() {
@@ -29,7 +28,7 @@ export function GetOwnerships() {
 
 export function GetUsers() {
   return async function (dispatch) {
-    dispatch({ type: LOADING, payload });
+    dispatch({ type: LOADING });
     const res = await axios.get(`http://localhost:3001/users`);
     return dispatch({
       type: GET_USERS,
@@ -145,18 +144,19 @@ export function removeOwnership(id) {
   };
 }
 
-
-export function GetStatusLogin(e){
-  return{
+export function GetStatusLogin(e) {
+  return {
     type: GET_STATUS_LOGIN,
     payload: e,
-  }
+  };
 }
 
-export function UserRegister(payload){
-    return async function(dispatch){
-      const newUser = await axios.post('http://localhost:3001/users/register', payload)
-      return newUser
-    }
+export function UserRegister(payload) {
+  return async function (dispatch) {
+    const newUser = await axios.post(
+      "http://localhost:3001/users/register",
+      payload
+    );
+    return newUser;
+  };
 }
-
