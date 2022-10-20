@@ -13,7 +13,8 @@ import {
   ORDER_OWNERSHIPS,
   REGISTER_USER,
   LOGIN_USER,
-  EXIT_SESSION
+  EXIT_SESSION,
+  LOGIN_USER_AUTH0
 } from "./common";
 
 const initialState = {
@@ -126,6 +127,11 @@ function rootReducer(state = initialState, action) {
       return{
         ...state,
         user:action.payload
+      }
+    case LOGIN_USER_AUTH0:
+      return{
+        ...state,
+        user: action.payload
       }
 
     default:

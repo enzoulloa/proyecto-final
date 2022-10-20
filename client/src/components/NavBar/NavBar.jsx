@@ -1,24 +1,49 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../../scss/navbar.scss";
 import { ExitSession } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
+import { useAuth0 } from "@auth0/auth0-react";
+import { LoginUserAuth0 } from "../../redux/actions";
 
 
 export default function NavBar() {
 
   const dispatch = useDispatch()
-  const statusUser = useSelector((state)=>state.user)
+  const navigate = useNavigate()
+  const statusUser = useSelector((state)=>state.user);
+  const {user, isAuthenticated, logout, isLoading} = useAuth0()
+  
   
   useEffect(()=>{
+    if(isAuthenticated){
+      const userAuth0 = {
+        email: user.email,
+        name: user.nickname,
+        photo: user.picture,
+      }
+      dispatch(LoginUserAuth0(userAuth0))
+    }
     statusUser
-  },[statusUser])
+  },[statusUser,isAuthenticated])
 
-  const user = JSON.parse(localStorage.getItem('UserLogin'))
+  const userLogin = JSON.parse(localStorage.getItem('UserLogin'))
   let location = useLocation();
   
+  function alert(){
+    Swal.fire('Sesion Cerrada','Sesion cerrada correctamente', 'success')
+  }
+
   function handlerExitSession(){
-    dispatch(ExitSession())
+    if(isAuthenticated){
+      logout()
+      localStorage.removeItem('UserLogin');
+    }else{
+      dispatch(ExitSession())
+    }
+    alert()
+    navigate('/signin')
   }
   
   return (
@@ -32,10 +57,10 @@ export default function NavBar() {
         </Link>
         <div className="loginContainer">
           {
-            user? 
+            userLogin?
             <div className="cont-user-nav">
-              <Link to={`/user/${user.name}`}>
-              <img src={user.photo} className='img_user'/>
+              <Link to={`/user/${userLogin.name}`}>
+              <img src={userLogin.photo} className='img_user'/>
               </Link>
               <button className='btn_logout' onClick={()=>handlerExitSession()}>salir</button>
             </div>:
