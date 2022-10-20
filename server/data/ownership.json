@@ -100,7 +100,7 @@
         "expenses": 20,
         "seller": "Mario",
         "description": "string",
-        "images": ["https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-vector-house-icon-png-image_695726.jpg"],
+        "images": ["https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-vector-house-icon-png-image_695726.jpg", "https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-vector-house-icon-png-image_695726.jpg", "https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-vector-house-icon-png-image_695726.jpg"],
         "state": "for sell",
         "price": 12345,
         "floors": 1,

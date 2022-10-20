@@ -13,6 +13,20 @@ module.exports = (sequelize) => {
       },
     photo: {
         type: DataTypes.STRING(512)
+      },
+      cel: {
+        type: DataTypes.BIGINT,
+        allowNull: true,
+        unique: true,
+      },
+      role: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+      },
+      userAuth0: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
       }
   },{
     timestamps: false

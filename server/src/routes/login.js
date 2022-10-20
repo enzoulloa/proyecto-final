@@ -43,6 +43,8 @@ if(!userDB){
         session: token,
         photo: userDB.photo,
         name: userDB.name,
+        role: userDB.role,
+        userAuth0: false,
     })
 }
 })
@@ -80,7 +82,7 @@ app.post('/auth0', async (req,res) => {
                 photo: photo ? photo : 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg',
              })
         }
-      return res.status(200).send({email: email, name:name,photo:photo})
+      return res.status(200).send({role: 1, name:name,photo:photo,userAuth0:true})
     } else {
         let token = jwt.sign({
             user: userAuth0,
@@ -99,6 +101,8 @@ app.post('/auth0', async (req,res) => {
             session: token,
             photo: userAuth0.photo,
             name: userAuth0.name,
+            role: 1,
+            userAuth0: true,
         })
     }
 })
