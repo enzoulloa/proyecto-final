@@ -1,16 +1,23 @@
 import { Link, useLocation } from "react-router-dom";
 import "../../scss/navbar.scss";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useSelector } from "react-redux";
+import Cookies from 'universal-cookie'
+
 
 export default function NavBar() {
 
-  const {loginWithRedirect, user, isAuthenticated,logout} = useAuth0()
+  const user = useSelector((state)=>state.user)
   let location = useLocation();
-  if(location.pathname === '/signin'){
-    console.log(true)
+  
+  if(user.name){
+    localStorage.setItem('UserLogin', JSON.stringify(user))
   }
 
-  console.log(user)
+  const userLogin= JSON.parse( localStorage.getItem('UserLogin'));
+  console.log(userLogin.name)
+  
+
   return (
     <div className="nav">
       <Link to="/">
@@ -22,12 +29,12 @@ export default function NavBar() {
         </Link>
         <div className="loginContainer">
           {
-            isAuthenticated? 
+            user.name? 
             <div className="cont-user-nav">
-              <Link to={`/user/${user.nickname}`}>
-              <img src={user.picture} className='img_user'/>
+              <Link to={`/user/${user.name}`}>
+              <img src={user.photo} className='img_user'/>
               </Link>
-              <button onClick={()=>logout()} className='btn_logout'>salir</button>
+              <button className='btn_logout'>salir</button>
             </div>:
             location.pathname !== '/signin' && location.pathname !== '/signup' &&
             (
