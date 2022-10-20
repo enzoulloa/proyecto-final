@@ -1,0 +1,39 @@
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import "./carousel.scss";
+
+export default function Carousel(props) {
+    const ownership = useSelector(state => state.ownershipDetail)
+    const images = ownership.images
+    const [selectedIndex, setSelectedIndex] = useState(0)
+    const [selectedImage, setSelectedImage] = useState(images[0])
+
+    const selectNewImage = (index, images, next = true) => {
+        const condition = next ? selectedIndex < images.length - 1 : selectedIndex > 0
+        const nextIndex = next ? (condition ? selectedIndex + 1 : 0) : condition ? selectedIndex - 1 : images.length - 1
+        setSelectedImage(images[nextIndex])
+        setSelectedIndex(nextIndex);
+        console.log(condition, nextIndex, images[nextIndex], nextIndex)
+    }
+    
+    const previous = () => {
+        selectNewImage(selectedIndex, images, false)
+    }
+
+    const next = () => {
+        selectNewImage(selectedIndex, images)
+    }
+
+    return (
+        <div>
+            {images.length > 1 ? (
+            <div>
+                <img src={selectedImage} className="img-carousel" alt={`imagen ${selectedIndex}`} />
+                <div className="div-carousel">
+                    <button onClick={previous} className="btn-carousel">{"< anterior"}</button>
+                    <button onClick={next} className="btn-carousel">{" siguiente >"}</button>
+                </div>
+            </div>) : ( <img src={images[0]} className="img-carousel" alt={`imagen ${images[0]}`}/>)}
+        </div>
+    )
+}

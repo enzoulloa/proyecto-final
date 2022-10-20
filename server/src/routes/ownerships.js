@@ -1,15 +1,28 @@
 const { Router } = require("express");
 const { Ownership, Op } = require("../db.js");
 const { filterOwnerships } = require("./functions/filterOwnerships.js");
+const { getOwnerships } = require("../../data/ownershipsData.js");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    let ownerships = await filterOwnerships(req.query);
-    ownerships.length
-      ? res.send(ownerships)
-      : res.status(404).send("Couldn't find ownerships with that description");
+    const { rooms, location, type, min, max, garage } = req.query;
+    if (rooms || location || type || min || max || garage) {
+      let filteredOwnerships = await filterOwnerships(req.query);
+      console.log("filtered");
+      filteredOwnerships.length
+        ? res.send(filteredOwnerships)
+        : res
+            .status(404)
+            .send("Couldn't find ownerships with that description");
+    } else {
+      let ownerships = await Ownership.findAll();
+      console.log("findall");
+      ownerships.length
+        ? res.send(ownerships)
+        : res.status(404).send("Ownerships not found");
+    }
   } catch (error) {
     console.log(error);
   }

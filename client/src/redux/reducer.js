@@ -12,6 +12,8 @@ import {
   GET_STATUS_LOGIN,
   ORDER_OWNERSHIPS,
   REGISTER_USER,
+  LOGIN_USER,
+  EXIT_SESSION
 } from "./common";
 
 const initialState = {
@@ -23,6 +25,8 @@ const initialState = {
   error: false,
   response: null,
   statuslogin: true,
+  Details: [],
+  user: '',
   // propertiesToCheck: [],
 };
 
@@ -111,6 +115,18 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+
+      }
+    case LOGIN_USER:
+      return{
+        ...state,
+        user: action.payload
+      }
+    case EXIT_SESSION:
+      return{
+        ...state,
+        user:action.payload
+      }
 
     default:
       return state;

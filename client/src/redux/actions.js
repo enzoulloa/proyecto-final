@@ -13,6 +13,8 @@ import {
   POST_PROPERTY,
   SELL_FORM,
   GET_STATUS_LOGIN,
+  LOGIN_USER,
+  EXIT_SESSION
 } from "./common";
 
 export function GetOwnerships() {
@@ -159,4 +161,26 @@ export function UserRegister(payload) {
     );
     return newUser;
   };
+}
+
+export function LoginUser(payload){
+  return async function(dispatch){
+    const LoginUser = await axios.post('http://localhost:3001/login',payload)
+    localStorage.setItem('UserLogin', JSON.stringify(LoginUser.data))
+    return dispatch({
+      type: LOGIN_USER,
+      payload: 'USUARIO LOGUEADO'
+    })
+  }
+}
+
+export function ExitSession(){
+  return async function(dispatch){
+    const ExitSession = await axios.get('http://localhost:3001/logout');
+    localStorage.removeItem('UserLogin');
+    return dispatch({
+      type: EXIT_SESSION,
+      payload: 'USUARIO NO LOGUEADO'
+    })
+  }
 }
