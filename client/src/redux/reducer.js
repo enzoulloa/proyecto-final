@@ -12,6 +12,7 @@ import {
   GET_STATUS_LOGIN,
   ORDER_OWNERSHIPS,
   REGISTER_USER,
+  MERCADO_PAGO
 } from "./common";
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
   response: null,
   Details: [],
   statuslogin: true,
+  paymentId: ''
   // propertiesToCheck: [],
 };
 
@@ -111,7 +113,12 @@ function rootReducer(state = initialState, action) {
       return{
         ...state,
       }
-
+    case MERCADO_PAGO:
+      console.log(action.payload)
+      return{
+        ...state,
+        paymentId: action.payload
+      }
     default:
       return state;
   }

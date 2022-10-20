@@ -20,7 +20,7 @@ export default function Card({
   }
   return (
     <div id="card-container">
-      <Link to={`/ownerships/detail/${id}`}>
+      <Link to={`/ownerships/detail/${id}/${name}/${price}`}>
         <img className="img-card" src={images} />
         <h2>{name}</h2>
         <p className="description-card">{location}</p>

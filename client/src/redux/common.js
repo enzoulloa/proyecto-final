@@ -12,6 +12,7 @@ export const FILTER_BY = "FILTER_BY";
 export const ORDER_OWNERSHIPS = "ORDER_OWNERSHIPS";
 export const GET_STATUS_LOGIN = 'GET_STATUS_LOGIN';
 export const REGISTER_USER = "REGISTER_USER";
+export const MERCADO_PAGO = 'MERCADO_PAGO';
 
 
 export function filterBy(ownerships, filters) {

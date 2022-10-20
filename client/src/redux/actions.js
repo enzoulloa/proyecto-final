@@ -12,8 +12,8 @@ import {
   ORDER_OWNERSHIPS,
   POST_PROPERTY,
   SELL_FORM,
-  GET_STATUS_LOGIN
-
+  GET_STATUS_LOGIN,   
+  MERCADO_PAGO
 } from "./common";
 
 export function GetOwnerships() {
@@ -160,3 +160,21 @@ export function UserRegister(payload){
     }
 }
 
+export function mercadoPago(payload) {
+  return async function (dispatch) {
+    console.log(payload);
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/payment",
+        payload
+      );
+      console.log(response.data.preferenceId);
+      return dispatch({
+        type: MERCADO_PAGO,
+        payload: response.data.preferenceId,
+      });
+    } catch (error) {
+      console.log(error);
+    };
+  };
+};
