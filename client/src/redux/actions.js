@@ -11,7 +11,8 @@ import {
   FILTER_BY,
   ORDER_OWNERSHIPS,
   POST_PROPERTY,
-  SELL_FORM,
+  SELL_FORM,   
+  MERCADO_PAGO
   GET_STATUS_LOGIN,
   LOGIN_USER,
   EXIT_SESSION,
@@ -185,6 +186,25 @@ export function ExitSession(){
     })
   }
 }
+
+export function mercadoPago(payload) {
+  return async function (dispatch) {
+    console.log(payload);
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/payment",
+        payload
+      );
+      console.log(response.data.preferenceId);
+      return dispatch({
+        type: MERCADO_PAGO,
+        payload: response.data.preferenceId,
+      });
+    } catch (error) {
+      console.log(error);
+    };
+  };
+};
 
 export function LoginUserAuth0(payload){
   return async function(dispatch){
