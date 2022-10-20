@@ -7,7 +7,9 @@ import Listing from "../components/Listing/Listing";
 import NavBar from "../components/NavBar/NavBar";
 import SellForm from "../components/SellForm";
 import Footer from "../components/Footer/Footer";
-import Login from "../components/Login/Login";
+import SignUp from "../components/Login/SignUp/SignUp";
+import SignIn from "../components/Login/SignIn/SignIn";
+import Error from "../components/Error";
 // import Alternative from "../components/Alternative";
 import "../scss/home.scss";
 
@@ -20,12 +22,15 @@ function App() {
         <Route path="/sell" element={<SellForm />} />
         <Route path="/about" element={<About />} />
         <Route path="/listings" element={<Listing />} />
-        <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/ownerships/detail/:id" element={<Detail />} />
+        <Route path="/signin" element={<SignIn/>}/>
+        <Route path="/signup" element={<SignUp/>}/>
+        <Route path="/user/detail" />
+        <Route path="*" element={<Error/>}/>
       </Routes>
-      {/* <div className="containerK">
+      <div className="containerK">
         <Footer />
-      </div> */}
+      </div>
     </BrowserRouter>
   );
 }

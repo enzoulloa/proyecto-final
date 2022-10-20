@@ -12,7 +12,8 @@ import {
   ORDER_OWNERSHIPS,
   POST_PROPERTY,
   SELL_FORM,
-  GET_STATUS_LOGIN
+  GET_STATUS_LOGIN,
+  LOGIN_USER
 
 } from "./common";
 
@@ -150,6 +151,23 @@ export function GetStatusLogin(e){
   return{
     type: GET_STATUS_LOGIN,
     payload: e,
+  }
+}
+
+export function UserRegister(payload){
+    return async function(dispatch){
+      const newUser = await axios.post('http://localhost:3001/users/register', payload)
+      return newUser
+    }
+}
+
+export function LoginUser(payload){
+  return async function(dispatch){
+    const LoginUser = await axios.post('http://localhost:3001/login',payload)
+    return{
+      type: LOGIN_USER,
+      payload: LoginUser.data
+    }
   }
 }
 
