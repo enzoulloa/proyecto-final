@@ -1,0 +1,44 @@
+.userDetails {
+  display: flex;
+  color: white;
+  padding-top: 15px;
+
+  .userView {
+    padding: 25px 0 0 15px;
+  }
+
+  .userNavBar {
+    width: 20%;
+    height: 600px;
+    border: 1px solid white;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+
+    .userNavHeader {
+      padding-top: 10px;
+      .userImg {
+        border-radius: 100%;
+      }
+      .title {
+        margin: 5px;
+      }
+    }
+
+    .userNavBody {
+      margin-top: 50px;
+      ul {
+        p {
+          margin: 10px;
+        }
+      }
+      .seller {
+        margin-top: 50px;
+      }
+
+      .admin {
+        margin-top: 50px;
+      }
+    }
+  }
+}

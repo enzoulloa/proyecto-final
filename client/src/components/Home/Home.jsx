@@ -6,6 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "../Loading";
 import { useDispatch, useSelector } from 'react-redux';
 
+
 export default function Home() {
 
   const {isLoading, user} = useAuth0()
