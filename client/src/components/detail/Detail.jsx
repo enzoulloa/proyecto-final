@@ -146,7 +146,6 @@ export default function Detail() {
           <p className="p">Estado:&nbsp;{ownership.state}</p>
           <h3>Precio:&nbsp;${price}</h3>
           <p className="p">Plantas:&nbsp;{ownership.floors}</p>
-          <h3>
             Comentarios:
           <div className="row-detail titulo-detail div-titulo-detail ">
             <h2 className="h1">{ownership.name}</h2>
