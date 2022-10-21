@@ -46,6 +46,7 @@ function rootReducer(state = initialState, action) {
         loading: false,
         error: false,
         response: null,
+        paymentId: null
       };
 
     case GET_USERS:
