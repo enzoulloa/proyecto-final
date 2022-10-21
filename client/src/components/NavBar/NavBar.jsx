@@ -41,12 +41,13 @@ export default function NavBar() {
       localStorage.removeItem('UserLogin');
     }else{
       dispatch(ExitSession())
+      navigate('/signin')
     }
     alert()
-    navigate('/signin')
   }
   
   return (
+    
     <div className="nav">
       <Link to="/">
         <p>Loguito</p>

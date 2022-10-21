@@ -19,6 +19,7 @@ import {
 
 } from "./common";
 
+
 export function GetOwnerships() {
   return async function (dispatch) {
     dispatch({ type: LOADING });
@@ -158,19 +159,29 @@ export function GetStatusLogin(e){
 
 export function UserRegister(payload){
     return async function(dispatch){
-      const newUser = await axios.post('http://localhost:3001/users/register', payload)
-      return newUser
+      try{
+        const newUser = await axios.post('http://localhost:3001/users/register', payload)
+        Swal.fire('Usuario Creado Correctamente','Ya puedes ingresar con tu cuenta', 'success')
+        return newUser
+      }catch(err){
+        Swal.fire('Error','Usuario ya Existe', 'error')
+      }
+      
     }
 }
 
 export function LoginUser(payload){
   return async function(dispatch){
-    const LoginUser = await axios.post('http://localhost:3001/login',payload)
-    localStorage.setItem('UserLogin', JSON.stringify(LoginUser.data))
-    return dispatch({
-      type: LOGIN_USER,
-      payload: 'USUARIO LOGUEADO'
-    })
+    try{
+      const LoginUser = await axios.post('http://localhost:3001/login',payload)
+      localStorage.setItem('UserLogin', JSON.stringify(LoginUser.data))
+      return dispatch({
+        type: LOGIN_USER,
+        payload: 'USUARIO LOGUEADO'
+      })
+    }catch(err){
+      Swal.fire('Error','Los DAtos ingresados no son correctos', 'error')
+    }
   }
 }
 
@@ -190,10 +201,10 @@ export function LoginUserAuth0(payload){
     const LoginUserAuth0 = await axios.post('http://localhost:3001/login/auth0',payload)
     localStorage.setItem('UserLogin', JSON.stringify(LoginUserAuth0.data))
     console.log(LoginUserAuth0.data)
-    return{
+    return dispatch({
       type:LOGIN_USER_AUTH0,
       payload: 'USUARIO AUTH0 LOGUEADO'
-    }
+    })
   }
 }
 

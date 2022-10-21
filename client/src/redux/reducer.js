@@ -117,7 +117,7 @@ function rootReducer(state = initialState, action) {
     case LOGIN_USER:
       return{
         ...state,
-        user: action.payload
+        user: 'USUARIO LOGUEADO'
       }
     case EXIT_SESSION:
       return{

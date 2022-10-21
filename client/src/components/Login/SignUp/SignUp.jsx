@@ -4,7 +4,7 @@ import { Link, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import {UserRegister } from '../../../redux/actions.js';
 import ButtonGoogle from "../Login Google/ButtonGoogle.jsx";
-import Swal from "sweetalert2";
+import Error from "../../Error.jsx";
 
 export default function SignUp(){
 
@@ -19,10 +19,6 @@ export default function SignUp(){
 		password2:'',
 		phone: '',
 	})
-
-	function alert(){
-		Swal.fire('Usuario Creado Correctamente','Ya puedes ingresar con tu cuenta', 'success')
-	}
 
 	function validate(e){
 		let errors = {};
@@ -92,9 +88,10 @@ export default function SignUp(){
 			password2:'',
 			phone: '',
 		})
-		alert()
 		navigate('/signin')
 	}
+
+	const UserLogin = localStorage.getItem('UserLogin')
 
     return(
         <section>
@@ -129,5 +126,6 @@ export default function SignUp(){
 				</div>
 			</div>
 		</section>
+		
     )
 }
