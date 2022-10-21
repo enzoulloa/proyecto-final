@@ -41,7 +41,7 @@ export default function About() {
           <div className="Member">
             <img src={img} />
             <div className="Member-Text">
-              <h1>Enzo 🥵</h1>
+              <h1>Enzo </h1>
               <h3>
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum
                 expedita, incidunt necessitatibus vitae ipsam aliquid. Pariatur
@@ -65,7 +65,7 @@ export default function About() {
           <div className="Member">
             <img src={img} />
             <div className="Member-Text">
-              <h1>Tomás 🌹</h1>
+              <h1>Tomás </h1>
               <h3>
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum
                 expedita, incidunt necessitatibus vitae ipsam aliquid. Pariatur

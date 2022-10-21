@@ -12,7 +12,7 @@ import {
   GET_STATUS_LOGIN,
   ORDER_OWNERSHIPS,
   REGISTER_USER,
-  MERCADO_PAGO
+  MERCADO_PAGO,
   LOGIN_USER,
   EXIT_SESSION,
   LOGIN_USER_AUTH0
@@ -27,7 +27,7 @@ const initialState = {
   error: false,
   response: null,
   statuslogin: true,
-  paymentId: ''
+  paymentId: '',
   Details: [],
   user: '',
   // propertiesToCheck: [],
@@ -44,6 +44,7 @@ function rootReducer(state = initialState, action) {
         loading: false,
         error: false,
         response: null,
+        paymentId: null
       };
 
     case GET_USERS:
@@ -118,8 +119,6 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
-
-      }
     case LOGIN_USER:
       return{
         ...state,

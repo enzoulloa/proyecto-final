@@ -14,8 +14,7 @@ import Carousel from "./Carousel.jsx";
 
 export default function Detail() {
   const { id, name, prodPrice } = useParams();
-  console.log(name, prodPrice);
-  // console.log(window.location.search);
+  // console.log(name, prodPrice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = {
@@ -25,7 +24,8 @@ export default function Detail() {
   };
   
   const ownership = useSelector((state) => state.ownershipDetail);
-  const paymentId = useSelector((state) => state.paymentId);
+  let paymentId = useSelector((state) => state.paymentId);
+  const [newId, setNewId] = useState('');
   const [product, setProduct] = useState({
     items: [
       {
@@ -42,31 +42,28 @@ export default function Detail() {
     auto_return: "approved",
   });
 
-  // async function setProd(productName, productPrice) {
-  //   await setProduct({
-  //     ...product,
-  //     [product.items[0].title]: productName,
-  //     [product.items[0].unit_price]: parseInt(productPrice),
-  //   });
-  // };
+  let payment = <Payment></Payment>;
 
-  // useEffect(() => {
-    
-  // }, [product]);
+  function setPayment() {
+    payment = null;
+  }
+
+  useEffect(() => {
+    // paymentId = paymentId;
+    // console.log(paymentId);
+    setNewId(paymentId);
+  },[paymentId]);
 
   useEffect(() => {
       dispatch(getDetail(id));
       dispatch(mercadoPago(product));
+      // return setPayment();
     }, [dispatch]);
 
-    // useEffect(() => {
-    //   setProduct({
-    //     ...product,
-    //     [product.items[0].title]: ownership.name,
-    //     [product.items[0].unit_price]: parseInt(ownership.price),
-    //   });
-    // }, [ownership]);
-
+  useEffect(() => {
+    setNewId(null);
+  }, []);
+  console.log(newId, paymentId);
   const handleDelete = () => {
     const id = ownership.id;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -127,11 +124,11 @@ export default function Detail() {
         <div className="inner">
 
           <h1 className="h1">{ownership.name}</h1>
-          <Payment
+          {/* <Payment
               name={ownership.name}
               price={ownership.price}
               paymentId={paymentId}
-            />
+            /> */}
           <h4 className="h4">Localidad:&nbsp;{ownership.location}</h4>
           <p className="p">Habitaciones:&nbsp;{ownership.rooms}</p>
           <p className="p">
@@ -148,6 +145,7 @@ export default function Detail() {
           <p className="p">Plantas:&nbsp;{ownership.floors}</p>
           <h3>
             Comentarios:
+          </h3>
           <div className="row-detail titulo-detail div-titulo-detail ">
             <h2 className="h1">{ownership.name}</h2>
             <h2>Precio:&nbsp;${price}</h2>
@@ -218,6 +216,7 @@ export default function Detail() {
               </div>  
             </div>
           </div>
+          <Payment paymentId={paymentId}/>
           <div className="div-detail">
             <h3>Comentarios:</h3>
             <br />
