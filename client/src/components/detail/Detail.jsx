@@ -14,8 +14,7 @@ import Carousel from "./Carousel.jsx";
 
 export default function Detail() {
   const { id, name, prodPrice } = useParams();
-  console.log(name, prodPrice);
-  // console.log(window.location.search);
+  // console.log(name, prodPrice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = {
@@ -25,7 +24,8 @@ export default function Detail() {
   };
   
   const ownership = useSelector((state) => state.ownershipDetail);
-  const paymentId = useSelector((state) => state.paymentId);
+  let paymentId = useSelector((state) => state.paymentId);
+  const [newId, setNewId] = useState('');
   const [product, setProduct] = useState({
     items: [
       {
@@ -42,31 +42,28 @@ export default function Detail() {
     auto_return: "approved",
   });
 
-  // async function setProd(productName, productPrice) {
-  //   await setProduct({
-  //     ...product,
-  //     [product.items[0].title]: productName,
-  //     [product.items[0].unit_price]: parseInt(productPrice),
-  //   });
-  // };
+  let payment = <Payment></Payment>;
 
-  // useEffect(() => {
-    
-  // }, [product]);
+  function setPayment() {
+    payment = null;
+  }
+
+  useEffect(() => {
+    // paymentId = paymentId;
+    // console.log(paymentId);
+    setNewId(paymentId);
+  },[paymentId]);
 
   useEffect(() => {
       dispatch(getDetail(id));
       dispatch(mercadoPago(product));
+      // return setPayment();
     }, [dispatch]);
 
-    // useEffect(() => {
-    //   setProduct({
-    //     ...product,
-    //     [product.items[0].title]: ownership.name,
-    //     [product.items[0].unit_price]: parseInt(ownership.price),
-    //   });
-    // }, [ownership]);
-
+  useEffect(() => {
+    setNewId(null);
+  }, []);
+  console.log(newId, paymentId);
   const handleDelete = () => {
     const id = ownership.id;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -219,11 +216,7 @@ export default function Detail() {
               </div>  
             </div>
           </div>
-          <Payment
-              name={ownership.name}
-              price={ownership.price}
-              paymentId={paymentId}
-            />
+          <Payment paymentId={paymentId}/>
           <div className="div-detail">
             <h3>Comentarios:</h3>
             <br />
