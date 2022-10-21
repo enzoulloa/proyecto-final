@@ -12,6 +12,8 @@ import {
   GET_STATUS_LOGIN,
   ORDER_OWNERSHIPS,
   REGISTER_USER,
+  FILTER_CARDS,
+  order,
   MERCADO_PAGO,
   LOGIN_USER,
   EXIT_SESSION,
@@ -72,10 +74,7 @@ function rootReducer(state = initialState, action) {
 
     case FILTER_BY:
       const ownershipsToFilter = state.ownerships;
-      const ownershipsFilteredByType = filterBy(
-        ownershipsToFilter,
-        action.payload
-      );
+      const ownershipsFilteredByType = filterBy(ownershipsToFilter, action.payload);
       return {
         ...state,
         ownershipsFiltered: ownershipsFilteredByType,
@@ -119,6 +118,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+    case FILTER_CARDS:
+      return {
+        ...state,
+        ownershipsFiltered: action.payload,
+      }
     case LOGIN_USER:
       return{
         ...state,

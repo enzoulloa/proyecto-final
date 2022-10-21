@@ -14,6 +14,8 @@ import {
   SELL_FORM,   
   MERCADO_PAGO,
   GET_STATUS_LOGIN,
+  FILTER_CARDS,
+  MERCADO_PAGO,
   LOGIN_USER,
   EXIT_SESSION,
   LOGIN_USER_AUTH0,
@@ -105,9 +107,7 @@ export function postProperty(payload) {
 export function getDetail(id) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(
-        `http://localhost:3001/ownerships/${id}`
-      );
+      const response = await axios.get(`http://localhost:3001/ownerships/${id}`);
       return dispatch({
         type: GET_DETAIL,
         payload: response.data,
@@ -130,9 +130,7 @@ export function clearDetail() {
 export function removeOwnership(id) {
   return async function (dispatch) {
     try {
-      const response = await axios.delete(
-        `http://localhost:3001/deleteOwnerships/${id}`
-      );
+      const response = await axios.delete(`http://localhost:3001/deleteOwnerships/${id}`);
       return dispatch({
         type: REMOVE_OWNERSHIP,
         payload: response.data,
@@ -155,46 +153,60 @@ export function GetStatusLogin(e) {
   };
 }
 
+export function filterCards(search) {
+  return async function (dispatch) {
+    try {
+      const newHouses = await axios.get(`http://localhost:3001/ownerships?${search}`);
+      if (newHouses.data.length === 0) throw new Error("No se encontró ninguna casa");
+      return dispatch({
+        type: FILTER_CARDS,
+        payload: newHouses.data,
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error 412",
+        text: "No se encontro ninguna casa",
+        footer: "Check if ownership id is correct, and try again",
+      });
+    }
+  };
+}
+
 export function UserRegister(payload) {
   return async function (dispatch) {
-    const newUser = await axios.post(
-      "http://localhost:3001/users/register",
-      payload
-    );
+    const newUser = await axios.post("http://localhost:3001/users/register", payload);
     return newUser;
   };
 }
 
-export function LoginUser(payload){
-  return async function(dispatch){
-    const LoginUser = await axios.post('http://localhost:3001/login',payload)
-    localStorage.setItem('UserLogin', JSON.stringify(LoginUser.data))
+export function LoginUser(payload) {
+  return async function (dispatch) {
+    const LoginUser = await axios.post("http://localhost:3001/login", payload);
+    localStorage.setItem("UserLogin", JSON.stringify(LoginUser.data));
     return dispatch({
       type: LOGIN_USER,
-      payload: 'USUARIO LOGUEADO'
-    })
-  }
+      payload: "USUARIO LOGUEADO",
+    });
+  };
 }
 
-export function ExitSession(){
-  return async function(dispatch){
-    const ExitSession = await axios.get('http://localhost:3001/logout');
-    localStorage.removeItem('UserLogin');
+export function ExitSession() {
+  return async function (dispatch) {
+    const ExitSession = await axios.get("http://localhost:3001/logout");
+    localStorage.removeItem("UserLogin");
     return dispatch({
       type: EXIT_SESSION,
-      payload: 'USUARIO NO LOGUEADO'
-    })
-  }
+      payload: "USUARIO NO LOGUEADO",
+    });
+  };
 }
 
 export function mercadoPago(payload) {
   return async function (dispatch) {
     console.log(payload);
     try {
-      const response = await axios.post(
-        "http://localhost:3001/payment",
-        payload
-      );
+      const response = await axios.post("http://localhost:3001/payment", payload);
       console.log(response.data.preferenceId);
       return dispatch({
         type: MERCADO_PAGO,
@@ -202,18 +214,18 @@ export function mercadoPago(payload) {
       });
     } catch (error) {
       console.log(error);
+    }
+  };
+}
+
+export function LoginUserAuth0(payload) {
+  return async function (dispatch) {
+    const LoginUserAuth0 = await axios.post("http://localhost:3001/login/auth0", payload);
+    localStorage.setItem("UserLogin", JSON.stringify(LoginUserAuth0.data));
+    console.log(LoginUserAuth0.data);
+    return {
+      type: LOGIN_USER_AUTH0,
+      payload: "USUARIO AUTH0 LOGUEADO",
     };
   };
-};
-
-export function LoginUserAuth0(payload){
-  return async function(dispatch){
-    const LoginUserAuth0 = await axios.post('http://localhost:3001/login/auth0',payload)
-    localStorage.setItem('UserLogin', JSON.stringify(LoginUserAuth0.data))
-    console.log(LoginUserAuth0.data)
-    return{
-      type:LOGIN_USER_AUTH0,
-      payload: 'USUARIO AUTH0 LOGUEADO'
-    }
-  }
 }
