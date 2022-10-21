@@ -31,7 +31,10 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    let find = await Ownership.findOne({ where: { id: id } });
+    let find = await Ownership.findOne({
+      where: { id: id },
+      include: [{model: Review}]
+    });
     if (find) {
       return res.status(200).send(find);
     } else {
