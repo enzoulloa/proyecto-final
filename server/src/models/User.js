@@ -31,6 +31,11 @@ module.exports = (sequelize) => {
       },
       photo: {
         type: DataTypes.STRING(512)
+      },
+      userAuth0: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       }
   },
   {

@@ -18,11 +18,13 @@
     "react-redux": "8.0.4",
     "react-router-dom": "^6.4.2",
     "react-scripts": "^5.0.1",
+    "react-use-cookie": "^1.4.0",
     "redux": "4.2.0",
     "redux-devtools-extension": "2.13.9",
     "redux-thunk": "2.4.1",
     "sass": "1.55.0",
     "sweetalert2": "^11.5.1",
+    "universal-cookie": "^4.0.4",
     "yup": "^0.32.11"
   },
   "devDependencies": {

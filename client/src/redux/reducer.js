@@ -14,17 +14,24 @@ import {
   REGISTER_USER,
   FILTER_CARDS,
   order,
+  MERCADO_PAGO,
+  LOGIN_USER,
+  EXIT_SESSION,
+  LOGIN_USER_AUTH0
 } from "./common";
 
 const initialState = {
   ownerships: [],
   ownershipDetail: [],
   ownershipsFiltered: [],
+  users: [],
   loading: false,
   error: false,
   response: null,
-  Details: [],
   statuslogin: true,
+  paymentId: '',
+  Details: [],
+  user: '',
   // propertiesToCheck: [],
 };
 
@@ -114,7 +121,28 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         ownershipsFiltered: action.payload,
-      };
+      }
+    case LOGIN_USER:
+      return{
+        ...state,
+        user: action.payload
+      }
+    case EXIT_SESSION:
+      return{
+        ...state,
+        user:action.payload
+      }
+    case LOGIN_USER_AUTH0:
+      return{
+        ...state,
+        user: action.payload
+      }
+    case MERCADO_PAGO:
+      console.log(action.payload)
+      return{
+        ...state,
+        paymentId: action.payload
+      }
     default:
       return state;
   }

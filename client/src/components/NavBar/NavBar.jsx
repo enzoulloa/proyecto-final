@@ -1,15 +1,51 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../../scss/navbar.scss";
+import { ExitSession } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import Swal from "sweetalert2";
 import { useAuth0 } from "@auth0/auth0-react";
+import { LoginUserAuth0 } from "../../redux/actions";
+
 
 export default function NavBar() {
 
-  const {loginWithRedirect, user, isAuthenticated,logout} = useAuth0()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const statusUser = useSelector((state)=>state.user);
+  const {user, isAuthenticated, logout, isLoading} = useAuth0()
+  
+  
+  useEffect(()=>{
+    if(isAuthenticated){
+      const userAuth0 = {
+        email: user.email,
+        name: user.nickname,
+        photo: user.picture,
+      }
+      dispatch(LoginUserAuth0(userAuth0))
+    }
+    statusUser
+  },[statusUser,isAuthenticated])
+
+  const userLogin = JSON.parse(localStorage.getItem('UserLogin'))
   let location = useLocation();
-  if(location.pathname === '/signin'){
-    console.log(true)
+  
+  function alert(){
+    Swal.fire('Sesion Cerrada','Sesion cerrada correctamente', 'success')
   }
 
+  function handlerExitSession(){
+    if(isAuthenticated){
+      logout()
+      localStorage.removeItem('UserLogin');
+    }else{
+      dispatch(ExitSession())
+    }
+    alert()
+    navigate('/signin')
+  }
+  
   return (
     <div className="nav">
       <Link to="/">
@@ -21,16 +57,13 @@ export default function NavBar() {
         </Link>
         <div className="loginContainer">
           {
-            isAuthenticated? 
-            <div>
-              <Link to={`/user/${user.nickname}`}>
-              <img src={user.picture}/>
+            userLogin?
+            <div className="cont-user-nav">
+              <Link to={`/user/${userLogin.name}`}>
+              <img src={userLogin.photo} className='img_user'/>
               </Link>
-              <button onClick={()=>logout()}>salir</button>
+              <button className='btn_logout' onClick={()=>handlerExitSession()}>salir</button>
             </div>:
-            <div></div>
-          }
-          {
             location.pathname !== '/signin' && location.pathname !== '/signup' &&
             (
               <div className="div_register_cont">
