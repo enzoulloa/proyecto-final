@@ -13,6 +13,7 @@ import {
   ORDER_OWNERSHIPS,
   REGISTER_USER,
   FILTER_CARDS,
+  order,
 } from "./common";
 
 const initialState = {
@@ -114,7 +115,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         ownershipsFiltered: action.payload,
       };
-
     default:
       return state;
   }

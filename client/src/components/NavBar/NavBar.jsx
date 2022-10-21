@@ -10,7 +10,6 @@ export default function NavBar() {
     console.log(true)
   }
 
-  console.log(user)
   return (
     <div className="nav">
       <Link to="/">

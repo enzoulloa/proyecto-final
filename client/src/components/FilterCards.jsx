@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { filterBy, orderOwnerships, filterCards } from "../redux/actions";
+import { filterBy, orderOwnerships, filterCards, } from "../redux/actions";
 import "../scss/filterCards.scss";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -10,42 +10,58 @@ export default function FiltersCards() {
   const dispatch = useDispatch();
   const [filterParams, setFilterParams] = useState({ op: "", type: "" });
   const [params, setParams] =  useSearchParams();
-  const [value, setValue] = useState("")
+  const [search, setSearch] = useState("")
   const navigate = useNavigate()
 
    useEffect(() => {
     navigate("/listings")
   },[]);
+
+  const handleSearch = (e)=>{
+    e.preventDefault()
+    setSearch(e.target.value)
+  }
  
-  const handleFilter = (e) => {
-    const value = { ...filterParams, [e.target.name]: e.target.value };
-    setFilterParams(value);
-    dispatch(filterBy(value));
+  const handleFilterAction = (e) => {
+    e.preventDefault()
+    const data = { ...filterParams, [e.target.name]: e.target.value };
+    setFilterParams(data);
+    dispatch(filterBy(data));
   };
 
   const handleOrder = (e) => {
+    e.preventDefault()
     dispatch(orderOwnerships(e.target.value));
   };
 
+
   const handleParams=(e)=>{
-    if(!params.has("min","max","type","garage","rooms")){
-      const value={[e.target.name]:e.target.value}
-      setParams(value)
+    e.preventDefault()
+    if(!e.target.name){
+      params.set("location",search)
       dispatch(filterCards(params))
-    }else if(params.has(!e.target.name)){
-        params.set(e.target.name,e.target.value)
-        setParams(params)
-      }
+      setSearch("")
+    }
+      params.set([e.target.name],e.target.value)
       dispatch(filterCards(params))
-      }
+    
+  }
+
+  // const handleParams=(e)=>{
+  //   e.preventDefault()
+  //   setValue({...value,[e.target.name]:e.target.value.toLowerCase()})
+  //   setParams(value)
+  //    dispatch(filterCards(params.toString()))
+  // }
 
   return (
     <div className="containerFilterCards">
       <div className="containerFilterCards-input">
-        <input type="text" placeholder="¿Donde queres mudarte?"></input>
+        <input type="text" name="location" value={search} placeholder="¿Donde queres mudarte?" onChange={e=>handleSearch(e)}></input>
+         <button type="submit" onClick={(e)=>handleParams(e)}>Buscar</button>
       </div>
       <div className="containerFilterCards-select">
-        <select name="op" id="" onChange={handleFilter}>
+        <select name="op" id="" onChange={e=>handleFilterAction(e)}>
           <option disabled="disabled" selected={true}>
             Tipo de operacion
           </option>
@@ -57,8 +73,8 @@ export default function FiltersCards() {
           <option disabled="disabled" selected={true}>
             Tipo de propiedad
           </option>
-          <option name="type" value="house">Casa</option>
-          <option name="type" value="department">Departamento</option>
+          <option name="type" value="Casa">Casa</option>
+          <option name="type" value="Departamento">Departamento</option>
           <option name="type" value="PH">Ph</option>
         </select>
 
@@ -69,6 +85,8 @@ export default function FiltersCards() {
           <option value="ASC">Menor precio</option>
           <option value="DESC">Mayor precio</option>
         </select>
+
+        
          <div>
            <span>Desde: </span><select name="min" id="" onChange={e=>handleParams(e)}>
           <option name="min" value="0">0</option>

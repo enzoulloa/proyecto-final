@@ -13,6 +13,7 @@ import {
   POST_PROPERTY,
   SELL_FORM,
   GET_STATUS_LOGIN,
+  FILTER_CARDS,
 } from "./common";
 
 export function GetOwnerships() {
@@ -160,11 +161,16 @@ export function filterCards(search) {
       const newHouses = await axios.get(`http://localhost:3001/ownerships?${search}`);
       if (newHouses.data.length === 0) throw new Error("No se encontró ninguna casa");
       return dispatch({
-        type: "FILTER_CARDS",
+        type: FILTER_CARDS,
         payload: newHouses.data,
       });
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error 412",
+        text: "No se encontro ninguna casa",
+        footer: "Check if ownership id is correct, and try again",
+      });
     }
   };
 }

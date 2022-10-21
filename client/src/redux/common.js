@@ -33,21 +33,21 @@ export function order(ownerships, form) {
   let ownershipsOrdered = [];
   if (form === "ASC") {
     ownershipsOrdered = ownershipsFixed.sort((a, b) => {
-      if (a.price < b.price) {
-        return -1;
-      }
-      if (a.price > b.price) {
+      if (parseInt(a.price) > parseInt(b.price)) {
         return 1;
+      }
+      if (parseInt(a.price) < parseInt(b.price)) {
+        return -1;
       }
       return 0;
     });
   } else {
     ownershipsOrdered = ownershipsFixed.sort((a, b) => {
-      if (a.price > b.price) {
-        return -1;
-      }
-      if (a.price < b.price) {
+      if (parseInt(a.price) < parseInt(b.price)) {
         return 1;
+      }
+      if (parseInt(a.price) > parseInt(b.price)) {
+        return -1;
       }
       return 0;
     });

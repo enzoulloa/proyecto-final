@@ -2,6 +2,8 @@ const { Ownership, Op } = require("../../db");
 
 async function filterOwnerships({ rooms, location, type, min, max, garage }) {
   let filter = {};
+  parseInt(min);
+  parseInt(max);
 
   if (rooms) filter.rooms = { rooms };
   if (location) filter.location = { location: { [Op.iRegexp]: location } };
