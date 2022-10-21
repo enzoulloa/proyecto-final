@@ -219,7 +219,7 @@ export function LoginUserAuth0(payload){
 }
 
 
-export default postReview = (payload) => {
+export function postReview(payload) {
   return async (dispatch) => {
     const response = await axios.post('http://localhost:3001/ownership/review', payload)
     return dispatch({

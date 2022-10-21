@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import "./review.scss";
-import {postReview} from "../redux/actions.js";
+import {postReview} from "../../redux/actions.js";
 
 export default function Review() {
     const dispatch = useDispatch()

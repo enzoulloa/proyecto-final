@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import "./detail.scss";
 import Payment from "../Payment.jsx";
 import Carousel from "./Carousel.jsx";
+import Review from "../Review/Review.jsx";
 
 export default function Detail() {
   const { id, name, prodPrice } = useParams();
@@ -223,12 +224,18 @@ export default function Detail() {
             {ownership.review?.map((rev, index) => (
               <p key={index}>{rev}</p>
             ))}
+            {
+            ownership.Reviews && ownership.Reviews.map(a => {
+              return <p>Comentario: {a.message}</p>
+            })
+            }
           </div>
           {/* {user.role >= 3 ? (
             <button onClick={handleDelete} className="bt">
               Remove ownership
             </button>
           ) : null} */}
+          <Review />
         </div>
       ) : (
         <div className="loading">
