@@ -1,17 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   getDetail,
   clearDetail,
   removeOwnership,
+  mercadoPago
 } from "../../redux/actions.js";
 import Swal from "sweetalert2";
 import "./detail.scss";
+import Payment from "../Payment.jsx";
 import Carousel from "./Carousel.jsx";
 
 export default function Detail() {
-  const { id } = useParams();
+  const { id, name, prodPrice } = useParams();
+  // console.log(name, prodPrice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = {
@@ -19,13 +22,48 @@ export default function Detail() {
     name: "admin",
     role: 4,
   };
+  
+  const ownership = useSelector((state) => state.ownershipDetail);
+  let paymentId = useSelector((state) => state.paymentId);
+  const [newId, setNewId] = useState('');
+  const [product, setProduct] = useState({
+    items: [
+      {
+        title: name,
+        unit_price: parseInt(prodPrice),
+        quantity: 1,
+      },
+    ],
+    back_urls: {
+      success: "http://localhost:5173/listings",
+      failure: "http://localhost:5173/listings",
+      pending: "http://localhost:5173/listings",
+    },
+    auto_return: "approved",
+  });
+
+  let payment = <Payment></Payment>;
+
+  function setPayment() {
+    payment = null;
+  }
 
   useEffect(() => {
-    dispatch(getDetail(id));
-  }, [dispatch]);
+    // paymentId = paymentId;
+    // console.log(paymentId);
+    setNewId(paymentId);
+  },[paymentId]);
 
-  const ownership = useSelector((state) => state.ownershipDetail);
+  useEffect(() => {
+      dispatch(getDetail(id));
+      dispatch(mercadoPago(product));
+      // return setPayment();
+    }, [dispatch]);
 
+  useEffect(() => {
+    setNewId(null);
+  }, []);
+  console.log(newId, paymentId);
   const handleDelete = () => {
     const id = ownership.id;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -84,6 +122,30 @@ export default function Detail() {
     <div className="container">
       {ownership.id ? (
         <div className="inner">
+
+          <h1 className="h1">{ownership.name}</h1>
+          {/* <Payment
+              name={ownership.name}
+              price={ownership.price}
+              paymentId={paymentId}
+            /> */}
+          <h4 className="h4">Localidad:&nbsp;{ownership.location}</h4>
+          <p className="p">Habitaciones:&nbsp;{ownership.rooms}</p>
+          <p className="p">
+            Cochera:&nbsp;{ownership.garage === true ? "Tiene" : "No tiene"}
+          </p>
+          <p className="p">Metros cuadrados:&nbsp;{ownership.m2}</p>
+          <p className="p">Tipo de propiedad:&nbsp;{ownership.type}</p>
+          <p className="p">Puntuacion:&nbsp;{ownership.rating}</p>
+          <p className="p">Expensas:&nbsp;{ownership.expenses}</p>
+          <p className="p">Vendedor:&nbsp;{ownership.seller}</p>
+          <p className="p">Descripcion:&nbsp;{ownership.description}</p>
+          <p className="p">Estado:&nbsp;{ownership.state}</p>
+          <h3>Precio:&nbsp;${price}</h3>
+          <p className="p">Plantas:&nbsp;{ownership.floors}</p>
+          <h3>
+            Comentarios:
+          </h3>
           <div className="row-detail titulo-detail div-titulo-detail ">
             <h2 className="h1">{ownership.name}</h2>
             <h2>Precio:&nbsp;${price}</h2>
@@ -154,6 +216,7 @@ export default function Detail() {
               </div>  
             </div>
           </div>
+          <Payment paymentId={paymentId}/>
           <div className="div-detail">
             <h3>Comentarios:</h3>
             <br />
