@@ -99,4 +99,19 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.post("/reviews", async (req, res) => {
+  try {
+    const { id } = req.query;
+    let { stars, message, date } = req.body;
+    let ownership = await Ownership.findByPk(id);
+    if (!ownership) return res.status(400).send("Propiedad no encontrada");
+    if (!stars || !message) return res.status(400).send("Complete su reseña");
+    const review = await Review.create({ stars, message,date });
+    await ownership.addReview(review);
+    res.status(500).send(ownership);
+  } catch (error) {
+    console.log(error);
+  }
+})
+
 module.exports = router;
