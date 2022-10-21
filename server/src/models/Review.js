@@ -8,7 +8,8 @@ module.exports = (sequilize) => {
       primaryKey: true
     },
     stars: {
-      type: DataTypes.ENUM(null,1,2,3,4,5),
+      type: DataTypes.ENUM("1", "2", "3", "4", "5"),
+      allowNull: false,
       defaultValue: null,
     },
     message: {
