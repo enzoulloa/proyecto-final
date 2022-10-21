@@ -12,7 +12,7 @@ import {
   ORDER_OWNERSHIPS,
   POST_PROPERTY,
   SELL_FORM,   
-  MERCADO_PAGO
+  MERCADO_PAGO,
   GET_STATUS_LOGIN,
   LOGIN_USER,
   EXIT_SESSION,
@@ -217,4 +217,14 @@ export function LoginUserAuth0(payload){
     }
   }
 }
+
+
+export default postReview = (payload) => {
+  return async (dispatch) => {
+    const response = await axios.post('http://localhost:3001/ownership/review', payload)
+    return dispatch({
+      type: "POST_REVIEW",
+      payload: response.data,
+    })
+  }
 }
