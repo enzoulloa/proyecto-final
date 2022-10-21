@@ -141,8 +141,7 @@ function rootReducer(state = initialState, action) {
       }
     case "POST_REVIEW":
       return {
-        ...state,
-        response: action.payload,
+        ...state
       };
     default:
       return state;
