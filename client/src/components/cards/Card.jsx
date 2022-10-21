@@ -23,14 +23,14 @@ export default function Card({
   const verificationUser = JSON.parse(localStorage.getItem('UserLogin'))
   return (
     <div id="card-container">
-      
         {
           verificationUser && verificationUser.role === 1 && <BottonFavotire/>
         }
         {
           !verificationUser && <Link to='/signin'><button>+</button></Link>
         }
-        <Link to={`/ownerships/detail/${id}`}>
+        <Link to={`/ownerships/detail/${id}/${name}/${price}`}>
+
         <img className="img-card" src={images} />
         </Link>
         <h2>{name}</h2>

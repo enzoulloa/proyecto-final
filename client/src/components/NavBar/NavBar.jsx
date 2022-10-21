@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { useAuth0 } from "@auth0/auth0-react";
 import { LoginUserAuth0 } from "../../redux/actions";
+import UserNav from "../UserNav/UserNav";
 
 
 export default function NavBar() {
@@ -35,16 +36,7 @@ export default function NavBar() {
     Swal.fire('Sesion Cerrada','Sesion cerrada correctamente', 'success')
   }
 
-  function handlerExitSession(){
-    if(isAuthenticated){
-      logout()
-      localStorage.removeItem('UserLogin');
-    }else{
-      dispatch(ExitSession())
-      navigate('/signin')
-    }
-    alert()
-  }
+  
   
   return (
     
@@ -59,12 +51,7 @@ export default function NavBar() {
         <div className="loginContainer">
           {
             userLogin?
-            <div className="cont-user-nav">
-              <Link to={`/user/${userLogin.name}`}>
-              <img src={userLogin.photo} className='img_user'/>
-              </Link>
-              <button className='btn_logout' onClick={()=>handlerExitSession()}>salir</button>
-            </div>:
+            <UserNav img={userLogin.photo} name={userLogin.name}/>:
             location.pathname !== '/signin' && location.pathname !== '/signup' &&
             (
               <div className="div_register_cont">

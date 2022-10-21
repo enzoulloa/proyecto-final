@@ -11,12 +11,12 @@ import {
   FILTER_BY,
   ORDER_OWNERSHIPS,
   POST_PROPERTY,
-  SELL_FORM,
+  SELL_FORM,   
+  MERCADO_PAGO,
   GET_STATUS_LOGIN,
   LOGIN_USER,
   EXIT_SESSION,
   LOGIN_USER_AUTH0,
-
 } from "./common";
 
 
@@ -33,7 +33,7 @@ export function GetOwnerships() {
 
 export function GetUsers() {
   return async function (dispatch) {
-    dispatch({ type: LOADING, payload });
+    dispatch({ type: LOADING });
     const res = await axios.get(`http://localhost:3001/users`);
     return dispatch({
       type: GET_USERS,
@@ -149,14 +149,12 @@ export function removeOwnership(id) {
   };
 }
 
-
-export function GetStatusLogin(e){
-  return{
+export function GetStatusLogin(e) {
+  return {
     type: GET_STATUS_LOGIN,
     payload: e,
-  }
+  };
 }
-
 export function UserRegister(payload){
     return async function(dispatch){
       try{
@@ -196,6 +194,25 @@ export function ExitSession(){
   }
 }
 
+export function mercadoPago(payload) {
+  return async function (dispatch) {
+    console.log(payload);
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/payment",
+        payload
+      );
+      console.log(response.data.preferenceId);
+      return dispatch({
+        type: MERCADO_PAGO,
+        payload: response.data.preferenceId,
+      });
+    } catch (error) {
+      console.log(error);
+    };
+  };
+};
+
 export function LoginUserAuth0(payload){
   return async function(dispatch){
     const LoginUserAuth0 = await axios.post('http://localhost:3001/login/auth0',payload)
@@ -207,4 +224,3 @@ export function LoginUserAuth0(payload){
     })
   }
 }
-

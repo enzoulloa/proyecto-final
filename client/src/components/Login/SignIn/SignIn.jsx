@@ -6,12 +6,13 @@ import './SignIn.scss';
 import ButtonGoogle from "../Login Google/ButtonGoogle.jsx";
 import { LoginUser } from "../../../redux/actions.js";
 import Error from "../../Error";
+import { User } from "@auth0/auth0-react";
 
 
 export default function SignIn(){
 
 	const dispatch = useDispatch();
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	const [errors, setErrors] = useState({Error: 'Error inicial'})
 	const [signIn, setSignIn] = useState({
@@ -57,9 +58,6 @@ export default function SignIn(){
 		})
 		navigate('/')
 	}
-
-	const UserLogin = localStorage.getItem('UserLogin')
-
     return(
 		<section>
 	    	<div className="page">
