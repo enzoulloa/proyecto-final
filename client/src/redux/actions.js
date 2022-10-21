@@ -218,7 +218,7 @@ export function LoginUserAuth0(payload){
     return dispatch({
       type:LOGIN_USER_AUTH0,
       payload: 'USUARIO AUTH0 LOGUEADO'
-    }
+    })
   }
 }
 
