@@ -17,6 +17,7 @@ import {
   LOGIN_USER,
   EXIT_SESSION,
   LOGIN_USER_AUTH0,
+
 } from "./common";
 
 
@@ -33,7 +34,7 @@ export function GetOwnerships() {
 
 export function GetUsers() {
   return async function (dispatch) {
-    dispatch({ type: LOADING });
+    dispatch({ type: LOADING, payload });
     const res = await axios.get(`http://localhost:3001/users`);
     return dispatch({
       type: GET_USERS,
@@ -149,22 +150,18 @@ export function removeOwnership(id) {
   };
 }
 
-export function GetStatusLogin(e) {
-  return {
+
+export function GetStatusLogin(e){
+  return{
     type: GET_STATUS_LOGIN,
     payload: e,
-  };
+  }
 }
+
 export function UserRegister(payload){
     return async function(dispatch){
-      try{
-        const newUser = await axios.post('http://localhost:3001/users/register', payload)
-        Swal.fire('Usuario Creado Correctamente','Ya puedes ingresar con tu cuenta', 'success')
-        return newUser
-      }catch(err){
-        Swal.fire('Error','Usuario ya Existe', 'error')
-      }
-      
+      const newUser = await axios.post('http://localhost:3001/users/register', payload)
+      return newUser
     }
 }
 
@@ -221,6 +218,7 @@ export function LoginUserAuth0(payload){
     return dispatch({
       type:LOGIN_USER_AUTH0,
       payload: 'USUARIO AUTH0 LOGUEADO'
-    })
+    }
   }
 }
+
