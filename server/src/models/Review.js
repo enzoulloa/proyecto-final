@@ -1,32 +1,32 @@
-// const { DataTypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 
-// module.exports = (sequilize) => {
-//   sequilize.define("Review", {
-//     id: {
-//       type: DataTypes.INTEGER,
-//       autoIncrement: true,
-//       primaryKey: true
-//     },
-//     stars: {
-//       type: DataTypes.ENUM(null,1,2,3,4,5),
-//       defaultValue: null,
-//     },
-//     message: {
-//       type: DataTypes.STRING,
-//       allowNull: false,
-//     },
-//     date: {
-//       type: DataTypes.STRING,
-//       allowNull: false,
-//       get() {
-//         return timeSince(this.getDataValue('date'));
-//       }
-//     }
-//   },
-//     {
-//       timestamps: false,
-//     });
-// }
+module.exports = (sequilize) => {
+  sequilize.define("Review", {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    stars: {
+      type: DataTypes.ENUM(null,1,2,3,4,5),
+      defaultValue: null,
+    },
+    message: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    // date: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    //   get() {
+    //     return timeSince(this.getDataValue('date'));
+    //   }
+    // }
+  },
+    {
+      timestamps: false,
+    });
+}
 
 // const timeSince = (stringDate) => {
 //   var date = new Date(stringDate);
