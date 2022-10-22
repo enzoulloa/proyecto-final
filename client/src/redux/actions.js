@@ -23,7 +23,7 @@ import {
 export function GetOwnerships() {
   return async function (dispatch) {
     dispatch({ type: LOADING });
-    const res = await axios.get(`https://proyecto-final.up.railway.app/ownerships/`);
+    const res = await axios.get(`https://proyecto-final.up.railway.app/ownerships`);
     return dispatch({
       type: GET_OWNERSHIPS,
       payload: res.data,

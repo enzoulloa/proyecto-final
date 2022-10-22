@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   getDetail,
   clearDetail,
@@ -14,6 +14,7 @@ import Carousel from "./Carousel.jsx";
 
 export default function Detail() {
   const { id, name, prodPrice } = useParams();
+  const { paymentStatus } = useSearchParams();
   // console.log(name, prodPrice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ export default function Detail() {
   const ownership = useSelector((state) => state.ownershipDetail);
   let paymentId = useSelector((state) => state.paymentId);
   const [newId, setNewId] = useState('');
+  const [paymentState, setPaymentState] = useState('');
   const [product, setProduct] = useState({
     items: [
       {
@@ -41,12 +43,6 @@ export default function Detail() {
     },
     auto_return: "approved",
   });
-
-  let payment = <Payment></Payment>;
-
-  function setPayment() {
-    payment = null;
-  }
 
   useEffect(() => {
     // paymentId = paymentId;
@@ -117,6 +113,12 @@ export default function Detail() {
   }
 
   const price = convertir();
+
+  useEffect(() => {
+    if(paymentStatus === 'approved') return alert('Pago acreditado!');
+    if(paymentStatus === 'failure') return alert('Pago fallido');
+    // if(pending) return alert('Pago pendiente...');
+  }, [paymentStatus]);
 
   return (
     <div className="container">
