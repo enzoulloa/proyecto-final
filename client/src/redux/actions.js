@@ -11,11 +11,10 @@ import {
   FILTER_BY,
   ORDER_OWNERSHIPS,
   POST_PROPERTY,
-  SELL_FORM,   
+  SELL_FORM,
   MERCADO_PAGO,
   GET_STATUS_LOGIN,
   FILTER_CARDS,
-  MERCADO_PAGO,
   LOGIN_USER,
   EXIT_SESSION,
   LOGIN_USER_AUTH0,
@@ -107,7 +106,9 @@ export function postProperty(payload) {
 export function getDetail(id) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`http://localhost:3001/ownerships/${id}`);
+      const response = await axios.get(
+        `http://localhost:3001/ownerships/${id}`
+      );
       return dispatch({
         type: GET_DETAIL,
         payload: response.data,
@@ -130,7 +131,9 @@ export function clearDetail() {
 export function removeOwnership(id) {
   return async function (dispatch) {
     try {
-      const response = await axios.delete(`http://localhost:3001/deleteOwnerships/${id}`);
+      const response = await axios.delete(
+        `http://localhost:3001/deleteOwnerships/${id}`
+      );
       return dispatch({
         type: REMOVE_OWNERSHIP,
         payload: response.data,
@@ -156,8 +159,11 @@ export function GetStatusLogin(e) {
 export function filterCards(search) {
   return async function (dispatch) {
     try {
-      const newHouses = await axios.get(`http://localhost:3001/ownerships?${search}`);
-      if (newHouses.data.length === 0) throw new Error("No se encontró ninguna casa");
+      const newHouses = await axios.get(
+        `http://localhost:3001/ownerships?${search}`
+      );
+      if (newHouses.data.length === 0)
+        throw new Error("No se encontró ninguna casa");
       return dispatch({
         type: FILTER_CARDS,
         payload: newHouses.data,
@@ -175,7 +181,10 @@ export function filterCards(search) {
 
 export function UserRegister(payload) {
   return async function (dispatch) {
-    const newUser = await axios.post("http://localhost:3001/users/register", payload);
+    const newUser = await axios.post(
+      "http://localhost:3001/users/register",
+      payload
+    );
     return newUser;
   };
 }
@@ -206,7 +215,10 @@ export function mercadoPago(payload) {
   return async function (dispatch) {
     console.log(payload);
     try {
-      const response = await axios.post("http://localhost:3001/payment", payload);
+      const response = await axios.post(
+        "http://localhost:3001/payment",
+        payload
+      );
       console.log(response.data.preferenceId);
       return dispatch({
         type: MERCADO_PAGO,
@@ -220,7 +232,10 @@ export function mercadoPago(payload) {
 
 export function LoginUserAuth0(payload) {
   return async function (dispatch) {
-    const LoginUserAuth0 = await axios.post("http://localhost:3001/login/auth0", payload);
+    const LoginUserAuth0 = await axios.post(
+      "http://localhost:3001/login/auth0",
+      payload
+    );
     localStorage.setItem("UserLogin", JSON.stringify(LoginUserAuth0.data));
     console.log(LoginUserAuth0.data);
     return {
