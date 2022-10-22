@@ -5,7 +5,7 @@ import {
   getDetail,
   clearDetail,
   removeOwnership,
-  mercadoPago
+  mercadoPago,
 } from "../../redux/actions.js";
 import Swal from "sweetalert2";
 import "./detail.scss";
@@ -23,11 +23,11 @@ export default function Detail() {
     name: "admin",
     role: 4,
   };
-  
+
   const ownership = useSelector((state) => state.ownershipDetail);
   let paymentId = useSelector((state) => state.paymentId);
-  const [newId, setNewId] = useState('');
-  const [paymentState, setPaymentState] = useState('');
+  const [newId, setNewId] = useState("");
+  const [paymentState, setPaymentState] = useState("");
   const [product, setProduct] = useState({
     items: [
       {
@@ -37,9 +37,9 @@ export default function Detail() {
       },
     ],
     back_urls: {
-      success: "http://localhost:5173/listings",
-      failure: "http://localhost:5173/listings",
-      pending: "http://localhost:5173/listings",
+      success: "https://proyecto-final.up.railway.app/listings",
+      failure: "https://proyecto-final.up.railway.app/listings",
+      pending: "https://proyecto-final.up.railway.app/listings",
     },
     auto_return: "approved",
   });
@@ -48,13 +48,13 @@ export default function Detail() {
     // paymentId = paymentId;
     // console.log(paymentId);
     setNewId(paymentId);
-  },[paymentId]);
+  }, [paymentId]);
 
   useEffect(() => {
-      dispatch(getDetail(id));
-      dispatch(mercadoPago(product));
-      // return setPayment();
-    }, [dispatch]);
+    dispatch(getDetail(id));
+    dispatch(mercadoPago(product));
+    // return setPayment();
+  }, [dispatch]);
 
   useEffect(() => {
     setNewId(null);
@@ -115,8 +115,8 @@ export default function Detail() {
   const price = convertir();
 
   useEffect(() => {
-    if(paymentStatus === 'approved') return alert('Pago acreditado!');
-    if(paymentStatus === 'failure') return alert('Pago fallido');
+    if (paymentStatus === "approved") return alert("Pago acreditado!");
+    if (paymentStatus === "failure") return alert("Pago fallido");
     // if(pending) return alert('Pago pendiente...');
   }, [paymentStatus]);
 
@@ -124,7 +124,6 @@ export default function Detail() {
     <div className="container">
       {ownership.id ? (
         <div className="inner">
-
           <h1 className="h1">{ownership.name}</h1>
           {/* <Payment
               name={ownership.name}
@@ -145,9 +144,7 @@ export default function Detail() {
           <p className="p">Estado:&nbsp;{ownership.state}</p>
           <h3>Precio:&nbsp;${price}</h3>
           <p className="p">Plantas:&nbsp;{ownership.floors}</p>
-          <h3>
-            Comentarios:
-          </h3>
+          <h3>Comentarios:</h3>
           <div className="row-detail titulo-detail div-titulo-detail ">
             <h2 className="h1">{ownership.name}</h2>
             <h2>Precio:&nbsp;${price}</h2>
@@ -160,13 +157,13 @@ export default function Detail() {
           </div>
           <div className="div-detail">
             <h2>Descripcion</h2>
-            <br/>
+            <br />
             <p className="p">{ownership.description}</p>
           </div>
           <div className="div-detail">
             <h2>Caracteristicas</h2>
-            <hr className="hr-detail"/>
-            <br/>
+            <hr className="hr-detail" />
+            <br />
             <div className="row-detail">
               <div className="caract-detail">
                 <div className="row-detail div-prop-detail">
@@ -215,10 +212,10 @@ export default function Detail() {
                   <h4 className="p">Estado:&nbsp;</h4>
                   <h4>{ownership.state}</h4>
                 </div>
-              </div>  
+              </div>
             </div>
           </div>
-          <Payment paymentId={paymentId}/>
+          <Payment paymentId={paymentId} />
           <div className="div-detail">
             <h3>Comentarios:</h3>
             <br />
