@@ -5,7 +5,6 @@ import { useMercadopago } from "react-sdk-mercadopago";
 import './payment.scss';
 
 export default function Payment({ paymentId }) {
-  const dispatch = useDispatch();
   console.log(paymentId);
   // let id = useSelector((state) => state.paymentId);
   const mp = useMercadopago.v2("TEST-4451a309-a6c0-4e53-8983-9e6f42531c98", {
@@ -25,7 +24,7 @@ export default function Payment({ paymentId }) {
     // console.log(id2);
     // id2 = id;
     // console.log(id2);
-    if (mp) {
+    if (mp && paymentId) {
       mp.checkout({
         preference: {
           id: paymentId,
@@ -36,8 +35,7 @@ export default function Payment({ paymentId }) {
         },
       });
     }
-    // return setPaymentId(paymentId);
   }, [mp, paymentId]);
 
-  return (paymentId !== null && <div className="cho-container"></div>);
+  return (paymentId && <div className="cho-container"></div>);
 }
