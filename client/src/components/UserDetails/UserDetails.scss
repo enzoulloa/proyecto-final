@@ -27,17 +27,27 @@
 
     .userNavBody {
       margin-top: 50px;
-      ul {
-        p {
+      display: flex;
+      flex-direction: column;
+      .userNavLink {
+        margin: 10px;
+      }
+      .seller {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        .userNavLink {
           margin: 10px;
         }
       }
-      .seller {
-        margin-top: 50px;
-      }
 
       .admin {
-        margin-top: 50px;
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        .userNavLink {
+          margin: 10px;
+        }
       }
     }
   }
