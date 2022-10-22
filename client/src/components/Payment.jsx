@@ -21,11 +21,7 @@ export default function Payment({ paymentId }) {
 //     console.log(id);
 // }, [id])
   useEffect(() => {
-    // console.log(id);
-    // console.log(id2);
-    // id2 = id;
-    // console.log(id2);
-    if (mp) {
+    if (mp && paymentId) {
       mp.checkout({
         preference: {
           id: paymentId,
@@ -36,8 +32,7 @@ export default function Payment({ paymentId }) {
         },
       });
     }
-    // return setPaymentId(paymentId);
   }, [mp, paymentId]);
 
-  return (paymentId !== null && <div className="cho-container"></div>);
+  return (paymentId && <div className="cho-container"></div>);
 }
