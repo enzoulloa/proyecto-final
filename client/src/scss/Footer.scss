@@ -3,8 +3,9 @@
   padding: 0;
 }
 footer {
+  margin-top: 200px;
   width: 100%;
-  height: 477px;
+  height: 300px;
   background-color: #1a242f;
   color: #d6d6d6;
   display: flex;
@@ -18,22 +19,25 @@ footer {
   top: 55px;
 }
 .title_cont h2 {
-  font-size: 30px;
-  margin-bottom: 30px;
+  font-size: 35px;
+  margin-bottom: 20px;
   line-height: 35px;
 }
 .title_cont p {
-  font-size: 18px;
-  margin-bottom: 30px;
+  font-size: 15px;
+  margin-bottom: 20px;
 }
 .redes_ul {
+  background-color: #1a242f;
   height: 10%;
 }
 .redes_cont img {
-  width: 20px;
-  height: 20px;
+  background-color: #1a242f;
+  width: 15px;
+  height: 15px;
 }
 .redes_cont a {
+  background-color: #1a242f;
   padding: 5px;
 }
 .redes_cont a:hover {
@@ -52,30 +56,30 @@ footer {
   margin: 0 10%;
 }
 .disenadores {
-  left: 1330px;
+  left: 0%;
 }
 
 .div_Alquilar h2 {
-  font-size: 26px;
+  font-size: 24px;
   margin-bottom: 9px;
 }
 .div_Alquilar li {
   list-style: none;
   padding: 2px;
-  font-size: 18px;
+  font-size: 15px;
 }
 .div_Alquilar Link {
   text-decoration: none;
 }
 
 .div_Comprar h2 {
-  font-size: 26px;
+  font-size: 24px;
   margin-bottom: 9px;
 }
 .div_Comprar li {
   list-style: none;
   padding: 2px;
-  font-size: 18px;
+  font-size: 15px;
 }
 .div_Comprar Link {
   text-decoration: none;
@@ -85,13 +89,13 @@ footer {
   padding-bottom: 56px;
 }
 .div_Vender h2 {
-  font-size: 26px;
+  font-size: 24px;
   margin-bottom: 9px;
 }
 .div_Vender li {
   list-style: none;
   padding: 2px;
-  font-size: 18px;
+  font-size: 15px;
 }
 .div_Vender Link {
   text-decoration: none;
@@ -102,13 +106,13 @@ footer {
   left: 1490px;
 }
 .div_Help h2 {
-  font-size: 26px;
+  font-size: 24px;
   margin-bottom: 9px;
 }
 .div_Help li {
   list-style: none;
   padding: 2px;
-  font-size: 18px;
+  font-size: 15px;
 }
 .div_Help Link {
   text-decoration: none;

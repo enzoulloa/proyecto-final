@@ -6,6 +6,7 @@ import buy from "../assets/buyHome.jpg";
 import rent from "../assets/rentHome.jpg";
 
 export default function HomeCards() {
+
   return (
     <section>
       <div className="containerE">
