@@ -89,7 +89,7 @@ app.post("/auth0", async (req, res) => {
       },
       process.env.SEED_AUTENTICATION,
       {
-        expiresIn: process.env.TOKEN_OFF,
+        expiresIn: 60 * 60 * 24 * 7,
       }
     );
     const cOptions = {
