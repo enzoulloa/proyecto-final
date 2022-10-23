@@ -1,17 +1,12 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "../Loading";
-import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { GetUsers } from "../../redux/actions";
 import UserNavBar from "./components/UserNavBar";
 import "./UserDetails.scss";
 import { Outlet } from "react-router-dom";
 
 export default function UserDetails() {
   const { isLoading } = useAuth0();
-  const dispatch = useDispatch();
-  const [page, setPage] = useState("");
   const user = JSON.parse(window.localStorage.getItem("UserLogin"));
 
   if (isLoading) {
