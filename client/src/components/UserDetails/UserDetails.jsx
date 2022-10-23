@@ -12,7 +12,7 @@ export default function UserDetails() {
   const { user, isLoading } = useAuth0();
   const dispatch = useDispatch();
   const [page, setPage] = useState("");
-
+  console.log(user);
   useEffect(() => {
     dispatch(GetUsers());
     setPage("ModifyInfo");
