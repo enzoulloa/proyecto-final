@@ -22,7 +22,6 @@ export default function UserModifyInfo() {
 
   function submitNewInfo(e) {
     e.preventDefault();
-    //dispatch(modificar(newInfo))
     setNewInfo({
       name: null,
       email: null,
@@ -43,6 +42,13 @@ export default function UserModifyInfo() {
           <button type="button" onClick={uploadImage}>
             +
           </button>
+          {newInfo.photo !== null && (
+            <img
+              src={newInfo.photo}
+              alt="newProfileImg"
+              className="newProfileImg"
+            />
+          )}
         </div>
         <div>
           <p>new cellphone:</p>

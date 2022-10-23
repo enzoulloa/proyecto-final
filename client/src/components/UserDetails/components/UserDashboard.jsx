@@ -1,9 +1,10 @@
-export default function UserDashboard({ name, mail, cel }) {
+export default function UserDashboard() {
+  const user = JSON.parse(window.localStorage.getItem("UserLogin"));
   return (
     <div className="Dashboard">
-      <p>Name: {`${name}`}</p>
-      <p>Email: {`${mail}`}</p>
-      <p>Cel: {`${cel}`}</p>
+      <p>Name: {`${user.name}`}</p>
+      <p>Email: {`${user.email}`}</p>
+      <p>Cel: {`156468798`}</p>
     </div>
   );
 }
