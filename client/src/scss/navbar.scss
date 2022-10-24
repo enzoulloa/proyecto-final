@@ -24,6 +24,8 @@
 }
 
 .link {
+  align-self: center;
+  text-align: center;
   width: 100px;
   text-decoration: none;
   color: #d6d6d6;
@@ -72,4 +74,8 @@
 .btn_logout{
   height: 30%;
   width: 50%;
+}
+.img-loguito{
+  width: 70px;
+  height: 70px;
 }

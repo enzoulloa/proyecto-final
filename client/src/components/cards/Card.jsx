@@ -1,6 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { json, Link } from "react-router-dom";
 import "../../scss/Card.scss";
+import BottonFavotire from "../ButtonFavorite/ButtonFavorite";
 
 export default function Card({
   images,
@@ -18,10 +19,20 @@ export default function Card({
     images =
       "https://dchba.org/wp-content/uploads/2020/06/house-placeholder.png";
   }
+
+  const verificationUser = JSON.parse(localStorage.getItem('UserLogin'))
   return (
     <div id="card-container">
-      <Link to={`/ownerships/detail/${id}/${name}/${price}`}>
+        {
+          verificationUser && verificationUser.role === 1 && <BottonFavotire/>
+        }
+        {
+          !verificationUser && <Link to='/signin'><button>+</button></Link>
+        }
+        <Link to={`/ownerships/detail/${id}/${name}/${price}`}>
+
         <img className="img-card" src={images} />
+        </Link>
         <h2>{name}</h2>
         <p className="description-card">{location}</p>
         <div className="ico-card">
@@ -32,7 +43,7 @@ export default function Card({
           <img src="https://cdn-icons-png.flaticon.com/512/353/353760.png" />
           <p className="text-ico">${price}</p>
         </div>
-      </Link>
+      
     </div>
   );
 }
