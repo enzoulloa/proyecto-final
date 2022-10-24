@@ -29,7 +29,7 @@ const initialState = {
   error: false,
   response: null,
   statuslogin: true,
-  paymentId: "",
+  paymentId: '',
   Details: [],
   user: 'No Logueado',
   // propertiesToCheck: [],
@@ -144,6 +144,10 @@ function rootReducer(state = initialState, action) {
         ...state,
         paymentId: action.payload
       }
+    case "POST_REVIEW":
+      return {
+        ...state
+      };
     case USER_STATUS:
       return{
         ...state,
