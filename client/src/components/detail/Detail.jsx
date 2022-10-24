@@ -5,7 +5,7 @@ import {
   getDetail,
   clearDetail,
   removeOwnership,
-  mercadoPago,
+  mercadoPago
 } from "../../redux/actions.js";
 import Swal from "sweetalert2";
 import "./detail.scss";
@@ -14,6 +14,8 @@ import Carousel from "./Carousel.jsx";
 
 export default function Detail() {
   const { id, name, prodPrice } = useParams();
+  console.log(name, prodPrice);
+  // console.log(window.location.search);
   const { paymentStatus } = useSearchParams();
   // console.log(name, prodPrice);
   const dispatch = useDispatch();
@@ -23,6 +25,18 @@ export default function Detail() {
     name: "admin",
     role: 4,
   };
+  
+  // async function setProd(productName, productPrice) {
+  //   await setProduct({
+  //     ...product,
+  //     [product.items[0].title]: productName,
+  //     [product.items[0].unit_price]: parseInt(productPrice),
+  //   });
+  // };
+
+  // useEffect(() => {
+    
+  // }, [product]);
 
   const ownership = useSelector((state) => state.ownershipDetail);
   let paymentId = useSelector((state) => state.paymentId);

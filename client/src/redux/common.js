@@ -11,12 +11,13 @@ export const FILTER_BY = "FILTER_BY";
 export const LOGIN_USER = "LOGIN_USER";
 export const EXIT_SESSION = "EXIT_SESSION";
 export const LOGIN_USER_AUTH0 = "LOGIN_USER_AUTH0";
+export const USER_STATUS = "USER_STATUS";
 // export const FILTER_BY_TYPE = "FILTER_BY_TYPE";
 export const ORDER_OWNERSHIPS = "ORDER_OWNERSHIPS";
 export const GET_STATUS_LOGIN = "GET_STATUS_LOGIN";
 export const REGISTER_USER = "REGISTER_USER";
-export const FILTER_CARDS = "FILTER_CARDS";
 export const MERCADO_PAGO = "MERCADO_PAGO";
+export const FILTER_CARDS = "FILTER_CARDS";
 
 export function filterBy(ownerships, filters) {
   console.log(filters);

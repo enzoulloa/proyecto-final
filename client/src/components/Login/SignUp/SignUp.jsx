@@ -2,15 +2,16 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import {UserRegister } from '../../../redux/actions.js';
+import {UserRegister, LoginStatus } from '../../../redux/actions.js';
 import ButtonGoogle from "../Login Google/ButtonGoogle.jsx";
-import Swal from "sweetalert2";
+import Error from "../../Error.jsx";
 
 export default function SignUp(){
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+	const satusUser = useSelector((state)=>state.user)
 	const [errors, setErrors] = useState({ Error:'error inicial'})
 	const [singUp, setSingUp] = useState ({
 		name: '',
@@ -20,9 +21,9 @@ export default function SignUp(){
 		phone: '',
 	})
 
-	function alert(){
-		Swal.fire('Usuario Creado Correctamente','Ya puedes ingresar con tu cuenta', 'success')
-	}
+	useEffect(()=>{
+		dispatch(LoginStatus())
+	},[satusUser]);
 
 	function validate(e){
 		let errors = {};
@@ -92,11 +93,16 @@ export default function SignUp(){
 			password2:'',
 			phone: '',
 		})
-		alert()
 		navigate('/signin')
 	}
 
+	const UserLogin = localStorage.getItem('UserLogin')
+
     return(
+		<div>
+			{
+				
+					satusUser === 'No Logueado' ?
         <section>
 			<div className="page">
 				<div className="welcome">
@@ -128,6 +134,10 @@ export default function SignUp(){
 					</form>
 				</div>
 			</div>
-		</section>
+		</section>:
+			<Error/>
+			}
+		</div>
+		
     )
 }
