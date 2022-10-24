@@ -15,7 +15,8 @@ import {
   MERCADO_PAGO,
   LOGIN_USER,
   EXIT_SESSION,
-  LOGIN_USER_AUTH0
+  LOGIN_USER_AUTH0,
+  USER_STATUS
 } from "./common";
 
 const initialState = {
@@ -26,7 +27,7 @@ const initialState = {
   error: false,
   response: null,
   Details: [],
-  user: '',
+  user: 'No Logueado',
   // propertiesToCheck: [],
 };
 
@@ -135,6 +136,11 @@ function rootReducer(state = initialState, action) {
       return{
         ...state,
         paymentId: action.payload
+      }
+    case USER_STATUS:
+      return{
+        ...state,
+        user: action.payload
       }
     default:
       return state;

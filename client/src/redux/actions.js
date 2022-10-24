@@ -17,7 +17,7 @@ import {
   LOGIN_USER,
   EXIT_SESSION,
   LOGIN_USER_AUTH0,
-
+  USER_STATUS
 } from "./common";
 
 
@@ -98,11 +98,6 @@ export function postProperty(payload) {
   };
 }
 
-// export function sellFormPost(payload){
-//   return {
-//     type: SELL_FORM,
-//     payload
-//   };
 
 export function getDetail(id) {
   return async function (dispatch) {
@@ -160,8 +155,12 @@ export function GetStatusLogin(e){
 
 export function UserRegister(payload){
     return async function(dispatch){
-      const newUser = await axios.post('http://localhost:3001/users/register', payload)
-      return newUser
+      try{
+        const newUser = await axios.post('http://localhost:3001/users/register', payload)
+        return newUser
+      }catch(err){
+        Swal.fire('Error','Los Datos ingresados no son correctos', 'error')
+      }
     }
 }
 
@@ -219,6 +218,21 @@ export function LoginUserAuth0(payload){
       type:LOGIN_USER_AUTH0,
       payload: 'USUARIO AUTH0 LOGUEADO'
     })
+  }
+}
+
+export function LoginStatus(){
+  const userLogin = JSON.parse(localStorage.getItem('UserLogin'))
+  if(!userLogin){
+    return{
+      type: USER_STATUS,
+      payload: 'No Logueado'
+    }
+  }else{
+    return{
+      type: USER_STATUS,
+      payload: 'Logueado'
+    }
   }
 }
 

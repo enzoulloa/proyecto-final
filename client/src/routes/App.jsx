@@ -18,7 +18,6 @@ import UserChangePassword from "../components/UserDetails/components/UserChangeP
 import UserModifyInfo from "../components/UserDetails/components/UserModifyInfo";
 
 function App() {
-  const loginUser = JSON.parse(localStorage.getItem('UserLogin')) 
   return (
     <BrowserRouter>
       <NavBar />
@@ -29,6 +28,7 @@ function App() {
         <Route path="/listings" element={<Listing />} />
         <Route path="/ownerships/detail/:id/:name/:prodPrice" element={<Detail />} />
         <Route path="/ownerships/detail/:id" element={<Detail />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/user/profile" element={<UserDetails />}>

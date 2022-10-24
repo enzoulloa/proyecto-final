@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate} from "react-router-dom";
 import './SignIn.scss';
 import ButtonGoogle from "../Login Google/ButtonGoogle.jsx";
-import { LoginUser } from "../../../redux/actions.js";
+import { LoginUser, LoginStatus } from "../../../redux/actions.js";
 import Error from "../../Error";
-import { User } from "@auth0/auth0-react";
 
 
 export default function SignIn(){
@@ -14,11 +13,17 @@ export default function SignIn(){
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+	const satusUser = useSelector((state)=>state.user)
 	const [errors, setErrors] = useState({Error: 'Error inicial'})
 	const [signIn, setSignIn] = useState({
 		email:'',
 		password:'',
 	})
+
+	useEffect(()=>{
+		dispatch(LoginStatus())
+	},[satusUser]);
+
 
 	function validate(e){
 		const validateEmails = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -59,13 +64,17 @@ export default function SignIn(){
 		navigate('/')
 	}
     return(
+		<div>
+			{
+				satusUser === 'No Logueado' ?
+
 		<section>
 	    	<div className="page">
 	    		<div className="welcome">
 	    			<h2>Bienvenido!!</h2>
 	    			<p>Si no tienes un usurio podes registrarte.</p>
 					<Link to='/signup'>
-	    			<button className="sign_in" /* onClick={e=> handlerSignUp(e)} */>Registrarme</button>
+	    			<button className="sign_in">Registrarme</button>
 					</Link>
 					<ButtonGoogle/>
 	    		</div>
@@ -84,6 +93,10 @@ export default function SignIn(){
 	    		    </form>
         		</div>
 	    	</div>
-        </section>
+        </section>:
+
+		<Error/>
+			}
+		</div>
     )
 }
