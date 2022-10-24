@@ -10,13 +10,13 @@ export const REMOVE_USER = "REMOVE_USER";
 export const FILTER_BY = "FILTER_BY";
 export const LOGIN_USER = "LOGIN_USER";
 export const EXIT_SESSION = "EXIT_SESSION";
-export const LOGIN_USER_AUTH0 = "LOGIN_USER_AUTH0"
+export const LOGIN_USER_AUTH0 = "LOGIN_USER_AUTH0";
 // export const FILTER_BY_TYPE = "FILTER_BY_TYPE";
 export const ORDER_OWNERSHIPS = "ORDER_OWNERSHIPS";
-export const GET_STATUS_LOGIN = 'GET_STATUS_LOGIN';
+export const GET_STATUS_LOGIN = "GET_STATUS_LOGIN";
 export const REGISTER_USER = "REGISTER_USER";
-export const MERCADO_PAGO = 'MERCADO_PAGO';
-
+export const MERCADO_PAGO = "MERCADO_PAGO";
+export const FILTER_CARDS = "FILTER_CARDS";
 
 export function filterBy(ownerships, filters) {
   console.log(filters);
@@ -37,21 +37,21 @@ export function order(ownerships, form) {
   let ownershipsOrdered = [];
   if (form === "ASC") {
     ownershipsOrdered = ownershipsFixed.sort((a, b) => {
-      if (a.price < b.price) {
-        return -1;
-      }
-      if (a.price > b.price) {
+      if (parseInt(a.price) > parseInt(b.price)) {
         return 1;
+      }
+      if (parseInt(a.price) < parseInt(b.price)) {
+        return -1;
       }
       return 0;
     });
   } else {
     ownershipsOrdered = ownershipsFixed.sort((a, b) => {
-      if (a.price > b.price) {
-        return -1;
-      }
-      if (a.price < b.price) {
+      if (parseInt(a.price) < parseInt(b.price)) {
         return 1;
+      }
+      if (parseInt(a.price) > parseInt(b.price)) {
+        return -1;
       }
       return 0;
     });

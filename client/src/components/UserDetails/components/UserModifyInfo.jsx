@@ -1,33 +1,62 @@
 import axios from "axios";
+import { useState } from "react";
 
-export default function UserModifyInfo(info) {
-  async function uploadImage(e) {
-    console.log(e.target.files);
+export default function UserModifyInfo() {
+  const [newInfo, setNewInfo] = useState({
+    name: null,
+    email: null,
+    cel: null,
+    photo: null,
+  });
+  const [imageSelected, setImageSelected] = useState("");
+  async function uploadImage() {
     const formData = new FormData();
-    formData.append("file", e.target.files[0]);
+    formData.append("file", imageSelected);
     formData.append("upload_preset", "iu0b2lxj");
     const response = await axios.post(
       `http://api.cloudinary.com/v1_1/dtbxaawjp/image/upload`,
       formData
     );
-    console.log(response.data.url);
+    setNewInfo({ ...newInfo, photo: [response.data.url] });
+  }
+
+  function submitNewInfo(e) {
+    e.preventDefault();
+    //dispatch(modificar(newInfo))
+    setNewInfo({
+      name: null,
+      email: null,
+      cel: null,
+      photo: null,
+    });
   }
 
   return (
     <div>
       <form>
         <div>
-          <p>Description:</p>
-          <input type="text" placeholder="Contanos un poco de vos.." />
-        </div>
-        <div>
           <p>New profile img: </p>
-          <input type="file" onChange={uploadImage} />
+          <input
+            type="file"
+            onChange={(e) => setImageSelected(e.target.files[0])}
+          />
+          <button type="button" onClick={uploadImage}>
+            +
+          </button>
         </div>
         <div>
           <p>new cellphone:</p>
-          <input type="number" />
+          <input type="number" value={newInfo.cel} />
         </div>
+        <div>
+          <p>new email:</p>
+          <input type="text" value={newInfo.email} />
+        </div>
+        <input
+          type="submit"
+          onClick={submitNewInfo}
+          value="Enviar nueva info"
+        />
       </form>
     </div>
   );
