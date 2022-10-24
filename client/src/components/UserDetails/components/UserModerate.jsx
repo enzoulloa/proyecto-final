@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetUsers } from "../../../redux/actions";
 import { columnsUsers } from "../common";
+import { Table } from "antd";
 
 export default function UserModerate() {
   const dispatch = useDispatch();

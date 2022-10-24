@@ -18,8 +18,7 @@ export default function UserChangePassword() {
   }
 
   function submitPwChange() {
-    //dispatch(modificar(password))
-    console.log(passwordChangeForm);
+    console.log("cambio de contraseña");
   }
 
   return (
