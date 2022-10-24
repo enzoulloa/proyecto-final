@@ -20,7 +20,6 @@ import UserPendingList from "../components/UserDetails/components/UserPendingLis
 import UserModerate from "../components/UserDetails/components/UserModerate";
 
 function App() {
-  const loginUser = JSON.parse(localStorage.getItem('UserLogin')) 
   return (
     <BrowserRouter>
       <NavBar />
@@ -30,6 +29,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/listings" element={<Listing />} />
         <Route path="/ownerships/detail/:id/:name/:prodPrice" element={<Detail />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/user/:name" element={<UserDetails />}>

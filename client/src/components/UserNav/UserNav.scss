@@ -37,6 +37,15 @@
     position: absolute;
     margin-left: -12px;
   }
+  .list button{
+    font-size: 12px;
+    border-color:#fff;
+    background-color: #121b25;
+  }
+  .list button:hover{
+    border-color:#fff;
+    color: #f00;
+  }
   .list__item {
     position: absolute;
     text-align: right;

@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { useAuth0 } from "@auth0/auth0-react";
-import { LoginUserAuth0 } from "../../redux/actions";
+import { LoginUserAuth0, LoginStatus } from "../../redux/actions";
 import UserNav from "../UserNav/UserNav";
+import img from '../../assets/LOGUITO-PF.svg'
 
 
 export default function NavBar() {
@@ -42,12 +43,9 @@ export default function NavBar() {
     
     <div className="nav">
       <Link to="/">
-        <p>Loguito</p>
+        <img src={img}  className='img-loguito'/>
       </Link>
       <div className="linksContainer">
-        <Link to="/about" className="link">
-          Sobre Nosotros
-        </Link>
         <div className="loginContainer">
           {
             userLogin?

@@ -1,6 +1,6 @@
 import React from "react";
 import './UserNav.scss';
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ExitSession } from "../../redux/actions";
 import Swal from "sweetalert2";
@@ -13,6 +13,7 @@ export default function UserNav({img, name}){
     const nameOne = name.split(' ')
     const { isAuthenticated, logout } = useAuth0();
     const dispatch = useDispatch()
+    const navigate = useNavigate();
 
     function alert(){
         Swal.fire('Sesion Cerrada','Sesion cerrada correctamente', 'success')
