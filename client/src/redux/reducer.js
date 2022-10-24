@@ -18,10 +18,7 @@ import {
   LOGIN_USER,
   EXIT_SESSION,
   LOGIN_USER_AUTH0,
-<<<<<<< HEAD
-=======
   USER_STATUS
->>>>>>> 6a7652dd50d0b8bd1c4b33a83d45d69038545e94
 } from "./common";
 
 const initialState = {
@@ -34,11 +31,7 @@ const initialState = {
   statuslogin: true,
   paymentId: "",
   Details: [],
-<<<<<<< HEAD
-  user: "",
-=======
   user: 'No Logueado',
->>>>>>> 6a7652dd50d0b8bd1c4b33a83d45d69038545e94
   // propertiesToCheck: [],
 };
 
@@ -149,10 +142,6 @@ function rootReducer(state = initialState, action) {
       console.log(action.payload);
       return {
         ...state,
-<<<<<<< HEAD
-        paymentId: action.payload,
-      };
-=======
         paymentId: action.payload
       }
     case USER_STATUS:
@@ -160,7 +149,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         user: action.payload
       }
->>>>>>> 6a7652dd50d0b8bd1c4b33a83d45d69038545e94
     default:
       return state;
   }
