@@ -25,6 +25,7 @@
     "express": "^4.18.2",
     "helmet": "^6.0.0",
     "jsonwebtoken": "^8.5.1",
+    "mercadopago": "^1.5.14",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.6",
     "pg": "^8.8.0",
@@ -34,7 +35,6 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^8.2.1",
     "supertest": "^6.0.1",
     "supertest-session": "^4.1.0"
   }

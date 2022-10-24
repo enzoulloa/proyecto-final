@@ -2,6 +2,7 @@ import React from "react";
 import "../scss/About.scss";
 import NavBar from "./NavBar/NavBar";
 import text from "./text.js";
+import logo from '../assets/LOGUITO-PF.svg'
 
 const img =
   "https://lasillarotarm.blob.core.windows.net/images/2020/11/20/barackobama.jpg";
@@ -14,7 +15,7 @@ export default function About() {
             </div> */}
       <div className="Head">
         <div className="Logo">
-          <img src="https://res.cloudinary.com/dwgp6lmlt/image/upload/v1665608338/photo_dbm6i5.jpg" />
+          <img src={logo} />
         </div>
         <div className="Text">
           <h1>¿Quienes somos?</h1>
@@ -41,7 +42,7 @@ export default function About() {
           <div className="Member">
             <img src={img} />
             <div className="Member-Text">
-              <h1>Enzo 🥵</h1>
+              <h1>Enzo </h1>
               <h3>
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum
                 expedita, incidunt necessitatibus vitae ipsam aliquid. Pariatur
@@ -65,7 +66,7 @@ export default function About() {
           <div className="Member">
             <img src={img} />
             <div className="Member-Text">
-              <h1>Tomás 🌹</h1>
+              <h1>Tomás </h1>
               <h3>
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum
                 expedita, incidunt necessitatibus vitae ipsam aliquid. Pariatur

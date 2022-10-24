@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   getDetail,
   clearDetail,
@@ -17,6 +17,8 @@ export default function Detail() {
   const { id, name, prodPrice } = useParams();
   console.log(name, prodPrice);
   // console.log(window.location.search);
+  const { paymentStatus } = useSearchParams();
+  // console.log(name, prodPrice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = {
@@ -25,24 +27,6 @@ export default function Detail() {
     role: 4,
   };
   
-  const ownership = useSelector((state) => state.ownershipDetail);
-  const paymentId = useSelector((state) => state.paymentId);
-  const [product, setProduct] = useState({
-    items: [
-      {
-        title: name,
-        unit_price: parseInt(prodPrice),
-        quantity: 1,
-      },
-    ],
-    back_urls: {
-      success: "http://localhost:5173/listings",
-      failure: "http://localhost:5173/listings",
-      pending: "http://localhost:5173/listings",
-    },
-    auto_return: "approved",
-  });
-
   // async function setProd(productName, productPrice) {
   //   await setProduct({
   //     ...product,
@@ -55,19 +39,42 @@ export default function Detail() {
     
   // }, [product]);
 
+  const ownership = useSelector((state) => state.ownershipDetail);
+  let paymentId = useSelector((state) => state.paymentId);
+  const [newId, setNewId] = useState("");
+  const [paymentState, setPaymentState] = useState("");
+  const [product, setProduct] = useState({
+    items: [
+      {
+        title: name,
+        unit_price: parseInt(prodPrice),
+        quantity: 1,
+      },
+    ],
+    back_urls: {
+      success: "https://proyecto-final.up.railway.app/listings",
+      failure: "https://proyecto-final.up.railway.app/listings",
+      pending: "https://proyecto-final.up.railway.app/listings",
+    },
+    auto_return: "approved",
+  });
+
   useEffect(() => {
-      dispatch(getDetail(id));
-      dispatch(mercadoPago(product));
-    }, [dispatch]);
+    // paymentId = paymentId;
+    // console.log(paymentId);
+    setNewId(paymentId);
+  }, [paymentId]);
 
-    // useEffect(() => {
-    //   setProduct({
-    //     ...product,
-    //     [product.items[0].title]: ownership.name,
-    //     [product.items[0].unit_price]: parseInt(ownership.price),
-    //   });
-    // }, [ownership]);
+  useEffect(() => {
+    dispatch(getDetail(id));
+    dispatch(mercadoPago(product));
+    // return setPayment();
+  }, [dispatch]);
 
+  useEffect(() => {
+    setNewId(null);
+  }, []);
+  console.log(newId, paymentId);
   const handleDelete = () => {
     const id = ownership.id;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -122,17 +129,22 @@ export default function Detail() {
 
   const price = convertir();
 
+  useEffect(() => {
+    if (paymentStatus === "approved") return alert("Pago acreditado!");
+    if (paymentStatus === "failure") return alert("Pago fallido");
+    // if(pending) return alert('Pago pendiente...');
+  }, [paymentStatus]);
+
   return (
     <div className="container">
       {ownership.id ? (
         <div className="inner">
-
           <h1 className="h1">{ownership.name}</h1>
-          <Payment
+          {/* <Payment
               name={ownership.name}
               price={ownership.price}
               paymentId={paymentId}
-            />
+            /> */}
           <h4 className="h4">Localidad:&nbsp;{ownership.location}</h4>
           <p className="p">Habitaciones:&nbsp;{ownership.rooms}</p>
           <p className="p">
@@ -147,7 +159,9 @@ export default function Detail() {
           <p className="p">Estado:&nbsp;{ownership.state}</p>
           <h3>Precio:&nbsp;${price}</h3>
           <p className="p">Plantas:&nbsp;{ownership.floors}</p>
-            Comentarios:
+
+          <h3>Comentarios:</h3>
+
           <div className="row-detail titulo-detail div-titulo-detail ">
             <h2 className="h1">{ownership.name}</h2>
             <h2>Precio:&nbsp;${price}</h2>
@@ -160,13 +174,13 @@ export default function Detail() {
           </div>
           <div className="div-detail">
             <h2>Descripcion</h2>
-            <br/>
+            <br />
             <p className="p">{ownership.description}</p>
           </div>
           <div className="div-detail">
             <h2>Caracteristicas</h2>
-            <hr className="hr-detail"/>
-            <br/>
+            <hr className="hr-detail" />
+            <br />
             <div className="row-detail">
               <div className="caract-detail">
                 <div className="row-detail div-prop-detail">
@@ -215,9 +229,10 @@ export default function Detail() {
                   <h4 className="p">Estado:&nbsp;</h4>
                   <h4>{ownership.state}</h4>
                 </div>
-              </div>  
+              </div>
             </div>
           </div>
+          <Payment paymentId={paymentId} />
           <div className="div-detail">
             <h3>Comentarios:</h3>
             <br />

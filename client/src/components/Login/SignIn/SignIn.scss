@@ -47,6 +47,9 @@ section .page .welcome p {
   color: #fff;
   font-weight: 300;
 }
+.sign_in:hover{
+  color: red;
+}
 section .page .welcome .sign_in {
   margin: 30px 0;
   width: 150px;
@@ -64,6 +67,10 @@ section .page .welcome .sign_in {
   visibility: visible;
   transition: 0.5s;
 }
+section .page .welcome .sign_in:hover{
+  background-color: #fff;
+  color: #0d2133;
+}
 section .page .welcome .sign_in_google{
   position: absolute;
   top: 60%;
@@ -76,7 +83,7 @@ section .page .welcome .sign_in_google{
   border-radius: 30px;
   outline: none;
   border: none;
-  background: rgba(0, 0, 0, 0.7);
+  background: #000;
   border: s;
   font-family: "Poppins";
   color: lin;
@@ -84,6 +91,10 @@ section .page .welcome .sign_in_google{
   opacity: 1;
   visibility: visible;
   transition: 0.5s;
+}
+section .page .welcome .sign_in_google:hover{
+  background-color: #111;
+  border: solid #000 1px;
 }
 .sup1{
   color: #3369e8;
@@ -162,8 +173,8 @@ section .page .sign_up h2 {
   color: #000;
 }
 .sign_up p{
-  color: #000;
-  font-size: 8px;
+  color: #f00;
+  font-size: 10px;
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;

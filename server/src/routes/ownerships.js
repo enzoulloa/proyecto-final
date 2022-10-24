@@ -11,17 +11,11 @@ router.get("/", async (req, res) => {
     if (rooms || location || type || min || max || garage) {
       let filteredOwnerships = await filterOwnerships(req.query);
       console.log("filtered");
-      filteredOwnerships.length
-        ? res.send(filteredOwnerships)
-        : res
-            .status(404)
-            .send("Couldn't find ownerships with that description");
+      filteredOwnerships.length ? res.send(filteredOwnerships) : res.status(404).send("Couldn't find ownerships with that description");
     } else {
       let ownerships = await Ownership.findAll();
       console.log("findall");
-      ownerships.length
-        ? res.send(ownerships)
-        : res.status(404).send("Ownerships not found");
+      ownerships.length ? res.send(ownerships) : res.status(404).send("Ownerships not found");
     }
   } catch (error) {
     console.log(error);
@@ -66,11 +60,7 @@ router.post("/", async (req, res) => {
       address,
     } = req.body;
     if (!location || !rooms || !type || !price || !name || !state) {
-      return res
-        .status(409)
-        .send(
-          "Error: location, rooms, type, price, name and state cant be null"
-        );
+      return res.status(409).send("Error: location, rooms, type, price, name and state cant be null");
     } else {
       let findName = Ownership.findAll({ where: { name: name } });
       if (findName.length && type != "department") {
