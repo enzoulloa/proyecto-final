@@ -235,7 +235,7 @@ export default function Detail() {
               Remove ownership
             </button>
           ) : null} */}
-          <Review />
+          <Review id={id} />
         </div>
       ) : (
         <div className="loading">

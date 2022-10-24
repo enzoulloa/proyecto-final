@@ -221,7 +221,11 @@ export function LoginUserAuth0(payload){
 
 export function postReview(payload) {
   return async (dispatch) => {
-    const response = await axios.post('http://localhost:3001/ownership/review', payload)
+    const review = {
+      stars: payload.stars,
+      message: payload.message
+    }
+    const response = await axios.post(`http://localhost:3001/ownerships/reviews?id=${payload.id}`, review)
     return dispatch({
       type: "POST_REVIEW",
       payload: response.data,
