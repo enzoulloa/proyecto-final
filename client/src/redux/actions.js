@@ -11,7 +11,7 @@ import {
   FILTER_BY,
   ORDER_OWNERSHIPS,
   POST_PROPERTY,
-  SELL_FORM,
+  SELL_FORM,   
   MERCADO_PAGO,
   GET_STATUS_LOGIN,
   FILTER_CARDS,
@@ -235,5 +235,20 @@ export function LoginStatus() {
       type: USER_STATUS,
       payload: "Logueado",
     };
+  }
+}
+
+
+export function postReview(payload) {
+  return async (dispatch) => {
+    const review = {
+      stars: payload.stars,
+      message: payload.message
+    }
+    const response = await axios.post(`http://localhost:3001/ownerships/reviews?id=${payload.id}`, review)
+    return dispatch({
+      type: "POST_REVIEW",
+      payload: response.data,
+    })
   }
 }
