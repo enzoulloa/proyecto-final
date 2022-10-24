@@ -51,9 +51,9 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { User, Ownership, UserAuth0 } = sequelize.models;
 
 User.belongsToMany(Ownership, {through: 'UserOwnerships'});
-UserAuth0.belongsToMany(Ownership, {through: 'UserOwnerships'});
+UserAuth0.belongsToMany(Ownership, {through: 'UserAuth0Ownerships'});
 Ownership.hasOne(User, {through: 'UserOwnerships'});
-Ownership.hasOne(UserAuth0, {through: 'UserOwnerships'});
+Ownership.hasOne(UserAuth0, {through: 'UserAuth0Ownerships'});
 
 module.exports = {
   ...sequelize.models,
