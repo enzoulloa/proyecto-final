@@ -17,7 +17,9 @@ import {
   MERCADO_PAGO,
   LOGIN_USER,
   EXIT_SESSION,
-  LOGIN_USER_AUTH0
+  LOGIN_USER_AUTH0,
+  MERCADO_PAGO_ID,
+  MERCADO_PAGO_PAYMENT_SATUS
 } from "./common";
 
 const initialState = {
@@ -29,7 +31,9 @@ const initialState = {
   error: false,
   response: null,
   statuslogin: true,
+  productId: '',
   paymentId: '',
+  paymentStatus: '',
   Details: [],
   user: '',
   // propertiesToCheck: [],
@@ -46,7 +50,7 @@ function rootReducer(state = initialState, action) {
         loading: false,
         error: false,
         response: null,
-        paymentId: null
+        productId: null
       };
 
     case GET_USERS:
@@ -140,9 +144,19 @@ function rootReducer(state = initialState, action) {
       }
     case MERCADO_PAGO:
       console.log(action.payload)
-      return{
+      return {
+        ...state,
+        productId: action.payload
+      }
+    case MERCADO_PAGO_ID:
+      return {
         ...state,
         paymentId: action.payload
+      }
+    case MERCADO_PAGO_PAYMENT_SATUS:
+      return {
+        ...state,
+        paymentStatus: action.payload
       }
     default:
       return state;
