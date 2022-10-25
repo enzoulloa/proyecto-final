@@ -7,11 +7,13 @@ mercadopago.configure({
 });
 
 const router = Router();
+let paymentId = '';
 
 router.post('/', async (req, res) => {
     const product = req.body;
     try {
         const response = await mercadopago.preferences.create(product);
+        // console.log(response);
         const preferenceId = response.body.id;
         res.send({preferenceId});
     } catch (e) {
@@ -23,15 +25,16 @@ router.post('/paymentId', (req, res) => {
     const body = req.body;
     try {
         console.log(body);
+        paymentId = body.data.id;
         res.send('ok');
     } catch (error) {
         console.log(error);
     };
 });
 
-router.get('/paymentID', (req, res) => {
+router.get('/paymentId', (req, res) => {
     try {
-        res.send('Hola!');
+        res.send({paymentId});
     } catch (error) {
         console.log(error);
     };
