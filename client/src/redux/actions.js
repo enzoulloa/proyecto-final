@@ -19,6 +19,7 @@ import {
   EXIT_SESSION,
   LOGIN_USER_AUTH0,
   USER_STATUS,
+  LOGIN_MODAL
 } from "./common";
 
 export function GetOwnerships() {
@@ -250,5 +251,14 @@ export function postReview(payload) {
       type: "POST_REVIEW",
       payload: response.data,
     })
+  }
+}
+
+
+
+export function statusLoginModal(boolean){
+  return{
+    type: LOGIN_MODAL,
+    payload: boolean
   }
 }

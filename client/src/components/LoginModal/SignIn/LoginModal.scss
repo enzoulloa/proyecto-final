@@ -1,0 +1,331 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,700");
+body {
+  margin: 0;
+  padding: 0;
+}
+.section-modal-login {
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  background: rgba($color: #000000, $alpha: 0.5);
+  top: 0;
+  left: 0;
+}
+.section-modal-login .modal_page {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 400px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
+}
+.section-modal-login .modal_page .welcome_modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 400px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background: #203142;
+  text-align: center;
+  transition: 1s cubic-bezier(0.95, 0.32, 0.37, 1.31);
+  z-index: 2;
+}
+.section-modal-login .modal_page .welcome_modal h2 {
+  text-align: center;
+  margin: 50px 0;
+  font-family: "Poppins";
+  letter-spacing: 2px;
+  color: #fff;
+}
+.section-modal-login .modal_page .welcome_modal p {
+  padding: 0 25px;
+  text-align: center;
+  font-family: "Poppins";
+  color: #fff;
+  font-weight: 300;
+}
+.sign_in_modal:hover{
+  color: red;
+}
+.section-modal-login .modal_page .welcome_modal .sign_in_modal {
+  margin: 30px 0;
+  width: 150px;
+  height: 40px;
+  text-align: center;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  background: transparent;
+  border: 1px solid #fff;
+  font-family: "Poppins";
+  color: #fff;
+  cursor: pointer;
+  opacity: 1;
+  visibility: visible;
+  transition: 0.5s;
+}
+.section-modal-login .modal_page .welcome_modal .sign_in_modal:hover{
+  background-color: #fff;
+  color: #0d2133;
+}
+.section-modal-login .modal_page .welcome_modal .sign_in_modal_google{
+  position: absolute;
+  top: 60%;
+  left: 25%;
+  margin: 30px 0;
+  width: 150px;
+  height: 55px;
+  font-size: 11px;
+  text-align: center;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  background: #000;
+  border: s;
+  font-family: "Poppins";
+  color: lin;
+  cursor: pointer;
+  opacity: 1;
+  visibility: visible;
+  transition: 0.5s;
+}
+.section-modal-login .modal_page .welcome_modal .sign_in_modal_google:hover{
+  background-color: #111;
+  border: solid #000 1px;
+}
+.sup1{
+  color: #3369e8;
+  font-size: 15px;
+}
+.sup2{
+  color: #d50f25;
+  font-size: 15px;
+}
+.sup3{
+  color: #eeb211;
+  font-size: 15px;
+}
+.sup4{
+  color: #3369e8;
+  font-size: 15px;
+}
+.sup5{
+  color: #009925;
+  font-size: 15px;
+}
+.sup6{
+  color: #d50f25;
+  font-size: 15px;
+}
+
+.section-modal-login .modal_page .welcome_modal .btn {
+  position: absolute;
+  top: 57.5%;
+  left: 25%;
+  width: 150px;
+  height: 40px;
+  text-align: center;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  background: transparent;
+  border: 1px solid #fff;
+  font-family: "Poppins";
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+}
+.section-modal-login .modal_page .welcome_modal .btn.active {
+  opacity: 1;
+  visibility: visible;
+  transition: 0.5s;
+  transition-delay: 0.5s;
+}
+.section-modal-login .modal_page .welcome_modal .sign_in_modal.active {
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+  transition: 0.5s;
+  transition-delay: 0.5s;
+}
+.section-modal-login .modal_page .sign_up_modal {
+  position: absolute;
+  top: 0;
+  left: 300px;
+  width: 500px;
+  height: 100%;
+  text-align: center;
+  transition: 1s cubic-bezier(0.95, 0.32, 0.37, 1.31);
+  z-index: 1;
+  opacity: 1;
+  visibility: visible;
+}
+.section-modal-login .modal_page .sign_up_modal h2 {
+  position: relative;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  padding: 0;
+  font-family: "Poppins";
+  color: #000;
+}
+.sign_up_modal p{
+  color: #f00;
+  font-size: 10px;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.section-modal-login .modal_page .sign_up_modal input {
+  margin: 5px 0;
+  width: 300px;
+  height: 30px;
+  font-family: "Poppins";
+  color: #000;
+  font-weight: 700;
+  background-color: #fff;
+}
+.section-modal-login .modal_page .sign_up_modal input[type="text"],
+.section-modal-login .modal_page .sign_up_modal input[type="email"],
+.section-modal-login .modal_page .sign_up_modal input[type="password"],
+.section-modal-login .modal_page .sign_up_modal input[type="number"] {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000;
+  transition: 0.5s;
+}
+.section-modal-login .modal_page .sign_up_modal input[type="text"]:focus,
+.section-modal-login .modal_page .sign_up_modal input[type="email"]:focus,
+.section-modal-login .modal_page .sign_up_modal input[type="password"]:focus,
+.section-modal-login .modal_page .sign_up_modal input[type="number"]:focus {
+  border-bottom-color: #26a69a;
+  transition: 0.5s;
+}
+.section-modal-login .modal_page .sign_up_modal .up-off_modal{
+  width: 150px;
+  height: 40px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  background: rgb(126, 126, 126);
+  color: #fff;
+  border-radius: 30px;
+  transition: 0.5s;
+  cursor: no-drop;
+}
+.section-modal-login .modal_page .sign_up_modal .up_modal {
+  width: 150px;
+  height: 40px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  background: #000;
+  color: #fff;
+  border-radius: 30px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.section-modal-login .modal_page .sign_up_modal .up_modal:hover {
+  background: transparent;
+  border: 2px solid #000;
+  color: #000;
+  font-weight: 700;
+}
+.section-modal-login .modal_page .welcome_modal.active {
+  background: #000;
+  color: #fff;
+  left: 62.5%;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  transition: 1s cubic-bezier(0.95, 0.32, 0.37, 1.31);
+  z-index: 2;
+}
+.section-modal-login .modal_page .sign_up_modal.active {
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: 1s cubic-bezier(0.95, 0.32, 0.37, 1.31);
+}
+.section-modal-login .modal_page .login {
+  position: absolute;
+  top: 0;
+  left: 300px;
+  width: 500px;
+  height: 100%;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.section-modal-login .modal_page .login h2 {
+  position: relative;
+  margin: 50px 0;
+  padding: 0;
+  font-family: "Poppins";
+}
+.section-modal-login .modal_page .login input {
+  margin: 5px 0;
+  width: 300px;
+  height: 30px;
+  font-family: "Poppins";
+  color: #000;
+  font-weight: 700;
+}
+.section-modal-login .modal_page .login input[type="email"],
+.section-modal-login .modal_page .login input[type="password"] {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000;
+  transition: 0.5s;
+}
+.section-modal-login .modal_page .login input[type="email"]:focus,
+.section-modal-login .modal_page .login input[type="password"]:focus {
+  border-bottom-color: #2ecc71;
+  transition: 0.5s;
+}
+.section-modal-login .modal_page .login .in {
+  width: 150px;
+  height: 40px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  background: #000;
+  color: #fff;
+  border-radius: 30px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.section-modal-login .modal_page .login .in:hover {
+  background: transparent;
+  border: 2px solid #000;
+  color: #000;
+  font-weight: 700;
+}
+.section-modal-login .modal_page .login.active {
+  left: 0;
+  opacity: 1;
+  visibility: visible;
+  transition: 1s cubic-bezier(0.95, 0.32, 0.37, 1.31);
+}
+.close_login_modal{
+  background-color: transparent;
+  border: none;
+  color: #000;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 15px;
+  z-index: 99;
+}
+.close_login_modal:hover{
+  color: rgb(131, 36, 36);
+  border: none;
+  cursor: pointer;
+}

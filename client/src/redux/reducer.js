@@ -18,7 +18,8 @@ import {
   LOGIN_USER,
   EXIT_SESSION,
   LOGIN_USER_AUTH0,
-  USER_STATUS
+  USER_STATUS,
+  LOGIN_MODAL
 } from "./common";
 
 const initialState = {
@@ -152,6 +153,11 @@ function rootReducer(state = initialState, action) {
       return{
         ...state,
         user: action.payload
+      }
+    case LOGIN_MODAL:
+      return{
+        ...state,
+        loginuserModal: action.payload
       }
     default:
       return state;
