@@ -18,6 +18,7 @@ import UserChangePassword from "../components/UserDetails/components/UserChangeP
 import UserModifyInfo from "../components/UserDetails/components/UserModifyInfo";
 import UserPendingList from "../components/UserDetails/components/UserPendingList";
 import UserModerate from "../components/UserDetails/components/UserModerate";
+import LoginModal from "../components/LoginModal/SignIn/LoginModal";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="formularios_pendientes" element={<UserPendingList />} />
           <Route path="moderacion" element={<UserModerate />} />
         </Route>
+        <Route path='/modal' element={<LoginModal/>}/>
         <Route path="*" element={<Error />} />
       </Routes>
       <div className="containerK">

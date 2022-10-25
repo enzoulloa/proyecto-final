@@ -41,6 +41,7 @@ app.post("/", async (req, res) => {
       name: userDB.name,
       role: userDB.role,
       userAuth0: false,
+      
     });
   }
 });
