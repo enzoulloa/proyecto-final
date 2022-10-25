@@ -36,5 +36,6 @@ export default function Payment({ productId }) {
       });
     }
     // return setPaymentId(paymentId);
+    }, [mp, productId]);
   return (productId && <div className="cho-container"></div>);
 }
