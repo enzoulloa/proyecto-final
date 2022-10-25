@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useMercadopago } from "react-sdk-mercadopago";
 import './payment.scss';
 
-export default function Payment({ paymentId }) {
-  console.log(paymentId);
+export default function Payment({ productId }) {
+  console.log(productId);
   // let id = useSelector((state) => state.paymentId);
   const mp = useMercadopago.v2("TEST-4451a309-a6c0-4e53-8983-9e6f42531c98", {
     locale: "es-AR",
@@ -24,10 +24,10 @@ export default function Payment({ paymentId }) {
     // console.log(id2);
     // id2 = id;
     // console.log(id2);
-    if (mp && paymentId) {
+    if (mp && productId) {
       mp.checkout({
         preference: {
-          id: paymentId,
+          id: productId,
         },
         render: {
           container: ".cho-container",
@@ -35,7 +35,7 @@ export default function Payment({ paymentId }) {
         },
       });
     }
-  }, [mp, paymentId]);
-
-  return (paymentId && <div className="cho-container"></div>);
+    // return setPaymentId(paymentId);
+    }, [mp, productId]);
+  return (productId && <div className="cho-container"></div>);
 }

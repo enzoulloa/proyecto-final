@@ -7,31 +7,36 @@ mercadopago.configure({
 });
 
 const router = Router();
-
-let preference = {
-    items: [
-      {
-        title: "Mi producto",
-        unit_price: 100,
-        quantity: 1,
-      },
-    ],
-    back_urls: {
-        success: "http://127.0.0.1:5173/",
-        failure: "http://127.0.0.1:5173/sell",
-        pending: "http://127.0.0.1:5173/about"
-    },
-    auto_return: "aproved"
-};
+let paymentId = '';
 
 router.post('/', async (req, res) => {
     const product = req.body;
     try {
         const response = await mercadopago.preferences.create(product);
+        // console.log(response);
         const preferenceId = response.body.id;
         res.send({preferenceId});
     } catch (e) {
         console.log(e.message);
+    };
+});
+
+router.post('/paymentId', (req, res) => {
+    const body = req.body;
+    try {
+        console.log(body);
+        paymentId = body.data.id;
+        res.send('ok');
+    } catch (error) {
+        console.log(error);
+    };
+});
+
+router.get('/paymentId', (req, res) => {
+    try {
+        res.send({paymentId});
+    } catch (error) {
+        console.log(error);
     };
 });
 

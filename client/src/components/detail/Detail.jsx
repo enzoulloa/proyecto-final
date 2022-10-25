@@ -39,10 +39,12 @@ export default function Detail() {
   // }, [product]);
 
   const ownership = useSelector((state) => state.ownershipDetail);
-  let paymentId = useSelector((state) => state.paymentId);
-  const [newId, setNewId] = useState("");
-  const [paymentState, setPaymentState] = useState("");
+  let productId = useSelector((state) => state.productId);
+  const [newId, setNewId] = useState('');
+  const [paymentState, setPaymentState] = useState('');
   const [product, setProduct] = useState({
+    external_reference: "ABC",
+    notification_url: "http://localhost:3001/payment/paymentId",
     items: [
       {
         title: name,
@@ -61,8 +63,8 @@ export default function Detail() {
   useEffect(() => {
     // paymentId = paymentId;
     // console.log(paymentId);
-    setNewId(paymentId);
-  }, [paymentId]);
+    setNewId(productId);
+  },[productId]);
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -73,7 +75,7 @@ export default function Detail() {
   useEffect(() => {
     setNewId(null);
   }, []);
-  console.log(newId, paymentId);
+  console.log(newId, productId);
   const handleDelete = () => {
     const id = ownership.id;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -127,7 +129,7 @@ export default function Detail() {
   }
 
   const price = convertir();
-
+  
   useEffect(() => {
     if (paymentStatus === "approved") return alert("Pago acreditado!");
     if (paymentStatus === "failure") return alert("Pago fallido");
@@ -229,7 +231,7 @@ export default function Detail() {
               </div>
             </div>
           </div>
-          <Payment paymentId={paymentId} />
+          <Payment productId={productId}/>
           <div className="div-detail">
             <h3>Comentarios:</h3>
             <br />

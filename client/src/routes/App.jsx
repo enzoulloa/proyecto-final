@@ -16,6 +16,7 @@ import UserDashboard from "../components/UserDetails/components/UserDashboard";
 import UserFavorites from "../components/UserDetails/components/UserFavorites";
 import UserChangePassword from "../components/UserDetails/components/UserChangePassword";
 import UserModifyInfo from "../components/UserDetails/components/UserModifyInfo";
+import PaymentStatus from "../components/PaymentStatus";
 import UserPendingList from "../components/UserDetails/components/UserPendingList";
 import UserModerate from "../components/UserDetails/components/UserModerate";
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/listings" element={<Listing />} />
         <Route path="/ownerships/detail/:id/:name/:prodPrice" element={<Detail />} />
+        <Route path='/estado_de_pago' element={<PaymentStatus />}/>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
