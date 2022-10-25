@@ -14,6 +14,8 @@ import Carousel from "./Carousel.jsx";
 
 export default function Detail() {
   const { id, name, prodPrice } = useParams();
+  console.log(name, prodPrice);
+  // console.log(window.location.search);
   const { paymentStatus } = useSearchParams();
   // console.log(name, prodPrice);
   const dispatch = useDispatch();
@@ -24,6 +26,18 @@ export default function Detail() {
     role: 4,
   };
   
+  // async function setProd(productName, productPrice) {
+  //   await setProduct({
+  //     ...product,
+  //     [product.items[0].title]: productName,
+  //     [product.items[0].unit_price]: parseInt(productPrice),
+  //   });
+  // };
+
+  // useEffect(() => {
+    
+  // }, [product]);
+
   const ownership = useSelector((state) => state.ownershipDetail);
   let productId = useSelector((state) => state.productId);
   const [newId, setNewId] = useState('');
@@ -39,9 +53,9 @@ export default function Detail() {
       },
     ],
     back_urls: {
-      success: "http://localhost:5173/estado_de_pago",
-      failure: "http://localhost:5173/estado_de_pago",
-      pending: "http://localhost:5173/estado_de_pago",
+      success: "https://proyecto-final.up.railway.app/listings",
+      failure: "https://proyecto-final.up.railway.app/listings",
+      pending: "https://proyecto-final.up.railway.app/listings",
     },
     auto_return: "approved",
   });
@@ -53,10 +67,10 @@ export default function Detail() {
   },[productId]);
 
   useEffect(() => {
-      dispatch(getDetail(id));
-      dispatch(mercadoPago(product));
-      // return setPayment();
-    }, [dispatch]);
+    dispatch(getDetail(id));
+    dispatch(mercadoPago(product));
+    // return setPayment();
+  }, [dispatch]);
 
   useEffect(() => {
     setNewId(null);
@@ -115,18 +129,17 @@ export default function Detail() {
   }
 
   const price = convertir();
-
-  // useEffect(() => {
-  //   if(paymentStatus === 'approved') return alert('Pago acreditado!');
-  //   if(paymentStatus === 'failure') return alert('Pago fallido');
-  //   // if(pending) return alert('Pago pendiente...');
-  // }, [paymentStatus]);
+  
+  useEffect(() => {
+    if (paymentStatus === "approved") return alert("Pago acreditado!");
+    if (paymentStatus === "failure") return alert("Pago fallido");
+    // if(pending) return alert('Pago pendiente...');
+  }, [paymentStatus]);
 
   return (
     <div className="container">
       {ownership.id ? (
         <div className="inner">
-
           <h1 className="h1">{ownership.name}</h1>
           {/* <Payment
               name={ownership.name}
@@ -147,9 +160,7 @@ export default function Detail() {
           <p className="p">Estado:&nbsp;{ownership.state}</p>
           <h3>Precio:&nbsp;${price}</h3>
           <p className="p">Plantas:&nbsp;{ownership.floors}</p>
-          <h3>
-            Comentarios:
-          </h3>
+          <h3>Comentarios:</h3>
           <div className="row-detail titulo-detail div-titulo-detail ">
             <h2 className="h1">{ownership.name}</h2>
             <h2>Precio:&nbsp;${price}</h2>
@@ -162,13 +173,13 @@ export default function Detail() {
           </div>
           <div className="div-detail">
             <h2>Descripcion</h2>
-            <br/>
+            <br />
             <p className="p">{ownership.description}</p>
           </div>
           <div className="div-detail">
             <h2>Caracteristicas</h2>
-            <hr className="hr-detail"/>
-            <br/>
+            <hr className="hr-detail" />
+            <br />
             <div className="row-detail">
               <div className="caract-detail">
                 <div className="row-detail div-prop-detail">
@@ -217,7 +228,7 @@ export default function Detail() {
                   <h4 className="p">Estado:&nbsp;</h4>
                   <h4>{ownership.state}</h4>
                 </div>
-              </div>  
+              </div>
             </div>
           </div>
           <Payment productId={productId}/>

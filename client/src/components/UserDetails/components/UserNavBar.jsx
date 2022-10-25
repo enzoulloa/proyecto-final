@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function UserNavBar({ page, image, name, userRole, selected }) {
   return (
     <div>
@@ -6,26 +8,37 @@ export default function UserNavBar({ page, image, name, userRole, selected }) {
         <p className="userNavHeaderTitle">Bienvenido, {`${name}`}</p>
       </div>
       <div className="userNavBody">
-        <ul>
-          <p>Info usuario</p>
-          <p>Favs</p>
-          <p>Cambiar contraseña</p>
-          <p>Modificar Info</p>
+        <Link to={`/user/${name}/info`} className="userNavLink">
+          Informacion General
+        </Link>
+        <Link to={`/user/${name}/cambio_contraseña`} className="userNavLink">
+          Cambiar Contraseña
+        </Link>
+        <Link to={`/user/${name}/modificar_info`} className="userNavLink">
+          Modificar Info
+        </Link>
 
-          {userRole === 2 || userRole === 3 ? (
-            <div className="seller">
-              <p>Vendedor-lista de pendientes</p>
-              <p>----Formularios de contacto</p>
-              <p>----Señas hechas pendientes</p>
-            </div>
-          ) : null}
-          {userRole === 3 ? (
-            <div className="admin">
-              <hr />
-              <p>Admin-Listado de usuarios</p>
-            </div>
-          ) : null}
-        </ul>
+        {userRole === 2 || userRole === 3 ? (
+          <div className="seller">
+            <Link
+              to={`/user/${name}/formularios_pendientes`}
+              className="userNavLink"
+            >
+              Formularios pendientes
+            </Link>
+            <Link to={`/user/${name}/lista_pagos`} className="userNavLink">
+              Formularios señados
+            </Link>
+          </div>
+        ) : null}
+        {userRole === 3 && (
+          <div className="admin">
+            <hr />
+            <Link to={`/user/${name}/moderacion`} className="userNavLink">
+              Moderacion
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

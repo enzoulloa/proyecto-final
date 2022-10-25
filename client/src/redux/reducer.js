@@ -20,13 +20,13 @@ import {
   LOGIN_USER_AUTH0,
   MERCADO_PAGO_ID,
   MERCADO_PAGO_PAYMENT_SATUS
+  USER_STATUS
 } from "./common";
 
 const initialState = {
   ownerships: [],
   ownershipDetail: [],
   ownershipsFiltered: [],
-  users: [],
   loading: false,
   error: false,
   response: null,
@@ -35,7 +35,7 @@ const initialState = {
   paymentId: '',
   paymentStatus: '',
   Details: [],
-  user: '',
+  user: 'No Logueado',
   // propertiesToCheck: [],
 };
 
@@ -126,22 +126,22 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         ownershipsFiltered: action.payload,
-      }
+      };
     case LOGIN_USER:
-      return{
+      return {
         ...state,
-        user: action.payload
-      }
+        user: "USUARIO LOGUEADO",
+      };
     case EXIT_SESSION:
-      return{
+      return {
         ...state,
-        user:action.payload
-      }
+        user: action.payload,
+      };
     case LOGIN_USER_AUTH0:
-      return{
+      return {
         ...state,
-        user: action.payload
-      }
+        user: action.payload,
+      };
     case MERCADO_PAGO:
       console.log(action.payload)
       return {
@@ -149,6 +149,7 @@ function rootReducer(state = initialState, action) {
         productId: action.payload
       }
     case MERCADO_PAGO_ID:
+      console.log(action.payload);
       return {
         ...state,
         paymentId: action.payload
@@ -157,6 +158,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         paymentStatus: action.payload
+        }
+    case USER_STATUS:
+      return{
+        ...state,
+        user: action.payload
       }
     default:
       return state;
