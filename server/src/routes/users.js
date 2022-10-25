@@ -1,20 +1,115 @@
 const { Router } = require("express");
-const { User } = require("../db.js");
+const { User, UserAuth0, Ownership, UserOwnerships, UserAuth0Ownerships } = require("../db.js");
 const bcrypt = require("bcryptjs");
 const { getUsers } = require("../../data/userData");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
-  let users = await User.findAll({ order: ["id"] });
-  res.send(users);
+  let users = await User.findAll({ order: ["id"],
+  include: {
+    model: Ownership,
+    attributes:["id",
+      "name",
+      "location",
+      "rooms",
+      "garage",
+      "m2",
+      "type",
+      "expenses",
+      "seller",
+      "description",
+      "images",
+      "state",
+      "price",
+      "floors",
+      "review",
+      "address"],
+    through: {
+        attributes: [],
+    },
+} });
+  let usersAuth0 = await UserAuth0.findAll({ order: ["id"],
+  include: {
+    model: Ownership,
+    attributes:["id",
+      "name",
+      "location",
+      "rooms",
+      "garage",
+      "m2",
+      "type",
+      "expenses",
+      "seller",
+      "description",
+      "images",
+      "state",
+      "price",
+      "floors",
+      "review",
+      "address"],
+    through: {
+        attributes: [],
+    },
+}});
+  const allUsers = [...users, ...usersAuth0]
+  res.send(allUsers);
 });
 
 router.get('/:name', async (req,res) =>{
     const { name } = req.params
-    try{let find = await User.findOne({where:{name: name}})
+    try{
+      let find = await User.findOne({where:{name: name},
+      include: {
+    model: Ownership,
+    attributes:["id",
+      "name",
+      "location",
+      "rooms",
+      "garage",
+      "m2",
+      "type",
+      "expenses",
+      "seller",
+      "description",
+      "images",
+      "state",
+      "price",
+      "floors",
+      "review",
+      "address"],
+    through: {
+        attributes: [],
+    },
+}})
+      let findAuth0= await UserAuth0.findOne({where:{name: name},
+      include: {
+    model: Ownership,
+    attributes:["id",
+      "name",
+      "location",
+      "rooms",
+      "garage",
+      "m2",
+      "type",
+      "expenses",
+      "seller",
+      "description",
+      "images",
+      "state",
+      "price",
+      "floors",
+      "review",
+      "address"],
+    through: {
+        attributes: [],
+    },
+}})
+
 if(find){
    return res.status(200).send(find)
+}else if(findAuth0){
+  return res.status(200).send(findAuth0)
 }else{
    return res.status(404).send('Error 404, not found')
 }}
@@ -51,5 +146,98 @@ router.post("/register", async (req, res) => {
     return res.status(500).send("Error: see console to fix it");
   }
 });
+
+router.put('/addfavorite', async (req,res)=>{
+  const {id, idUser} = req.body
+
+  let ownership = await Ownership.findOne({where:{id: id}})
+  let find = await User.findOne({where:{id: idUser}})
+  let findAuth0= await UserAuth0.findOne({where:{id: idUser}})
+
+  if(ownership){
+    if(find){
+      const user =   await User.findOne({
+        where:{id: idUser},
+        include: {
+          model: Ownership,
+          attributes:["id",
+            "name",
+            "location",
+            "rooms",
+            "garage",
+            "m2",
+            "type",
+            "expenses",
+            "seller",
+            "description",
+            "images",
+            "state",
+            "price",
+            "floors",
+            "review",
+            "address"],
+          through: {
+              attributes: [],
+          },
+      }
+      })
+      await user.addOwnership(ownership)
+      return res.status(201).send("Added to favotire")
+    } 
+    if(findAuth0){
+      const user =   await UserAuth0.findOne({
+        where:{id: idUser},
+        include: {
+          model: Ownership,
+          attributes:["id",
+            "name",
+            "location",
+            "rooms",
+            "garage",
+            "m2",
+            "type",
+            "expenses",
+            "seller",
+            "description",
+            "images",
+            "state",
+            "price",
+            "floors",
+            "review",
+            "address"],
+          through: {
+              attributes: [],
+          },
+      }
+      })
+      await user.addOwnership(ownership)
+      return res.status(201).send("Added to favotire")
+    }
+  }
+  return res.status(500).send({Error: 'Request error, wait and try again later, if problem persist contact admin'})
+})
+
+router.delete('/addfavorite',async(req, res)=>{
+  const {id, idUser} = req.body
+
+  let ownership = await Ownership.findOne({where:{id: id}})
+  let find = await User.findOne({where:{id: idUser}})
+  let findAuth0= await UserAuth0.findOne({where:{id: idUser}})
+
+  if(ownership){
+    if(find){
+      await UserOwnerships.destroy({where: {UserId: idUser, OwnershipId: id}}) 
+      return res.status(201).send('Favorite deleted')
+    } 
+    if(findAuth0){
+      await UserAuth0Ownerships.destroy({where: {UserId: idUser, OwnershipId: id}}) 
+      return res.status(201).send('Favorite deleted')
+    } 
+    
+    
+  }
+  
+  return res.status(500).send({Error: 'Request error, wait and try again later, if problem persist contact admin'})
+})
 
 module.exports = router;
