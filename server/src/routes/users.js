@@ -196,7 +196,7 @@ router.put('/addfavorite', async (req,res)=>{
             "garage",
             "m2",
             "type",
-            "expenses",
+            "expenses",+
             "seller",
             "description",
             "images",
