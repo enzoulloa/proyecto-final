@@ -19,7 +19,8 @@ import {
   EXIT_SESSION,
   LOGIN_USER_AUTH0,
   USER_STATUS,
-  LOGIN_MODAL
+  LOGIN_MODAL,
+  USER_FAVORITE
 } from "./common";
 
 const initialState = {
@@ -33,6 +34,7 @@ const initialState = {
   paymentId: '',
   Details: [],
   user: 'No Logueado',
+  userFavorite: [],
   // propertiesToCheck: [],
 };
 
@@ -140,7 +142,6 @@ function rootReducer(state = initialState, action) {
         user: action.payload,
       };
     case MERCADO_PAGO:
-      console.log(action.payload);
       return {
         ...state,
         paymentId: action.payload
@@ -158,6 +159,12 @@ function rootReducer(state = initialState, action) {
       return{
         ...state,
         loginuserModal: action.payload
+      }
+    case USER_FAVORITE:
+      console.log(action.payload)
+      return{
+        ...state,
+        userFavorite: action.payload.length? action.payload : {Error:'No Tiene Favoritos'}
       }
     default:
       return state;
