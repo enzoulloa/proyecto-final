@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userFavorite } from "../../redux/actions";
 import Error from "../Error";
+import Cards from "../cards/Cards";
+import FiltersCards from "../FilterCards";
 
 
 export default function UserFavorite(){
@@ -15,14 +17,13 @@ export default function UserFavorite(){
     dispatch(userFavorite())
   },[dispatch])
 
+  useEffect(()=>{
+  },[userFavorites])
+
 
   return(
     <div>
-      {
-        userLogin?
-        <h1>{JSON.stringify(userFavorites)}</h1>:
-        <Error/>
-      }
+      <Cards ownerships={userFavorites} />
     </div>
   )
 }

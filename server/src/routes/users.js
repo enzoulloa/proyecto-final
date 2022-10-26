@@ -218,7 +218,7 @@ router.put('/addfavorite', async (req,res)=>{
 })
 
 router.delete('/addfavorite',async(req, res)=>{
-  const {id, idUser} = req.body
+  const {id, idUser} = req.query
 
   let ownership = await Ownership.findOne({where:{id: id}})
   let find = await User.findOne({where:{id: idUser}})

@@ -20,7 +20,10 @@ import {
   LOGIN_USER_AUTH0,
   USER_STATUS,
   LOGIN_MODAL,
-  USER_FAVORITE
+  USER_FAVORITE,
+  OWNERSHIP_FAVORITE,
+  OWNERSHIP_FAVORITE_DELETE,
+  REFRESH_FAVORITES
 } from "./common";
 
 const initialState = {
@@ -161,10 +164,24 @@ function rootReducer(state = initialState, action) {
         loginuserModal: action.payload
       }
     case USER_FAVORITE:
-      console.log(action.payload)
       return{
         ...state,
         userFavorite: action.payload.length? action.payload : {Error:'No Tiene Favoritos'}
+      }
+    case OWNERSHIP_FAVORITE:
+      return{
+        ...state,
+        userFavorite:[...state.userFavorite, action.payload]
+      }
+    case OWNERSHIP_FAVORITE_DELETE:
+      let filter = state.userFavorite.map(el=>{
+        if(el.id !== action.payload.id){
+          return el
+        }} )
+      console.log(filter)
+      return{
+        ...state,
+        userFavorite: filter
       }
     default:
       return state;

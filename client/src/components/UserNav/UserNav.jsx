@@ -42,7 +42,7 @@ export default function UserNav({img, name}){
       </div>
       <ul className="list">
         <li className="list__item"><button onClick={()=>handlerExitSession()} className='a'>salir</button></li>
-        <li><Link to='/fovorite'><button className='button-favorite'>Favoritos</button></Link></li>
+        <li><Link to='/favorite'><button className='button-favorite'>Favoritos</button></Link></li>
       </ul>
     </nav>
     )

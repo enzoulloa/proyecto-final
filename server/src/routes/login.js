@@ -1,13 +1,35 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { User, UserAuth0 } = require("../db.js");
+const { User, UserAuth0, Ownership} = require("../db.js");
 
 const app = express();
 
 app.post("/", async (req, res) => {
   const { email, password } = req.body;
-  let userDB = await User.findOne({ where: { email: email } });
+  let userDB = await User.findOne({ where: { email: email },
+    include: {
+      model: Ownership,
+      attributes:["id",
+        "name",
+        "location",
+        "rooms",
+        "garage",
+        "m2",
+        "type",
+        "expenses",
+        "seller",
+        "description",
+        "images",
+        "state",
+        "price",
+        "floors",
+        "review",
+        "address"],
+      through: {
+          attributes: [],
+      },
+  }});
   if (!userDB) {
     return res.status(404).json({
       ok: false,
@@ -41,7 +63,8 @@ app.post("/", async (req, res) => {
       name: userDB.name,
       role: userDB.role,
       userAuth0: false,
-      
+      id: userDB.id,
+      favorites: userDB.Ownerships
     });
   }
 });
@@ -49,7 +72,29 @@ app.post("/", async (req, res) => {
 app.post("/validate", async (req, res) => {
   const { password, email } = req.body;
   try {
-    const userEmail = await User.findOne({ where: { email: email } });
+    const userEmail = await User.findOne({ where: { email: email },
+      include: {
+        model: Ownership,
+        attributes:["id",
+          "name",
+          "location",
+          "rooms",
+          "garage",
+          "m2",
+          "type",
+          "expenses",
+          "seller",
+          "description",
+          "images",
+          "state",
+          "price",
+          "floors",
+          "review",
+          "address"],
+        through: {
+            attributes: [],
+        },
+    } });
     if (!userEmail) {
       return res.json({ message: "Email or password incorrect" });
     } else {
@@ -68,9 +113,53 @@ app.post("/validate", async (req, res) => {
 app.post("/auth0", async (req, res) => {
   const { email, name, photo } = req.body;
   let userAuth0 = { email: email, name: name, photo: photo };
-  const validate = User.findOne({ where: { email: email } });
+  const validate = User.findOne({ where: { email: email },
+    include: {
+      model: Ownership,
+      attributes:["id",
+        "name",
+        "location",
+        "rooms",
+        "garage",
+        "m2",
+        "type",
+        "expenses",
+        "seller",
+        "description",
+        "images",
+        "state",
+        "price",
+        "floors",
+        "review",
+        "address"],
+      through: {
+          attributes: [],
+      },
+  } });
   if (!validate) {
-    const exist = UserAuth0.findOne({ where: { email: email } });
+    const exist = UserAuth0.findOne({ where: { email: email },
+      include: {
+        model: Ownership,
+        attributes:["id",
+          "name",
+          "location",
+          "rooms",
+          "garage",
+          "m2",
+          "type",
+          "expenses",
+          "seller",
+          "description",
+          "images",
+          "state",
+          "price",
+          "floors",
+          "review",
+          "address"],
+        through: {
+            attributes: [],
+        },
+    }});
     if (!exist) {
       UserAuth0.create({
         email,
@@ -82,7 +171,7 @@ app.post("/auth0", async (req, res) => {
     }
     return res
       .status(200)
-      .send({ role: 1, name: name, photo: photo, userAuth0: true });
+      .send({ role: 1, name: name, photo: photo, userAuth0: true, favorites:[]});
   } else {
     let token = jwt.sign(
       {
@@ -105,6 +194,7 @@ app.post("/auth0", async (req, res) => {
       name: userAuth0.name,
       role: 1,
       userAuth0: true,
+      favorites: userAuth0.Ownerships
     });
   }
 });
