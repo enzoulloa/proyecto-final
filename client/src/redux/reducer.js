@@ -33,6 +33,8 @@ const initialState = {
   Details: [],
   user: 'No Logueado',
   // propertiesToCheck: [],
+  reviews: [],
+  newReview: {}
 };
 
 function rootReducer(state = initialState, action) {
@@ -145,13 +147,20 @@ function rootReducer(state = initialState, action) {
         paymentId: action.payload
       }
     case "POST_REVIEW":
+      console.log(action.payload)
       return {
-        ...state
+        ...state,
+        newReview: action.payload
       };
     case USER_STATUS:
       return{
         ...state,
         user: action.payload
+      }
+    case 'GET_REVIEW':
+      return {
+        ...state,
+        reviews: action.payload
       }
     default:
       return state;

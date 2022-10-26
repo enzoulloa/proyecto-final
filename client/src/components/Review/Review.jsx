@@ -9,7 +9,7 @@ import { startTransition } from "react";
 
 export default function Review({id}) {
     const dispatch = useDispatch()
-    const [review, setReview] = useState("")
+    const [review, setReview] = useState({message: ""})
     const stars = Array(5).fill(0)
     const [currentValue, setCurrentValue] = useState(0)
     const [hoverValue, setHoverValue] = useState(undefined)
@@ -22,7 +22,7 @@ export default function Review({id}) {
             stars: value.toString()
         })
     }
-
+    
     const handleMouseOver = (value) => {
         setHoverValue(value)
     }
@@ -43,8 +43,13 @@ export default function Review({id}) {
     const sendReview = (e) => {
         e.preventDefault()
         console.log(review)
-        review.id = id
+        review.userID = /*window.localStorage.getItem("UserLogin").id ? window.localStorage.getItem("UserLogin").id :*/ 1;
+        review.ownerID = id
+        console.log(review)
         dispatch(postReview(review))
+        setReview({message: ""})
+        setCurrentValue(0)
+        setHoverValue(undefined)
     }
 
     const colors = {

@@ -245,10 +245,20 @@ export function postReview(payload) {
       stars: payload.stars,
       message: payload.message
     }
-    const response = await axios.post(`http://localhost:3001/ownerships/reviews?id=${payload.id}`, review)
+    const response = await axios.post(`http://localhost:3001/reviews?ownerID=${payload.ownerID}&userID=${payload.userID}`, review)
     return dispatch({
       type: "POST_REVIEW",
-      payload: response.data,
+      payload: payload,
+    })
+  }
+}
+
+export function getReview(ownerID) {
+  return async (dispatch) => {
+    const response = await axios.get(`http://localhost:3001/reviews/${ownerID}`)
+    return dispatch({
+      type: 'GET_REVIEW',
+      payload: response.data
     })
   }
 }

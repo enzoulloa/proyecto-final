@@ -9,6 +9,7 @@ const logout = require('./logout.js')
 const ownershipTypes = require('./ownershipTypes')
 const admin = require('./createOrUpdate.js')
 const payment = require('./payment')
+const reviews = require('./review.js')
 
 api.use('/users', users)
 api.use('/ownerships', ownerships)
@@ -19,6 +20,7 @@ api.use('/login', login)
 api.use('/logout', logout)
 api.use('/create', admin)
 api.use('/payment', payment);
+api.use('/reviews', reviews);
 
 
 module.exports = api;
