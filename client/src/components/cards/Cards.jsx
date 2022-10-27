@@ -1,7 +1,11 @@
 import Card from "./Card";
+import { useSelector } from "react-redux";
 import "../../scss/Cards.scss";
 
 export default function Cards({ ownerships }) {
+
+  const statusModalLogin = useSelector((state)=>state.loginuserModal)
+
   return (
     <div className="cardsGrid">
       {ownerships?.map((o) => (

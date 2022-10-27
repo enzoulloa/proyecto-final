@@ -19,6 +19,8 @@
       padding-top: 10px;
       .userImg {
         border-radius: 100%;
+        height: 60px;
+        width: 60px;
       }
       .title {
         margin: 5px;
@@ -27,18 +29,34 @@
 
     .userNavBody {
       margin-top: 50px;
-      ul {
-        p {
+      display: flex;
+      flex-direction: column;
+      .userNavLink {
+        margin: 10px;
+      }
+      .seller {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        .userNavLink {
           margin: 10px;
         }
       }
-      .seller {
-        margin-top: 50px;
-      }
 
       .admin {
-        margin-top: 50px;
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        .userNavLink {
+          margin: 10px;
+        }
       }
     }
   }
+}
+
+.newProfileImg {
+  height: 60px;
+  width: 60px;
+  border-radius: 100%;
 }

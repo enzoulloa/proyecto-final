@@ -1,13 +1,15 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-export default function UserChangePassword({ email, password }) {
+export default function UserChangePassword() {
+  const { user, isLoading } = useAuth0();
   const dispatch = useDispatch();
   const [passwordChangeForm, setPasswordChangeForm] = useState({
     oldPw: "",
     newPw: "",
     newPwVerifier: "",
-    email: email,
+    email: user.name,
   });
 
   function handleInputChange(e) {
@@ -16,7 +18,7 @@ export default function UserChangePassword({ email, password }) {
   }
 
   function submitPwChange() {
-    console.log(passwordChangeForm);
+    console.log("cambio de contraseña");
   }
 
   return (

@@ -17,6 +17,10 @@ import UserFavorites from "../components/UserDetails/components/UserFavorites";
 import UserChangePassword from "../components/UserDetails/components/UserChangePassword";
 import UserModifyInfo from "../components/UserDetails/components/UserModifyInfo";
 import PaymentStatus from "../components/PaymentStatus";
+import UserPendingList from "../components/UserDetails/components/UserPendingList";
+import UserModerate from "../components/UserDetails/components/UserModerate";
+import LoginModal from "../components/LoginModal/SignIn/LoginModal";
+import UserFavorite from "../components/Favorite/UserFavorite";
 
 function App() {
   return (
@@ -30,13 +34,17 @@ function App() {
         <Route path="/ownerships/detail/:id/:name/:prodPrice" element={<Detail />} />
         <Route path='/estado_de_pago' element={<PaymentStatus />}/>
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/user/profile" element={<UserDetails />}>
+        <Route path="/user/:name" element={<UserDetails />}>
           <Route path="info" element={<UserDashboard />} />
-          <Route path="favorites" element={<UserFavorites />} />
-          <Route path="changepw" element={<UserChangePassword />} />
-          <Route path="modify_info" element={<UserModifyInfo />} />
+          <Route path="cambio_contraseña" element={<UserChangePassword />} />
+          <Route path="modificar_info" element={<UserModifyInfo />} />
+          <Route path="formularios_pendientes" element={<UserPendingList />} />
+          <Route path="moderacion" element={<UserModerate />} />
         </Route>
+        <Route path='/modal' element={<LoginModal/>}/>
+        <Route path="/favorite" element={<UserFavorite/>}/>
         <Route path="*" element={<Error />} />
       </Routes>
       <div className="containerK">

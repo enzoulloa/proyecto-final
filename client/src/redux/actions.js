@@ -16,15 +16,28 @@ import {
   MERCADO_PAGO,
   MERCADO_PAGO_ID,
   MERCADO_PAGO_PAYMENT_SATUS,
+  SELL_FORM,   
+  MERCADO_PAGO,
+  GET_STATUS_LOGIN,
+  FILTER_CARDS,
   LOGIN_USER,
   EXIT_SESSION,
   LOGIN_USER_AUTH0,
+  USER_STATUS,
+  LOGIN_MODAL,
+  USER_FAVORITE,
+  OWNERSHIP_FAVORITE,
+  OWNERSHIP_FAVORITE_DELETE,
+  REFRESH_FAVORITES
 } from "./common";
+
+
+const URL_SERVER = 'http://localhost:3001';
 
 export function GetOwnerships() {
   return async function (dispatch) {
     dispatch({ type: LOADING });
-    const res = await axios.get(`http://localhost:3001/ownerships`);
+    const res = await axios.get(`${URL_SERVER}/ownerships`);
     return dispatch({
       type: GET_OWNERSHIPS,
       payload: res.data,
@@ -35,7 +48,7 @@ export function GetOwnerships() {
 export function GetUsers() {
   return async function (dispatch) {
     dispatch({ type: LOADING });
-    const res = await axios.get(`http://localhost:3001/users`);
+    const res = await axios.get(`${URL_SERVER}/users`);
     return dispatch({
       type: GET_USERS,
       payload: res.data,
@@ -73,7 +86,7 @@ export function orderOwnerships(payload) {
 export function postProperty(payload) {
   console.log(payload);
   return async function (dispatch) {
-    const response = await axios.post("http://localhost:3001/ownerships/", {
+    const response = await axios.post(`${URL_SERVER}/ownerships/`, {
       name: payload.name,
       location: payload.location,
       rooms: payload.rooms,
@@ -98,16 +111,10 @@ export function postProperty(payload) {
   };
 }
 
-// export function sellFormPost(payload){
-//   return {
-//     type: SELL_FORM,
-//     payload
-//   };
-
 export function getDetail(id) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`http://localhost:3001/ownerships/${id}`);
+      const response = await axios.get(`${URL_SERVER}/ownerships/${id}`);
       return dispatch({
         type: GET_DETAIL,
         payload: response.data,
@@ -130,7 +137,7 @@ export function clearDetail() {
 export function removeOwnership(id) {
   return async function (dispatch) {
     try {
-      const response = await axios.delete(`http://localhost:3001/deleteOwnerships/${id}`);
+      const response = await axios.delete(`${URL_SERVER}/deleteOwnerships/${id}`);
       return dispatch({
         type: REMOVE_OWNERSHIP,
         payload: response.data,
@@ -156,7 +163,7 @@ export function GetStatusLogin(e) {
 export function filterCards(search) {
   return async function (dispatch) {
     try {
-      const newHouses = await axios.get(`http://localhost:3001/ownerships?${search}`);
+      const newHouses = await axios.get(`${URL_SERVER}/ownerships?${search}`);
       if (newHouses.data.length === 0) throw new Error("No se encontró ninguna casa");
       return dispatch({
         type: FILTER_CARDS,
@@ -175,14 +182,14 @@ export function filterCards(search) {
 
 export function UserRegister(payload) {
   return async function (dispatch) {
-    const newUser = await axios.post("http://localhost:3001/users/register", payload);
+    const newUser = await axios.post(`${URL_SERVER}/users/register`, payload);
     return newUser;
   };
 }
 
 export function LoginUser(payload) {
   return async function (dispatch) {
-    const LoginUser = await axios.post("http://localhost:3001/login", payload);
+    const LoginUser = await axios.post(`${URL_SERVER}/login`, payload);
     localStorage.setItem("UserLogin", JSON.stringify(LoginUser.data));
     return dispatch({
       type: LOGIN_USER,
@@ -193,7 +200,7 @@ export function LoginUser(payload) {
 
 export function ExitSession() {
   return async function (dispatch) {
-    const ExitSession = await axios.get("http://localhost:3001/logout");
+    const ExitSession = await axios.get(`${URL_SERVER}/logout`);
     localStorage.removeItem("UserLogin");
     return dispatch({
       type: EXIT_SESSION,
@@ -206,8 +213,10 @@ export function mercadoPago(payload) {
   return async function (dispatch) {
     console.log(payload);
     try {
+    
       const response = await axios.post("http://localhost:3001/payment", payload);
       console.log(response.data.response.body.id);
+      
       return dispatch({
         type: MERCADO_PAGO,
         payload: response.data.response.body.id,
@@ -252,7 +261,7 @@ export function mercadoPagoPayment(id) {
 
 export function LoginUserAuth0(payload) {
   return async function (dispatch) {
-    const LoginUserAuth0 = await axios.post("http://localhost:3001/login/auth0", payload);
+    const LoginUserAuth0 = await axios.post(`${URL_SERVER}/login/auth0`, payload);
     localStorage.setItem("UserLogin", JSON.stringify(LoginUserAuth0.data));
     console.log(LoginUserAuth0.data);
     return {
@@ -260,4 +269,113 @@ export function LoginUserAuth0(payload) {
       payload: "USUARIO AUTH0 LOGUEADO",
     };
   };
+}
+export function LoginStatus() {
+  const userLogin = JSON.parse(localStorage.getItem("UserLogin"));
+  if (!userLogin) {
+    return {
+      type: USER_STATUS,
+      payload: "No Logueado",
+    };
+  } else {
+    return {
+      type: USER_STATUS,
+      payload: "Logueado",
+    };
+  }
+}
+
+
+export function postReview(payload) {
+  return async (dispatch) => {
+    const review = {
+      stars: payload.stars,
+      message: payload.message
+    }
+    const response = await axios.post(`http://localhost:3001/ownerships/reviews?id=${payload.id}`, review)
+    return dispatch({
+      type: "POST_REVIEW",
+      payload: response.data,
+    })
+  }
+}
+
+
+
+export function statusLoginModal(boolean){
+  return{
+    type: LOGIN_MODAL,
+    payload: boolean
+  }
+}
+
+export function userFavorite(){
+
+  return async (dispatch)=>{
+    try{
+      const userLogin = JSON.parse(localStorage.getItem("UserLogin"));
+      const favorites = await axios.get(`http://localhost:3001/users/${userLogin.name}`)
+      return dispatch({
+        type: USER_FAVORITE,
+        payload: favorites.data.Ownerships.length? favorites.data.Ownerships : {Error:'no existe'}
+      })
+    }catch(error){
+      return dispatch({
+        type: USER_FAVORITE,
+        payload: {Error: 'no tiene favoritos'}
+      })
+    }
+  }
+}
+
+
+export function addfavorite(payload){
+  return async (dispatch)=>{
+    try{
+      const addfavorite = await axios.put('http://localhost:3001/users/addfavorite',payload)
+      const ownership = await axios.get(`http://localhost:3001/ownerships/${payload.id}`)
+      return dispatch({
+        type:OWNERSHIP_FAVORITE,
+        payload: ownership.data
+      })
+    }catch(err){
+      Swal.fire({
+        icon: "error",
+        title: "Error 412",
+        text: "No se puedo agregar propiedad"
+      });
+    }
+  }
+}
+
+export function deleteFavorite(payload){
+  return async (dispatch)=>{
+    console.log(payload)
+    try{
+      const deletefavorite = await axios.delete(`http://localhost:3001/users/addfavorite?id=${payload.id}&idUser=${payload.idUser}`)
+      const ownership = await axios.get(`http://localhost:3001/ownerships/${payload.id}`)
+      return dispatch({
+        type:OWNERSHIP_FAVORITE_DELETE,
+        payload: ownership.data
+
+      })
+    }catch(err){
+      Swal.fire({
+        icon: "error",
+        title: "Error 412",
+        text: "No se puedo eliminar propiedad"
+      });
+    }
+  }
+}
+
+export function refresh(){
+  return async (dispatch)=>{
+    const userLogin = JSON.parse(localStorage.getItem("UserLogin"));
+    const favorites = await axios.get(`http://localhost:3001/users/${userLogin.name}`)
+    return dispatch({
+      type: REFRESH_FAVORITES,
+      payload:favorites.data.Ownerships
+    })
+  }
 }

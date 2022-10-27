@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { useAuth0 } from "@auth0/auth0-react";
-import { LoginUserAuth0 } from "../../redux/actions";
+import { LoginUserAuth0, LoginStatus } from "../../redux/actions";
+import UserNav from "../UserNav/UserNav";
+import img from '../../assets/LOGUITO-PF.svg'
 
 
 export default function NavBar() {
@@ -35,35 +37,19 @@ export default function NavBar() {
     Swal.fire('Sesion Cerrada','Sesion cerrada correctamente', 'success')
   }
 
-  function handlerExitSession(){
-    if(isAuthenticated){
-      logout()
-      localStorage.removeItem('UserLogin');
-    }else{
-      dispatch(ExitSession())
-    }
-    alert()
-    navigate('/signin')
-  }
+  
   
   return (
+    
     <div className="nav">
       <Link to="/">
-        <p>Loguito</p>
+        <img src={img}  className='img-loguito'/>
       </Link>
       <div className="linksContainer">
-        <Link to="/about" className="link">
-          Sobre Nosotros
-        </Link>
         <div className="loginContainer">
           {
             userLogin?
-            <div className="cont-user-nav">
-              <Link to={`/user/${userLogin.name}`}>
-              <img src={userLogin.photo} className='img_user'/>
-              </Link>
-              <button className='btn_logout' onClick={()=>handlerExitSession()}>salir</button>
-            </div>:
+            <UserNav img={userLogin.photo} name={userLogin.name}/>:
             location.pathname !== '/signin' && location.pathname !== '/signup' &&
             (
               <div className="div_register_cont">
@@ -77,6 +63,7 @@ export default function NavBar() {
           }
         </div>
       </div>
+      <div className="line-nav"></div>
     </div>
   );
 }

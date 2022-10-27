@@ -19,14 +19,19 @@ import {
   EXIT_SESSION,
   LOGIN_USER_AUTH0,
   MERCADO_PAGO_ID,
-  MERCADO_PAGO_PAYMENT_SATUS
+  MERCADO_PAGO_PAYMENT_SATUS,
+  USER_STATUS,
+  LOGIN_MODAL,
+  USER_FAVORITE,
+  OWNERSHIP_FAVORITE,
+  OWNERSHIP_FAVORITE_DELETE,
+  REFRESH_FAVORITES,
 } from "./common";
 
 const initialState = {
   ownerships: [],
   ownershipDetail: [],
   ownershipsFiltered: [],
-  users: [],
   loading: false,
   error: false,
   response: null,
@@ -35,7 +40,8 @@ const initialState = {
   paymentId: '',
   paymentStatus: '',
   Details: [],
-  user: '',
+  user: 'No Logueado',
+  userFavorite: [],
   // propertiesToCheck: [],
 };
 
@@ -51,6 +57,7 @@ function rootReducer(state = initialState, action) {
         error: false,
         response: null,
         productId: null
+        paymentId: null,
       };
 
     case GET_USERS:
@@ -126,22 +133,47 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         ownershipsFiltered: action.payload,
-      }
+      };
     case LOGIN_USER:
-      return{
+      return {
         ...state,
-        user: action.payload
-      }
+        user: "USUARIO LOGUEADO",
+      };
     case EXIT_SESSION:
-      return{
+      return {
         ...state,
-        user:action.payload
-      }
+        user: action.payload,
+      };
     case LOGIN_USER_AUTH0:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case MERCADO_PAGO:
+      return {
+        ...state,
+        paymentId: action.payload
+      }
+    case "POST_REVIEW":
+      return {
+        ...state
+      };
+    case USER_STATUS:
       return{
         ...state,
         user: action.payload
       }
+    case LOGIN_MODAL:
+      return{
+        ...state,
+        loginuserModal: action.payload
+      }
+    case USER_FAVORITE:
+      return{
+        ...state,
+        userFavorite: action.payload.length? action.payload : {Error:'No Tiene Favoritos'}
+      }
+
     case MERCADO_PAGO:
       console.log(action.payload)
       return {
@@ -150,8 +182,23 @@ function rootReducer(state = initialState, action) {
       }
     case MERCADO_PAGO_ID:
       return {
-        ...state,
+        ..state,
         paymentId: action.payload
+      }
+    case OWNERSHIP_FAVORITE:
+      return{
+        ...state,
+        userFavorite:[...state.userFavorite, action.payload]
+      }
+    case OWNERSHIP_FAVORITE_DELETE:
+      let filter = state.userFavorite.map(el=>{
+        if(el.id !== action.payload.id){
+          return el
+        }} )
+      console.log(filter)
+      return{
+        ...state,
+        userFavorite: filter
       }
     case MERCADO_PAGO_PAYMENT_SATUS:
       return {
