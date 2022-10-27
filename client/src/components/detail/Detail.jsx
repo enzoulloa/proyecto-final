@@ -49,10 +49,10 @@ export default function Detail() {
   // },[productId]);
 
   useEffect(() => {
-      dispatch(getDetail(id));
-      dispatch(mercadoPago(product));
-      // return setPayment();
-    }, [dispatch]);
+    dispatch(getDetail(id));
+    dispatch(mercadoPago(product));
+    // return setPayment();
+  }, [dispatch]);
 
   // useEffect(() => {
   //   setNewId(null);
@@ -112,18 +112,17 @@ export default function Detail() {
   }
 
   const price = convertir();
-
-  // useEffect(() => {
-  //   if(paymentStatus === 'approved') return alert('Pago acreditado!');
-  //   if(paymentStatus === 'failure') return alert('Pago fallido');
-  //   // if(pending) return alert('Pago pendiente...');
-  // }, [paymentStatus]);
+  
+  useEffect(() => {
+    if (paymentStatus === "approved") return alert("Pago acreditado!");
+    if (paymentStatus === "failure") return alert("Pago fallido");
+    // if(pending) return alert('Pago pendiente...');
+  }, [paymentStatus]);
 
   return (
     <div className="container">
       {ownership.id ? (
         <div className="inner">
-
           <h1 className="h1">{ownership.name}</h1>
           <h4 className="h4">Localidad:&nbsp;{ownership.location}</h4>
           <p className="p">Habitaciones:&nbsp;{ownership.rooms}</p>
@@ -139,9 +138,7 @@ export default function Detail() {
           <p className="p">Estado:&nbsp;{ownership.state}</p>
           <h3>Precio:&nbsp;${price}</h3>
           <p className="p">Plantas:&nbsp;{ownership.floors}</p>
-          <h3>
-            Comentarios:
-          </h3>
+          <h3>Comentarios:</h3>
           <div className="row-detail titulo-detail div-titulo-detail ">
             <h2 className="h1">{ownership.name}</h2>
             <h2>Precio:&nbsp;${price}</h2>
@@ -154,13 +151,13 @@ export default function Detail() {
           </div>
           <div className="div-detail">
             <h2>Descripcion</h2>
-            <br/>
+            <br />
             <p className="p">{ownership.description}</p>
           </div>
           <div className="div-detail">
             <h2>Caracteristicas</h2>
-            <hr className="hr-detail"/>
-            <br/>
+            <hr className="hr-detail" />
+            <br />
             <div className="row-detail">
               <div className="caract-detail">
                 <div className="row-detail div-prop-detail">
@@ -209,7 +206,7 @@ export default function Detail() {
                   <h4 className="p">Estado:&nbsp;</h4>
                   <h4>{ownership.state}</h4>
                 </div>
-              </div>  
+              </div>
             </div>
           </div>
           <Payment productId={productId} />

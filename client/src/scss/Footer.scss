@@ -21,16 +21,19 @@ footer {
   height: 150px;
   width: 350px;
   left: 150px;
-  top: 55px;
+  top: 40px;
 }
-.title_cont h2 {
+.title {
+  width: 120px;
+  height: 120px;
   font-size: 35px;
-  margin-bottom: 20px;
+  margin-bottom: -10px;
+  margin-top: -20px;
   line-height: 35px;
 }
 .title_cont p {
-  font-size: 15px;
-  margin-bottom: 20px;
+  font-size: 12px;
+  margin-bottom: 15px;
 }
 .redes_ul {
   background-color: #1a242f;

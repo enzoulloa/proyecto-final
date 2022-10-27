@@ -11,9 +11,11 @@ export default function Paginated() {
   const itemsPerPage = 6;
 
   useEffect(() => {
-    axios.get("http://localhost:3001/ownerships").then((ownerships) => {
-      setOwnership(ownerships.data);
-    });
+    axios
+      .get("https://proyecto-final.up.railway.app/ownerships")
+      .then((ownerships) => {
+        setOwnership(ownerships.data);
+      });
   }, []);
 
   useEffect(() => {

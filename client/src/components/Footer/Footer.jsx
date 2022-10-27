@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../scss/Footer.scss";
+import logo from "../../assets/LOGUITO-PF.svg"
 
 export default function Footer() {
   return (
     <div>
       <footer>
         <div className="title_cont">
-          <h2 className="title">Soy Henry Bienes Raices</h2>
+          <img src={logo} className="title" />
           <p className="description">
             Somos una empresa encargada de administrar la venta y alquire de tus
             imuebles
@@ -45,16 +46,16 @@ export default function Footer() {
           <h2>Alquilar</h2>
           <ul>
             <li>
-              <Link>Buenos Aires</Link>
+              <Link to='/listings?ubication=buenos%aires'>Buenos Aires</Link>
             </li>
             <li>
-              <Link>La Plata</Link>
+              <Link to='/listings?ubication=la%plata'>La Plata</Link>
             </li>
             <li>
-              <Link>Misiones</Link>
+              <Link to='/listings?ubication=misiones'>Misiones</Link>
             </li>
             <li>
-              <Link>Neuquen</Link>
+              <Link to='/listings?ubication=neuquen'>Neuquen</Link>
             </li>
           </ul>
         </div>
@@ -62,27 +63,16 @@ export default function Footer() {
           <h2>Comprar</h2>
           <ul>
             <li>
-              <Link>Buenos Aires</Link>
+              <Link to='/listings?ubication=buenos%aires'>Buenos Aires</Link>
             </li>
             <li>
-              <Link>La Plata</Link>
+              <Link to='/listings?ubication=la%plata'>La Plata</Link>
             </li>
             <li>
-              <Link>Misiones</Link>
+              <Link to='/listings?ubication=misiones'>Misiones</Link>
             </li>
             <li>
-              <Link>Neuquen</Link>
-            </li>
-          </ul>
-        </div>
-        <div className="div_Vender">
-          <h2>Vender</h2>
-          <ul>
-            <li>
-              <Link>Contactar</Link>
-            </li>
-            <li>
-              <Link to="/sell">Formulario</Link>
+              <Link to='/listings?ubication=neuquen'>Neuquen</Link>
             </li>
           </ul>
         </div>
@@ -90,16 +80,13 @@ export default function Footer() {
           <h2>Ayuda</h2>
           <ul>
             <li>
-              <Link>About</Link>
+              <Link to='/about'>About</Link>
             </li>
             <li>
-              <Link>Contacto</Link>
+            <a href="mailto:soyhenrybienesraices@gmail.com?Subject=Consultas..">Mail</a>
             </li>
             <li>
-              <Link>Mail</Link>
-            </li>
-            <li>
-              <Link>Celular</Link>
+              <a href="https://api.whatsapp.com/send/?phone=%2B542972527935&text&type=phone_number&app_absent=0">Celular</a>
             </li>
           </ul>
         </div>
