@@ -17,8 +17,6 @@ export default function UserFavorite(){
     dispatch(userFavorite())
   },[dispatch])
 
-  useEffect(()=>{
-  },[userFavorites])
 
 
   return(
