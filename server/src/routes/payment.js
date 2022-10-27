@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
     try {
         const response = await mercadopago.preferences.create(product);
         const preferenceId = response.body.id;
-        res.send({preferenceId});
+        res.send({response});
     } catch (e) {
         console.log(e.message);
     };
@@ -31,6 +31,7 @@ router.post('/paymentId', (req, res) => {
 
 router.get('/paymentID', (req, res) => {
     try {
+        console.log(req.body)
         res.send('Hola!');
     } catch (error) {
         console.log(error);

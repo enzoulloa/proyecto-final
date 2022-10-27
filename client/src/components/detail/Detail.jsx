@@ -36,6 +36,7 @@ export default function Detail() {
         title: name,
         unit_price: parseInt(prodPrice),
         quantity: 1,
+        picture_url: ""
       },
     ],
     back_urls: {

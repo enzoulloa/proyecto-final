@@ -207,10 +207,10 @@ export function mercadoPago(payload) {
     console.log(payload);
     try {
       const response = await axios.post("http://localhost:3001/payment", payload);
-      console.log(response.data.preferenceId);
+      console.log(response.data.response.body.id);
       return dispatch({
         type: MERCADO_PAGO,
-        payload: response.data.preferenceId,
+        payload: response.data.response.body.id,
       });
     } catch (error) {
       console.log(error);
