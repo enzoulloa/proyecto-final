@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GetOwnerships,  userFavorite, refresh} from "../../redux/actions";
+import { GetOwnerships, userFavorite, refresh } from "../../redux/actions";
 import Cards from "../cards/Cards";
 import Loading from "../Loading";
 import NavBar from "../NavBar/NavBar";
@@ -13,7 +13,7 @@ import Error from "../Error";
 export default function Listing() {
   const dispatch = useDispatch();
   const ownerships = useSelector((state) => state.ownershipsFiltered);
-  const userFavorites = useSelector((state)=>state.userFavorite)
+  const userFavorites = useSelector((state) => state.userFavorite);
   const loading = useSelector((state) => state.loading);
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -21,9 +21,10 @@ export default function Listing() {
   const itemsPerPage = 9;
 
   useEffect(() => {
-    if (ownerships.length === 0){
-    dispatch(GetOwnerships());
-    dispatch(userFavorite())
+    if (ownerships.length === 0) {
+      dispatch(GetOwnerships());
+      dispatch(userFavorite());
+    }
   }, [dispatch]);
 
   useEffect(() => {

@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function UserModifyInfo() {
+  const user = useSelector((state) => state.userInfo);
   const [newInfo, setNewInfo] = useState({
-    name: null,
-    email: null,
-    cel: null,
-    photo: null,
+    name: "",
+    email: "",
+    cel: "",
+    photo: "",
   });
   const [imageSelected, setImageSelected] = useState("");
   async function uploadImage() {
@@ -20,13 +22,18 @@ export default function UserModifyInfo() {
     setNewInfo({ ...newInfo, photo: [response.data.url] });
   }
 
+  function handleInfoChange(e) {
+    const value = { ...newInfo, [e.target.name]: e.target.value };
+    setNewInfo(value);
+  }
+
   function submitNewInfo(e) {
     e.preventDefault();
     setNewInfo({
-      name: null,
-      email: null,
-      cel: null,
-      photo: null,
+      name: "",
+      email: "",
+      cel: "",
+      photo: "",
     });
   }
 
@@ -34,7 +41,16 @@ export default function UserModifyInfo() {
     <div>
       <form>
         <div>
-          <p>New profile img: </p>
+          <p>Modificar nombre:</p>
+          <input
+            type="text"
+            name="name"
+            value={newInfo.name}
+            onChange={handleInfoChange}
+          />
+        </div>
+        <div>
+          <p>Modificar imagen de perfil: </p>
           <input
             type="file"
             onChange={(e) => setImageSelected(e.target.files[0])}
@@ -42,7 +58,7 @@ export default function UserModifyInfo() {
           <button type="button" onClick={uploadImage}>
             +
           </button>
-          {newInfo.photo !== null && (
+          {newInfo.photo !== "" && (
             <img
               src={newInfo.photo}
               alt="newProfileImg"
@@ -51,12 +67,22 @@ export default function UserModifyInfo() {
           )}
         </div>
         <div>
-          <p>new cellphone:</p>
-          <input type="number" value={newInfo.cel} />
+          <p>Modificar numero de telefono:</p>
+          <input
+            type="number"
+            name="cel"
+            value={newInfo.cel}
+            onChange={handleInfoChange}
+          />
         </div>
         <div>
-          <p>new email:</p>
-          <input type="text" value={newInfo.email} />
+          <p>Modificar email:</p>
+          <input
+            type="text"
+            name="email"
+            value={newInfo.email}
+            onChange={handleInfoChange}
+          />
         </div>
         <input
           type="submit"
