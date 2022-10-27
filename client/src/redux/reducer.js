@@ -44,6 +44,7 @@ const initialState = {
   userFavorite: [],
   userInfo: {},
   // propertiesToCheck: [],
+  reviews: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -152,20 +153,24 @@ function rootReducer(state = initialState, action) {
         ...state,
         user: action.payload,
       };
-    case MERCADO_PAGO:
-      return {
-        ...state,
-        paymentId: action.payload,
-      };
     case "POST_REVIEW":
+      console.log(action.payload)
       return {
         ...state,
+        reviews: [...state.reviews, action.payload]
+
       };
     case USER_STATUS:
       return {
         ...state,
-        user: action.payload,
-      };
+        user: action.payload
+      }
+
+    case 'GET_REVIEW':
+      return {
+        ...state,
+        reviews: action.payload
+
     case LOGIN_MODAL:
       return {
         ...state,
@@ -178,7 +183,6 @@ function rootReducer(state = initialState, action) {
           ? action.payload
           : { Error: "No Tiene Favoritos" },
       };
-
     case MERCADO_PAGO:
       return {
         ...state,
