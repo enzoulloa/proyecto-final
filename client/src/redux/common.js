@@ -19,6 +19,7 @@ export const FILTER_CARDS = "FILTER_CARDS";
 export const MERCADO_PAGO = "MERCADO_PAGO";
 export const MERCADO_PAGO_ID = "MERCADO_PAGO_ID";
 export const MERCADO_PAGO_PAYMENT_SATUS = "MERCADO_PAGO_PAYMENT_STATUS";
+export const CLEAR_STATUS = 'CLEAR_STATUS';
 
 export function filterBy(ownerships, filters) {
   console.log(filters);

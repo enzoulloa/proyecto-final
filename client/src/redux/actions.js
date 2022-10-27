@@ -19,7 +19,9 @@ import {
   LOGIN_USER,
   EXIT_SESSION,
   LOGIN_USER_AUTH0,
+  CLEAR_STATUS
 } from "./common";
+const ACCESS_TOKEN = 'TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971';
 
 export function GetOwnerships() {
   return async function (dispatch) {
@@ -204,10 +206,10 @@ export function ExitSession() {
 
 export function mercadoPago(payload) {
   return async function (dispatch) {
-    console.log(payload);
+    // console.log(payload);
     try {
       const response = await axios.post("http://localhost:3001/payment", payload);
-      console.log(response.data.preferenceId);
+      // console.log(response.data.preferenceId);
       return dispatch({
         type: MERCADO_PAGO,
         payload: response.data.preferenceId,
@@ -218,13 +220,14 @@ export function mercadoPago(payload) {
   };
 };
 
-export function mercadoPagoId() {
+export function mercadoPagoId(ownershipId) {
   return async function (dispatch) {
     try {
-      const response = await axios.get("http://localhost:3001/payment/paymentId");
+      const response = await axios.get("https://proyecto-final.up.railway.app/payment/paymentId", {id: ownershipId});
+      console.log(response.data);
       return dispatch({
         type: MERCADO_PAGO_ID,
-        payload: response.data.id
+        payload: response.data
       });
     }catch (error){
       console.log(error);
@@ -235,10 +238,12 @@ export function mercadoPagoId() {
 export function mercadoPagoPayment(id) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`https://api.mercadopago.com/v1/payments/${id}/?access_token=${process.env.ACCESS_TOKEN}`);
+      // console.log(id);
+      const response = await axios.get(`https://api.mercadopago.com/v1/payments/${id}/?access_token=${ACCESS_TOKEN}`);
+      // console.log(response);
       const paymentStatus = {
-        status: response.status,
-        status_detail: response.status_detail,
+        status: response.data.status,
+        status_detail: response.data.status_detail
       };
       return dispatch({
         type: MERCADO_PAGO_PAYMENT_SATUS,
@@ -247,6 +252,13 @@ export function mercadoPagoPayment(id) {
     } catch (error) {
       console.log(error);
     };
+  };
+};
+
+export function clearStatus (status) {
+  return {
+    type: CLEAR_STATUS,
+    payload: status
   };
 };
 

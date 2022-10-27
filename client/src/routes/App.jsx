@@ -28,7 +28,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/listings" element={<Listing />} />
         <Route path="/ownerships/detail/:id/:name/:prodPrice" element={<Detail />} />
-        <Route path='/estado_de_pago' element={<PaymentStatus />}/>
+        <Route path='/:ownershipId/estado_de_pago' element={<PaymentStatus />}/>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/user/profile" element={<UserDetails />}>
