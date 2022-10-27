@@ -20,7 +20,10 @@ import {
   LOGIN_USER_AUTH0,
   USER_STATUS,
   LOGIN_MODAL,
-  USER_FAVORITE
+  USER_FAVORITE,
+  OWNERSHIP_FAVORITE,
+  OWNERSHIP_FAVORITE_DELETE,
+  REFRESH_FAVORITES
 } from "./common";
 
 
@@ -271,12 +274,11 @@ export function userFavorite(){
 
   return async (dispatch)=>{
     try{
-      console.log('entre')
       const userLogin = JSON.parse(localStorage.getItem("UserLogin"));
       const favorites = await axios.get(`http://localhost:3001/users/${userLogin.name}`)
       return dispatch({
         type: USER_FAVORITE,
-        payload: favorites.data.Ownerships? favorites.data.Ownerships : {Error:'no existe'}
+        payload: favorites.data.Ownerships.length? favorites.data.Ownerships : {Error:'no existe'}
       })
     }catch(error){
       return dispatch({
@@ -284,5 +286,57 @@ export function userFavorite(){
         payload: {Error: 'no tiene favoritos'}
       })
     }
+  }
+}
+
+
+export function addfavorite(payload){
+  return async (dispatch)=>{
+    try{
+      const addfavorite = await axios.put('http://localhost:3001/users/addfavorite',payload)
+      const ownership = await axios.get(`http://localhost:3001/ownerships/${payload.id}`)
+      return dispatch({
+        type:OWNERSHIP_FAVORITE,
+        payload: ownership.data
+      })
+    }catch(err){
+      Swal.fire({
+        icon: "error",
+        title: "Error 412",
+        text: "No se puedo agregar propiedad"
+      });
+    }
+  }
+}
+
+export function deleteFavorite(payload){
+  return async (dispatch)=>{
+    console.log(payload)
+    try{
+      const deletefavorite = await axios.delete(`http://localhost:3001/users/addfavorite?id=${payload.id}&idUser=${payload.idUser}`)
+      const ownership = await axios.get(`http://localhost:3001/ownerships/${payload.id}`)
+      return dispatch({
+        type:OWNERSHIP_FAVORITE_DELETE,
+        payload: ownership.data
+
+      })
+    }catch(err){
+      Swal.fire({
+        icon: "error",
+        title: "Error 412",
+        text: "No se puedo eliminar propiedad"
+      });
+    }
+  }
+}
+
+export function refresh(){
+  return async (dispatch)=>{
+    const userLogin = JSON.parse(localStorage.getItem("UserLogin"));
+    const favorites = await axios.get(`http://localhost:3001/users/${userLogin.name}`)
+    return dispatch({
+      type: REFRESH_FAVORITES,
+      payload:favorites.data.Ownerships
+    })
   }
 }
