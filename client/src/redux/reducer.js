@@ -43,6 +43,7 @@ const initialState = {
   user: 'No Logueado',
   userFavorite: [],
   // propertiesToCheck: [],
+  reviews: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -149,20 +150,23 @@ function rootReducer(state = initialState, action) {
         ...state,
         user: action.payload,
       };
-    case MERCADO_PAGO:
+    case "POST_REVIEW":
+      console.log(action.payload)
       return {
         ...state,
-        paymentId: action.payload
-      }
-    case "POST_REVIEW":
-      return {
-        ...state
+        reviews: [...state.reviews, action.payload]
       };
     case USER_STATUS:
       return{
         ...state,
         user: action.payload
       }
+
+    case 'GET_REVIEW':
+      return {
+        ...state,
+        reviews: action.payload
+
     case LOGIN_MODAL:
       return{
         ...state,
@@ -173,7 +177,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         userFavorite: action.payload.length? action.payload : {Error:'No Tiene Favoritos'}
       }
-
     case MERCADO_PAGO:
       console.log(action.payload)
       return {

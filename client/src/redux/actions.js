@@ -288,14 +288,32 @@ export function LoginStatus() {
 
 export function postReview(payload) {
   return async (dispatch) => {
-    const review = {
-      stars: payload.stars,
-      message: payload.message
-    }
-    const response = await axios.post(`${URL_SERVER}/ownerships/reviews?id=${payload.id}`, review)
+    const response = await axios.post(
+      `https://proyecto-final.up.railway.app/reviews?ownerID=${payload.ownerID}&userID=${payload.user.id}`,
+      payload.review
+    );
+    const newReview = {
+      ...payload.review,
+      Users: [
+        {
+          ...payload.user,
+        },
+      ],
+    };
+
     return dispatch({
       type: "POST_REVIEW",
-      payload: response.data,
+      payload: newReview,
+    });
+  };
+}
+
+export function getReview(ownerID) {
+  return async (dispatch) => {
+    const response = await axios.get(`https://proyecto-final.up.railway.app/reviews/${ownerID}`)
+    return dispatch({
+      type: 'GET_REVIEW',
+      payload: response.data
     })
   }
 }
