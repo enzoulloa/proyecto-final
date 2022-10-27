@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Sequelize, Op } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
+const sales = require('./models/sales');
 const {
   DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME
 } = process.env;
@@ -48,12 +49,15 @@ modelDefiners.forEach(model => model(sequelize));
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
-const { User, Ownership, UserAuth0 } = sequelize.models;
+const { User, Ownership, UserAuth0, Sales } = sequelize.models;
 
 User.belongsToMany(Ownership, {through: 'UserOwnerships'});
 UserAuth0.belongsToMany(Ownership, {through: 'UserOwnerships'});
 Ownership.hasOne(User, {through: 'UserOwnerships'});
 Ownership.hasOne(UserAuth0, {through: 'UserOwnerships'});
+
+Sales.belongsToMany(Ownership, {through: 'OwnershipSale'});
+Ownership.hasOne(Sales, {through: 'OwnershipSale'});
 
 module.exports = {
   ...sequelize.models,
