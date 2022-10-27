@@ -25,11 +25,12 @@ router.post('/', async (req, res) => {
 
 router.post('/paymentId/:id', async (req, res) => {
     const body = req.body;
-    const ownershipId = req.params.id;
+    const ownershipId = parseInt(req.params.id);
     try {
         console.log(body);
         if(body.data){
             let paymentId = body.data.id;
+            console.log(paymentId);
             const ownership = await Ownership.findOne({where: {id: ownershipId}});
             const newSale = await Sales.create({
                 name: 'Pending...',
@@ -37,7 +38,9 @@ router.post('/paymentId/:id', async (req, res) => {
                 state: 'pending',
                 state_detail: 'pending'
             });
-            await ownership.addSales(newSale);
+            console.log(newSale);
+            const ownershipNewSale = await ownership.addSales(newSale);
+            console.log(ownershipNewSale);
             return res.send('Ok, me estás pasando la data, seguí asi...');
         };
         return res.status(400).send('No me estás pasando la data...');
