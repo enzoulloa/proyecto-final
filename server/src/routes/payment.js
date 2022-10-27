@@ -31,12 +31,13 @@ router.post('/paymentId/:id', async (req, res) => {
         if(body.data){
             let paymentId = body.data.id;
             const ownership = await Ownership.findOne({where: {id: ownershipId}});
-            const newSale = await ownership.createSales({
+            const newSale = await Sales.create({
                 name: 'Pending...',
                 paymentId,
                 state: 'pending',
                 state_detail: 'pending'
             });
+            await ownership.addSales(newSale);
             return res.send('Ok, me estás pasando la data, seguí asi...');
         };
         return res.status(400).send('No me estás pasando la data...');
