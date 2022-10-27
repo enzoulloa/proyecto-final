@@ -171,17 +171,12 @@ function rootReducer(state = initialState, action) {
     case OWNERSHIP_FAVORITE:
       return{
         ...state,
-        userFavorite:[...state.userFavorite, action.payload]
+        userFavorite:[...state.userFavorite, ...action.payload]
       }
     case OWNERSHIP_FAVORITE_DELETE:
-      let filter = state.userFavorite.map(el=>{
-        if(el.id !== action.payload.id){
-          return el
-        }} )
-      console.log(filter)
       return{
         ...state,
-        userFavorite: filter
+        userFavorite: action.payload
       }
     default:
       return state;

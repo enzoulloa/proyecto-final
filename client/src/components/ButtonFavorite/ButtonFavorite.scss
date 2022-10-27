@@ -1,8 +1,26 @@
-.favotire-btn-delete{
-    color: red;
-    background-color: green;
+.cont_button_favorite{
+    position: absolute;
 }
-.favotire-btn-add{
-    color: yellow;
-    background-color: black;
+.botton_favorite{
+    margin-left: -50%;
+    background-color: transparent;
+    border: none;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    align-items: center;
+    text-align: center;
+    align-self: center;
+}
+.botton_favorite img{
+    position: absolute;
+    left: 18%;
+    top: 10%;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+}
+.botton_favorite img:hover{
+    width: 30px;
+    height: 30px;
 }

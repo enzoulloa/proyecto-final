@@ -253,7 +253,7 @@ export function postReview(payload) {
       stars: payload.stars,
       message: payload.message
     }
-    const response = await axios.post(`http://localhost:3001/ownerships/reviews?id=${payload.id}`, review)
+    const response = await axios.post(`${URL_SERVER}/ownerships/reviews?id=${payload.id}`, review)
     return dispatch({
       type: "POST_REVIEW",
       payload: response.data,
@@ -275,7 +275,7 @@ export function userFavorite(){
   return async (dispatch)=>{
     try{
       const userLogin = JSON.parse(localStorage.getItem("UserLogin"));
-      const favorites = await axios.get(`http://localhost:3001/users/${userLogin.name}`)
+      const favorites = await axios.get(`${URL_SERVER}/users/${userLogin.name}`)
       return dispatch({
         type: USER_FAVORITE,
         payload: favorites.data.Ownerships.length? favorites.data.Ownerships : {Error:'no existe'}
@@ -293,13 +293,15 @@ export function userFavorite(){
 export function addfavorite(payload){
   return async (dispatch)=>{
     try{
-      const addfavorite = await axios.put('http://localhost:3001/users/addfavorite',payload)
-      const ownership = await axios.get(`http://localhost:3001/ownerships/${payload.id}`)
+      const addfavorite = await axios.put(`${URL_SERVER}/users/addfavorite`,payload)
+      const userLogin = JSON.parse(localStorage.getItem("UserLogin"));
+      const favorites = await axios.get(`${URL_SERVER}/users/${userLogin.name}`)
       return dispatch({
         type:OWNERSHIP_FAVORITE,
-        payload: ownership.data
+        payload: favorites.data.Ownerships
       })
     }catch(err){
+      console.log(err)
       Swal.fire({
         icon: "error",
         title: "Error 412",
@@ -313,11 +315,12 @@ export function deleteFavorite(payload){
   return async (dispatch)=>{
     console.log(payload)
     try{
-      const deletefavorite = await axios.delete(`http://localhost:3001/users/addfavorite?id=${payload.id}&idUser=${payload.idUser}`)
-      const ownership = await axios.get(`http://localhost:3001/ownerships/${payload.id}`)
+      const deletefavorite = await axios.delete(`${URL_SERVER}/users/addfavorite?id=${payload.id}&idUser=${payload.idUser}`);
+      const userLogin = JSON.parse(localStorage.getItem("UserLogin"));
+      const favorites = await axios.get(`${URL_SERVER}/users/${userLogin.name}`)
       return dispatch({
         type:OWNERSHIP_FAVORITE_DELETE,
-        payload: ownership.data
+        payload: favorites.data.Ownerships
 
       })
     }catch(err){
@@ -333,7 +336,7 @@ export function deleteFavorite(payload){
 export function refresh(){
   return async (dispatch)=>{
     const userLogin = JSON.parse(localStorage.getItem("UserLogin"));
-    const favorites = await axios.get(`http://localhost:3001/users/${userLogin.name}`)
+    const favorites = await axios.get(`${URL_SERVER}/users/${userLogin.name}`)
     return dispatch({
       type: REFRESH_FAVORITES,
       payload:favorites.data.Ownerships
