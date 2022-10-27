@@ -21,6 +21,7 @@ export default function Listing() {
   const itemsPerPage = 9;
 
   useEffect(() => {
+    if (ownerships.length === 0){
     dispatch(GetOwnerships());
     dispatch(userFavorite())
   }, [dispatch]);
