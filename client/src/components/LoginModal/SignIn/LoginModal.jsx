@@ -2,13 +2,13 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate} from "react-router-dom";
-import './SignIn.scss';
+import './LoginModal.scss';
 import ButtonGoogle from "../Login Google/ButtonGoogle.jsx";
 import { LoginUser, LoginStatus } from "../../../redux/actions.js";
 import Error from "../../Error";
 
 
-export default function SignIn(){
+export default function LoginModal(){
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -61,24 +61,25 @@ export default function SignIn(){
 			email:'',
 			password:'',
 		})
-		// navigate('/')
+		navigate('/')
 	}
     return(
 		<div>
 			{
 				satusUser === 'No Logueado' ?
 
-		<section>
-	    	<div className="page">
-	    		<div className="welcome">
+		<section className="section-modal-login">
+	    	<div className="modal_page">
+	    		<div className="welcome_modal">
 	    			<h2>Bienvenido!!</h2>
 	    			<p>Si no tienes un usurio podes registrarte.</p>
 					<Link to='/signup'>
-	    			<button className="sign_in">Registrarme</button>
+	    			<button className="sign_in_modal">Registrarme</button>
 					</Link>
 					<ButtonGoogle/>
 	    		</div>
-	    		<div className="sign_up">
+				<button className="close_login_modal">x</button>
+	    		<div className="sign_up_modal">
 	    			<form onSubmit={()=> handlerSubmit()}>
 	    			<h2>Iniciar Sesion.</h2>
 	    			<input type="email" name="email" placeholder="Email" onChange={e=>handdleCheckSingIn(e)} required/><br/>
@@ -87,8 +88,8 @@ export default function SignIn(){
 					{ errors.password && (<p>{errors.password}</p>)}
 	    			{
 						Object.keys(errors).length !== 0?
-						<input type="submit" name="sign_up" value="Ingresar" className="up-off" disabled={true}/>:
-						<input type="submit" name="sign_up" value="Ingresar" className="up"/>
+						<input type="submit" name="sign_up" value="Ingresar" className="up-off_modal" disabled={true}/>:
+						<input type="submit" name="sign_up" value="Ingresar" className="up_modal"/>
 					}
 	    		    </form>
         		</div>

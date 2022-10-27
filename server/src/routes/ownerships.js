@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const { Ownership, Op, Review, User } = require("../db.js");
 const { filterOwnerships } = require("./functions/filterOwnerships.js");
-const { getOwnerships } = require("../../data/ownershipsData.js");
 
 const router = Router();
 

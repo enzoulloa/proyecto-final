@@ -63,6 +63,7 @@ export default function NavBar() {
           }
         </div>
       </div>
+      <div className="line-nav"></div>
     </div>
   );
 }

@@ -24,7 +24,7 @@ export default function Card({
   return (
     <div id="card-container">
         {
-          verificationUser && verificationUser.role === 1 && <BottonFavotire/>
+          verificationUser && <BottonFavotire id={id}/>
         }
         {
           !verificationUser && <Link to='/signin'><button>+</button></Link>

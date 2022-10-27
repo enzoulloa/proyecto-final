@@ -15,6 +15,7 @@
     display: flex;
   }
   .profile {
+    margin-right: 25%;
     display: flex;
     align-items: center;
     color: white;
@@ -23,7 +24,7 @@
     font-size: 10px;
   }
   .profile__img {
-    width: 40px;
+    width: 60px;
     margin-right: 8px;
   }
   .profile__img img {
@@ -35,18 +36,31 @@
     list-style: none;
     display: none;
     position: absolute;
-    margin-left: -12px;
+    right: 5%;
   }
+
   .list button{
-    font-size: 12px;
+    font-size: 10px;
     border-color:#fff;
     background-color: #121b25;
+    border: none;
   }
-  .list button:hover{
+  .a:hover{
     border-color:#fff;
     color: #f00;
+    border: none;
+  }
+  .button-favorite:hover{
+    border: none;
+    border-color:#fff;
+    color: rgb(255, 255, 137);
   }
   .list__item {
     position: absolute;
     text-align: right;
+  }
+  .button-favorite{
+    z-index: 1;
+    position: absolute;
+    right: 0;
   }

@@ -1,14 +1,22 @@
 .nav {
-  height: 47px;
-  width: 95%;
+  position: sticky;
+  top: 0;
+  height: 50px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0 10px 2%;
   z-index: 9999;
-  background: #121b25;
-  border-bottom: 1px solid #d6d6d6;
+  background: rgba($color: #121b25, $alpha: 0.7);
+}
+.line-nav{
+  width: 96%;
+  position: absolute;
+  margin: 0 2%;
+  bottom: 0;
+  border: 0.5px solid rgb(138, 138, 138);
+  margin-bottom: 5px;
 }
 
 .nav p {
@@ -46,7 +54,7 @@
 
 .button {
   width: 100px;
-  height: 41px;
+  height: 35px;
   left: 1497px;
   top: 38px;
   background: #1aa090;
@@ -61,7 +69,8 @@
   color: #959595;
 }
 .div_register_cont{
-  display: flex
+  display: flex;
+  margin-right: 25%;
 }
 .cont-user-nav{
   display: relative;
@@ -76,6 +85,7 @@
   width: 50%;
 }
 .img-loguito{
-  width: 70px;
-  height: 70px;
+  margin-left: 50%;
+  width: 50px;
+  height: 50px;
 }
