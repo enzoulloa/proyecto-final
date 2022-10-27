@@ -14,10 +14,6 @@ import Carousel from "./Carousel.jsx";
 
 export default function Detail() {
   const { id, name, prodPrice } = useParams();
-  console.log(name, prodPrice);
-  // console.log(window.location.search);
-  const { paymentStatus } = useSearchParams();
-  // console.log(name, prodPrice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = {
@@ -25,26 +21,12 @@ export default function Detail() {
     name: "admin",
     role: 4,
   };
-  
-  // async function setProd(productName, productPrice) {
-  //   await setProduct({
-  //     ...product,
-  //     [product.items[0].title]: productName,
-  //     [product.items[0].unit_price]: parseInt(productPrice),
-  //   });
-  // };
-
-  // useEffect(() => {
-    
-  // }, [product]);
-
   const ownership = useSelector((state) => state.ownershipDetail);
   let productId = useSelector((state) => state.productId);
-  const [newId, setNewId] = useState('');
-  const [paymentState, setPaymentState] = useState('');
+  // const [newId, setNewId] = useState('');
   const [product, setProduct] = useState({
-    external_reference: "ABC",
-    notification_url: "http://localhost:3001/payment/paymentId",
+    // external_reference: "ABC",
+    notification_url: `https://proyecto-final.up.railway.app/payment/paymentId/:${id}`,
     items: [
       {
         title: name,
@@ -53,18 +35,18 @@ export default function Detail() {
       },
     ],
     back_urls: {
-      success: "https://proyecto-final.up.railway.app/listings",
-      failure: "https://proyecto-final.up.railway.app/listings",
-      pending: "https://proyecto-final.up.railway.app/listings",
+      success: `http://localhost:5173/${id}/estado_de_pago`,
+      failure: `http://localhost:5173/${id}/estado_de_pago`,
+      pending: `http://localhost:5173/${id}/estado_de_pago`,
     },
     auto_return: "approved",
   });
 
-  useEffect(() => {
-    // paymentId = paymentId;
-    // console.log(paymentId);
-    setNewId(productId);
-  },[productId]);
+  // useEffect(() => {
+  //   // paymentId = paymentId;
+  //   // console.log(paymentId);
+  //   setNewId(productId);
+  // },[productId]);
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -72,10 +54,11 @@ export default function Detail() {
     // return setPayment();
   }, [dispatch]);
 
-  useEffect(() => {
-    setNewId(null);
-  }, []);
-  console.log(newId, productId);
+  // useEffect(() => {
+  //   setNewId(null);
+  // }, []);
+  // console.log(newId, productId);
+
   const handleDelete = () => {
     const id = ownership.id;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -141,11 +124,6 @@ export default function Detail() {
       {ownership.id ? (
         <div className="inner">
           <h1 className="h1">{ownership.name}</h1>
-          {/* <Payment
-              name={ownership.name}
-              price={ownership.price}
-              paymentId={paymentId}
-            /> */}
           <h4 className="h4">Localidad:&nbsp;{ownership.location}</h4>
           <p className="p">Habitaciones:&nbsp;{ownership.rooms}</p>
           <p className="p">
@@ -231,7 +209,7 @@ export default function Detail() {
               </div>
             </div>
           </div>
-          <Payment productId={productId}/>
+          <Payment productId={productId} />
           <div className="div-detail">
             <h3>Comentarios:</h3>
             <br />

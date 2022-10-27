@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const mercadopago = require('mercadopago');
+const { Sales, Ownership } = require('../db.js')
+
 const ACCES_TOKEN = 'TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971';
 
 mercadopago.configure({
@@ -7,34 +9,53 @@ mercadopago.configure({
 });
 
 const router = Router();
-let paymentId = '';
+// let paymentId = '';
 
 router.post('/', async (req, res) => {
     const product = req.body;
     try {
         const response = await mercadopago.preferences.create(product);
         // console.log(response);
-        const preferenceId = response.body.id;
-        res.send({preferenceId});
+        const productId = response.body.id;
+        res.send({productId});
     } catch (e) {
         console.log(e.message);
     };
 });
 
-router.post('/paymentId', (req, res) => {
+router.post('/paymentId/:id', async (req, res) => {
     const body = req.body;
+    const ownershipId = req.params.id;
     try {
         console.log(body);
-        paymentId = body.data.id;
-        res.send('ok');
+        if(body.data){
+            let paymentId = body.data.id;
+            const ownership = await Ownership.findOne({where: {id: ownershipId}});
+            const newSale = await ownership.createSales({
+                name: 'Pending...',
+                paymentId,
+                state: 'pending',
+                state_detail: 'pending'
+            });
+            return res.send('Ok, me estás pasando la data, seguí asi...');
+        };
+        return res.status(400).send('No me estás pasando la data...');
     } catch (error) {
         console.log(error);
     };
 });
 
-router.get('/paymentId', (req, res) => {
+router.get('/paymentId', async (req, res) => {
+    const ownershipId = req.body.id;
     try {
-        res.send({paymentId});
+        const response = await Ownership.findOne({
+            where: {id: ownershipId},
+            includes: {
+                model: Sales
+            }
+        });
+        console.log(response);
+        res.send(response);
     } catch (error) {
         console.log(error);
     };
