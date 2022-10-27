@@ -36,12 +36,13 @@ const initialState = {
   error: false,
   response: null,
   statuslogin: true,
-  productId: '',
-  paymentId: '',
-  paymentStatus: '',
+  productId: "",
+  paymentId: "",
+  paymentStatus: "",
   Details: [],
-  user: 'No Logueado',
+  user: "No Logueado",
   userFavorite: [],
+  userInfo: {},
   // propertiesToCheck: [],
   reviews: [],
 };
@@ -57,8 +58,7 @@ function rootReducer(state = initialState, action) {
         loading: false,
         error: false,
         response: null,
-        productId: null
-        paymentId: null,
+        productId: null,
       };
 
     case GET_USERS:
@@ -86,7 +86,10 @@ function rootReducer(state = initialState, action) {
 
     case FILTER_BY:
       const ownershipsToFilter = state.ownerships;
-      const ownershipsFilteredByType = filterBy(ownershipsToFilter, action.payload);
+      const ownershipsFilteredByType = filterBy(
+        ownershipsToFilter,
+        action.payload
+      );
       return {
         ...state,
         ownershipsFiltered: ownershipsFilteredByType,
@@ -155,9 +158,10 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         reviews: [...state.reviews, action.payload]
+
       };
     case USER_STATUS:
-      return{
+      return {
         ...state,
         user: action.payload
       }
@@ -168,41 +172,48 @@ function rootReducer(state = initialState, action) {
         reviews: action.payload
 
     case LOGIN_MODAL:
-      return{
-        ...state,
-        loginuserModal: action.payload
-      }
-    case USER_FAVORITE:
-      return{
-        ...state,
-        userFavorite: action.payload.length? action.payload : {Error:'No Tiene Favoritos'}
-      }
-    case MERCADO_PAGO:
-      console.log(action.payload)
       return {
         ...state,
-        productId: action.payload
-      }
+        loginuserModal: action.payload,
+      };
+    case USER_FAVORITE:
+      return {
+        ...state,
+        userFavorite: action.payload.length
+          ? action.payload
+          : { Error: "No Tiene Favoritos" },
+      };
+    case MERCADO_PAGO:
+      return {
+        ...state,
+        productId: action.payload,
+      };
     case MERCADO_PAGO_ID:
       return {
-        ..state,
-        paymentId: action.payload
-      }
+        ...state,
+        paymentId: action.payload,
+      };
     case OWNERSHIP_FAVORITE:
-      return{
+      return {
         ...state,
-        userFavorite:[...state.userFavorite, ...action.payload]
-      }
+        userFavorite: [...state.userFavorite, ...action.payload],
+      };
     case OWNERSHIP_FAVORITE_DELETE:
-      return{
+      return {
         ...state,
-        userFavorite: action.payload
-      }
+        userFavorite: action.payload,
+      };
     case MERCADO_PAGO_PAYMENT_SATUS:
       return {
         ...state,
-        paymentStatus: action.payload
-      }
+        paymentStatus: action.payload,
+      };
+
+    case "GET_USER_INFO":
+      return {
+        ...state,
+        userInfo: action.payload,
+      };
     default:
       return state;
   }
