@@ -34,7 +34,6 @@ const initialState = {
   user: 'No Logueado',
   // propertiesToCheck: [],
   reviews: [],
-  newReview: {}
 };
 
 function rootReducer(state = initialState, action) {
@@ -150,7 +149,7 @@ function rootReducer(state = initialState, action) {
       console.log(action.payload)
       return {
         ...state,
-        newReview: action.payload
+        reviews: [...state.reviews, action.payload]
       };
     case USER_STATUS:
       return{
