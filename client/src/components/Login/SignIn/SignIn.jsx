@@ -61,7 +61,7 @@ export default function SignIn(){
 			email:'',
 			password:'',
 		})
-		navigate('/')
+		// navigate('/')
 	}
     return(
 		<div>

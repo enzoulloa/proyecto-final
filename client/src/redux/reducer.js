@@ -18,12 +18,14 @@ import {
   LOGIN_USER,
   EXIT_SESSION,
   LOGIN_USER_AUTH0,
+  MERCADO_PAGO_ID,
+  MERCADO_PAGO_PAYMENT_SATUS,
   USER_STATUS,
   LOGIN_MODAL,
   USER_FAVORITE,
   OWNERSHIP_FAVORITE,
   OWNERSHIP_FAVORITE_DELETE,
-  REFRESH_FAVORITES
+  REFRESH_FAVORITES,
 } from "./common";
 
 const initialState = {
@@ -34,7 +36,9 @@ const initialState = {
   error: false,
   response: null,
   statuslogin: true,
+  productId: '',
   paymentId: '',
+  paymentStatus: '',
   Details: [],
   user: 'No Logueado',
   userFavorite: [],
@@ -52,6 +56,7 @@ function rootReducer(state = initialState, action) {
         loading: false,
         error: false,
         response: null,
+        productId: null
         paymentId: null,
       };
 
@@ -168,6 +173,18 @@ function rootReducer(state = initialState, action) {
         ...state,
         userFavorite: action.payload.length? action.payload : {Error:'No Tiene Favoritos'}
       }
+
+    case MERCADO_PAGO:
+      console.log(action.payload)
+      return {
+        ...state,
+        productId: action.payload
+      }
+    case MERCADO_PAGO_ID:
+      return {
+        ..state,
+        paymentId: action.payload
+      }
     case OWNERSHIP_FAVORITE:
       return{
         ...state,
@@ -177,6 +194,11 @@ function rootReducer(state = initialState, action) {
       return{
         ...state,
         userFavorite: action.payload
+      }
+    case MERCADO_PAGO_PAYMENT_SATUS:
+      return {
+        ...state,
+        paymentStatus: action.payload
       }
     default:
       return state;
