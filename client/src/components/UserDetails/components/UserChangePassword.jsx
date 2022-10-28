@@ -1,8 +1,11 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { updatePassword } from "../../../redux/actions.js";
 
 export default function UserChangePassword() {
+  const userInfo = useSelector((state) => state.userInfo);
   const { user, isLoading } = useAuth0();
   const dispatch = useDispatch();
   const [passwordChangeForm, setPasswordChangeForm] = useState({
@@ -10,6 +13,7 @@ export default function UserChangePassword() {
     newPw: "",
     newPwVerifier: "",
   });
+  const userID = userInfo.id;
 
   function handleInputChange(e) {
     const value = { ...passwordChangeForm, [e.target.name]: e.target.value };
@@ -17,14 +21,15 @@ export default function UserChangePassword() {
   }
 
   function submitPwChange() {
-    console.log("cambio de contraseña");
+    dispatch(updatePassword({passwordChangeForm, userID}))
+    console.log({passwordChangeForm, userID});
   }
 
   return (
     <div className="changePassword">
       <form>
         <div>
-          <label>Enter current password:</label>
+          <label>Ingresa tu contraseña actual:</label>
           <input
             type="text"
             name="oldPw"
@@ -33,7 +38,7 @@ export default function UserChangePassword() {
           />
         </div>
         <div>
-          <label>Enter current password:</label>
+          <label>Ingresa tu contraseña nueva:</label>
           <input
             type="text"
             name="newPw"
@@ -42,7 +47,7 @@ export default function UserChangePassword() {
           />
         </div>
         <div>
-          <label>Enter current password:</label>
+          <label>Verifica tu contraseña nueva:</label>
           <input
             type="text"
             name="newPwVerifier"

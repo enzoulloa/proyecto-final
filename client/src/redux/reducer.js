@@ -170,7 +170,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         reviews: action.payload
-
+      };
     case LOGIN_MODAL:
       return {
         ...state,
@@ -214,6 +214,10 @@ function rootReducer(state = initialState, action) {
         ...state,
         userInfo: action.payload,
       };
+    case "NEW_PASSWORD":
+      return {
+        ...state
+      }
     default:
       return state;
   }

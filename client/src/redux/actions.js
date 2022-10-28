@@ -425,3 +425,26 @@ export function getUserInfo(name) {
     });
   };
 }
+
+export function updatePassword(payload) {
+  return async function (dispatch) {
+    try {
+      const password = payload.passwordChangeForm;
+      console.log(password)
+      const updatePassword = await axios.put(
+        `${URL_SERVER}/create/password/${payload.userID}`,
+        password
+      );
+      return dispatch({
+        type: "NEW_PASSWORD",
+        //payload: updatePassword.data,
+      });
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Error 412",
+        text: "No se pudo actualizar la contraseña",
+      });
+    }
+  }
+}

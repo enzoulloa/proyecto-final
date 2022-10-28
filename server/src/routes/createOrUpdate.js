@@ -53,7 +53,7 @@ router.put("/admin/:email", async (req, res) => {
 router.put("/update/:idUser", async (req, res) => {
   try {
     let idUser = req.params.idUser;
-    let { name, email, password, cel, photo } = req.body;
+    let { name, email, cel, photo } = req.body;
     let findId = await User.findByPk(idUser);
     if (!findId) {
       return res.status(400).send("The user does not exist");
@@ -76,10 +76,6 @@ router.put("/update/:idUser", async (req, res) => {
         email,
       });
     }
-    if (password) {
-      let encrypted = await bcrypt.hash(password, 10);
-      findId.update({ password: encrypted });
-    }
     if (cel) {
       let findCel = await User.findAll({ where: { cel: cel } });
       if (findCel.length) {
@@ -96,6 +92,36 @@ router.put("/update/:idUser", async (req, res) => {
     return res.status(500).send("Error: see console to fix it");
   }
 });
+
+router.put("/password/:idUser", async (req, res) => {
+  try {
+    let idUser = req.params.idUser;
+    let {oldPw, newPw, newPwVerifier} = req.body;
+    let findId = await User.findByPk(idUser);
+    if (!findId) {
+      return res.status(400).send("The user does not exist");
+    }
+    //usar funcion para validar en el front 
+    if (!oldPw || !newPw || oldPw === " ") {
+      res.status(409).send("Ingrese contraseña");
+    }
+    let encryptedPassword = idUser.password;
+    let equal = await bcrypt.compare(oldPw, encryptedPassword);
+    if (!equal) {
+      return res.status(402).json("Contraseña incorrecta");
+    }
+    if (newPw !== newPwVerifier) {
+      res.status(409).send("Contraseñas distintas");
+    }
+    let encrypted = await bcrypt.hash(newPwVerifier, 10);
+    findId.update({ password: encrypted });
+    res.status(200).send(findId);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).send("Error: see console to fix it");
+  }
+});
+
 
 router.put("/favorite/:id", async (req,res) =>{
   try{
@@ -119,5 +145,7 @@ router.put("/favorite/:id", async (req,res) =>{
     return res.status(500).json({Error: 'Fallo al intentar hacer la peticion, revisa consola para más información'})
   }
 })
+
+
 
 module.exports = router;
