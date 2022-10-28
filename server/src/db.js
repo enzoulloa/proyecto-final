@@ -58,6 +58,12 @@ Ownership.hasOne(UserAuth0, { through: 'UserOwnerships' });
 Ownership.belongsToMany(Review, { through: "Owner_Review" });
 Review.belongsToMany(Ownership, { through: "Owner_Review" });
 
+User.belongsToMany(Review, { through: "User_Review" });
+Review.belongsToMany(User, { through: "User_Review" });
+
+// User.hasOne(Review);
+// Review.belongsTo(User);
+
 module.exports = {
   ...sequelize.models,
   conn: sequelize,

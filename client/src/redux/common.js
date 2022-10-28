@@ -22,6 +22,8 @@ export const ORDER_OWNERSHIPS = "ORDER_OWNERSHIPS";
 export const GET_STATUS_LOGIN = "GET_STATUS_LOGIN";
 export const REGISTER_USER = "REGISTER_USER";
 export const MERCADO_PAGO = "MERCADO_PAGO";
+export const MERCADO_PAGO_ID = "MERCADO_PAGO_ID";
+export const MERCADO_PAGO_PAYMENT_SATUS = "MERCADO_PAGO_PAYMENT_STATUS";
 export const FILTER_CARDS = "FILTER_CARDS";
 
 export function filterBy(ownerships, filters) {

@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Ownership, Op, Review } = require("../db.js");
+const { Ownership, Op, Review, User } = require("../db.js");
 const { filterOwnerships } = require("./functions/filterOwnerships.js");
 
 const router = Router();
@@ -91,19 +91,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/reviews", async (req, res) => {
-  try {
-    const { id } = req.query;
-    let { stars, message } = req.body;
-    let ownership = await Ownership.findByPk(id);
-    if (!ownership) return res.status(400).send("Propiedad no encontrada");
-    if (!stars || !message) return res.status(400).send("Complete su reseña");
-    const review = await Review.create({ stars, message });
-    const final = await ownership.addReview(review);
-    res.status(200).send(final);
-  } catch (error) {
-    console.log(error);
-  }
-})
+
 
 module.exports = router;
