@@ -97,28 +97,24 @@ router.put("/password/:idUser", async (req, res) => {
   try {
     let idUser = req.params.idUser;
     let {oldPw, newPw, newPwVerifier} = req.body;
-    let findId = await User.findByPk(idUser);
+    let findId = await User.findOne({where: {id: idUser}});
     if (!findId) {
-      return res.status(400).send("The user does not exist");
+      return res.status(400).send({message: "The user does not exist"});
     }
-    //usar funcion para validar en el front 
-    if (!oldPw || !newPw || oldPw === " ") {
-      res.status(409).send("Ingrese contraseña");
-    }
-    let encryptedPassword = idUser.password;
+    let encryptedPassword = findId.password;
     let equal = await bcrypt.compare(oldPw, encryptedPassword);
     if (!equal) {
-      return res.status(402).json("Contraseña incorrecta");
+      return res.status(402).send({message: "Contraseña incorrecta"});
     }
     if (newPw !== newPwVerifier) {
-      res.status(409).send("Contraseñas distintas");
+      return res.status(402).send({message: "Contraseñas distintas"});
     }
     let encrypted = await bcrypt.hash(newPwVerifier, 10);
     findId.update({ password: encrypted });
-    res.status(200).send(findId);
+    res.status(200).send("Contraseña actualizada");
   } catch (e) {
     console.log(e);
-    return res.status(500).send("Error: see console to fix it");
+    return res.status(500).send({Error: e.message});
   }
 });
 

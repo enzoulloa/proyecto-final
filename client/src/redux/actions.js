@@ -431,19 +431,23 @@ export function updatePassword(payload) {
     try {
       const password = payload.passwordChangeForm;
       console.log(password)
-      const updatePassword = await axios.put(
+      await axios.put(
         `${URL_SERVER}/create/password/${payload.userID}`,
         password
       );
+      Swal.fire({
+        icon: "success",
+        title: "Contraseña cambiada con exito",
+      })
       return dispatch({
         type: "NEW_PASSWORD",
-        //payload: updatePassword.data,
       });
     } catch (err) {
+      console.log(err.response.data)
       Swal.fire({
         icon: "error",
         title: "Error 412",
-        text: "No se pudo actualizar la contraseña",
+        text: err.response.data.message,
       });
     }
   }

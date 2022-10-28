@@ -216,7 +216,8 @@ function rootReducer(state = initialState, action) {
       };
     case "NEW_PASSWORD":
       return {
-        ...state
+        ...state,
+        error: action.payload
       }
     default:
       return state;
