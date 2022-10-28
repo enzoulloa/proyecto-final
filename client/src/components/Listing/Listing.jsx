@@ -24,6 +24,7 @@ export default function Listing() {
     if (ownerships.length === 0){
     dispatch(GetOwnerships());
     dispatch(userFavorite())
+    }
   }, [dispatch]);
 
   useEffect(() => {
