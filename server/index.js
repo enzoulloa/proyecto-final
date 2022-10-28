@@ -7,6 +7,6 @@ conn.sync({ force: false }).then(() => {
   getOwnerships();
   getUsers()
   server.listen(process.env.PORT, () => {
-    console.log('%s listening at PORT');
+    console.log('%s listening at PORT'); 
   });
 });
