@@ -74,19 +74,6 @@ export const columnsUsers = [
   },
 ];
 
-const deleteVisible = (record) => {
-  Modal.confirm({
-    title: `Borramos ${record.name}?`,
-    okText: "Dale",
-    onCancel: () => {
-      console.log("deberia cerrarse.....");
-    },
-    onOk: () => {
-      console.log("lo borre ñeri");
-    },
-  });
-};
-
 export const columnSales = [
   {
     title: "Estado",
