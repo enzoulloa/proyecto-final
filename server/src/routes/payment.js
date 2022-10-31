@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const mercadopago = require('mercadopago');
-const { Sales, Ownership } = require('../db.js');
+const { Sales, Ownership, User } = require('../db.js');
 
 const ACCES_TOKEN = 'TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971';
 
@@ -23,15 +23,17 @@ router.post('/', async (req, res) => {
     };
 });
 
-router.post('/paymentId/:id', async (req, res) => {
+router.post('/paymentId/:props', async (req, res) => {
     const body = req.body;
-    const ownershipId = parseInt(req.params.id);
+    const ownershipId = parseInt(req.params.props.id);
+    const idUser = req.params.props.idUser;
     try {
         console.log(body);
         if(body.data){
             let paymentId = body.data.id;
             console.log(paymentId);
             const ownership = await Ownership.findOne({where: {id: ownershipId}});
+            const user = await User.findOne({where: {id: idUser}});
             if(ownership){
                 const newSale = await Sales.create({
                     name: 'Pending...',
@@ -48,6 +50,8 @@ router.post('/paymentId/:id', async (req, res) => {
                 // });
                 // console.log(ownershipNewSale);
                 const ownershipNewSale = await newSale.addOwnership(ownership.id);
+                const userSale = await user.addSales(newSale.id);
+                console.log(await User.findOne({where: {id: user.id}, include:{ model: Sales}}));
             }
             return res.send('Ok, me estás pasando la data, seguí asi...');
         };
@@ -102,9 +106,21 @@ router.put('/editSale', async (req, res) => {
     };
 });
 
-router.get('/getSales', async(req, res) => {
+router.get('/getSales/:userId', async(req, res) => {
+    const userId = req.params.userId;
+    console.log(userId);
     try {
-        const sale = await Sales.findAll({include: {model: Ownership}});
+        const sale = await Sales.findAll({
+            include: [{
+                model: Ownership
+            },
+            {
+                model: User,
+                where: {
+                    id: userId
+                }
+            }]
+        });
         res.send(sale);
     } catch (error) {
         console.log(error);

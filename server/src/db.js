@@ -49,12 +49,22 @@ modelDefiners.forEach(model => model(sequelize));
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
-const { User, Ownership, UserAuth0, Sales } = sequelize.models;
+const { User, Ownership, UserAuth0, Sales, Review } = sequelize.models;
 
 User.belongsToMany(Ownership, {through: 'UserOwnerships'});
-UserAuth0.belongsToMany(Ownership, {through: 'UserOwnerships'});
+UserAuth0.belongsToMany(Ownership, {through: 'UserAuth0Ownerships'});
 Ownership.hasOne(User, {through: 'UserOwnerships'});
-Ownership.hasOne(UserAuth0, {through: 'UserOwnerships'});
+Ownership.hasOne(UserAuth0, {through: 'UserAuth0Ownerships'});
+Ownership.hasOne(UserAuth0, { through: 'UserOwnerships' });
+Ownership.belongsToMany(Review, { through: "Owner_Review" });
+Review.belongsToMany(Ownership, { through: "Owner_Review" });
+User.belongsToMany(Review, { through: "User_Review" });
+Review.belongsToMany(User, { through: "User_Review" });
+User.belongsToMany(Sales, { through: "User_Sales" });
+Sales.belongsToMany(User, { through: "User_Sales" });
+
+// User.hasOne(Review);
+// Review.belongsTo(User);
 
 Sales.belongsToMany(Ownership, {through: 'OwnershipSale'});
 Ownership.hasOne(Sales, {through: 'OwnershipSale'});

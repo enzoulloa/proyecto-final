@@ -22,7 +22,13 @@ import {
   MERCADO_PAGO_PAYMENT_SATUS,
   CLEAR_STATUS,
   USER_STATUS,
-  USER_SALES
+  USER_SALES,
+  // USER_STATUS,
+  LOGIN_MODAL,
+  USER_FAVORITE,
+  OWNERSHIP_FAVORITE,
+  OWNERSHIP_FAVORITE_DELETE,
+  REFRESH_FAVORITES,
 } from "./common";
 
 const initialState = {
@@ -36,11 +42,15 @@ const initialState = {
   productId: '',
   // paymentId: '',
   saleSate: '',
+  // newUserInfo: {},
   userSales: [],
   paymentStatus: null,
   Details: [],
-  user: 'No Logueado',
+  user: "No Logueado",
+  userFavorite: [],
+  userInfo: {},
   // propertiesToCheck: [],
+  reviews: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -82,7 +92,10 @@ function rootReducer(state = initialState, action) {
 
     case FILTER_BY:
       const ownershipsToFilter = state.ownerships;
-      const ownershipsFilteredByType = filterBy(ownershipsToFilter, action.payload);
+      const ownershipsFilteredByType = filterBy(
+        ownershipsToFilter,
+        action.payload
+      );
       return {
         ...state,
         ownershipsFiltered: ownershipsFilteredByType,
@@ -163,28 +176,78 @@ function rootReducer(state = initialState, action) {
         ...state,
         userSales: action.payload
       }
-    case MERCADO_PAGO_PAYMENT_SATUS:
-      // console.log(action.payload);
+    // case MERCADO_PAGO_PAYMENT_SATUS:
+    //   // console.log(action.payload);
+    //   return {
+    //     ...state,
+    //     paymentStatus: action.payload
+    //     }
+    // case USER_STATUS:
+    //   return{
+    //     ...state,
+    //     user: action.payload
+    //   }
+    // case CLEAR_STATUS:
+    //   console.log(state[action.payload]);
+    //   return {
+    //     ...state,
+    //     [state[action.payload]]: null
+    //   }
+    case CLEAR_STATUS:
+      console.log(state[action.payload]);
       return {
         ...state,
-        paymentStatus: action.payload
-        }
+        [state[action.payload]]: null
+      }
+    case "POST_REVIEW":
+      console.log(action.payload)
+      return {
+        ...state,
+        reviews: [...state.reviews, action.payload]
+
+      };
     case USER_STATUS:
-      return{
+      return {
         ...state,
         user: action.payload
       }
-    case CLEAR_STATUS:
-      console.log(state[action.payload]);
+
+    case 'GET_REVIEW':
       return {
         ...state,
-        [state[action.payload]]: null
+        reviews: action.payload
       }
-    case CLEAR_STATUS:
-      console.log(state[action.payload]);
+    case LOGIN_MODAL:
       return {
         ...state,
-        [state[action.payload]]: null
+        loginuserModal: action.payload,
+      };
+    case USER_FAVORITE:
+      return {
+        ...state,
+        userFavorite: action.payload.length
+          ? action.payload
+          : { Error: "No Tiene Favoritos" },
+      };
+    case OWNERSHIP_FAVORITE:
+      return {
+        ...state,
+        userFavorite: [...state.userFavorite, ...action.payload],
+      };
+    case OWNERSHIP_FAVORITE_DELETE:
+      return {
+        ...state,
+        userFavorite: action.payload,
+      };
+    case "GET_USER_INFO":
+      return {
+        ...state,
+        userInfo: action.payload,
+      };
+    case "USER_BY_ID":
+      return {
+        ...state,
+        user: action.payload
       }
     default:
       return state;

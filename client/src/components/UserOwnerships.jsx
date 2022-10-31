@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getSales, mercadoPagoId } from "../redux/actions";
 import { Table } from 'antd';
@@ -10,8 +10,13 @@ export default function UserOwnerships() {
 
     const dispatch = useDispatch();
     // window.location.search()
-    const ownershipId = window.location.search.split('=')[1];
+    const ownershipId = window.location.search.split('=')[1] ? window.location.search.split('=')[1].split('&')[0] : null;
     console.log(ownershipId);
+    // const idUser = window.location.search.split('=')[3];
+    // console.log(idUser);
+    const userId = JSON.parse(window.localStorage.getItem('UserLogin')).id;
+    console.log(userId);
+    // const userId = useParams();
     // let paymentId = useSelector(state => state.paymentId);
     const userSales = useSelector(state => state.userSales);
     console.log(userSales);
@@ -34,10 +39,11 @@ export default function UserOwnerships() {
     }, [ownershipId]);
 
     useEffect(() => {
-        console.log('entro al efecto')
+        console.log('entro al efecto');
+        // dispatch(getUserId(idUser));
         // dispatch(mercadoPagoId(ownershipId));
-        dispatch(getSales());
-    }, [ownershipId]);
+        dispatch(getSales(userId));
+    }, [ownershipId, userId]);
 
     return (
         <div>

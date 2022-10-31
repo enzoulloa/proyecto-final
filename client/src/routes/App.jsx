@@ -13,12 +13,17 @@ import Error from "../components/Error";
 import "../scss/home.scss";
 import UserDetails from "../components/UserDetails/UserDetails";
 import UserDashboard from "../components/UserDetails/components/UserDashboard";
-import UserFavorites from "../components/UserDetails/components/UserFavorites";
+// import UserFavorites from "../components/UserDetails/components/UserFavorites";
 import UserChangePassword from "../components/UserDetails/components/UserChangePassword";
 import UserModifyInfo from "../components/UserDetails/components/UserModifyInfo";
+// import UserPendingList from "../components/UserDetails/components/UserPendingList";
+// import UserModerate from "../components/UserDetails/components/UserModerate";
+import UserOwnerships from "../components/UserOwnerships";
+// import PaymentStatus from "../components/PaymentStatus";
 import UserPendingList from "../components/UserDetails/components/UserPendingList";
 import UserModerate from "../components/UserDetails/components/UserModerate";
-import UserOwnerships from "../components/UserOwnerships";
+import LoginModal from "../components/LoginModal/SignIn/LoginModal";
+import UserFavorite from "../components/Favorite/UserFavorite";
 
 function App() {
   return (
@@ -41,6 +46,8 @@ function App() {
           <Route path="moderacion" element={<UserModerate />} />
           <Route path="propiedades" element={<UserOwnerships />}/>
         </Route>
+        <Route path='/modal' element={<LoginModal/>}/>
+        <Route path="/favorite" element={<UserFavorite/>}/>
         <Route path="*" element={<Error />} />
       </Routes>
       <div className="containerK">
