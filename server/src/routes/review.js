@@ -1,27 +1,29 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { Review, User, Ownership } = require('../db.js')
+const { Review, User, Ownership } = require("../db.js");
 
 router.get("/:ownerID", async (req, res) => {
-    try {
-        const ownerID = req.params.ownerID;
-        const allReview = await Review.findAll({
-            include: [{
-                model: User,
-                attributes: ['name', 'photo', 'id']
-            },
-            {
-                model: Ownership,
-                where: { id: ownerID },
-                attributes: ['name', 'id']
-            }]
-        })
+  try {
+    const ownerID = req.params.ownerID;
+    const allReview = await Review.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ["name", "photo", "id"],
+        },
+        {
+          model: Ownership,
+          where: { id: ownerID },
+          attributes: ["name", "id"],
+        },
+      ],
+    });
     res.status(200).send(allReview);
   } catch (error) {
-    console.log(error)
-    return res.status(404).send('Review not found')
+    console.log(error);
+    return res.status(404).send("Review not found");
   }
-})
+});
 
 router.post("/", async (req, res) => {
   try {
@@ -36,29 +38,11 @@ router.post("/", async (req, res) => {
     await user.addReview(review);
     res.status(200).send("Reseña creada");
   } catch (error) {
-      console.log(error);
-      return res.status(410).send({error: 'Cant create review, see console for more details'})
+    console.log(error);
+    return res
+      .status(410)
+      .send({ error: "Cant create review, see console for more details" });
   }
-})
-
-
-// router.post('/', async (req, res) => {
-//     const { stars, message, userId, ownershipId } = req.body;
-//     try{
-//         const newReview = await Review.create({
-//             message,
-//             stars,
-//         })
-//         const findUser = await User.findOne({where: {id: userId}})
-//         const findOwnership = await Ownership.findOne({where:{id: ownershipId}})
-//         await newReview.addUser(findUser)
-//         await newReview.addOwnership(findOwnership)
-//         return res.status(200).send('Review created successfully')
-//     }
-//     catch(e){
-//         console.log(e)
-//         return res.status(410).send({error: 'Cant create review, see console for more details'})
-//     }
-// })
+});
 
 module.exports = router;

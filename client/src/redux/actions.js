@@ -30,11 +30,16 @@ import {
   OWNERSHIP_FAVORITE_DELETE,
   REFRESH_FAVORITES,
   STATUS_USER,
-  MODAL_SIGN
+  MODAL_SIGN,
+  NEW_PASSWORD,
+  UPDATE_USERTYPE,
+  GET_USER_INFO,
+  GET_REVIEW,
+  POST_REVIEW,
 } from "./common";
 const ACCESS_TOKEN = 'TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971';
 
-const URL_SERVER = "http://localhost:3001";
+const URL_SERVER = "https://proyecto-final.up.railway.app/";
 
 export function GetOwnerships() {
   return async function (dispatch) {
@@ -67,15 +72,6 @@ export function filterBy(filters) {
   };
 }
 
-// export function filterByType(type) {
-//   return function (dispatch) {
-//     return dispatch({
-//       type: FILTER_BY_TYPE,
-//       payload: type,
-//     });
-//   };
-// }
-
 export function orderOwnerships(payload) {
   return function (dispatch) {
     return dispatch({
@@ -94,16 +90,15 @@ export function postProperty(payload) {
       garage: payload.garage,
       type: payload.type,
       m2: payload.m2,
-      rating: 5,
       expenses: payload.expenses,
-      seller: "Enzo",
-      description: "De chill",
+      seller: payload.seller,
+      description: payload.description,
       images: payload.images,
       state: payload.state,
       price: payload.price,
       floors: payload.floors,
-      reviews: ["a", "b"],
       address: payload.address,
+      seller: "Bautista",
     });
     return dispatch({
       type: POST_PROPERTY,
@@ -178,7 +173,6 @@ export function filterCards(search) {
         icon: "error",
         title: "Error 412",
         text: "No se encontro ninguna casa",
-        footer: "Check if ownership id is correct, and try again",
       });
     }
   };
@@ -238,8 +232,7 @@ export function getUserId (userId) {
 export function mercadoPago(payload) {
   return async function (dispatch) {
     try {
-      const response = await axios.post("http://localhost:3001/payment", payload);
-      // console.log(response.data.productId);
+      const response = await axios.post(`${URL_SERVER}/payment`, payload);
       return dispatch({
         type: MERCADO_PAGO,
         payload: response.data.productId,
@@ -253,20 +246,14 @@ export function mercadoPago(payload) {
 export function mercadoPagoId(ownershipId) {
   return async function (dispatch) {
     try {
-      console.log('entro a la action');
-      console.log(ownershipId);
-      // const response = await axios.get("https://proyecto-final.up.railway.app/payment/paymentId", {id: ownershipId});
-      const response = await axios.get(`http://localhost:3001/payment/paymentId/${ownershipId}`);
-      console.log(response.data);
+      const response = await axios.get(`${URL_SERVER}/payment/paymentId/${ownershipId}`);
       const paymentId = response.data;
       const paymentStatus = await axios.get(`https://api.mercadopago.com/v1/payments/${paymentId}/?access_token=${ACCESS_TOKEN}`);
-      console.log(paymentStatus.data.status, paymentStatus.data.status_detail);
       const state = paymentStatus.data.status;
       const state_detail = paymentStatus.data.status_detail;
-      const ownershipSale = await axios.put(`http://localhost:3001/payment/editSale`, {state, state_detail, paymentId});
-      console.log(ownershipSale.data);
-      // const userSales = await axios.get('http://localhost:3001/payment/getSales');
-      // console.log(userSales.data);
+      const ownershipSale = await axios.put(`${URL_SERVER}/payment/editSale`, {state, state_detail, paymentId});
+
+
       return dispatch({
         type: MERCADO_PAGO_ID,
         payload: ownershipSale.data
@@ -364,7 +351,7 @@ export function postReview(payload) {
     };
 
     return dispatch({
-      type: "POST_REVIEW",
+      type: POST_REVIEW,
       payload: newReview,
     });
   };
@@ -372,12 +359,12 @@ export function postReview(payload) {
 
 export function getReview(ownerID) {
   return async (dispatch) => {
-    const response = await axios.get(`${URL_SERVER}/reviews/${ownerID}`)
+    const response = await axios.get(`${URL_SERVER}/reviews/${ownerID}`);
     return dispatch({
-      type: 'GET_REVIEW',
-      payload: response.data
-    })
-  }
+      type: GET_REVIEW,
+      payload: response.data,
+    });
+  };
 }
 
 export function statusLoginModal(boolean) {
@@ -474,7 +461,7 @@ export function getUserInfo(name) {
   return async function (dispatch) {
     const response = await axios.get(`${URL_SERVER}/users/${name}`);
     return dispatch({
-      type: "GET_USER_INFO",
+      type: GET_USER_INFO,
       payload: response.data,
     });
   };
@@ -487,12 +474,12 @@ export function banUser(userId) {
         `${URL_SERVER}/deleteUsers/${userId}`
       );
       return dispatch({
-        type: "DELETE_USER",
+        type: DELETE_USER,
         payload: { userId, response: "Usuario borrado" },
       });
     } catch (error) {
       return dispatch({
-        type: "DELETE_USER",
+        type: DELETE_USER,
         payload: "Ocurrio un error, vuelva a intentarlo",
       });
     }
@@ -500,7 +487,6 @@ export function banUser(userId) {
 }
 
 export function updateRole(data) {
-  console.log(data);
   return async function (dispatch) {
     try {
       const response = await axios.put(
@@ -510,14 +496,14 @@ export function updateRole(data) {
       if (response.status === 200) {
         const newUsers = await axios.get(`${URL_SERVER}/users`);
         return dispatch({
-          type: "UPDATE_USERTYPE",
+          type: UPDATE_USERTYPE,
           payload: newUsers.data,
         });
       }
     } catch (error) {
       console.log(error);
       return dispatch({
-        type: "UPDATE_USERTYPE",
+        type: UPDATE_USERTYPE,
         payload: error.message,
       });
     }
@@ -528,7 +514,6 @@ export function updatePassword(payload) {
   return async function (dispatch) {
     try {
       const password = payload.passwordChangeForm;
-      console.log(password)
       await axios.put(
         `${URL_SERVER}/create/password/${payload.userID}`,
         password
@@ -536,19 +521,19 @@ export function updatePassword(payload) {
       Swal.fire({
         icon: "success",
         title: "Contraseña cambiada con exito",
-      })
+      });
       return dispatch({
-        type: "NEW_PASSWORD",
+        type: NEW_PASSWORD,
       });
     } catch (err) {
-      console.log(err.response.data)
+      console.log(err.response.data);
       Swal.fire({
         icon: "error",
         title: "Error 412",
         text: err.response.data.message,
       });
     }
-  }
+  };
 }
 
 
@@ -570,7 +555,7 @@ export function updateUserData(payload) {
       return dispatch({
         type: "UPDATE_USER",
         payload: response.data,
-      });
+      });;
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -578,7 +563,7 @@ export function updateUserData(payload) {
         text: err.response.data.message,
       });
     }
-  };
+  };;
 }
 
 export function statusUser(boolean){
@@ -589,9 +574,9 @@ export function statusUser(boolean){
   }
 }
 
-export function ModalSign(boolean){
-  return{
-    type:MODAL_SIGN,
-    payload: boolean
-  }
+export function ModalSign(boolean) {
+  return {
+    type: MODAL_SIGN,
+    payload: boolean,
+  };
 }

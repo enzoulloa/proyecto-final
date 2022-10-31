@@ -1,11 +1,10 @@
 .About {
   background: #121b25;
-  // background-image: url('https://res.cloudinary.com/dwgp6lmlt/image/upload/v1665608338/photo_dbm6i5.jpg');
 
   .Head {
     display: flex;
     flex-direction: row;
-    // grid-template-columns: repeat(2, 1fr);
+
     column-gap: 50px;
     align-items: flex-start;
     padding: 10px;
@@ -26,11 +25,6 @@
       text-align: left;
       display: flex;
       flex-direction: column;
-      // font-style: normal;
-      // font-weight: 600;
-      // line-height: 85.68px;
-      // font-size: 68px;
-      // line-height: 126%;
 
       h1 {
         margin: 0;
@@ -48,18 +42,13 @@
       row-gap: 1px;
       justify-content: space-evenly;
       height: 50%;
-      // align-items: stretch;
 
       .Member {
-        // display: grid;
-        // grid-template-columns: repeat(2, 1fr);
         display: flex;
         flex-direction: row;
         column-gap: 20px;
-        // row-gap: 100px;
         align-items: flex-start;
         padding: 1rem;
-        // padding-bottom: 0;
         border: 1px solid gray;
         margin: 10px;
         margin-bottom: 0;
@@ -91,6 +80,3 @@
     }
   }
 }
-
-
-
