@@ -476,7 +476,8 @@ export function updateUserData(payload) {
         title: "Error 412",
         text: err.response.data.message,
       });
-    }
+    }}}
+
 export function statusUser(boolean){
   return{
     type:STATUS_USER,
