@@ -1,5 +1,6 @@
 import axios from "axios";
 import Swal from "sweetalert2";
+// import { use } from "../../../server/src/routes/payment";
 import {
   GET_OWNERSHIPS,
   GET_USERS,
@@ -20,7 +21,9 @@ import {
   LOGIN_USER,
   EXIT_SESSION,
   LOGIN_USER_AUTH0,
+  CLEAR_STATUS,
   USER_STATUS,
+  USER_SALES,
   LOGIN_MODAL,
   USER_FAVORITE,
   OWNERSHIP_FAVORITE,
@@ -29,6 +32,7 @@ import {
   STATUS_USER,
   MODAL_SIGN
 } from "./common";
+const ACCESS_TOKEN = 'TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971';
 
 const URL_SERVER = "http://localhost:3001";
 
@@ -207,19 +211,38 @@ export function ExitSession() {
       payload: "USUARIO NO LOGUEADO",
     });
   };
+};
+
+export function getUserId (userId) {
+  return async function (dispatch) {
+    try {
+      const user = await axios.get(`http://localhost:3001/users/id/${userId}`);
+      const userObj = {
+        id: user.data.id,
+        name: user.data.name,
+        rol: user.data.rol,
+        photo: user.data.photo,
+        Ownerships: user.data.Ownerships
+      };
+      localStorage.setItem('UserLogin', JSON.stringify(userObj));
+      return dispatch({
+        type: 'USER_BY_ID',
+        payload: userObj
+      });
+    } catch (error) {
+      console.log(error);
+    };
+  }
 }
 
 export function mercadoPago(payload) {
   return async function (dispatch) {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/payment",
-        payload
-      );
-
+      const response = await axios.post("http://localhost:3001/payment", payload);
+      // console.log(response.data.productId);
       return dispatch({
         type: MERCADO_PAGO,
-        payload: response.data.response.body.id,
+        payload: response.data.productId,
       });
     } catch (error) {
       console.log(error);
@@ -227,15 +250,26 @@ export function mercadoPago(payload) {
   };
 }
 
-export function mercadoPagoId() {
+export function mercadoPagoId(ownershipId) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(
-        "http://localhost:3001/payment/paymentId"
-      );
+      console.log('entro a la action');
+      console.log(ownershipId);
+      // const response = await axios.get("https://proyecto-final.up.railway.app/payment/paymentId", {id: ownershipId});
+      const response = await axios.get(`http://localhost:3001/payment/paymentId/${ownershipId}`);
+      console.log(response.data);
+      const paymentId = response.data;
+      const paymentStatus = await axios.get(`https://api.mercadopago.com/v1/payments/${paymentId}/?access_token=${ACCESS_TOKEN}`);
+      console.log(paymentStatus.data.status, paymentStatus.data.status_detail);
+      const state = paymentStatus.data.status;
+      const state_detail = paymentStatus.data.status_detail;
+      const ownershipSale = await axios.put(`http://localhost:3001/payment/editSale`, {state, state_detail, paymentId});
+      console.log(ownershipSale.data);
+      // const userSales = await axios.get('http://localhost:3001/payment/getSales');
+      // console.log(userSales.data);
       return dispatch({
         type: MERCADO_PAGO_ID,
-        payload: response.data.id,
+        payload: ownershipSale.data
       });
     } catch (error) {
       console.log(error);
@@ -243,25 +277,48 @@ export function mercadoPagoId() {
   };
 }
 
-export function mercadoPagoPayment(id) {
+export function getSales(userId) {
+  console.log(userId);
   return async function (dispatch) {
     try {
-      const response = await axios.get(
-        `https://api.mercadopago.com/v1/payments/${id}/?access_token=${process.env.ACCESS_TOKEN}`
-      );
-      const paymentStatus = {
-        status: response.status,
-        status_detail: response.status_detail,
-      };
+      const userSales = await axios.get(`http://localhost:3001/payment/getSales/${userId}`);
+      console.log(userSales.data);
       return dispatch({
-        type: MERCADO_PAGO_PAYMENT_SATUS,
-        payload: paymentStatus,
-      });
+        type: USER_SALES,
+        payload: userSales.data
+      });  
     } catch (error) {
       console.log(error);
     }
   };
 }
+
+// export function mercadoPagoPayment(id) {
+//   return async function (dispatch) {
+//     try {
+//       // console.log(id);
+//       const response = await axios.get(`https://api.mercadopago.com/v1/payments/${id}/?access_token=${ACCESS_TOKEN}`);
+//       // console.log(response);
+//       const paymentStatus = {
+//         status: response.data.status,
+//         status_detail: response.data.status_detail
+//       };
+//       return dispatch({
+//         type: MERCADO_PAGO_PAYMENT_SATUS,
+//         payload: paymentStatus
+//       })
+//     } catch (error) {
+//       console.log(error);
+//     };
+//   };
+// };
+
+export function clearStatus (status) {
+  return {
+    type: CLEAR_STATUS,
+    payload: status
+  };
+};
 
 export function LoginUserAuth0(payload) {
   return async function (dispatch) {
@@ -524,12 +581,13 @@ export function updateUserData(payload) {
   };
 }
 
-    export function statusUser(boolean) {
-      return {
-        type: STATUS_USER,
-        payload: boolean
-      }
-    }
+export function statusUser(boolean){
+  return{
+    type:STATUS_USER,
+    payload: boolean
+
+  }
+}
 
 export function ModalSign(boolean){
   return{

@@ -17,6 +17,9 @@ export default function UserNavBar({ page, image, name, userRole, selected }) {
         <Link to={`/user/${name}/modificar_info`} className="userNavLink">
           Modificar Info
         </Link>
+        <Link to={`/user/${name}/propiedades`} className='userNavLink'>
+          Mis propiedades
+        </Link>
 
         {userRole >= 2 ? (
           <div className="seller">
