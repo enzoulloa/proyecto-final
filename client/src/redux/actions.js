@@ -494,25 +494,26 @@ export function updatePassword(payload) {
   }
 }
 
+
 export function updateUserData(payload) {
   return async function (dispatch) {
     try {
-      let userLogin = JSON.parse(localStorage.getItem("UserLogin"))
+      let userLogin = JSON.parse(localStorage.getItem("UserLogin"));
       if (payload.newInfo.name) {
-        userLogin.name = payload.newInfo.name
+        userLogin.name = payload.newInfo.name;
       }
       if (payload.newInfo.photo) {
-        userLogin.photo = payload.newInfo.photo[0]
+        userLogin.photo = payload.newInfo.photo[0];
       }
-      localStorage.setItem("UserLogin", JSON.stringify(userLogin))
+      localStorage.setItem("UserLogin", JSON.stringify(userLogin));
       const response = await axios.put(
         `${URL_SERVER}/create/update/${payload.userID}`,
         payload.newInfo
       );
       return dispatch({
         type: "UPDATE_USER",
-        payload: response.data
-      })
+        payload: response.data,
+      });
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -520,6 +521,14 @@ export function updateUserData(payload) {
         text: err.response.data.message,
       });
     }
+  };
+}
+
+export function statusUser(boolean){
+  return{
+    type:STATUS_USER,
+    payload: boolean
+
   }
 }
 

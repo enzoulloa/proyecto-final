@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ModalSign } from '../../redux/actions.js'
 import "../../scss/Card.scss";
 import BottonFavotire from "../ButtonFavorite/ButtonFavorite";
-import Modal from "../Modal/Modal";
-import SignIn from "../Login/SignIn/SignIn";
-import LoginModal from "../LoginModal/SignIn/LoginModal";
+import ModalPortal from "../Modal/Modal";
 import ModalUser from "../LoginModal/ModalUser";
 
 export default function Card({
@@ -53,9 +51,9 @@ export default function Card({
           !verificationUser && <button onClick={(e)=>handlerClose(true)} className='btn-favorite-userNoLogin'><img src="https://cdn-icons-png.flaticon.com/512/4208/4208394.png" /></button>
         }
         {
-          stateModal && modal && <Modal onClose={(e)=>handlerClose(false)}>
+          stateModal && modal && <ModalPortal onClose={(e)=>handlerClose(false)}>
             <ModalUser/>
-          </Modal>
+          </ModalPortal>
         }
         <Link to={`/ownerships/detail/${id}/${name}/${price}`}>
 
