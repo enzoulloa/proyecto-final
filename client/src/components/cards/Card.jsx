@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { json, Link } from "react-router-dom";
+import { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { ModalSign } from '../../redux/actions.js'
 import "../../scss/Card.scss";
 import BottonFavotire from "../ButtonFavorite/ButtonFavorite";
+import ModalPortal from "../Modal/Modal";
+import ModalUser from "../LoginModal/ModalUser";
 
 export default function Card({
   images,
@@ -11,7 +16,8 @@ export default function Card({
   rooms,
   type,
   id,
-}) {
+})
+ {
   if (
     images ===
     "https://www.pngplay.com/wp-content/uploads/2/Trollface-No-Background.png"
@@ -20,14 +26,34 @@ export default function Card({
       "https://dchba.org/wp-content/uploads/2020/06/house-placeholder.png";
   }
 
+  const dispatch = useDispatch()
+  const modal = useSelector((state)=> state.modalSign)
+  const [stateModal, setStateModal] = useState(false)
   const verificationUser = JSON.parse(localStorage.getItem('UserLogin'))
+
+  function handlerClose(e){
+    setStateModal(e)
+  }
+
+  useEffect(()=>{
+    if(!verificationUser){
+      dispatch(ModalSign(true))
+    }
+  },[dispatch])
+  
+
   return (
     <div id="card-container">
         {
-          verificationUser && verificationUser.role === 1 && <BottonFavotire/>
+          verificationUser && <BottonFavotire id={id}/>
         }
         {
-          !verificationUser && <Link to='/signin'><button>+</button></Link>
+          !verificationUser && <button onClick={(e)=>handlerClose(true)} className='btn-favorite-userNoLogin'><img src="https://cdn-icons-png.flaticon.com/512/4208/4208394.png" /></button>
+        }
+        {
+          stateModal && modal && <ModalPortal onClose={(e)=>handlerClose(false)}>
+            <ModalUser/>
+          </ModalPortal>
         }
         <Link to={`/ownerships/detail/${id}/${name}/${price}`}>
 

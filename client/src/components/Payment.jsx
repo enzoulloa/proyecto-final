@@ -1,29 +1,30 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMercadopago } from "react-sdk-mercadopago";
-import './payment.scss';
+import "./payment.scss";
+import Swal from "sweetalert2";
+import ModalPortal from "./Modal/Modal";
+import ModalUser from "./LoginModal/ModalUser";
+
 
 export default function Payment({ productId }) {
-  console.log(productId);
-  // let id = useSelector((state) => state.paymentId);
+  const [showModal, setShowModal] = useState(false);
   const mp = useMercadopago.v2("TEST-4451a309-a6c0-4e53-8983-9e6f42531c98", {
     locale: "es-AR",
   });
-  // function setPaymentId (paymentId) {
-  //   return paymentId = null;
-  // };
-// let id2;
 
-//   useEffect(()=> {
-//     id = id;
-//     console.log(id);
-// }, [id])
+  const user = JSON.parse(window.localStorage.getItem("UserLogin"));
+
+  function handleClick() {
+    if (!user) return setShowModal(true)
+  }
+
+  function handleClose() {
+    setShowModal(false)
+  }
+
   useEffect(() => {
-    // console.log(id);
-    // console.log(id2);
-    // id2 = id;
-    // console.log(id2);
     if (mp && productId) {
       mp.checkout({
         preference: {
@@ -35,7 +36,16 @@ export default function Payment({ productId }) {
         },
       });
     }
-    // return setPaymentId(paymentId);
-    }, [mp, productId]);
-  return (productId && <div className="cho-container"></div>);
+  }, [mp, productId]);
+
+  return (
+    <div>
+      {user ? (
+        productId && <div className="cho-container"></div>
+      ) : (
+        <button onClick={() => handleClick()}>Comprar</button>
+      )}
+      {showModal && <ModalPortal onClose={()=>handleClose()}><ModalUser/></ModalPortal>}
+    </div>
+  );
 }

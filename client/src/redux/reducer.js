@@ -21,23 +21,40 @@ import {
   MERCADO_PAGO_ID,
   MERCADO_PAGO_PAYMENT_SATUS,
   CLEAR_STATUS,
-  USER_STATUS
+  USER_STATUS,
+  USER_SALES,
+  // USER_STATUS,
+  LOGIN_MODAL,
+  USER_FAVORITE,
+  OWNERSHIP_FAVORITE,
+  OWNERSHIP_FAVORITE_DELETE,
+  REFRESH_FAVORITES,
+  STATUS_USER,
+  MODAL_SIGN
 } from "./common";
 
 const initialState = {
   ownerships: [],
   ownershipDetail: [],
   ownershipsFiltered: [],
+  users: [],
   loading: false,
   error: false,
   response: null,
   statuslogin: true,
   productId: '',
-  paymentId: '',
+  // paymentId: '',
+  saleSate: '',
+  // newUserInfo: {},
+  userSales: [],
   paymentStatus: null,
   Details: [],
-  user: 'No Logueado',
+  user: "No Logueado",
+  userFavorite: [],
+  userInfo: {},
   // propertiesToCheck: [],
+  reviews: [],
+  modalSign: true
 };
 
 function rootReducer(state = initialState, action) {
@@ -79,7 +96,10 @@ function rootReducer(state = initialState, action) {
 
     case FILTER_BY:
       const ownershipsToFilter = state.ownerships;
-      const ownershipsFilteredByType = filterBy(ownershipsToFilter, action.payload);
+      const ownershipsFilteredByType = filterBy(
+        ownershipsToFilter,
+        action.payload
+      );
       return {
         ...state,
         ownershipsFiltered: ownershipsFilteredByType,
@@ -150,33 +170,124 @@ function rootReducer(state = initialState, action) {
         productId: action.payload
       }
     case MERCADO_PAGO_ID:
+      return {
+        ...state,
+        saleSate: action.payload
+      }
+    case USER_SALES:
       console.log(action.payload);
       return {
         ...state,
-        paymentId: action.payload
+        userSales: action.payload
       }
-    case MERCADO_PAGO_PAYMENT_SATUS:
-      // console.log(action.payload);
+    // case MERCADO_PAGO_PAYMENT_SATUS:
+    //   // console.log(action.payload);
+    //   return {
+    //     ...state,
+    //     paymentStatus: action.payload
+    //     }
+    // case USER_STATUS:
+    //   return{
+    //     ...state,
+    //     user: action.payload
+    //   }
+    // case CLEAR_STATUS:
+    //   console.log(state[action.payload]);
+    //   return {
+    //     ...state,
+    //     [state[action.payload]]: null
+    //   }
+    case CLEAR_STATUS:
+      console.log(state[action.payload]);
       return {
         ...state,
-        paymentStatus: action.payload
-        }
+        [state[action.payload]]: null
+      }
+    case "POST_REVIEW":
+      return {
+        ...state,
+        reviews: [...state.reviews, action.payload]
+
+      };
     case USER_STATUS:
-      return{
+      return {
         ...state,
         user: action.payload
       }
-    case CLEAR_STATUS:
-      console.log(state[action.payload]);
+
+    case 'GET_REVIEW':
       return {
         ...state,
-        [state[action.payload]]: null
+        reviews: action.payload
+      };
+
+    case LOGIN_MODAL:
+      return {
+        ...state,
+        loginuserModal: action.payload,
+      };
+    case USER_FAVORITE:
+      return {
+        ...state,
+        userFavorite: action.payload.length
+          ? action.payload
+          : { Error: "No Tiene Favoritos" },
+      };
+    case OWNERSHIP_FAVORITE:
+      return {
+        ...state,
+        userFavorite: [...state.userFavorite, ...action.payload],
+      };
+    case OWNERSHIP_FAVORITE_DELETE:
+      return {
+        ...state,
+        userFavorite: action.payload,
+      };
+    case "GET_USER_INFO":
+      return {
+        ...state,
+        userInfo: action.payload,
+      };
+    case "USER_BY_ID":
+      return {
+        ...state,
+        user: action.payload
       }
-    case CLEAR_STATUS:
-      console.log(state[action.payload]);
+    case "DELETE_USER":
+      const users = state.users;
+      const usersLeft = users.filter((u) => u.id !== action.payload.userId);
       return {
         ...state,
-        [state[action.payload]]: null
+        response: action.payload.response,
+        users: usersLeft,
+      };
+    case "UPDATE_USERTYPE":
+      return {
+        ...state,
+        users: action.payload,
+      };
+    case "NEW_PASSWORD":
+      return {
+        ...state,
+        error: action.payload
+      }
+    case "UPDATE_USER":
+      console.log(action.payload)
+      return {
+        ...state,
+        userInfo: action.payload,
+        user: "Cambio de usuario"
+      }  
+      
+    case STATUS_USER:
+      return{
+        ...state,
+        statuslogin: action.payload
+      }
+    case MODAL_SIGN:
+      return{
+        ...state,
+        modalSign: action.payload
       }
     default:
       return state;

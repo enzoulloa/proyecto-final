@@ -125,3 +125,43 @@ footer {
 .div_Help Link {
   text-decoration: none;
 }
+
+@media(max-width: 900px){
+  footer {
+    width: 100%;
+    height: 2075px;
+    background-color: #1a242f;
+    color: #d6d6d6;
+    display: flex;
+    flex-direction: column;
+  }
+  .title_cont {
+    height: 0%;
+    width: 30%;
+  }
+  .div_Alquilar h2 {
+    margin-top: 50px;
+    height: 10%;
+    width: 30%;
+  }
+  .div_Comprar h2 {
+    margin: 0%;
+    height: 20%;
+    width: 30%;
+  }
+  .div_Vender {
+    margin: 0%;
+    height: 10%;
+    width: 30%;
+  }
+  .div_Vender h2 {
+    margin: 0%;
+    height: 10%;
+    width: 30%;
+  }
+  .div_Help {
+    margin: 0%;
+    height: 10%;
+    width: 30%;
+  }
+}

@@ -17,8 +17,11 @@ export default function UserNavBar({ page, image, name, userRole, selected }) {
         <Link to={`/user/${name}/modificar_info`} className="userNavLink">
           Modificar Info
         </Link>
+        <Link to={`/user/${name}/propiedades`} className='userNavLink'>
+          Mis propiedades
+        </Link>
 
-        {userRole === 2 || userRole === 3 ? (
+        {userRole >= 2 ? (
           <div className="seller">
             <Link
               to={`/user/${name}/formularios_pendientes`}
@@ -33,7 +36,6 @@ export default function UserNavBar({ page, image, name, userRole, selected }) {
         ) : null}
         {userRole === 3 && (
           <div className="admin">
-            <hr />
             <Link to={`/user/${name}/moderacion`} className="userNavLink">
               Moderacion
             </Link>
