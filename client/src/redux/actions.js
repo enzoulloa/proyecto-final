@@ -524,14 +524,6 @@ export function updateUserData(payload) {
   };
 }
 
-export function statusUser(boolean){
-  return{
-    type:STATUS_USER,
-    payload: boolean
-
-  }
-}
-
     export function statusUser(boolean) {
       return {
         type: STATUS_USER,
