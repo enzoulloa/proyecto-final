@@ -589,12 +589,6 @@ export function statusUser(boolean){
   }
 }
 
-    export function statusUser(boolean) {
-      return {
-        type: STATUS_USER,
-        payload: boolean
-      }
-    }
 
 export function ModalSign(boolean){
   return{
