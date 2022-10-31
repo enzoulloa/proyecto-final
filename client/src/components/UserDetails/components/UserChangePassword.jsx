@@ -9,7 +9,6 @@ export default function UserChangePassword() {
     oldPw: "",
     newPw: "",
     newPwVerifier: "",
-    email: user.name,
   });
 
   function handleInputChange(e) {

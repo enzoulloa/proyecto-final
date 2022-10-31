@@ -1,39 +1,34 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { filterBy, orderOwnerships, filterCards, } from "../redux/actions";
 import "../scss/filterCards.scss";
 import { useSearchParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 export default function FiltersCards() {
   const dispatch = useDispatch();
   const [filterParams, setFilterParams] = useState({ op: "", type: "" });
   const [params, setParams] =  useSearchParams();
   const [search, setSearch] = useState("")
-  const navigate = useNavigate()
-
-   useEffect(() => {
-    navigate("/listings")
-  },[]);
+  const ownerships = useSelector((state)=>state.ownerships)
+  const prov = [...new Set(ownerships.map((item)=>item.location))]
+  console.log(ownerships.map(e=>e.state === "rent"))
 
   const handleSearch = (e)=>{
     e.preventDefault()
     setSearch(e.target.value)
   }
- 
-  const handleFilterAction = (e) => {
-    e.preventDefault()
-    const data = { ...filterParams, [e.target.name]: e.target.value };
-    setFilterParams(data);
-    dispatch(filterBy(data));
-  };
+
+  const onSearch = (searchTerm) =>{
+    setSearch(searchTerm)
+    params.set("location",searchTerm)
+    console.log(params.set("location",search))
+    dispatch(filterCards(params)) 
+  }
 
   const handleOrder = (e) => {
     e.preventDefault()
     dispatch(orderOwnerships(e.target.value));
   };
-
 
   const handleParams=(e)=>{
     e.preventDefault()
@@ -47,28 +42,44 @@ export default function FiltersCards() {
     
   }
 
-  // const handleParams=(e)=>{
-  //   e.preventDefault()
-  //   setValue({...value,[e.target.name]:e.target.value.toLowerCase()})
-  //   setParams(value)
-  //    dispatch(filterCards(params.toString()))
-  // }
-
   return (
     <div className="containerFilterCards">
+      <div className="searchBar-Container">
       <div className="containerFilterCards-input">
         <input type="text" name="location" value={search} placeholder="¿Donde queres mudarte?" onChange={e=>handleSearch(e)}></input>
          <button type="submit" onClick={(e)=>handleParams(e)}>Buscar</button>
       </div>
+      <div className="dropdown-cards">
+        {
+          prov.filter(item=>{
+            const searchTerm = search.toLowerCase()
+            const location = item.toLowerCase()
+            return (
+              searchTerm &&
+              location.startsWith(searchTerm)) &&
+              location !== searchTerm
+          })
+          .slice(0,10)
+          .map((item)=> (
+          <div onClick={()=>onSearch(item)}
+          className="dropdown-row-Cards"
+          key={item}>
+            {item}
+          </div>)
+        )}
+      </div>
+      </div>
+
+
       <div className="containerFilterCards-select">
-        <select name="op" id="" onChange={e=>handleFilterAction(e)}>
+        <select name="state" id="" onChange={(e)=>handleParams(e)}>
           <option disabled="disabled" selected={true}>
             Tipo de operacion
           </option>
-          <option value="for sell">Quiero comprar</option>
-          <option value="for rent">Quiero alquilar</option>
+          <option value="sell">Quiero comprar</option>
+          <option value="rent">Quiero alquilar</option>
         </select>
-
+        
         <select name="type" id="" onChange={e=>handleParams(e)}>
           <option disabled="disabled" selected={true}>
             Tipo de propiedad
@@ -76,6 +87,9 @@ export default function FiltersCards() {
           <option name="type" value="Casa">Casa</option>
           <option name="type" value="Departamento">Departamento</option>
           <option name="type" value="PH">Ph</option>
+          <option name="type" value="Duplex">Duplex</option>
+          <option name="type" value="Terreno">Terreno</option>
+          <option name="type" value="Cochera">Cochera</option>
         </select>
 
         <select name="" id="" onChange={handleOrder}>
@@ -113,8 +127,8 @@ export default function FiltersCards() {
           <option selected={true} disabled="disabled">
             Cochera
           </option>
-          <option name="garage" value="0">0</option>
-          <option name="garage" value="1">1</option>
+          <option name="garage" value="0">No</option>
+          <option name="garage" value="1">Si</option>
         </select>
 
         <select name="rooms" id="" onChange={e=>handleParams(e)}>
@@ -124,6 +138,10 @@ export default function FiltersCards() {
           <option name="rooms" value="1">1</option>
           <option name="rooms" value="2">2</option>
           <option name="rooms" value="3">3</option>
+          <option name="rooms" value="4">4</option>
+          <option name="rooms" value="5">5</option>
+          <option name="rooms" value="6">6</option>
+          <option name="rooms" value="7">7</option>
         </select>
       </div>
     </div>

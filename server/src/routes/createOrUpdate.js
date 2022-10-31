@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { User } = require("../db.js");
+const { User, Ownership } = require("../db.js");
 const bcrypt = require("bcryptjs");
 
 const router = Router();
@@ -96,5 +96,28 @@ router.put("/update/:idUser", async (req, res) => {
     return res.status(500).send("Error: see console to fix it");
   }
 });
+
+router.put("/favorite/:id", async (req,res) =>{
+  try{
+    let userID = req.params.id;
+    let { ownershipId } = req.body;
+    let user = await User.findOne({where:{id: userID}})
+    if(user){
+      let newFavorite = await Ownership.findOne({where: {id: ownershipId}})
+      if(newFavorite){
+        await user.addOwnership(newFavorite);
+        return res.status(200).json({message: 'Propiedad agregada a favoritos exitosamente'})
+      }else{
+        return res.status(404).json({Error: 'No se pudo encontrar la propiedad'})
+      }
+    } else {
+      return res.status(404).json({Error: 'No se pudo encontrar al usuario'})
+    }
+  }
+  catch(e){
+    console.log(e)
+    return res.status(500).json({Error: 'Fallo al intentar hacer la peticion, revisa consola para más información'})
+  }
+})
 
 module.exports = router;
