@@ -18,7 +18,7 @@ export default function UserNavBar({ page, image, name, userRole, selected }) {
           Modificar Info
         </Link>
 
-        {userRole === 2 || userRole === 3 ? (
+        {userRole >= 2 ? (
           <div className="seller">
             <Link
               to={`/user/${name}/formularios_pendientes`}

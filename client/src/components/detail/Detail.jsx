@@ -12,6 +12,7 @@ import "./detail.scss";
 import Payment from "../Payment.jsx";
 import Carousel from "./Carousel.jsx";
 import Review from "../Review/Review.jsx";
+import Feedbacks from "../Feedback/Feedbacks.jsx";
 
 export default function Detail() {
   const { id, name, prodPrice } = useParams();
@@ -26,7 +27,7 @@ export default function Detail() {
     name: "admin",
     role: 4,
   };
-  
+  const reviews = useSelector(state => state.reviews)
   // async function setProd(productName, productPrice) {
   //   await setProduct({
   //     ...product,
@@ -40,21 +41,25 @@ export default function Detail() {
   // }, [product]);
 
   const ownership = useSelector((state) => state.ownershipDetail);
-  let paymentId = useSelector((state) => state.paymentId);
-  const [newId, setNewId] = useState("");
-  const [paymentState, setPaymentState] = useState("");
+  let productId = useSelector((state) => state.productId);
+  const [newId, setNewId] = useState('');
+  const [paymentState, setPaymentState] = useState('');
+  
   const [product, setProduct] = useState({
+    external_reference: "ABC",
+    notification_url: "http://localhost:3001/payment/paymentId",
     items: [
       {
         title: name,
         unit_price: parseInt(prodPrice),
         quantity: 1,
+        picture_url: ""
       },
     ],
     back_urls: {
-      success: "https://proyecto-final.up.railway.app/listings",
-      failure: "https://proyecto-final.up.railway.app/listings",
-      pending: "https://proyecto-final.up.railway.app/listings",
+      success: "http://localhost:5173/estado_de_pago",
+      failure: "http://localhost:5173/estado_de_pago",
+      pending: "http://localhost:5173/estado_de_pago",
     },
     auto_return: "approved",
   });
@@ -62,8 +67,8 @@ export default function Detail() {
   useEffect(() => {
     // paymentId = paymentId;
     // console.log(paymentId);
-    setNewId(paymentId);
-  }, [paymentId]);
+    setNewId(productId);
+  },[productId]);
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -74,7 +79,7 @@ export default function Detail() {
   useEffect(() => {
     setNewId(null);
   }, []);
-  console.log(newId, paymentId);
+  console.log(newId, productId);
   const handleDelete = () => {
     const id = ownership.id;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -129,39 +134,17 @@ export default function Detail() {
 
   const price = convertir();
 
-  useEffect(() => {
-    if (paymentStatus === "approved") return alert("Pago acreditado!");
-    if (paymentStatus === "failure") return alert("Pago fallido");
-    // if(pending) return alert('Pago pendiente...');
-  }, [paymentStatus]);
+
+  // useEffect(() => {
+  //   if(paymentStatus === 'approved') return alert('Pago acreditado!');
+  //   if(paymentStatus === 'failure') return alert('Pago fallido');
+  //   // if(pending) return alert('Pago pendiente...');
+  // }, [paymentStatus]);
 
   return (
     <div className="container">
       {ownership.id ? (
         <div className="inner">
-          <h1 className="h1">{ownership.name}</h1>
-          {/* <Payment
-              name={ownership.name}
-              price={ownership.price}
-              paymentId={paymentId}
-            /> */}
-          <h4 className="h4">Localidad:&nbsp;{ownership.location}</h4>
-          <p className="p">Habitaciones:&nbsp;{ownership.rooms}</p>
-          <p className="p">
-            Cochera:&nbsp;{ownership.garage === true ? "Tiene" : "No tiene"}
-          </p>
-          <p className="p">Metros cuadrados:&nbsp;{ownership.m2}</p>
-          <p className="p">Tipo de propiedad:&nbsp;{ownership.type}</p>
-          <p className="p">Puntuacion:&nbsp;{ownership.rating}</p>
-          <p className="p">Expensas:&nbsp;{ownership.expenses}</p>
-          <p className="p">Vendedor:&nbsp;{ownership.seller}</p>
-          <p className="p">Descripcion:&nbsp;{ownership.description}</p>
-          <p className="p">Estado:&nbsp;{ownership.state}</p>
-          <h3>Precio:&nbsp;${price}</h3>
-          <p className="p">Plantas:&nbsp;{ownership.floors}</p>
-
-          <h3>Comentarios:</h3>
-
           <div className="row-detail titulo-detail div-titulo-detail ">
             <h2 className="h1">{ownership.name}</h2>
             <h2>Precio:&nbsp;${price}</h2>
@@ -233,23 +216,12 @@ export default function Detail() {
             </div>
           </div>
           <Payment paymentId={paymentId} />
-          <div className="div-detail">
-            <h3>Comentarios:</h3>
-            <br />
-            {ownership.review?.map((rev, index) => (
-              <p key={index}>{rev}</p>
-            ))}
-            {
-            ownership.Reviews && ownership.Reviews.map(a => {
-              return <p>Comentario: {a.message}</p>
-            })
-            }
-          </div>
           {/* {user.role >= 3 ? (
             <button onClick={handleDelete} className="bt">
               Remove ownership
             </button>
           ) : null} */}
+          <Feedbacks ownerID={id} reviews={reviews} />
           <Review id={id} />
         </div>
       ) : (

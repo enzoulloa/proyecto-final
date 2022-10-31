@@ -45,3 +45,11 @@
   font-size: 30px;
   color: #ffffff;
 }
+
+@media (max-width: 900px){
+  .containerI {
+    background-size: cover;
+    background-position: center;
+  }
+  
+}

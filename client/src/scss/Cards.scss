@@ -6,3 +6,10 @@
   justify-content: space-evenly;
   margin-top: 5%;
 }
+
+@media (max-width: 900px){
+  .cardsGrid{
+    display: flex;
+    flex-direction: column;
+  }
+}
