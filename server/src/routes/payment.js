@@ -23,10 +23,10 @@ router.post('/', async (req, res) => {
     };
 });
 
-router.post('/paymentId/:props', async (req, res) => {
+router.post('/paymentId/:id/:idUser', async (req, res) => {
     const body = req.body;
-    const ownershipId = parseInt(req.params.props.id);
-    const idUser = req.params.props.idUser;
+    const ownershipId = parseInt(req.params.id);
+    const idUser = req.params.idUser;
     try {
         console.log(body);
         if(body.data){
