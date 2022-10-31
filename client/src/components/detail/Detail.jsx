@@ -15,12 +15,7 @@ import Review from "../Review/Review.jsx";
 import Feedbacks from "../Feedback/Feedbacks.jsx";
 
 export default function Detail() {
-
-  
   const { id, name, prodPrice } = useParams();
-  // console.log(window.location.search);
-  const { paymentStatus } = useSearchParams();
-  // console.log(name, prodPrice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = {
@@ -28,20 +23,7 @@ export default function Detail() {
     name: "admin",
     role: 4,
   };
-  const reviews = useSelector(state => state.reviews)
-
-  // async function setProd(productName, productPrice) {
-  //   await setProduct({
-  //     ...product,
-  //     [product.items[0].title]: productName,
-  //     [product.items[0].unit_price]: parseInt(productPrice),
-  //   });
-  // };
-
-  // useEffect(() => {
-
-  // }, [product]);
-
+  const reviews = useSelector((state) => state.reviews);
   const ownership = useSelector((state) => state.ownershipDetail);
   let productId = useSelector((state) => state.productId);
   const [newId, setNewId] = useState("");
@@ -67,15 +49,12 @@ export default function Detail() {
   });
 
   useEffect(() => {
-    // paymentId = paymentId;
-    // console.log(paymentId);
     setNewId(productId);
   }, [productId]);
 
   useEffect(() => {
     dispatch(getDetail(id));
     dispatch(mercadoPago(product));
-    // return setPayment();
   }, [dispatch]);
 
   useEffect(() => {
@@ -135,12 +114,6 @@ export default function Detail() {
 
   const price = convertir();
 
-  // useEffect(() => {
-  //   if(paymentStatus === 'approved') return alert('Pago acreditado!');
-  //   if(paymentStatus === 'failure') return alert('Pago fallido');
-  //   // if(pending) return alert('Pago pendiente...');
-  // }, [paymentStatus]);
-
   return (
     <div className="container">
       {ownership.id ? (
@@ -151,9 +124,6 @@ export default function Detail() {
           </div>
           <div className="div-detail">
             <Carousel images={ownership.images} />
-            {/*ownership.images?.map((imgSrc, index) => (
-              <img src={imgSrc} key={index} alt={index + "img"} />
-            ))*/}
           </div>
           <div className="div-detail">
             <h2>Descripcion</h2>

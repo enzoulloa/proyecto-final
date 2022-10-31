@@ -1,12 +1,20 @@
 const { Ownership, Op } = require("../../db");
 
-async function filterOwnerships({ rooms, location, type, min, max, garage, state }) {
+async function filterOwnerships({
+  rooms,
+  location,
+  type,
+  min,
+  max,
+  garage,
+  state,
+}) {
   let filter = {};
   parseInt(min);
   parseInt(max);
 
   if (rooms) filter.rooms = { rooms };
-  if(state) filter.state = { state };
+  if (state) filter.state = { state };
   if (location) filter.location = { location: { [Op.iRegexp]: location } };
   if (type) filter.type = { type };
   if (min && min <= max) filter.price = { price: { [Op.gt]: min } };

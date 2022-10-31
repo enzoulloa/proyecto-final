@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "../Loading";
 import UserNavBar from "./components/UserNavBar";
-import "./UserDetails.scss";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../redux/actions";
+import "./UserDetails.scss";
 
 export default function UserDetails() {
   const dispatch = useDispatch();

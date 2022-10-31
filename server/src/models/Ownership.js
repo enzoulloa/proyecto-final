@@ -1,16 +1,18 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
-  sequelize.define('Ownership', {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    location: {
+  sequelize.define(
+    "Ownership",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      location: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
@@ -27,7 +29,14 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       type: {
-        type: DataTypes.ENUM('Casa','PH','Departamento','Duplex','Terreno','Cochera'),
+        type: DataTypes.ENUM(
+          "Casa",
+          "PH",
+          "Departamento",
+          "Duplex",
+          "Terreno",
+          "Cochera"
+        ),
         allowNull: false,
       },
       expenses: {
@@ -57,9 +66,17 @@ module.exports = (sequelize) => {
       },
       address: {
         type: DataTypes.STRING,
-      }
-  },
-  {
-    timestamps: false
-  });
+      },
+      // published:{
+      //  type: DataTypes.ENUM('Revision_Pendiente', 'Publicada', 'Cancelada', 'Finalizada'),
+      //  defaultValue: 'Revision_pendiente'
+      // },
+      // latitude: {
+      //   type: DataTypes.FLOAT,
+      // },
+    },
+    {
+      timestamps: false,
+    }
+  );
 };

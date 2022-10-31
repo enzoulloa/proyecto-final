@@ -27,10 +27,15 @@ import {
   OWNERSHIP_FAVORITE_DELETE,
   REFRESH_FAVORITES,
   STATUS_USER,
-  MODAL_SIGN
+  MODAL_SIGN,
+  NEW_PASSWORD,
+  UPDATE_USERTYPE,
+  GET_USER_INFO,
+  GET_REVIEW,
+  POST_REVIEW,
 } from "./common";
 
-const URL_SERVER = "http://localhost:3001";
+const URL_SERVER = "https://proyecto-final.up.railway.app/";
 
 export function GetOwnerships() {
   return async function (dispatch) {
@@ -63,15 +68,6 @@ export function filterBy(filters) {
   };
 }
 
-// export function filterByType(type) {
-//   return function (dispatch) {
-//     return dispatch({
-//       type: FILTER_BY_TYPE,
-//       payload: type,
-//     });
-//   };
-// }
-
 export function orderOwnerships(payload) {
   return function (dispatch) {
     return dispatch({
@@ -90,16 +86,15 @@ export function postProperty(payload) {
       garage: payload.garage,
       type: payload.type,
       m2: payload.m2,
-      rating: 5,
       expenses: payload.expenses,
-      seller: "Enzo",
-      description: "De chill",
+      seller: payload.seller,
+      description: payload.description,
       images: payload.images,
       state: payload.state,
       price: payload.price,
       floors: payload.floors,
-      reviews: ["a", "b"],
       address: payload.address,
+      seller: "Bautista",
     });
     return dispatch({
       type: POST_PROPERTY,
@@ -174,7 +169,6 @@ export function filterCards(search) {
         icon: "error",
         title: "Error 412",
         text: "No se encontro ninguna casa",
-        footer: "Check if ownership id is correct, and try again",
       });
     }
   };
@@ -212,10 +206,7 @@ export function ExitSession() {
 export function mercadoPago(payload) {
   return async function (dispatch) {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/payment",
-        payload
-      );
+      const response = await axios.post(`${URL_SERVER}/payment`, payload);
 
       return dispatch({
         type: MERCADO_PAGO,
@@ -230,9 +221,7 @@ export function mercadoPago(payload) {
 export function mercadoPagoId() {
   return async function (dispatch) {
     try {
-      const response = await axios.get(
-        "http://localhost:3001/payment/paymentId"
-      );
+      const response = await axios.get(`${URL_SERVER}/payment/paymentId`);
       return dispatch({
         type: MERCADO_PAGO_ID,
         payload: response.data.id,
@@ -307,7 +296,7 @@ export function postReview(payload) {
     };
 
     return dispatch({
-      type: "POST_REVIEW",
+      type: POST_REVIEW,
       payload: newReview,
     });
   };
@@ -315,12 +304,12 @@ export function postReview(payload) {
 
 export function getReview(ownerID) {
   return async (dispatch) => {
-    const response = await axios.get(`${URL_SERVER}/reviews/${ownerID}`)
+    const response = await axios.get(`${URL_SERVER}/reviews/${ownerID}`);
     return dispatch({
-      type: 'GET_REVIEW',
-      payload: response.data
-    })
-  }
+      type: GET_REVIEW,
+      payload: response.data,
+    });
+  };
 }
 
 export function statusLoginModal(boolean) {
@@ -417,7 +406,7 @@ export function getUserInfo(name) {
   return async function (dispatch) {
     const response = await axios.get(`${URL_SERVER}/users/${name}`);
     return dispatch({
-      type: "GET_USER_INFO",
+      type: GET_USER_INFO,
       payload: response.data,
     });
   };
@@ -430,12 +419,12 @@ export function banUser(userId) {
         `${URL_SERVER}/deleteUsers/${userId}`
       );
       return dispatch({
-        type: "DELETE_USER",
+        type: DELETE_USER,
         payload: { userId, response: "Usuario borrado" },
       });
     } catch (error) {
       return dispatch({
-        type: "DELETE_USER",
+        type: DELETE_USER,
         payload: "Ocurrio un error, vuelva a intentarlo",
       });
     }
@@ -443,7 +432,6 @@ export function banUser(userId) {
 }
 
 export function updateRole(data) {
-  console.log(data);
   return async function (dispatch) {
     try {
       const response = await axios.put(
@@ -453,14 +441,14 @@ export function updateRole(data) {
       if (response.status === 200) {
         const newUsers = await axios.get(`${URL_SERVER}/users`);
         return dispatch({
-          type: "UPDATE_USERTYPE",
+          type: UPDATE_USERTYPE,
           payload: newUsers.data,
         });
       }
     } catch (error) {
       console.log(error);
       return dispatch({
-        type: "UPDATE_USERTYPE",
+        type: UPDATE_USERTYPE,
         payload: error.message,
       });
     }
@@ -471,7 +459,6 @@ export function updatePassword(payload) {
   return async function (dispatch) {
     try {
       const password = payload.passwordChangeForm;
-      console.log(password)
       await axios.put(
         `${URL_SERVER}/create/password/${payload.userID}`,
         password
@@ -479,40 +466,40 @@ export function updatePassword(payload) {
       Swal.fire({
         icon: "success",
         title: "Contraseña cambiada con exito",
-      })
+      });
       return dispatch({
-        type: "NEW_PASSWORD",
+        type: NEW_PASSWORD,
       });
     } catch (err) {
-      console.log(err.response.data)
+      console.log(err.response.data);
       Swal.fire({
         icon: "error",
         title: "Error 412",
         text: err.response.data.message,
       });
     }
-  }
+  };
 }
 
 export function updateUserData(payload) {
   return async function (dispatch) {
     try {
-      let userLogin = JSON.parse(localStorage.getItem("UserLogin"))
+      let userLogin = JSON.parse(localStorage.getItem("UserLogin"));
       if (payload.newInfo.name) {
-        userLogin.name = payload.newInfo.name
+        userLogin.name = payload.newInfo.name;
       }
       if (payload.newInfo.photo) {
-        userLogin.photo = payload.newInfo.photo[0]
+        userLogin.photo = payload.newInfo.photo[0];
       }
-      localStorage.setItem("UserLogin", JSON.stringify(userLogin))
+      localStorage.setItem("UserLogin", JSON.stringify(userLogin));
       const response = await axios.put(
         `${URL_SERVER}/create/update/${payload.userID}`,
         payload.newInfo
       );
       return dispatch({
         type: "UPDATE_USER",
-        payload: response.data
-      })
+        payload: response.data,
+      });
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -520,19 +507,19 @@ export function updateUserData(payload) {
         text: err.response.data.message,
       });
     }
-  }
+  };
 }
 
-    export function statusUser(boolean) {
-      return {
-        type: STATUS_USER,
-        payload: boolean
-      }
-    }
+export function statusUser(boolean) {
+  return {
+    type: STATUS_USER,
+    payload: boolean,
+  };
+}
 
-export function ModalSign(boolean){
-  return{
-    type:MODAL_SIGN,
-    payload: boolean
-  }
+export function ModalSign(boolean) {
+  return {
+    type: MODAL_SIGN,
+    payload: boolean,
+  };
 }

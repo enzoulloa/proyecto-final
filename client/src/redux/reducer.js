@@ -27,7 +27,13 @@ import {
   OWNERSHIP_FAVORITE_DELETE,
   REFRESH_FAVORITES,
   STATUS_USER,
-  MODAL_SIGN
+  MODAL_SIGN,
+  POST_REVIEW,
+  GET_REVIEW,
+  GET_USER_INFO,
+  DELETE_USER,
+  UPDATE_USERTYPE,
+  NEW_PASSWORD,
 } from "./common";
 
 const initialState = {
@@ -46,9 +52,8 @@ const initialState = {
   user: "No Logueado",
   userFavorite: [],
   userInfo: {},
-  // propertiesToCheck: [],
   reviews: [],
-  modalSign: true
+  modalSign: true,
 };
 
 function rootReducer(state = initialState, action) {
@@ -79,14 +84,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         loading: true,
       };
-
-    // case FILTER_BY:
-    //   const ownerships = state.ownerships;
-    //   const ownershipsFilteredByOp = filterByOp(ownerships, action.payload);
-    //   return {
-    //     ...state,
-    //     ownershipsFiltered: ownershipsFilteredByOp,
-    //   };
 
     case FILTER_BY:
       const ownershipsToFilter = state.ownerships;
@@ -157,22 +154,21 @@ function rootReducer(state = initialState, action) {
         ...state,
         user: action.payload,
       };
-    case "POST_REVIEW":
+    case POST_REVIEW:
       return {
         ...state,
-        reviews: [...state.reviews, action.payload]
-
+        reviews: [...state.reviews, action.payload],
       };
     case USER_STATUS:
       return {
         ...state,
-        user: action.payload
-      }
+        user: action.payload,
+      };
 
-    case 'GET_REVIEW':
+    case GET_REVIEW:
       return {
         ...state,
-        reviews: action.payload
+        reviews: action.payload,
       };
 
     case LOGIN_MODAL:
@@ -212,12 +208,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         paymentStatus: action.payload,
       };
-    case "GET_USER_INFO":
+    case GET_USER_INFO:
       return {
         ...state,
         userInfo: action.payload,
       };
-    case "DELETE_USER":
+    case DELETE_USER:
       const users = state.users;
       const usersLeft = users.filter((u) => u.id !== action.payload.userId);
       return {
@@ -225,33 +221,32 @@ function rootReducer(state = initialState, action) {
         response: action.payload.response,
         users: usersLeft,
       };
-    case "UPDATE_USERTYPE":
+    case UPDATE_USERTYPE:
       return {
         ...state,
         users: action.payload,
       };
-    case "NEW_PASSWORD":
+    case NEW_PASSWORD:
       return {
         ...state,
-        error: action.payload
-      }
-    case "UPDATE_USER":
-      console.log(action.payload)
+        error: action.payload,
+      };
+    case UPDATE_USERTYPE:
       return {
         ...state,
         userInfo: action.payload,
-        user: "Cambio de usuario"
-      }    
+        user: "Cambio de usuario",
+      };
     case STATUS_USER:
-      return{
+      return {
         ...state,
-        statuslogin: action.payload
-      }
+        statuslogin: action.payload,
+      };
     case MODAL_SIGN:
-      return{
+      return {
         ...state,
-        modalSign: action.payload
-      }
+        modalSign: action.payload,
+      };
     default:
       return state;
   }
