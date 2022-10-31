@@ -219,6 +219,14 @@ function rootReducer(state = initialState, action) {
         ...state,
         error: action.payload
       }
+    case "UPDATE_USER":
+      console.log(action.payload)
+      return {
+        ...state,
+        userInfo: action.payload,
+        user: "Cambio de usuario"
+        
+      }
     default:
       return state;
   }

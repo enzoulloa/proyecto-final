@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { updatePassword } from "../../../redux/actions.js";
 import Swal from "sweetalert2";
+import "./UserChangePassword.scss";
 
 export default function UserChangePassword() {
   const userInfo = useSelector((state) => state.userInfo);
@@ -47,7 +48,7 @@ export default function UserChangePassword() {
 
   function submitPwChange(e) {
     e.preventDefault();
-    if (!passwordChangeForm.oldPw || !passwordChangeForm.newPw || !passwordChangeForm.newPwVerifier) {
+    if (!passwordChangeForm.oldPw || !passwordChangeForm.newPw || !passwordChangeForm.newPwVerifier || errors.newPwVerifier) {
       Swal.fire({
         icon: "error",
         title: "Error 412",
@@ -66,42 +67,40 @@ export default function UserChangePassword() {
 
 
   return (
-    <div className="changePassword">
-      <form>
-        <div>
+      <form className="formPasswords">
+        <div className="div-password">
           <label>Ingresa tu contraseña actual:</label>
           <input
-            type="text"
+            type="password"
             name="oldPw"
             value={passwordChangeForm.oldPw}
             onChange={handleInputChange}
           />
-          {errors.oldPw && (<p>{errors.oldPw}</p>)}
+          {errors.oldPw && (<p className="errors">{errors.oldPw}</p>)}
         </div>
-        <div>
+        <div className="div-password">
           <label>Ingresa tu contraseña nueva:</label>
           <input
-            type="text"
+            type="password"
             name="newPw"
             value={passwordChangeForm.newPw}
             onChange={handleInputChange}
           />
-          {errors.newPw && (<p>{errors.newPw}</p>)}
+          {errors.newPw && (<p className="errors">{errors.newPw}</p>)}
         </div>
-        <div>
+        <div className="div-password">
           <label>Verifica tu contraseña nueva:</label>
           <input
-            type="text"
+            type="password"
             name="newPwVerifier"
             value={passwordChangeForm.newPwVerifier}
             onChange={handleInputChange}
           />
-          {errors.newPwVerifier && (<p>{errors.newPwVerifier}</p>)}
+          {errors.newPwVerifier && (<p className="errors">{errors.newPwVerifier}</p>)}
         </div>
-        <button type="button" onClick={submitPwChange}>
+        <button type="button" onClick={submitPwChange} className="input">
           Submit
         </button>
       </form>
-    </div>
   );
 }

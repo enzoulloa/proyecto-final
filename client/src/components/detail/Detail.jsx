@@ -15,6 +15,8 @@ import Review from "../Review/Review.jsx";
 import Feedbacks from "../Feedback/Feedbacks.jsx";
 
 export default function Detail() {
+
+  
   const { id, name, prodPrice } = useParams();
   console.log(name, prodPrice);
   // console.log(window.location.search);
@@ -215,7 +217,7 @@ export default function Detail() {
               </div>
             </div>
           </div>
-          <Payment paymentId={paymentId} />
+          <Payment productId={productId} />
           {/* {user.role >= 3 ? (
             <button onClick={handleDelete} className="bt">
               Remove ownership

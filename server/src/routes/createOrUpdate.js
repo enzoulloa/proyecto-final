@@ -56,12 +56,15 @@ router.put("/update/:idUser", async (req, res) => {
     let { name, email, cel, photo } = req.body;
     let findId = await User.findByPk(idUser);
     if (!findId) {
-      return res.status(400).send("The user does not exist");
+      return res.status(400).send({message: "The user does not exist"});
+    }
+    if (!name && !email && !cel && !photo) {
+      return res.status(409).send({message: "Datos incompletos"})
     }
     if (name) {
       let findName = await User.findAll({ where: { name } });
       if (findName.length) {
-        return res.status(409).send("Name already exist");
+        return res.status(409).send({message: "Name already exist"});
       }
       await findId.update({
         name,
@@ -70,7 +73,7 @@ router.put("/update/:idUser", async (req, res) => {
     if (email) {
       let findEmail = await User.findAll({ where: { email: email } });
       if (findEmail.length) {
-        return res.status(409).send("Email already exist");
+        return res.status(409).send({message: "Email already exist"});
       }
       await findId.update({
         email,
@@ -79,17 +82,18 @@ router.put("/update/:idUser", async (req, res) => {
     if (cel) {
       let findCel = await User.findAll({ where: { cel: cel } });
       if (findCel.length) {
-        return res.status(409).send("Phone number in use");
+        return res.status(409).send({message: "Phone number in use"});
       }
       findId.update({ cel });
     }
     if (photo) {
-      findId.update({ photo });
+      findId.update({ photo: photo[0] });
     }
+    
     res.status(200).send(findId);
   } catch (e) {
     console.log(e);
-    return res.status(500).send("Error: see console to fix it");
+    return res.status(500).send({message: "Error: see console to fix it"});
   }
 });
 

@@ -14,7 +14,7 @@ export default function Review({ id }) {
   const [hoverValue, setHoverValue] = useState(undefined);
   let userInfo = JSON.parse(window.localStorage.getItem("UserLogin"));
   const user = {
-    id: 1,
+    id: userInfo.id,
     name: userInfo.name,
     photo: userInfo.photo,
   };
@@ -42,7 +42,6 @@ export default function Review({ id }) {
 
   const sendReview = (e) => {
     e.preventDefault();
-    /*review.userID = window.localStorage.getItem("UserLogin").id ? window.localStorage.getItem("UserLogin").id :*/
     dispatch(postReview({ review, user, ownerID }));
     setReview({ message: "", stars: "0" });
     setHoverValue(undefined);

@@ -296,7 +296,7 @@ export function LoginStatus() {
 export function postReview(payload) {
   return async (dispatch) => {
     const response = await axios.post(
-      `https://proyecto-final.up.railway.app/reviews?ownerID=${payload.ownerID}&userID=${payload.user.id}`,
+      `${URL_SERVER}/reviews?ownerID=${payload.ownerID}&userID=${payload.user.id}`,
       payload.review
     );
     const newReview = {
@@ -317,7 +317,7 @@ export function postReview(payload) {
 
 export function getReview(ownerID) {
   return async (dispatch) => {
-    const response = await axios.get(`https://proyecto-final.up.railway.app/reviews/${ownerID}`)
+    const response = await axios.get(`${URL_SERVER}/reviews/${ownerID}`)
     return dispatch({
       type: 'GET_REVIEW',
       payload: response.data
@@ -444,6 +444,35 @@ export function updatePassword(payload) {
       });
     } catch (err) {
       console.log(err.response.data)
+      Swal.fire({
+        icon: "error",
+        title: "Error 412",
+        text: err.response.data.message,
+      });
+    }
+  }
+}
+
+export function updateUserData(payload) {
+  return async function (dispatch) {
+    try {
+      let userLogin = JSON.parse(localStorage.getItem("UserLogin"))
+      if (payload.newInfo.name) {
+        userLogin.name = payload.newInfo.name
+      }
+      if (payload.newInfo.photo) {
+        userLogin.photo = payload.newInfo.photo[0]
+      }
+      localStorage.setItem("UserLogin", JSON.stringify(userLogin))
+      const response = await axios.put(
+        `${URL_SERVER}/create/update/${payload.userID}`,
+        payload.newInfo
+      );
+      return dispatch({
+        type: "UPDATE_USER",
+        payload: response.data
+      })
+    } catch (err) {
       Swal.fire({
         icon: "error",
         title: "Error 412",
