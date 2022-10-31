@@ -1,11 +1,9 @@
-require('dotenv').config();
-const { Sequelize, Op } = require('sequelize');
-const fs = require('fs');
-const path = require('path');
+require("dotenv").config();
+const { Sequelize, Op } = require("sequelize");
+const fs = require("fs");
+const path = require("path");
 // const sales = require('./models/sales');
-const {
-  DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME
-} = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env;
 
 let sequelize =
   process.env.NODE_ENV === "production"
@@ -35,27 +33,33 @@ let sequelize =
         { logging: false, native: false }
       );
 
-      const basename = path.basename(__filename);
+const basename = path.basename(__filename);
 
 const modelDefiners = [];
 
-fs.readdirSync(path.join(__dirname, '/models'))
-  .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
+fs.readdirSync(path.join(__dirname, "/models"))
+  .filter(
+    (file) =>
+      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
+  )
   .forEach((file) => {
-    modelDefiners.push(require(path.join(__dirname, '/models', file)));
+    modelDefiners.push(require(path.join(__dirname, "/models", file)));
   });
 
-modelDefiners.forEach(model => model(sequelize));
+modelDefiners.forEach((model) => model(sequelize));
 let entries = Object.entries(sequelize.models);
-let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
+let capsEntries = entries.map((entry) => [
+  entry[0][0].toUpperCase() + entry[0].slice(1),
+  entry[1],
+]);
 sequelize.models = Object.fromEntries(capsEntries);
 const { User, Ownership, UserAuth0, Sales, Review } = sequelize.models;
 
-User.belongsToMany(Ownership, {through: 'UserOwnerships'});
-UserAuth0.belongsToMany(Ownership, {through: 'UserAuth0Ownerships'});
-Ownership.hasOne(User, {through: 'UserOwnerships'});
-Ownership.hasOne(UserAuth0, {through: 'UserAuth0Ownerships'});
-Ownership.hasOne(UserAuth0, { through: 'UserOwnerships' });
+User.belongsToMany(Ownership, { through: "UserOwnerships" });
+UserAuth0.belongsToMany(Ownership, { through: "UserAuth0Ownerships" });
+Ownership.hasOne(User, { through: "UserOwnerships" });
+Ownership.hasOne(UserAuth0, { through: "UserAuth0Ownerships" });
+Ownership.hasOne(UserAuth0, { through: "UserOwnerships" });
 Ownership.belongsToMany(Review, { through: "Owner_Review" });
 Review.belongsToMany(Ownership, { through: "Owner_Review" });
 User.belongsToMany(Review, { through: "User_Review" });
@@ -63,14 +67,11 @@ Review.belongsToMany(User, { through: "User_Review" });
 User.belongsToMany(Sales, { through: "User_Sales" });
 Sales.belongsToMany(User, { through: "User_Sales" });
 
-// User.hasOne(Review);
-// Review.belongsTo(User);
-
-Sales.belongsToMany(Ownership, {through: 'OwnershipSale'});
-Ownership.hasOne(Sales, {through: 'OwnershipSale'});
+Sales.belongsToMany(Ownership, { through: "OwnershipSale" });
+Ownership.hasOne(Sales, { through: "OwnershipSale" });
 
 module.exports = {
   ...sequelize.models,
   conn: sequelize,
-  Op
+  Op,
 };

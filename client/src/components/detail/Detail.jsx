@@ -15,8 +15,6 @@ import Review from "../Review/Review.jsx";
 import Feedbacks from "../Feedback/Feedbacks.jsx";
 
 export default function Detail() {
-
-  
   const { id, name, prodPrice } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,31 +25,13 @@ export default function Detail() {
   };
   const ownership = useSelector((state) => state.ownershipDetail);
   let productId = useSelector((state) => state.productId);
-  // const [newId, setNewId] = useState('');
   const localUser = JSON.parse(window.localStorage.getItem("UserLogin"));
-  const reviews = useSelector(state => state.reviews)
-
-  // async function setProd(productName, productPrice) {
-  //   await setProduct({
-  //     ...product,
-  //     [product.items[0].title]: productName,
-  //     [product.items[0].unit_price]: parseInt(productPrice),
-  //   });
-  // };
-
-  // useEffect(() => {
-
-  // }, [product]);
-
-  // const ownership = useSelector((state) => state.ownershipDetail);
-  // let productId = useSelector((state) => state.productId);
-  // const [newId, setNewId] = useState('');
-  // const [paymentState, setPaymentState] = useState('');
+  const reviews = useSelector((state) => state.reviews);
   const infoUser = JSON.parse(localStorage.getItem("UserLogin"));
-  localStorage.setItem('LoginUser', JSON.stringify(infoUser));
+  localStorage.setItem("LoginUser", JSON.stringify(infoUser));
   const userObj = {
     id,
-    idUser: infoUser.id
+    idUser: infoUser.id,
   };
   const [product, setProduct] = useState({
     // external_reference: "ABC",
@@ -65,29 +45,25 @@ export default function Detail() {
       },
     ],
     back_urls: {
-      success: `http://localhost:5173/user/${infoUser ? infoUser.name : null}/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
+      success: `http://localhost:5173/user/${
+        infoUser ? infoUser.name : null
+      }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
       failure: `http://localhost:5173/${id}/estado_de_pago`,
-      pending: `http://localhost:5173/user/${infoUser ? infoUser.name : null}/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
+      pending: `http://localhost:5173/user/${
+        infoUser ? infoUser.name : null
+      }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
     },
     auto_return: "approved",
   });
 
   useEffect(() => {
-    productId = productId;
-    // console.log(paymentId);
-    // setNewId(productId);
-  },[productId]);
+    setNewId(productId);
+  }, [productId]);
 
   useEffect(() => {
     dispatch(getDetail(id));
     dispatch(mercadoPago(product));
-    // return setPayment();
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   setNewId(null);
-  // }, []);
-  // console.log(newId, productId);
 
   const handleDelete = () => {
     const id = ownership.id;
@@ -143,12 +119,6 @@ export default function Detail() {
 
   const price = convertir();
 
-  // useEffect(() => {
-  //   if (paymentStatus === "approved") return alert("Pago acreditado!");
-  //   if (paymentStatus === "failure") return alert("Pago fallido");
-  //   // if(pending) return alert('Pago pendiente...');
-  // }, [paymentStatus]);
-
   return (
     <div className="container">
       {ownership.id ? (
@@ -159,9 +129,6 @@ export default function Detail() {
           </div>
           <div className="div-detail">
             <Carousel images={ownership.images} />
-            {/*ownership.images?.map((imgSrc, index) => (
-              <img src={imgSrc} key={index} alt={index + "img"} />
-            ))*/}
           </div>
           <div className="div-detail">
             <h2>Descripcion</h2>
@@ -224,14 +191,6 @@ export default function Detail() {
             </div>
           </div>
           <Payment productId={productId} />
-          {/* <div className="div-detail">
-            <h3>Comentarios:</h3>
-            <br />
-            {ownership.review?.map((rev, index) => (
-              <p key={index}>{rev}</p>
-            ))}
-          </div>
-          <Payment paymentId={paymentId} /> */}
           {/* {user.role >= 3 ? (
             <button onClick={handleDelete} className="bt">
               Remove ownership
