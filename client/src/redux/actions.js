@@ -589,7 +589,6 @@ export function statusUser(boolean){
   }
 }
 
-
 export function ModalSign(boolean){
   return{
     type:MODAL_SIGN,
