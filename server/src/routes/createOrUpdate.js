@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { User, Ownership } = require("../db.js");
+const { User, Ownership, UserAuth0 } = require("../db.js");
 const bcrypt = require("bcryptjs");
 
 const router = Router();
@@ -35,17 +35,23 @@ router.post("/admin", async (req, res) => {
   }
 });
 
-router.put("/admin/:email", async (req, res) => {
-  let emailUser = req.params.email;
+router.put("/admin/:id", async (req, res) => {
+  let { id } = req.params;
+  let { userType } = req.body;
   try {
-    let user = await User.findOne({ where: { email: emailUser } });
+    let user;
+    if (isNaN(id)) {
+      user = await UserAuth0.findByPk(id);
+    } else {
+      user = await User.findByPk(id);
+    }
     if (!user) {
       return res.status(400).send("The user does not exist");
     }
-    user.update({ role: 2 });
+    user.update({ role: parseInt(userType) });
     res.status(200).send(user);
   } catch (error) {
-    console.log(e);
+    console.log(error);
     return res.status(500).send("Error: see console to fix it");
   }
 });
@@ -56,15 +62,15 @@ router.put("/update/:idUser", async (req, res) => {
     let { name, email, cel, photo } = req.body;
     let findId = await User.findByPk(idUser);
     if (!findId) {
-      return res.status(400).send({message: "The user does not exist"});
+      return res.status(400).send({ message: "The user does not exist" });
     }
     if (!name && !email && !cel && !photo) {
-      return res.status(409).send({message: "Datos incompletos"})
+      return res.status(409).send({ message: "Datos incompletos" });
     }
     if (name) {
       let findName = await User.findAll({ where: { name } });
       if (findName.length) {
-        return res.status(409).send({message: "Name already exist"});
+        return res.status(409).send({ message: "Name already exist" });
       }
       await findId.update({
         name,
@@ -73,7 +79,7 @@ router.put("/update/:idUser", async (req, res) => {
     if (email) {
       let findEmail = await User.findAll({ where: { email: email } });
       if (findEmail.length) {
-        return res.status(409).send({message: "Email already exist"});
+        return res.status(409).send({ message: "Email already exist" });
       }
       await findId.update({
         email,
@@ -82,70 +88,73 @@ router.put("/update/:idUser", async (req, res) => {
     if (cel) {
       let findCel = await User.findAll({ where: { cel: cel } });
       if (findCel.length) {
-        return res.status(409).send({message: "Phone number in use"});
+        return res.status(409).send({ message: "Phone number in use" });
       }
       findId.update({ cel });
     }
     if (photo) {
       findId.update({ photo: photo[0] });
     }
-    
+
     res.status(200).send(findId);
   } catch (e) {
     console.log(e);
-    return res.status(500).send({message: "Error: see console to fix it"});
+    return res.status(500).send({ message: "Error: see console to fix it" });
   }
 });
 
 router.put("/password/:idUser", async (req, res) => {
   try {
     let idUser = req.params.idUser;
-    let {oldPw, newPw, newPwVerifier} = req.body;
-    let findId = await User.findOne({where: {id: idUser}});
+    let { oldPw, newPw, newPwVerifier } = req.body;
+    let findId = await User.findOne({ where: { id: idUser } });
     if (!findId) {
-      return res.status(400).send({message: "The user does not exist"});
+      return res.status(400).send({ message: "The user does not exist" });
     }
     let encryptedPassword = findId.password;
     let equal = await bcrypt.compare(oldPw, encryptedPassword);
     if (!equal) {
-      return res.status(402).send({message: "Contraseña incorrecta"});
+      return res.status(402).send({ message: "Contraseña incorrecta" });
     }
     if (newPw !== newPwVerifier) {
-      return res.status(402).send({message: "Contraseñas distintas"});
+      return res.status(402).send({ message: "Contraseñas distintas" });
     }
     let encrypted = await bcrypt.hash(newPwVerifier, 10);
     findId.update({ password: encrypted });
     res.status(200).send("Contraseña actualizada");
   } catch (e) {
     console.log(e);
-    return res.status(500).send({Error: e.message});
+    return res.status(500).send({ Error: e.message });
   }
 });
 
-
-router.put("/favorite/:id", async (req,res) =>{
-  try{
+router.put("/favorite/:id", async (req, res) => {
+  try {
     let userID = req.params.id;
     let { ownershipId } = req.body;
-    let user = await User.findOne({where:{id: userID}})
-    if(user){
-      let newFavorite = await Ownership.findOne({where: {id: ownershipId}})
-      if(newFavorite){
+    let user = await User.findOne({ where: { id: userID } });
+    if (user) {
+      let newFavorite = await Ownership.findOne({ where: { id: ownershipId } });
+      if (newFavorite) {
         await user.addOwnership(newFavorite);
-        return res.status(200).json({message: 'Propiedad agregada a favoritos exitosamente'})
-      }else{
-        return res.status(404).json({Error: 'No se pudo encontrar la propiedad'})
+        return res
+          .status(200)
+          .json({ message: "Propiedad agregada a favoritos exitosamente" });
+      } else {
+        return res
+          .status(404)
+          .json({ Error: "No se pudo encontrar la propiedad" });
       }
     } else {
-      return res.status(404).json({Error: 'No se pudo encontrar al usuario'})
+      return res.status(404).json({ Error: "No se pudo encontrar al usuario" });
     }
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({
+      Error:
+        "Fallo al intentar hacer la peticion, revisa consola para más información",
+    });
   }
-  catch(e){
-    console.log(e)
-    return res.status(500).json({Error: 'Fallo al intentar hacer la peticion, revisa consola para más información'})
-  }
-})
-
-
+});
 
 module.exports = router;

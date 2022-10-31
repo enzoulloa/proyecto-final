@@ -25,7 +25,6 @@ export default function UserModifyInfo() {
   }
   const dispatch = useDispatch();
   const userID = user.id;
-  
 
   function handleInfoChange(e) {
     const value = { ...newInfo, [e.target.name]: e.target.value };
@@ -34,7 +33,7 @@ export default function UserModifyInfo() {
 
   function submitNewInfo(e) {
     e.preventDefault();
-    dispatch(updateUserData({newInfo, userID}))
+    dispatch(updateUserData({ newInfo, userID }));
     setNewInfo({
       name: "",
       email: "",
@@ -42,66 +41,63 @@ export default function UserModifyInfo() {
       photo: "",
     });
   }
-  
+
   return (
-      <form className="form-update">
-        <div className="div-update">
-          <p>Modificar nombre:</p>
-          <input
-            type="text"
-            name="name"
-            value={newInfo.name}
-            onChange={handleInfoChange}
-          />
-        </div>
-        <div className="div-update">
+    <form className="form-update">
+      <div className="div-update">
+        <p>Modificar nombre:</p>
+        <input
+          type="text"
+          name="name"
+          value={newInfo.name}
+          onChange={handleInfoChange}
+        />
+      </div>
+      <div className="div-update">
         <div className="div-file photo-row">
-          <label for="btn-file">Click aqui para buscar imagen </label>
+          <label htmlFor="btn-file">Click aqui para buscar imagen </label>
           <input
             type="file"
             onChange={(e) => setImageSelected(e.target.files[0])}
             id="btn-file"
           />
-        
-          {newInfo.photo !== ""? (
+
+          {newInfo.photo !== "" ? (
             <img
               src={newInfo.photo}
               alt="newProfileImg"
               className="newProfileImg photo-ubic"
-              />
-             
-          ) : <p>No hay foto seleccionada</p>}
-          </div> 
-        <button type="button" onClick={uploadImage} className="btn-mas" >
-            seleccionar imagen
+            />
+          ) : (
+            <p>No hay foto seleccionada</p>
+          )}
+        </div>
+        <button type="button" onClick={uploadImage} className="btn-mas">
+          seleccionar imagen
         </button>
-        </div>
-        <div className="div-update">
-          <p>Modificar numero de telefono:</p>
-          <input
-            type="number"
-            name="cel"
-            value={newInfo.cel}
-            onChange={handleInfoChange}
-          />
-        </div>
-        <div className="div-update">
-          <p>Modificar email:</p>
-          <input
-            type="text"
-            name="email"
-            value={newInfo.email}
-            onChange={handleInfoChange}
-          />
-        </div>
-        
-      <button
-        type="submit"
-        onClick={submitNewInfo}
-        className="input"
-      >
+      </div>
+      <div className="div-update">
+        <p>Modificar numero de telefono:</p>
+        <input
+          type="number"
+          name="cel"
+          value={newInfo.cel}
+          onChange={handleInfoChange}
+        />
+      </div>
+      <div className="div-update">
+        <p>Modificar email:</p>
+        <input
+          type="text"
+          name="email"
+          value={newInfo.email}
+          onChange={handleInfoChange}
+        />
+      </div>
+
+      <button type="submit" onClick={submitNewInfo} className="input">
         Enviar nueva info
       </button>
-      </form>
+    </form>
   );
 }
