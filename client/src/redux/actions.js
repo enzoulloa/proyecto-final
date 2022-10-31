@@ -477,16 +477,20 @@ export function updateUserData(payload) {
         text: err.response.data.message,
       });
     }
-export function statusUser(boolean){
-  return{
-    type:STATUS_USER,
-    payload: boolean
   }
 }
 
-export function ModalSign(boolean){
-  return{
-    type:MODAL_SIGN,
-    payload: boolean
-  }
-}
+    export function statusUser(boolean) {
+      return {
+        type: STATUS_USER,
+        payload: boolean
+      }
+    }
+
+    export function ModalSign(boolean) {
+      return {
+        type: MODAL_SIGN,
+        payload: boolean
+      }
+    }
+  
