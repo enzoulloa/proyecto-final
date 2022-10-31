@@ -72,17 +72,17 @@ export default function FiltersCards() {
 
 
       <div className="containerFilterCards-select">
-        <select name="state" id="" onChange={(e)=>handleParams(e)}>
+        <select className="Operation-select" name="state" id="" onChange={(e)=>handleParams(e)}>
           <option disabled="disabled" selected={true}>
-            Tipo de operacion
+          Operacion
           </option>
           <option value="sell">Quiero comprar</option>
           <option value="rent">Quiero alquilar</option>
         </select>
         
-        <select name="type" id="" onChange={e=>handleParams(e)}>
+        <select className="type-select" name="type" id="" onChange={e=>handleParams(e)}>
           <option disabled="disabled" selected={true}>
-            Tipo de propiedad
+          Propiedad
           </option>
           <option name="type" value="Casa">Casa</option>
           <option name="type" value="Departamento">Departamento</option>
@@ -91,8 +91,7 @@ export default function FiltersCards() {
           <option name="type" value="Terreno">Terreno</option>
           <option name="type" value="Cochera">Cochera</option>
         </select>
-
-        <select name="" id="" onChange={handleOrder}>
+        <select className="price-order" name="" id="" onChange={handleOrder}>
           <option selected={true} disabled="disabled">
             Ordenar por
           </option>
@@ -100,8 +99,7 @@ export default function FiltersCards() {
           <option value="DESC">Mayor precio</option>
         </select>
 
-        
-         <div>
+         <div className="price-select">
            <span>Desde: </span><select name="min" id="" onChange={e=>handleParams(e)}>
           <option name="min" value="0">0</option>
           <option name="min" value="50000">50000</option>
@@ -111,7 +109,6 @@ export default function FiltersCards() {
           <option name="min" value="150000">150000</option>
           <option name="min" value="200000">200000</option>
           </select>
-
           <span>Hasta: </span><select name="max" id="" onChange={e=>handleParams(e)}>
           <option name="max" value="0">0</option>
           <option name="max" value="50000">50000</option>
@@ -123,15 +120,14 @@ export default function FiltersCards() {
           </select>
         </div>
 
-        <select name="garage" id="" onChange={e=>handleParams(e)}>
+        <select className="garage-select" name="garage" id="" onChange={e=>handleParams(e)}>
           <option selected={true} disabled="disabled">
             Cochera
           </option>
           <option name="garage" value="0">No</option>
           <option name="garage" value="1">Si</option>
         </select>
-
-        <select name="rooms" id="" onChange={e=>handleParams(e)}>
+        <select className="rooms-select" name="rooms" id="" onChange={e=>handleParams(e)}>
           <option selected={true} disabled="disabled">
             Habitaciones
           </option>

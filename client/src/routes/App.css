@@ -32,6 +32,13 @@
   }
 }
 
+@media(max-width: 900px){
+  .containerK{
+    display: flex;
+    margin-top: 185px;
+  }
+}
+
 .card {
   padding: 2em;
 }

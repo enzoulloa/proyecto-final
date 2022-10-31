@@ -64,3 +64,19 @@
     position: absolute;
     right: 0;
   }
+
+  @media (max-width: 1360px){
+    .profile p{
+      font-size: 15px;
+    }
+    .profile__img {
+      width: 65px;
+      margin-right: 8px;
+    }
+    .list button{
+      font-size: 10px;
+      border-color:#fff;
+      background-color: #b4b7ca;
+      border: none;
+    }
+  }
