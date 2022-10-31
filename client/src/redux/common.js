@@ -16,7 +16,9 @@ export const LOGIN_MODAL = "LOGIN_MODAL";
 export const USER_FAVORITE = "USER_FAVERITE";
 export const OWNERSHIP_FAVORITE = "OWNERSHIP_FAVORITE";
 export const OWNERSHIP_FAVORITE_DELETE = "OWNERSHIP_FAVORITE_DELETE";
-export const REFRESH_FAVORITES = "REFRESH_FAVORITES"
+export const REFRESH_FAVORITES = "REFRESH_FAVORITES";
+export const STATUS_USER = "STATUS_USER";
+export const MODAL_SIGN ="MODAL_SIGN"
 // export const FILTER_BY_TYPE = "FILTER_BY_TYPE";
 export const ORDER_OWNERSHIPS = "ORDER_OWNERSHIPS";
 export const GET_STATUS_LOGIN = "GET_STATUS_LOGIN";
@@ -27,7 +29,6 @@ export const MERCADO_PAGO_PAYMENT_SATUS = "MERCADO_PAGO_PAYMENT_STATUS";
 export const FILTER_CARDS = "FILTER_CARDS";
 
 export function filterBy(ownerships, filters) {
-  console.log(filters);
   const newOwnerships = ownerships.filter((o) => {
     if (filters.type && filters.op) {
       return o.type === filters.type && o.state === filters.op;
@@ -36,7 +37,6 @@ export function filterBy(ownerships, filters) {
     }
     return o.state === filters.op;
   });
-  console.log(newOwnerships);
   return newOwnerships;
 }
 

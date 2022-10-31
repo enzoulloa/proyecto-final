@@ -26,6 +26,8 @@ import {
   OWNERSHIP_FAVORITE,
   OWNERSHIP_FAVORITE_DELETE,
   REFRESH_FAVORITES,
+  STATUS_USER,
+  MODAL_SIGN
 } from "./common";
 
 const initialState = {
@@ -45,6 +47,7 @@ const initialState = {
   userInfo: {},
   // propertiesToCheck: [],
   reviews: [],
+  modalSign: true
 };
 
 function rootReducer(state = initialState, action) {
@@ -154,7 +157,6 @@ function rootReducer(state = initialState, action) {
         user: action.payload,
       };
     case "POST_REVIEW":
-      console.log(action.payload)
       return {
         ...state,
         reviews: [...state.reviews, action.payload]
@@ -170,7 +172,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         reviews: action.payload
-
+      }
     case LOGIN_MODAL:
       return {
         ...state,
@@ -214,6 +216,16 @@ function rootReducer(state = initialState, action) {
         ...state,
         userInfo: action.payload,
       };
+    case STATUS_USER:
+      return{
+        ...state,
+        statuslogin: action.payload
+      }
+    case MODAL_SIGN:
+      return{
+        ...state,
+        modalSign: action.payload
+      }
     default:
       return state;
   }

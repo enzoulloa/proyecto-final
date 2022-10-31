@@ -94,7 +94,6 @@ export default function SellForm() {
             }
             onSubmit = {(values) => {
                 values.garage === 'true' ? values.garage = true : values.garage = false;
-                console.log(values);
                 // dispatch(postProperty({ ...values, images: [values.images] }));
                 alert("Creado con exito");
                 // navigate("/listings");

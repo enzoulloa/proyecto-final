@@ -18,6 +18,8 @@ export default function SignIn() {
     password: "",
   });
 
+  
+
   useEffect(() => {
     dispatch(LoginStatus());
   }, [satusUser]);
@@ -60,7 +62,7 @@ export default function SignIn() {
   return (
     <div>
       {satusUser === "No Logueado" ? (
-        <section>
+        <section className="section">
           <div className="page">
             <div className="welcome">
               <h2>Bienvenido!!</h2>
