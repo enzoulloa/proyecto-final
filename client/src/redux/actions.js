@@ -20,6 +20,7 @@ import {
   LOGIN_USER,
   EXIT_SESSION,
   LOGIN_USER_AUTH0,
+  CLEAR_STATUS,
   USER_STATUS,
   LOGIN_MODAL,
   USER_FAVORITE,
@@ -27,6 +28,7 @@ import {
   OWNERSHIP_FAVORITE_DELETE,
   REFRESH_FAVORITES,
 } from "./common";
+const ACCESS_TOKEN = 'TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971';
 
 const URL_SERVER = "http://localhost:3001";
 
@@ -210,14 +212,10 @@ export function ExitSession() {
 
 export function mercadoPago(payload) {
   return async function (dispatch) {
-    console.log(payload);
+    // console.log(payload);
     try {
-      const response = await axios.post(
-        "http://localhost:3001/payment",
-        payload
-      );
-      console.log(response.data.response.body.id);
-
+      const response = await axios.post("http://localhost:3001/payment", payload);
+      // console.log(response.data.preferenceId);
       return dispatch({
         type: MERCADO_PAGO,
         payload: response.data.response.body.id,
@@ -260,9 +258,51 @@ export function mercadoPagoPayment(id) {
       });
     } catch (error) {
       console.log(error);
-    }
+    };
   };
-}
+};
+
+export function mercadoPagoId(ownershipId) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get("https://proyecto-final.up.railway.app/payment/paymentId", {id: ownershipId});
+      console.log(response.data);
+      return dispatch({
+        type: MERCADO_PAGO_ID,
+        payload: response.data
+      });
+    }catch (error){
+      console.log(error);
+    };
+  };
+};
+
+export function mercadoPagoPayment(id) {
+  return async function (dispatch) {
+    try {
+      // console.log(id);
+      const response = await axios.get(`https://api.mercadopago.com/v1/payments/${id}/?access_token=${ACCESS_TOKEN}`);
+      // console.log(response);
+      const paymentStatus = {
+        status: response.data.status,
+        status_detail: response.data.status_detail
+      };
+      return dispatch({
+        type: MERCADO_PAGO_PAYMENT_SATUS,
+        payload: paymentStatus
+      })
+    } catch (error) {
+      console.log(error);
+    };
+  };
+};
+
+export function clearStatus (status) {
+  return {
+    type: CLEAR_STATUS,
+    payload: status
+  };
+};
 
 export function LoginUserAuth0(payload) {
   return async function (dispatch) {

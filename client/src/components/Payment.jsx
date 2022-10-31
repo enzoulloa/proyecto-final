@@ -7,10 +7,11 @@ import Swal from "sweetalert2";
 import Modal from "./Modal/Modal";
 import SignIn from "./Login/SignIn/SignIn";
 
-
 export default function Payment({ productId }) {
   console.log(productId);
   const [showModal, setShowModal] = useState(false);
+  // let id = useSelector((state) => state.paymentId);
+
   const mp = useMercadopago.v2("TEST-4451a309-a6c0-4e53-8983-9e6f42531c98", {
     locale: "es-AR",
   });
@@ -26,6 +27,11 @@ export default function Payment({ productId }) {
   }
 
   useEffect(() => {
+    // console.log(id);
+    // console.log(id2);
+    // id2 = id;
+    // console.log(id2);
+
     if (mp && productId) {
       mp.checkout({
         preference: {
@@ -49,4 +55,7 @@ export default function Payment({ productId }) {
       {showModal && <Modal onClose={()=>handleClose()}><SignIn/></Modal>}
     </div>
   );
+    // return setPaymentId(paymentId);
+    }, [mp, productId]);
+  return (productId && <div className="cho-container"></div>);
 }

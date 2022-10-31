@@ -26,6 +26,8 @@ import {
   OWNERSHIP_FAVORITE,
   OWNERSHIP_FAVORITE_DELETE,
   REFRESH_FAVORITES,
+  CLEAR_STATUS,
+  USER_STATUS
 } from "./common";
 
 const initialState = {
@@ -37,8 +39,7 @@ const initialState = {
   response: null,
   statuslogin: true,
   productId: "",
-  paymentId: "",
-  paymentStatus: "",
+  paymentStatus: null,
   Details: [],
   user: "No Logueado",
   userFavorite: [],
@@ -160,12 +161,29 @@ function rootReducer(state = initialState, action) {
         reviews: [...state.reviews, action.payload]
 
       };
+    case MERCADO_PAGO:
+      console.log(action.payload)
+      return {
+        ...state,
+        productId: action.payload
+      }
+    case MERCADO_PAGO_ID:
+      console.log(action.payload);
+      return {
+        ...state,
+        paymentId: action.payload
+      }
+    case MERCADO_PAGO_PAYMENT_SATUS:
+      // console.log(action.payload);
+      return {
+        ...state,
+        paymentStatus: action.payload
+        }
     case USER_STATUS:
       return {
         ...state,
         user: action.payload
       }
-
     case 'GET_REVIEW':
       return {
         ...state,
@@ -208,12 +226,17 @@ function rootReducer(state = initialState, action) {
         ...state,
         paymentStatus: action.payload,
       };
-
     case "GET_USER_INFO":
       return {
         ...state,
         userInfo: action.payload,
       };
+    case CLEAR_STATUS:
+      console.log(state[action.payload]);
+      return {
+        ...state,
+        [state[action.payload]]: null
+      }
     default:
       return state;
   }

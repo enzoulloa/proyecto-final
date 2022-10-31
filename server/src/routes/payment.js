@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const mercadopago = require('mercadopago');
+const { Sales, Ownership } = require('../db.js')
+
 const ACCES_TOKEN = 'TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971';
 
 mercadopago.configure({
@@ -7,31 +9,59 @@ mercadopago.configure({
 });
 
 const router = Router();
-
-let preference = {
-    items: [
-      {
-        title: "Mi producto",
-        unit_price: 100,
-        quantity: 1,
-      },
-    ],
-    back_urls: {
-        success: "http://127.0.0.1:5173/",
-        failure: "http://127.0.0.1:5173/sell",
-        pending: "http://127.0.0.1:5173/about"
-    },
-    auto_return: "aproved"
-};
+// let paymentId = '';
 
 router.post('/', async (req, res) => {
     const product = req.body;
     try {
         const response = await mercadopago.preferences.create(product);
-        const preferenceId = response.body.id;
-        res.send({preferenceId});
+        // console.log(response);
+        const productId = response.body.id;
+        res.send({productId});
     } catch (e) {
         console.log(e.message);
+    };
+});
+
+router.post('/paymentId/:id', async (req, res) => {
+    const body = req.body;
+    const ownershipId = parseInt(req.params.id);
+    try {
+        console.log(body);
+        if(body.data){
+            let paymentId = body.data.id;
+            console.log(paymentId);
+            const ownership = await Ownership.findOne({where: {id: ownershipId}});
+            const newSale = await Sales.create({
+                name: 'Pending...',
+                paymentId,
+                state: 'pending',
+                state_detail: 'pending'
+            });
+            console.log(newSale);
+            const ownershipNewSale = await ownership.addSales(newSale);
+            console.log(ownershipNewSale);
+            return res.send('Ok, me estás pasando la data, seguí asi...');
+        };
+        return res.status(400).send('No me estás pasando la data...');
+    } catch (error) {
+        console.log(error);
+    };
+});
+
+router.get('/paymentId', async (req, res) => {
+    const ownershipId = req.body.id;
+    try {
+        const response = await Ownership.findOne({
+            where: {id: ownershipId},
+            includes: {
+                model: Sales
+            }
+        });
+        console.log(response);
+        res.send(response);
+    } catch (error) {
+        console.log(error);
     };
 });
 
