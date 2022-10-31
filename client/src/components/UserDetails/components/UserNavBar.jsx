@@ -33,7 +33,6 @@ export default function UserNavBar({ page, image, name, userRole, selected }) {
         ) : null}
         {userRole === 3 && (
           <div className="admin">
-            <hr />
             <Link to={`/user/${name}/moderacion`} className="userNavLink">
               Moderacion
             </Link>

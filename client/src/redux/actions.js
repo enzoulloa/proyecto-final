@@ -410,3 +410,47 @@ export function getUserInfo(name) {
     });
   };
 }
+
+export function banUser(userId) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.delete(
+        `${URL_SERVER}/deleteUsers/${userId}`
+      );
+      return dispatch({
+        type: "DELETE_USER",
+        payload: { userId, response: "Usuario borrado" },
+      });
+    } catch (error) {
+      return dispatch({
+        type: "DELETE_USER",
+        payload: "Ocurrio un error, vuelva a intentarlo",
+      });
+    }
+  };
+}
+
+export function updateRole(data) {
+  console.log(data);
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `${URL_SERVER}/create/admin/${data.userId}`,
+        { userType: data.userType }
+      );
+      if (response.status === 200) {
+        const newUsers = await axios.get(`${URL_SERVER}/users`);
+        return dispatch({
+          type: "UPDATE_USERTYPE",
+          payload: newUsers.data,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      return dispatch({
+        type: "UPDATE_USERTYPE",
+        payload: error.message,
+      });
+    }
+  };
+}

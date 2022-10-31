@@ -1,26 +1,126 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GetUsers } from "../../../redux/actions";
-import { columnsUsers } from "../common";
+import { banUser, GetUsers, updateRole } from "../../../redux/actions";
 import { Table } from "antd";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import UserDeleteModal from "./UserDeleteModal";
+import UserUpdateModal from "./UserUpdateModal";
 
 export default function UserModerate() {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
+  const newUsers = users.map((u) => {
+    if (u.role === 1) {
+      u.role = "Usuario";
+    }
+    if (u.role === 2) {
+      u.role = "Vendedor";
+    }
+    if (u.role === 3) {
+      u.role = "Administrador";
+    }
+    return u;
+  });
+  const [modalDelete, setModalDelete] = useState(false);
+  const [modalUpdate, setModalUpdate] = useState(false);
+  const [userToModify, setUserToModify] = useState(null);
+  const [userType, setUserType] = useState(1);
+
+  const columnsUsers = [
+    {
+      title: "Nombre",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: "Rol",
+      dataIndex: "role",
+      key: "role",
+    },
+    {
+      title: "Acciones",
+      key: "acciones",
+      render: (record) => {
+        return (
+          <>
+            <FaEdit
+              style={{ marginLeft: "5px" }}
+              onClick={() => {
+                setUserToModify(record);
+                setModalUpdate(true);
+              }}
+            />
+            <FaTrash
+              color="red"
+              onClick={() => {
+                setUserToModify(record);
+                setModalDelete(true);
+              }}
+              style={{ marginLeft: "15px" }}
+            />
+          </>
+        );
+      },
+    },
+  ];
 
   useEffect(() => {
     dispatch(GetUsers());
   }, [dispatch]);
 
-  function applyModeration(e) {
-    //dispatch(moderate(ban))
-    //dispatch(moderate(admin))
+  function handleType(e) {
+    setUserType(e.target.value);
+  }
 
-    console.log("asd");
+  function applyModeration(userId) {
+    dispatch(banUser(userId));
+  }
+
+  function applyNewRole(userId) {
+    dispatch(updateRole({ userId, userType }));
+    setUserType(1);
   }
   return (
-    <div>
-      <Table dataSource={users} columns={columnsUsers} />
-    </div>
+    <>
+      {modalDelete && (
+        <UserDeleteModal
+          open={modalDelete}
+          onCancel={() => {
+            setUserToModify(null);
+            setModalDelete(false);
+          }}
+          onOk={() => {
+            applyModeration(userToModify.id);
+            setModalDelete(false);
+            setUserToModify(null);
+          }}
+          user={userToModify}
+        />
+      )}
+      {modalUpdate && (
+        <UserUpdateModal
+          open={modalUpdate}
+          onCancel={() => {
+            setUserToModify(null);
+            setModalUpdate(false);
+          }}
+          onOk={() => {
+            applyNewRole(userToModify.id);
+            setModalUpdate(false);
+            setUserToModify(null);
+          }}
+          setType={handleType}
+          user={userToModify}
+        />
+      )}
+      <div>
+        <Table dataSource={newUsers} columns={columnsUsers} />
+      </div>
+    </>
   );
 }
