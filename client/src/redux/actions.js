@@ -423,6 +423,49 @@ export function getUserInfo(name) {
   };
 }
 
+export function banUser(userId) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.delete(
+        `${URL_SERVER}/deleteUsers/${userId}`
+      );
+      return dispatch({
+        type: "DELETE_USER",
+        payload: { userId, response: "Usuario borrado" },
+      });
+    } catch (error) {
+      return dispatch({
+        type: "DELETE_USER",
+        payload: "Ocurrio un error, vuelva a intentarlo",
+      });
+    }
+  };
+}
+
+export function updateRole(data) {
+  console.log(data);
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `${URL_SERVER}/create/admin/${data.userId}`,
+        { userType: data.userType }
+      );
+      if (response.status === 200) {
+        const newUsers = await axios.get(`${URL_SERVER}/users`);
+        return dispatch({
+          type: "UPDATE_USERTYPE",
+          payload: newUsers.data,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      return dispatch({
+        type: "UPDATE_USERTYPE",
+        payload: error.message,
+      });
+    }
+  };
+}
 
 export function updatePassword(payload) {
   return async function (dispatch) {
@@ -451,39 +494,50 @@ export function updatePassword(payload) {
   }
 }
 
+
 export function updateUserData(payload) {
   return async function (dispatch) {
     try {
-      let userLogin = JSON.parse(localStorage.getItem("UserLogin"))
+      let userLogin = JSON.parse(localStorage.getItem("UserLogin"));
       if (payload.newInfo.name) {
-        userLogin.name = payload.newInfo.name
+        userLogin.name = payload.newInfo.name;
       }
       if (payload.newInfo.photo) {
-        userLogin.photo = payload.newInfo.photo[0]
+        userLogin.photo = payload.newInfo.photo[0];
       }
-      localStorage.setItem("UserLogin", JSON.stringify(userLogin))
+      localStorage.setItem("UserLogin", JSON.stringify(userLogin));
       const response = await axios.put(
         `${URL_SERVER}/create/update/${payload.userID}`,
         payload.newInfo
       );
       return dispatch({
         type: "UPDATE_USER",
-        payload: response.data
-      })
+        payload: response.data,
+      });
     } catch (err) {
       Swal.fire({
         icon: "error",
         title: "Error 412",
         text: err.response.data.message,
       });
-    }}}
+    }
+  };
+}
 
 export function statusUser(boolean){
   return{
     type:STATUS_USER,
     payload: boolean
+
   }
 }
+
+    export function statusUser(boolean) {
+      return {
+        type: STATUS_USER,
+        payload: boolean
+      }
+    }
 
 export function ModalSign(boolean){
   return{

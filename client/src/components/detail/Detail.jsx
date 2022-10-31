@@ -5,7 +5,7 @@ import {
   getDetail,
   clearDetail,
   removeOwnership,
-  mercadoPago
+  mercadoPago,
 } from "../../redux/actions.js";
 import Swal from "sweetalert2";
 import "./detail.scss";
@@ -29,6 +29,7 @@ export default function Detail() {
     role: 4,
   };
   const reviews = useSelector(state => state.reviews)
+
   // async function setProd(productName, productPrice) {
   //   await setProduct({
   //     ...product,
@@ -38,14 +39,14 @@ export default function Detail() {
   // };
 
   // useEffect(() => {
-    
+
   // }, [product]);
 
   const ownership = useSelector((state) => state.ownershipDetail);
   let productId = useSelector((state) => state.productId);
-  const [newId, setNewId] = useState('');
-  const [paymentState, setPaymentState] = useState('');
-  
+  const [newId, setNewId] = useState("");
+  const [paymentState, setPaymentState] = useState("");
+
   const [product, setProduct] = useState({
     external_reference: "ABC",
     notification_url: "http://localhost:3001/payment/paymentId",
@@ -54,7 +55,7 @@ export default function Detail() {
         title: name,
         unit_price: parseInt(prodPrice),
         quantity: 1,
-        picture_url: ""
+        picture_url: "",
       },
     ],
     back_urls: {
@@ -69,7 +70,7 @@ export default function Detail() {
     // paymentId = paymentId;
     // console.log(paymentId);
     setNewId(productId);
-  },[productId]);
+  }, [productId]);
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -133,7 +134,6 @@ export default function Detail() {
   }
 
   const price = convertir();
-
 
   // useEffect(() => {
   //   if(paymentStatus === 'approved') return alert('Pago acreditado!');
