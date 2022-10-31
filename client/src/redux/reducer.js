@@ -241,7 +241,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         userInfo: action.payload,
         user: "Cambio de usuario"
-        
+      }    
     case STATUS_USER:
       return{
         ...state,
