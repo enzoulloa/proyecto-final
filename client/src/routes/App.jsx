@@ -16,9 +16,9 @@ import UserDashboard from "../components/UserDetails/components/UserDashboard";
 import UserFavorites from "../components/UserDetails/components/UserFavorites";
 import UserChangePassword from "../components/UserDetails/components/UserChangePassword";
 import UserModifyInfo from "../components/UserDetails/components/UserModifyInfo";
-import PaymentStatus from "../components/PaymentStatus";
 import UserPendingList from "../components/UserDetails/components/UserPendingList";
 import UserModerate from "../components/UserDetails/components/UserModerate";
+import UserOwnerships from "../components/UserOwnerships";
 
 function App() {
   return (
@@ -30,7 +30,6 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/listings" element={<Listing />} />
         <Route path="/ownerships/detail/:id/:name/:prodPrice" element={<Detail />} />
-        <Route path='/:ownershipId/estado_de_pago' element={<PaymentStatus />}/>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
@@ -40,6 +39,7 @@ function App() {
           <Route path="modificar_info" element={<UserModifyInfo />} />
           <Route path="formularios_pendientes" element={<UserPendingList />} />
           <Route path="moderacion" element={<UserModerate />} />
+          <Route path="propiedades" element={<UserOwnerships />}/>
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>

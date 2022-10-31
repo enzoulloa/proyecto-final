@@ -68,3 +68,16 @@ export const columnsUsers = [
     key: "photo",
   },
 ];
+
+export const columnSales = [
+  {
+    title: "Estado",
+    dataIndex: "state",
+    key: "name"
+  },
+  {
+    title: "Detalle del estado",
+    dataIndex: "state_detail",
+    key:"state_detail"
+  }
+]

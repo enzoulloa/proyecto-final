@@ -21,7 +21,8 @@ import {
   MERCADO_PAGO_ID,
   MERCADO_PAGO_PAYMENT_SATUS,
   CLEAR_STATUS,
-  USER_STATUS
+  USER_STATUS,
+  USER_SALES
 } from "./common";
 
 const initialState = {
@@ -33,7 +34,9 @@ const initialState = {
   response: null,
   statuslogin: true,
   productId: '',
-  paymentId: '',
+  // paymentId: '',
+  saleSate: '',
+  userSales: [],
   paymentStatus: null,
   Details: [],
   user: 'No Logueado',
@@ -150,10 +153,15 @@ function rootReducer(state = initialState, action) {
         productId: action.payload
       }
     case MERCADO_PAGO_ID:
+      return {
+        ...state,
+        saleSate: action.payload
+      }
+    case USER_SALES:
       console.log(action.payload);
       return {
         ...state,
-        paymentId: action.payload
+        userSales: action.payload
       }
     case MERCADO_PAGO_PAYMENT_SATUS:
       // console.log(action.payload);

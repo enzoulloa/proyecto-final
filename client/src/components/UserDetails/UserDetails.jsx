@@ -8,6 +8,7 @@ import { Outlet } from "react-router-dom";
 export default function UserDetails() {
   const { isLoading } = useAuth0();
   const user = JSON.parse(window.localStorage.getItem("UserLogin"));
+  console.log(user);
 
   if (isLoading) {
     return <Loading />;

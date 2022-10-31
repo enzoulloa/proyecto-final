@@ -8,7 +8,7 @@ const login = require('./login.js')
 const logout = require('./logout.js')
 const ownershipTypes = require('./ownershipTypes')
 const admin = require('./createOrUpdate.js')
-const payment = require('./payment')
+const payment = require('./payment.js')
 
 api.use('/users', users)
 api.use('/ownerships', ownerships)

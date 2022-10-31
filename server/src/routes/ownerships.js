@@ -1,7 +1,8 @@
 const { Router } = require("express");
-const { Ownership, Op } = require("../db.js");
+const { Ownership, Op, Sales } = require("../db.js");
 const { filterOwnerships } = require("./functions/filterOwnerships.js");
 const { getOwnerships } = require("../../data/ownershipsData.js");
+const sales = require("../models/sales.js");
 
 const router = Router();
 
@@ -25,7 +26,12 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    let find = await Ownership.findOne({ where: { id: id } });
+    let find = await Ownership.findOne({ where: { id: id },
+      include: {
+      model: Sales,
+      // through: ['OwnershipSale']
+      }
+    });
     if (find) {
       return res.status(200).send(find);
     } else {

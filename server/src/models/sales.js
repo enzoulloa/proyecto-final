@@ -21,7 +21,11 @@ module.exports = (sequelize) => {
     state_detail: {
         type: DataTypes.STRING,
         allowNull: false
-    }
+    },
+    // ownership: {
+    //   type: DataTypes.JSON,
+    //   allowNull: false
+    // }
   },
   {
     timestamps: false

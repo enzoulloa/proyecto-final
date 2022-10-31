@@ -24,9 +24,10 @@ export default function Detail() {
   const ownership = useSelector((state) => state.ownershipDetail);
   let productId = useSelector((state) => state.productId);
   // const [newId, setNewId] = useState('');
+  const localUser = JSON.parse(window.localStorage.getItem("UserLogin"));
   const [product, setProduct] = useState({
     // external_reference: "ABC",
-    notification_url: `https://proyecto-final.up.railway.app/payment/paymentId/:${id}`,
+    notification_url: `https://proyecto-final.up.railway.app/payment/paymentId/${id}`,
     items: [
       {
         title: name,
@@ -35,18 +36,18 @@ export default function Detail() {
       },
     ],
     back_urls: {
-      success: `http://localhost:5173/${id}/estado_de_pago`,
+      success: `http://localhost:5173/user/${localUser.name}/propiedades/?ownershipId=${id}`,
       failure: `http://localhost:5173/${id}/estado_de_pago`,
-      pending: `http://localhost:5173/${id}/estado_de_pago`,
+      pending: `http://localhost:5173/user/${localUser.name}/propiedades/?ownershipId=${id}`,
     },
     auto_return: "approved",
   });
 
-  // useEffect(() => {
-  //   // paymentId = paymentId;
-  //   // console.log(paymentId);
-  //   setNewId(productId);
-  // },[productId]);
+  useEffect(() => {
+    productId = productId;
+    // console.log(paymentId);
+    // setNewId(productId);
+  },[productId]);
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -113,11 +114,11 @@ export default function Detail() {
 
   const price = convertir();
   
-  useEffect(() => {
-    if (paymentStatus === "approved") return alert("Pago acreditado!");
-    if (paymentStatus === "failure") return alert("Pago fallido");
-    // if(pending) return alert('Pago pendiente...');
-  }, [paymentStatus]);
+  // useEffect(() => {
+  //   if (paymentStatus === "approved") return alert("Pago acreditado!");
+  //   if (paymentStatus === "failure") return alert("Pago fallido");
+  //   // if(pending) return alert('Pago pendiente...');
+  // }, [paymentStatus]);
 
   return (
     <div className="container">

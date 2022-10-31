@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const mercadopago = require('mercadopago');
-const { Sales, Ownership } = require('../db.js')
+const { Sales, Ownership } = require('../db.js');
 
 const ACCES_TOKEN = 'TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971';
 
@@ -32,15 +32,23 @@ router.post('/paymentId/:id', async (req, res) => {
             let paymentId = body.data.id;
             console.log(paymentId);
             const ownership = await Ownership.findOne({where: {id: ownershipId}});
-            const newSale = await Sales.create({
-                name: 'Pending...',
-                paymentId,
-                state: 'pending',
-                state_detail: 'pending'
-            });
-            console.log(newSale);
-            const ownershipNewSale = await ownership.addSales(newSale);
-            console.log(ownershipNewSale);
+            if(ownership){
+                const newSale = await Sales.create({
+                    name: 'Pending...',
+                    paymentId,
+                    state: 'pending',
+                    state_detail: 'pending'
+                });
+                // console.log(newSale);
+                // const ownershipNewSale = await ownership.addSales({
+                //     name: newSale.dataValues.name,
+                //     paymentId: newSale.dataValues.paymentId,
+                //     state: newSale.dataValues.state,
+                //     state_detail: newSale.dataValues.state_detail,
+                // });
+                // console.log(ownershipNewSale);
+                const ownershipNewSale = await newSale.addOwnership(ownership.id);
+            }
             return res.send('Ok, me estás pasando la data, seguí asi...');
         };
         return res.status(400).send('No me estás pasando la data...');
@@ -49,17 +57,92 @@ router.post('/paymentId/:id', async (req, res) => {
     };
 });
 
-router.get('/paymentId', async (req, res) => {
-    const ownershipId = req.body.id;
+router.get('/paymentId/:id', async (req, res) => {
+    const ownershipId = req.params.id;
+    console.log(ownershipId);
     try {
-        const response = await Ownership.findOne({
-            where: {id: ownershipId},
-            includes: {
-                model: Sales
+        // const response = await Ownership.findOne({
+        //     where: {id: ownershipId},
+        //     include: {
+        //         model: Sales,
+        //         attributes: ['paymentId'],
+        //         through: {
+        //             attributes: []
+        //         }
+        //     }
+        // });
+        // console.log(response);
+        const sales = await Sales.findAll({include: {model: Ownership, where: {id: ownershipId}}});
+        console.log(sales);
+        const paymentId = sales[0].dataValues.paymentId;
+        // const ownership = sales.
+        res.send(paymentId);
+    } catch (error) {
+        console.log(error);
+    };
+});
+
+router.put('/editSale', async (req, res) => {
+    const { state, state_detail, paymentId } = req.body;
+    console.log(state, state_detail, paymentId);
+    try {
+        const updatedSale = await Sales.update({
+                state: state,
+                state_detail: state_detail
+            }, 
+            {
+                where: { 
+                    paymentId: paymentId
+                }
+            });
+        return res.send('Venta actualizada!');
+    } catch (error) {
+        console.log(error);
+        res.status(400).send('Ha ocurrido un error, la venta no pudo ser actualizada...');
+    };
+});
+
+router.get('/getSales', async(req, res) => {
+    try {
+        const sale = await Sales.findAll({include: {model: Ownership}});
+        res.send(sale);
+    } catch (error) {
+        console.log(error);
+    };
+});
+
+router.post('/createSales/:id', async (req, res) => {
+    const body = req.body;
+    const propId = parseInt(req.params.id);
+    try {
+        // console.log(body);
+        if(body.data){
+            let paymentId = body.data.id;
+            // console.log(paymentId);
+            // console.log(propId);
+            const ownership = await Ownership.findOne({where: {id: propId}});
+            if(ownership) {
+                const newSale = await Sales.create({
+                    name: 'Pending...',
+                    paymentId,
+                    state: 'pending',
+                    state_detail: 'pending',
+                    // ownership
+                });
+                // console.log(newSale);
+                const ownershipNewSale = await newSale.addOwnership(ownership.id);
+                // const newOwnershipSale = await ownership.addSales(newSale.id);
+                    // name: newSale.dataValues.name,
+                    // paymentId: newSale.dataValues.paymentId,
+                    // state: newSale.dataValues.state,
+                    // state_detail: newSale.dataValues.state_detail,
+                    // ownership: newSale.dataValues.ownership
+                // });
+                console.log(ownershipNewSale);
             }
-        });
-        console.log(response);
-        res.send(response);
+            return res.send('Ok, me estás pasando la data, seguí asi...');
+        };
+        return res.status(400).send('No me estás pasando la data...');
     } catch (error) {
         console.log(error);
     };
