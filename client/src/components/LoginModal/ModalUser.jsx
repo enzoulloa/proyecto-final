@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import SignIn from "./SignIn/SignIn.jsx";
-import SignUp from './SignUp/SignUp.jsx'
+import LoginModal from "./SignIn/LoginModal";
+import SignUpModal from "./SignUp/SignUpModal";
 
-export default function Login(){
+export default function ModalUser(){
 
 	const status = useSelector(state=> state.statuslogin)
 
@@ -11,8 +11,8 @@ export default function Login(){
 		<div>
 			{
 				status === true?
-				<SignIn/>:
-				<SignUp/>
+				<LoginModal/>:
+				<SignUpModal/>
 			}
 		</div>
         

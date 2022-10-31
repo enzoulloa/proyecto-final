@@ -11,7 +11,6 @@ export default function FiltersHome() {
   const [params, setParams] =  useSearchParams();
   const [search, setSearch] = useState("")
   const ownerships = useSelector((state) => state.ownerships);
-  //ownerships.map(item=>console.log(item.location))
   const prov = [...new Set(ownerships.map(item=>item.location))]
   
   const handleSearch = (e)=>{
@@ -22,7 +21,6 @@ export default function FiltersHome() {
   const onSearch = (searchTerm) =>{
     setSearch(searchTerm)
     params.set("location",searchTerm)
-    console.log(params.set("location",search))
     dispatch(filterCards(params)) 
   }
 

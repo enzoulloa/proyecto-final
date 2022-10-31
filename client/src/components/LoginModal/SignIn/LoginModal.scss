@@ -3,14 +3,6 @@ body {
   margin: 0;
   padding: 0;
 }
-.section-modal-login {
-  position: absolute;
-  width: 100vw;
-  height: 100%;
-  background: rgba($color: #000000, $alpha: 0.5);
-  top: 0;
-  left: 0;
-}
 .section-modal-login .modal_page {
   position: absolute;
   top: 45%;

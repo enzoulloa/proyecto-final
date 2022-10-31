@@ -26,6 +26,8 @@ import {
   OWNERSHIP_FAVORITE,
   OWNERSHIP_FAVORITE_DELETE,
   REFRESH_FAVORITES,
+  STATUS_USER,
+  MODAL_SIGN
 } from "./common";
 
 const URL_SERVER = "http://localhost:3001";
@@ -80,7 +82,6 @@ export function orderOwnerships(payload) {
 }
 
 export function postProperty(payload) {
-  console.log(payload);
   return async function (dispatch) {
     const response = await axios.post(`${URL_SERVER}/ownerships/`, {
       name: payload.name,
@@ -210,13 +211,11 @@ export function ExitSession() {
 
 export function mercadoPago(payload) {
   return async function (dispatch) {
-    console.log(payload);
     try {
       const response = await axios.post(
         "http://localhost:3001/payment",
         payload
       );
-      console.log(response.data.response.body.id);
 
       return dispatch({
         type: MERCADO_PAGO,
@@ -271,7 +270,6 @@ export function LoginUserAuth0(payload) {
       payload
     );
     localStorage.setItem("UserLogin", JSON.stringify(LoginUserAuth0.data));
-    console.log(LoginUserAuth0.data);
     return {
       type: LOGIN_USER_AUTH0,
       payload: "USUARIO AUTH0 LOGUEADO",
@@ -382,7 +380,6 @@ export function addfavorite(payload) {
 
 export function deleteFavorite(payload) {
   return async (dispatch) => {
-    console.log(payload);
     try {
       const deletefavorite = await axios.delete(
         `${URL_SERVER}/users/addfavorite?id=${payload.id}&idUser=${payload.idUser}`
@@ -425,6 +422,7 @@ export function getUserInfo(name) {
     });
   };
 }
+
 
 export function updatePassword(payload) {
   return async function (dispatch) {
@@ -479,5 +477,16 @@ export function updateUserData(payload) {
         text: err.response.data.message,
       });
     }
+export function statusUser(boolean){
+  return{
+    type:STATUS_USER,
+    payload: boolean
+  }
+}
+
+export function ModalSign(boolean){
+  return{
+    type:MODAL_SIGN,
+    payload: boolean
   }
 }

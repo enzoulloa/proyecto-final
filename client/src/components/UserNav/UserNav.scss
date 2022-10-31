@@ -45,6 +45,11 @@
     background-color: #121b25;
     border: none;
   }
+  .a{
+    position: absolute;
+    z-index: 999;
+    top: 25px;
+  }
   .a:hover{
     border-color:#fff;
     color: #f00;
@@ -54,6 +59,12 @@
     border: none;
     border-color:#fff;
     color: rgb(255, 255, 137);
+  }
+  .button-User{
+    position: absolute;
+  }
+  .button-User:hover{
+    color: #2e5e96;
   }
   .list__item {
     position: absolute;
