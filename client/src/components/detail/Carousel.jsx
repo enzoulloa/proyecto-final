@@ -13,7 +13,6 @@ export default function Carousel(props) {
         const nextIndex = next ? (condition ? selectedIndex + 1 : 0) : condition ? selectedIndex - 1 : images.length - 1
         setSelectedImage(images[nextIndex])
         setSelectedIndex(nextIndex);
-        console.log(condition, nextIndex, images[nextIndex], nextIndex)
     }
     
     const previous = () => {

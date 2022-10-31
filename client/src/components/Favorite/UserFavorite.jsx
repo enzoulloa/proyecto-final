@@ -21,6 +21,7 @@ export default function UserFavorite(){
 
   return(
     <div>
+      <h2>Propiedades Favoritas</h2>
       <Cards ownerships={userFavorites} />
     </div>
   )

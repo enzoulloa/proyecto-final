@@ -20,4 +20,6 @@
 .modal-content .btn {
     display: block;
     margin-bottom: 32px;
+    background-color: transparent;
+    z-index: 999;
 }

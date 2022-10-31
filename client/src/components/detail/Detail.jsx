@@ -16,7 +16,6 @@ import Feedbacks from "../Feedback/Feedbacks.jsx";
 
 export default function Detail() {
   const { id, name, prodPrice } = useParams();
-  console.log(name, prodPrice);
   // console.log(window.location.search);
   const { paymentStatus } = useSearchParams();
   // console.log(name, prodPrice);
@@ -79,7 +78,6 @@ export default function Detail() {
   useEffect(() => {
     setNewId(null);
   }, []);
-  console.log(newId, productId);
   const handleDelete = () => {
     const id = ownership.id;
     const swalWithBootstrapButtons = Swal.mixin({

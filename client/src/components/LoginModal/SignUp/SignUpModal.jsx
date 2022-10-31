@@ -2,11 +2,11 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import {UserRegister, LoginStatus } from '../../../redux/actions.js';
+import {UserRegister, LoginStatus,statusUser } from '../../../redux/actions.js';
 import ButtonGoogle from "../Login Google/ButtonGoogle.jsx";
 import Error from "../../Error.jsx";
 
-export default function SignUp(){
+export default function SignUpModal(){
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -93,7 +93,11 @@ export default function SignUp(){
 			password2:'',
 			phone: '',
 		})
-		navigate('/signin')
+		dispatch(statusUser(true))
+		
+	}
+	function handlerStatusUser(){
+		dispatch(statusUser(true))
 	}
 
 	const UserLogin = localStorage.getItem('UserLogin')
@@ -103,17 +107,15 @@ export default function SignUp(){
 			{
 				
 					satusUser === 'No Logueado' ?
-        <section>
-			<div className="page">
-				<div className="welcome">
+        <section className="section-modal-login">
+			<div className="modal_page">
+				<div className="welcome_modal">
 					<h2>Bienvenido!!</h2>
 					<p>si ya tienes un usuario, inicia sesion.</p>
-					<Link to='/signin'>
-					<button className="sign_in" /* onClick={e=>handlerLogin(e)} */>Ingresar</button>
-					</Link>
+					<button className="sign_in_modal" onClick={()=>handlerStatusUser()}>Ingresar</button>
 					<ButtonGoogle/>
 				</div>
-				<div className="sign_up">
+				<div className="sign_up_modal">
 					<form onSubmit={()=>handleSubmit()}>
 					<h2>Registrate</h2>
 					<input type="text" name="name" placeholder="Nombre Completo" value={singUp.name} onChange={e=>handdleCheckSingUp(e)} required/><br/>
@@ -128,8 +130,8 @@ export default function SignUp(){
 					{ errors.phone&& (<p>{errors.phone}</p>)}
 					{
 						Object.keys(errors).length !== 0?
-						<input type="submit" name="sign_up" value="Registrarme" className="up-off" disabled={true}/>:
-						<input type="submit" name="sign_up" value="Registrarme" className="up"/>
+						<input type="submit" name="sign_up" value="Registrarme" className="up-off_modal" disabled={true}/>:
+						<input type="submit" name="sign_up" value="Registrarme" className="up_modal"/>
 					}
 					</form>
 				</div>

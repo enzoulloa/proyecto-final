@@ -9,7 +9,6 @@ import SignIn from "./Login/SignIn/SignIn";
 
 
 export default function Payment({ productId }) {
-  console.log(productId);
   const [showModal, setShowModal] = useState(false);
   const mp = useMercadopago.v2("TEST-4451a309-a6c0-4e53-8983-9e6f42531c98", {
     locale: "es-AR",

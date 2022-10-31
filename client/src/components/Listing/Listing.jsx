@@ -9,12 +9,16 @@ import "../../scss/Listings.scss";
 import FiltersCards from "../FilterCards";
 import ReactPaginate from "react-paginate";
 import Error from "../Error";
+import Modal from "../Modal/Modal";
+import SignIn from "../Login/SignIn/SignIn";
 
 export default function Listing() {
   const dispatch = useDispatch();
+  const user = useSelector((state)=>state.user)
   const ownerships = useSelector((state) => state.ownershipsFiltered);
   const userFavorites = useSelector((state) => state.userFavorite);
   const loading = useSelector((state) => state.loading);
+  const [modal, setModal] = useState(false);
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
@@ -25,7 +29,7 @@ export default function Listing() {
     dispatch(GetOwnerships());
     dispatch(userFavorite())
     }
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;

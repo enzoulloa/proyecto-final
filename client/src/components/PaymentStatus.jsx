@@ -10,7 +10,6 @@ export default function PaymentStatus() {
 
     useEffect(() => {
         paymentId = paymentId;
-        console.log(paymentId);
     }, [paymentId]);
 
     useEffect(() => {
