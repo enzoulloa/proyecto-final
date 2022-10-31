@@ -1,3 +1,6 @@
+import { Modal } from "antd";
+import React from "react";
+import { FaEdit, FaTrash } from "react-icons/fa";
 export const columnsOwnerships = [
   {
     title: "Nombre",
@@ -53,18 +56,33 @@ export const columnsUsers = [
     key: "email",
   },
   {
-    title: "Celular",
-    dataIndex: "cel",
-    key: "cel",
-  },
-  {
     title: "Rol",
     dataIndex: "role",
     key: "role",
   },
   {
-    title: "Imagen de perfil",
-    dataIndex: "photo",
-    key: "photo",
+    title: "Acciones",
+    key: "acciones",
+    render: (record) => {
+      return (
+        <>
+          <FaEdit />
+          <FaTrash color="red" onClick={() => deleteVisible(true)} />
+        </>
+      );
+    },
   },
 ];
+
+const deleteVisible = (record) => {
+  Modal.confirm({
+    title: `Borramos ${record.name}?`,
+    okText: "Dale",
+    onCancel: () => {
+      console.log("deberia cerrarse.....");
+    },
+    onOk: () => {
+      console.log("lo borre ñeri");
+    },
+  });
+};

@@ -34,6 +34,7 @@ const initialState = {
   ownerships: [],
   ownershipDetail: [],
   ownershipsFiltered: [],
+  users: [],
   loading: false,
   error: false,
   response: null,
@@ -211,11 +212,23 @@ function rootReducer(state = initialState, action) {
         ...state,
         paymentStatus: action.payload,
       };
-
     case "GET_USER_INFO":
       return {
         ...state,
         userInfo: action.payload,
+      };
+    case "DELETE_USER":
+      const users = state.users;
+      const usersLeft = users.filter((u) => u.id !== action.payload.userId);
+      return {
+        ...state,
+        response: action.payload.response,
+        users: usersLeft,
+      };
+    case "UPDATE_USERTYPE":
+      return {
+        ...state,
+        users: action.payload,
       };
     case "NEW_PASSWORD":
       return {

@@ -21,6 +21,7 @@ import UserPendingList from "../components/UserDetails/components/UserPendingLis
 import UserModerate from "../components/UserDetails/components/UserModerate";
 import LoginModal from "../components/LoginModal/SignIn/LoginModal";
 import UserFavorite from "../components/Favorite/UserFavorite";
+import "antd/dist/antd.css";
 
 function App() {
   return (
@@ -31,8 +32,11 @@ function App() {
         <Route path="/sell" element={<SellForm />} />
         <Route path="/about" element={<About />} />
         <Route path="/listings" element={<Listing />} />
-        <Route path="/ownerships/detail/:id/:name/:prodPrice" element={<Detail />} />
-        <Route path='/estado_de_pago' element={<PaymentStatus />}/>
+        <Route
+          path="/ownerships/detail/:id/:name/:prodPrice"
+          element={<Detail />}
+        />
+        <Route path="/estado_de_pago" element={<PaymentStatus />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
@@ -43,8 +47,8 @@ function App() {
           <Route path="formularios_pendientes" element={<UserPendingList />} />
           <Route path="moderacion" element={<UserModerate />} />
         </Route>
-        <Route path='/modal' element={<LoginModal/>}/>
-        <Route path="/favorite" element={<UserFavorite/>}/>
+        <Route path="/modal" element={<LoginModal />} />
+        <Route path="/favorite" element={<UserFavorite />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <div className="containerK">
