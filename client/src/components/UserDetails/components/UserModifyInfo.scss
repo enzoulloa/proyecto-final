@@ -1,0 +1,58 @@
+.form-update{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 500px;
+    width: 700px;
+    margin-left: 150px;
+    box-shadow: 0px 0px 5px white;
+    background-color: #0d2133;
+    .div-update{
+        display: flex;
+        flex-direction: column;
+        width: 500px;
+        align-items: center;
+        .btn-mas{
+                width: 50%;
+                margin-top: 5px;
+                padding: 2px;
+                border-style: solid;
+                border-radius: 0px;
+                background-color: black;
+                color: white;
+        }
+                .photo-row {
+                    display: flex;
+                    flex-direction: row;
+                }
+                .div-file input{
+                    display: none;
+                    
+                }
+                
+                .div-file label{
+                    display: block;
+                    width: 50%;
+                    font-size: 50px;
+                    color: white;
+                    font-size: 12px;
+                    margin-left: 24%;
+                    
+                }
+        
+    }
+    .div-photo{
+        display: flex;
+        justify-content: space-evenly;
+    }
+        .input {
+            height: 40px;
+            width: 50%;
+            border-style: solid;
+            border-radius: 0px;
+            background-color: black;
+            color: white
+        }
+}
+

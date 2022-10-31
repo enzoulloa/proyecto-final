@@ -24,6 +24,7 @@ import UserPendingList from "../components/UserDetails/components/UserPendingLis
 import UserModerate from "../components/UserDetails/components/UserModerate";
 import LoginModal from "../components/LoginModal/SignIn/LoginModal";
 import UserFavorite from "../components/Favorite/UserFavorite";
+import "antd/dist/antd.css";
 
 function App() {
   return (
@@ -46,8 +47,8 @@ function App() {
           <Route path="moderacion" element={<UserModerate />} />
           <Route path="propiedades" element={<UserOwnerships />}/>
         </Route>
-        <Route path='/modal' element={<LoginModal/>}/>
-        <Route path="/favorite" element={<UserFavorite/>}/>
+        <Route path="/modal" element={<LoginModal />} />
+        <Route path="/favorite" element={<UserFavorite />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <div className="containerK">

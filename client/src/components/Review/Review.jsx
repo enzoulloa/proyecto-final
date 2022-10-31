@@ -6,18 +6,19 @@ import { postReview } from "../../redux/actions.js";
 import { FaStar } from "react-icons/fa";
 import { startTransition } from "react";
 
-
 export default function Review({ id }) {
   const dispatch = useDispatch();
   const [review, setReview] = useState({ message: "", stars: 0 });
   const stars = Array(5).fill(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   let userInfo = JSON.parse(window.localStorage.getItem("UserLogin"));
-  const user = {
-    id: 1,
-    name: userInfo ? userInfo.name : null,
-    photo: userInfo ? userInfo.photo : null,
-  };
+  const user = userInfo
+    ? {
+        id: userInfo.id,
+        name: userInfo.name,
+        photo: userInfo.photo,
+      }
+    : null;
   const ownerID = id;
 
   const handleClick = (value) => {
@@ -42,7 +43,6 @@ export default function Review({ id }) {
 
   const sendReview = (e) => {
     e.preventDefault();
-    /*review.userID = window.localStorage.getItem("UserLogin").id ? window.localStorage.getItem("UserLogin").id :*/
     dispatch(postReview({ review, user, ownerID }));
     setReview({ message: "", stars: "0" });
     setHoverValue(undefined);

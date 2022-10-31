@@ -37,3 +37,25 @@
 #card-container Link {
   text-decoration: none;
 }
+.btn-favorite-userNoLogin{
+    background-color: transparent;
+    border: none;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    align-items: center;
+    text-align: center;
+    align-self: center;
+}
+.btn-favorite-userNoLogin img{
+  position: absolute;
+  left: 18%;
+  top: 10%;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+}
+.btn-favorite-userNoLogin img:hover{
+  width: 30px;
+  height: 30px;
+}

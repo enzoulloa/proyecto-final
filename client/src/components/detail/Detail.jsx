@@ -5,7 +5,7 @@ import {
   getDetail,
   clearDetail,
   removeOwnership,
-  mercadoPago
+  mercadoPago,
 } from "../../redux/actions.js";
 import Swal from "sweetalert2";
 import "./detail.scss";
@@ -15,6 +15,8 @@ import Review from "../Review/Review.jsx";
 import Feedbacks from "../Feedback/Feedbacks.jsx";
 
 export default function Detail() {
+
+  
   const { id, name, prodPrice } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,6 +30,7 @@ export default function Detail() {
   // const [newId, setNewId] = useState('');
   const localUser = JSON.parse(window.localStorage.getItem("UserLogin"));
   const reviews = useSelector(state => state.reviews)
+
   // async function setProd(productName, productPrice) {
   //   await setProduct({
   //     ...product,
@@ -37,7 +40,7 @@ export default function Detail() {
   // };
 
   // useEffect(() => {
-    
+
   // }, [product]);
 
   // const ownership = useSelector((state) => state.ownershipDetail);
@@ -58,7 +61,7 @@ export default function Detail() {
         title: name,
         unit_price: parseInt(prodPrice),
         quantity: 1,
-        picture_url: ""
+        picture_url: "",
       },
     ],
     back_urls: {
@@ -139,7 +142,6 @@ export default function Detail() {
   }
 
   const price = convertir();
-
 
   // useEffect(() => {
   //   if (paymentStatus === "approved") return alert("Pago acreditado!");
