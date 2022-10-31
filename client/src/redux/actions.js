@@ -210,7 +210,7 @@ export function ExitSession() {
 export function getUserId (userId) {
   return async function (dispatch) {
     try {
-      const user = await axios.get(`http://localhost:3001/users/id/${userId}`);
+      const user = await axios.get(`${URL_SERVER}/users/id/${userId}`);
       const userObj = {
         id: user.data.id,
         name: user.data.name,
@@ -268,7 +268,7 @@ export function getSales(userId) {
   console.log(userId);
   return async function (dispatch) {
     try {
-      const userSales = await axios.get(`http://localhost:3001/payment/getSales/${userId}`);
+      const userSales = await axios.get(`${URL_SERVER}/payment/getSales/${userId}`);
       console.log(userSales.data);
       return dispatch({
         type: USER_SALES,
