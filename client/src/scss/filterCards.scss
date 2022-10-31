@@ -84,3 +84,51 @@
     cursor: pointer;
   }
 }
+
+@media (max-width: 900px){
+  .containerFilterCards{
+    display: flex;
+    flex-direction: column;
+    &-select {
+      display: flex;
+      flex-direction: column;
+      margin-top: 40px;
+      margin-left: 15px;
+      padding: 80px;
+      background-color: #121b25;
+    }
+    &-input {
+    margin-right: 90px;
+    }
+    .Operation-select{
+      background-color: #ffffff;
+      margin: 5px;
+    }
+    .type-select{
+      background-color: #ffffff;
+      margin: 5px;
+    }
+    .price-order{
+      background-color: #ffffff;
+      margin: 5px;
+    }
+    .price-select{
+      background-color: #ffffff;
+      margin: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .garage-select{
+    background-color: #ffffff;
+    margin: 5px;
+    }
+    .rooms-select{
+    background-color: #ffffff;
+    margin: 5px;
+    }
+  }
+  .containerFilterCards select{
+    width: 50%;
+  }
+}
