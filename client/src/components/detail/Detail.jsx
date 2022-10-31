@@ -23,15 +23,18 @@ export default function Detail() {
     name: "admin",
     role: 4,
   };
-  const reviews = useSelector((state) => state.reviews);
   const ownership = useSelector((state) => state.ownershipDetail);
   let productId = useSelector((state) => state.productId);
-  const [newId, setNewId] = useState("");
-  const [paymentState, setPaymentState] = useState("");
-
+  const localUser = JSON.parse(window.localStorage.getItem("UserLogin"));
+  const reviews = useSelector((state) => state.reviews);
+  const infoUser = JSON.parse(localStorage.getItem("UserLogin"));
+  localStorage.setItem("LoginUser", JSON.stringify(infoUser));
+  const userObj = {
+    id,
+    idUser: infoUser.id,
+  };
   const [product, setProduct] = useState({
-    external_reference: "ABC",
-    notification_url: "http://localhost:3001/payment/paymentId",
+    notification_url: `https://proyecto-final.up.railway.app/payment/paymentId/${userObj}`,
     items: [
       {
         title: name,
@@ -41,9 +44,13 @@ export default function Detail() {
       },
     ],
     back_urls: {
-      success: "http://localhost:5173/estado_de_pago",
-      failure: "http://localhost:5173/estado_de_pago",
-      pending: "http://localhost:5173/estado_de_pago",
+      success: `http://localhost:5173/user/${
+        infoUser ? infoUser.name : null
+      }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
+      failure: `http://localhost:5173/${id}/estado_de_pago`,
+      pending: `http://localhost:5173/user/${
+        infoUser ? infoUser.name : null
+      }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
     },
     auto_return: "approved",
   });
@@ -57,9 +64,6 @@ export default function Detail() {
     dispatch(mercadoPago(product));
   }, [dispatch]);
 
-  useEffect(() => {
-    setNewId(null);
-  }, []);
   const handleDelete = () => {
     const id = ownership.id;
     const swalWithBootstrapButtons = Swal.mixin({

@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useMercadopago } from "react-sdk-mercadopago";
 import "./payment.scss";
 import Swal from "sweetalert2";
-import Modal from "./Modal/Modal";
-import SignIn from "./Login/SignIn/SignIn";
+import ModalPortal from "./Modal/Modal";
+import ModalUser from "./LoginModal/ModalUser";
 
 
 export default function Payment({ productId }) {
@@ -45,7 +45,7 @@ export default function Payment({ productId }) {
       ) : (
         <button onClick={() => handleClick()}>Comprar</button>
       )}
-      {showModal && <Modal onClose={()=>handleClose()}><SignIn/></Modal>}
+      {showModal && <ModalPortal onClose={()=>handleClose()}><ModalUser/></ModalPortal>}
     </div>
   );
 }

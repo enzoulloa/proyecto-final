@@ -1,6 +1,8 @@
 const { Router } = require("express");
-const { Ownership, Op, Review, User } = require("../db.js");
+const { Ownership, Op, Sales, Review } = require("../db.js");
 const { filterOwnerships } = require("./functions/filterOwnerships.js");
+const { getOwnerships } = require("../../data/ownershipsData.js");
+const sales = require("../models/sales.js");
 
 const router = Router();
 
@@ -30,7 +32,14 @@ router.get("/:id", async (req, res) => {
     const { id } = req.params;
     let find = await Ownership.findOne({
       where: { id: id },
-      include: [{ model: Review }],
+      include: [
+        {
+          model: Sales,
+        },
+        {
+          model: Review,
+        },
+      ],
     });
     if (find) {
       return res.status(200).send(find);

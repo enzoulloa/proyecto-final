@@ -2,6 +2,7 @@ require("dotenv").config();
 const { Sequelize, Op } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
+// const sales = require('./models/sales');
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env;
 
 let sequelize =
@@ -52,7 +53,7 @@ let capsEntries = entries.map((entry) => [
   entry[1],
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
-const { User, Ownership, UserAuth0, Review } = sequelize.models;
+const { User, Ownership, UserAuth0, Sales, Review } = sequelize.models;
 
 User.belongsToMany(Ownership, { through: "UserOwnerships" });
 UserAuth0.belongsToMany(Ownership, { through: "UserAuth0Ownerships" });
@@ -61,9 +62,13 @@ Ownership.hasOne(UserAuth0, { through: "UserAuth0Ownerships" });
 Ownership.hasOne(UserAuth0, { through: "UserOwnerships" });
 Ownership.belongsToMany(Review, { through: "Owner_Review" });
 Review.belongsToMany(Ownership, { through: "Owner_Review" });
-
 User.belongsToMany(Review, { through: "User_Review" });
 Review.belongsToMany(User, { through: "User_Review" });
+User.belongsToMany(Sales, { through: "User_Sales" });
+Sales.belongsToMany(User, { through: "User_Sales" });
+
+Sales.belongsToMany(Ownership, { through: "OwnershipSale" });
+Ownership.hasOne(Sales, { through: "OwnershipSale" });
 
 module.exports = {
   ...sequelize.models,

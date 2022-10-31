@@ -20,7 +20,10 @@ import {
   LOGIN_USER_AUTH0,
   MERCADO_PAGO_ID,
   MERCADO_PAGO_PAYMENT_SATUS,
+  CLEAR_STATUS,
   USER_STATUS,
+  USER_SALES,
+  // USER_STATUS,
   LOGIN_MODAL,
   USER_FAVORITE,
   OWNERSHIP_FAVORITE,
@@ -46,8 +49,11 @@ const initialState = {
   response: null,
   statuslogin: true,
   productId: "",
-  paymentId: "",
-  paymentStatus: "",
+  // paymentId: '',
+  saleSate: "",
+  // newUserInfo: {},
+  userSales: [],
+  paymentStatus: null,
   Details: [],
   user: "No Logueado",
   userFavorite: [],
@@ -154,6 +160,17 @@ function rootReducer(state = initialState, action) {
         ...state,
         user: action.payload,
       };
+    case USER_SALES:
+      return {
+        ...state,
+        userSales: action.payload,
+      };
+    case CLEAR_STATUS:
+      console.log(state[action.payload]);
+      return {
+        ...state,
+        [state[action.payload]]: null,
+      };
     case POST_REVIEW:
       return {
         ...state,
@@ -183,16 +200,6 @@ function rootReducer(state = initialState, action) {
           ? action.payload
           : { Error: "No Tiene Favoritos" },
       };
-    case MERCADO_PAGO:
-      return {
-        ...state,
-        productId: action.payload,
-      };
-    case MERCADO_PAGO_ID:
-      return {
-        ...state,
-        paymentId: action.payload,
-      };
     case OWNERSHIP_FAVORITE:
       return {
         ...state,
@@ -212,6 +219,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         userInfo: action.payload,
+      };
+    case "USER_BY_ID":
+      return {
+        ...state,
+        user: action.payload,
       };
     case DELETE_USER:
       const users = state.users;

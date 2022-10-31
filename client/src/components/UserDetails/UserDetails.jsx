@@ -12,6 +12,17 @@ export default function UserDetails() {
   const { isLoading, user } = useAuth0();
   const userInfo = useSelector((state) => state.userInfo);
   const user1 = JSON.parse(window.localStorage.getItem("UserLogin"));
+  const idUser = window.location.search.split("=")[2]
+    ? window.location.search.split("=")[2].split("&")[0]
+    : null;
+
+  console.log(idUser);
+
+  useEffect(() => {
+    if (!user1) {
+      dispatch(getUserId(idUser));
+    }
+  }, [dispatch, user1]);
 
   useEffect(() => {
     dispatch(getUserInfo(user1.name));
