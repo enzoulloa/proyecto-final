@@ -34,7 +34,8 @@ export default function Detail() {
     idUser: infoUser.id,
   };
   const [product, setProduct] = useState({
-    notification_url: `https://proyecto-final.up.railway.app/payment/paymentId/${userObj}`,
+    // external_reference: "ABC",
+    notification_url: `https://proyecto-final.up.railway.app/payment/paymentId/${id}/${infoUser.id}`,
     items: [
       {
         title: name,
