@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate} from "react-router-dom";
 import './LoginModal.scss';
 import ButtonGoogle from "../Login Google/ButtonGoogle.jsx";
-import { LoginUser, LoginStatus } from "../../../redux/actions.js";
+import { LoginUser, LoginStatus,statusUser,ModalSign } from "../../../redux/actions.js";
 import Error from "../../Error";
 
 
@@ -57,11 +57,15 @@ export default function LoginModal(){
 	
 	function handlerSubmit(){
 		dispatch(LoginUser(signIn))
+		dispatch(ModalSign(false))
 		setSignIn({
 			email:'',
 			password:'',
-		})
-		navigate('/')
+		});
+	}
+
+	function handlerStatusUser(){
+		dispatch(statusUser(false))
 	}
     return(
 		<div>
@@ -73,12 +77,9 @@ export default function LoginModal(){
 	    		<div className="welcome_modal">
 	    			<h2>Bienvenido!!</h2>
 	    			<p>Si no tienes un usurio podes registrarte.</p>
-					<Link to='/signup'>
-	    			<button className="sign_in_modal">Registrarme</button>
-					</Link>
+	    			<button className="sign_in_modal" onClick={()=>handlerStatusUser()}>Registrarme</button>
 					<ButtonGoogle/>
 	    		</div>
-				<button className="close_login_modal">x</button>
 	    		<div className="sign_up_modal">
 	    			<form onSubmit={()=> handlerSubmit()}>
 	    			<h2>Iniciar Sesion.</h2>

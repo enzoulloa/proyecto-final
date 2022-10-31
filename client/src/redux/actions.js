@@ -26,6 +26,8 @@ import {
   OWNERSHIP_FAVORITE,
   OWNERSHIP_FAVORITE_DELETE,
   REFRESH_FAVORITES,
+  STATUS_USER,
+  MODAL_SIGN
 } from "./common";
 
 const URL_SERVER = "http://localhost:3001";
@@ -80,7 +82,6 @@ export function orderOwnerships(payload) {
 }
 
 export function postProperty(payload) {
-  console.log(payload);
   return async function (dispatch) {
     const response = await axios.post(`${URL_SERVER}/ownerships/`, {
       name: payload.name,
@@ -210,13 +211,11 @@ export function ExitSession() {
 
 export function mercadoPago(payload) {
   return async function (dispatch) {
-    console.log(payload);
     try {
       const response = await axios.post(
         "http://localhost:3001/payment",
         payload
       );
-      console.log(response.data.response.body.id);
 
       return dispatch({
         type: MERCADO_PAGO,
@@ -271,7 +270,6 @@ export function LoginUserAuth0(payload) {
       payload
     );
     localStorage.setItem("UserLogin", JSON.stringify(LoginUserAuth0.data));
-    console.log(LoginUserAuth0.data);
     return {
       type: LOGIN_USER_AUTH0,
       payload: "USUARIO AUTH0 LOGUEADO",
@@ -295,19 +293,34 @@ export function LoginStatus() {
 
 export function postReview(payload) {
   return async (dispatch) => {
-    const review = {
-      stars: payload.stars,
-      message: payload.message,
-    };
     const response = await axios.post(
-      `${URL_SERVER}/ownerships/reviews?id=${payload.id}`,
-      review
+      `${URL_SERVER}/reviews?ownerID=${payload.ownerID}&userID=${payload.user.id}`,
+      payload.review
     );
+    const newReview = {
+      ...payload.review,
+      Users: [
+        {
+          ...payload.user,
+        },
+      ],
+    };
+
     return dispatch({
       type: "POST_REVIEW",
-      payload: response.data,
+      payload: newReview,
     });
   };
+}
+
+export function getReview(ownerID) {
+  return async (dispatch) => {
+    const response = await axios.get(`${URL_SERVER}/reviews/${ownerID}`)
+    return dispatch({
+      type: 'GET_REVIEW',
+      payload: response.data
+    })
+  }
 }
 
 export function statusLoginModal(boolean) {
@@ -367,7 +380,6 @@ export function addfavorite(payload) {
 
 export function deleteFavorite(payload) {
   return async (dispatch) => {
-    console.log(payload);
     try {
       const deletefavorite = await axios.delete(
         `${URL_SERVER}/users/addfavorite?id=${payload.id}&idUser=${payload.idUser}`
@@ -453,4 +465,71 @@ export function updateRole(data) {
       });
     }
   };
+}
+
+export function updatePassword(payload) {
+  return async function (dispatch) {
+    try {
+      const password = payload.passwordChangeForm;
+      console.log(password)
+      await axios.put(
+        `${URL_SERVER}/create/password/${payload.userID}`,
+        password
+      );
+      Swal.fire({
+        icon: "success",
+        title: "Contraseña cambiada con exito",
+      })
+      return dispatch({
+        type: "NEW_PASSWORD",
+      });
+    } catch (err) {
+      console.log(err.response.data)
+      Swal.fire({
+        icon: "error",
+        title: "Error 412",
+        text: err.response.data.message,
+      });
+    }
+  }
+}
+
+export function updateUserData(payload) {
+  return async function (dispatch) {
+    try {
+      let userLogin = JSON.parse(localStorage.getItem("UserLogin"))
+      if (payload.newInfo.name) {
+        userLogin.name = payload.newInfo.name
+      }
+      if (payload.newInfo.photo) {
+        userLogin.photo = payload.newInfo.photo[0]
+      }
+      localStorage.setItem("UserLogin", JSON.stringify(userLogin))
+      const response = await axios.put(
+        `${URL_SERVER}/create/update/${payload.userID}`,
+        payload.newInfo
+      );
+      return dispatch({
+        type: "UPDATE_USER",
+        payload: response.data
+      })
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Error 412",
+        text: err.response.data.message,
+      });
+    }
+export function statusUser(boolean){
+  return{
+    type:STATUS_USER,
+    payload: boolean
+  }
+}
+
+export function ModalSign(boolean){
+  return{
+    type:MODAL_SIGN,
+    payload: boolean
+  }
 }

@@ -12,10 +12,12 @@ import "./detail.scss";
 import Payment from "../Payment.jsx";
 import Carousel from "./Carousel.jsx";
 import Review from "../Review/Review.jsx";
+import Feedbacks from "../Feedback/Feedbacks.jsx";
 
 export default function Detail() {
+
+  
   const { id, name, prodPrice } = useParams();
-  console.log(name, prodPrice);
   // console.log(window.location.search);
   const { paymentStatus } = useSearchParams();
   // console.log(name, prodPrice);
@@ -26,6 +28,7 @@ export default function Detail() {
     name: "admin",
     role: 4,
   };
+  const reviews = useSelector(state => state.reviews)
 
   // async function setProd(productName, productPrice) {
   //   await setProduct({
@@ -78,7 +81,6 @@ export default function Detail() {
   useEffect(() => {
     setNewId(null);
   }, []);
-  console.log(newId, productId);
   const handleDelete = () => {
     const id = ownership.id;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -213,25 +215,13 @@ export default function Detail() {
               </div>
             </div>
           </div>
-
           <Payment productId={productId} />
-
-          <div className="div-detail">
-            <h3>Comentarios:</h3>
-            <br />
-            {ownership.review?.map((rev, index) => (
-              <p key={index}>{rev}</p>
-            ))}
-            {ownership.Reviews &&
-              ownership.Reviews.map((a) => {
-                return <p>Comentario: {a.message}</p>;
-              })}
-          </div>
           {/* {user.role >= 3 ? (
             <button onClick={handleDelete} className="bt">
               Remove ownership
             </button>
           ) : null} */}
+          <Feedbacks ownerID={id} reviews={reviews} />
           <Review id={id} />
         </div>
       ) : (
