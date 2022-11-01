@@ -36,89 +36,35 @@ export default function UserOwnerships() {
         if(ownershipId){
             dispatch(mercadoPagoId(ownershipId, userId));
         };
-    }, [ownershipId]);
-
-    useEffect(() => {
-        console.log('entro al efecto');
-        // dispatch(getUserId(idUser));
-        // dispatch(mercadoPagoId(ownershipId));
         dispatch(getSales(userId));
-    }, [ownershipId, userId]);
+    }, [dispatch, ownershipId]);
+
+    // useEffect(() => {
+    //     // console.log('entro al efecto');
+    //     // dispatch(getUserId(idUser));
+    //     // dispatch(mercadoPagoId(ownershipId));
+    //     dispatch(getSales(userId));
+    // }, [dispatch]);
 
     return (
         <div>
+            {/* {
+                userSales.length && userSales.map(sale => (
+                    <div>
+                        <div>{}</div>
+                        <Cards 
+                            images={}
+                            name={}
+                            location={}
+                            price={}
+                            rooms={}
+                            type={}
+                            id={}
+                        />
+                    </div>
+                ))
+            } */}
             <Table dataSource={userSales} columns={columnSales}/>
         </div>
     );
-        // <div className="containerP">
-            {/* {
-                userSales && (userSales.length ? userSales.map(sale => (
-                    <div key={sale.id}>
-                        <h1>{sale.Ownerships.length ? sale.Ownerships[0].name : 'NO TIENE PROPIEDAD'}</h1>
-                        <h3>{sale.state}</h3>
-                        <h3>{sale.state_detail}</h3>
-                    </div>
-                )): <div>Espere...</div>)
-            }
-            {
-                !userSales && 
-                    <div>
-                        <h1>NO TENES VENTAS PAPITO</h1>
-                    </div>
-            } */}
-            {/* {
-                paymentStatus && paymentStatus.status === 'approved' ?
-                    (
-                        <div className="sub-container">
-                            <div className="top-container">
-                                <div className="title-text">
-                                    <h1>PAGO APROBADO</h1>
-                                </div>
-                                <div className="result-img">
-                                    <img src='https://fece.org/wp-content/uploads/2017/12/bigstock-204968347.jpg' alt="PAGO APROBADO!"/>
-                                </div>
-                                <div className="bottom-text">
-                                    <h3>  Su pago ha sido aprobado. Nos contactaremos a la brevedad para seguir adelante con la operación, chequee su casilla de correo electrónico.
-                                        Muchas gracias!</h3>
-                                </div>
-                            </div>
-                            <div className="buttons">
-                                <div className="button">
-                                    <Link to='/listings'><button>Volver al listado</button></Link>
-                                </div>
-                                <div className="button">
-                                    <Link to='/'><button>Página principal</button></Link>
-                                </div>
-                            </div>
-                        </div>
-                    ) :
-                    ((paymentStatus && paymentStatus.status === 'in_process') ?
-                        (
-                            <div className="sub-container">
-                                <div className="top-container">
-                                    <div className="title-text">
-                                        <h1>PAGO EN PROCESO...</h1>
-                                    </div>
-                                    <div className="result-img">
-                                        <img src='https://www.aba.org.do/images/WhatsApp_Image_2021-01-27_at_23000_PM.jpeg'
-                                            alt="PAGO EN PROCESO..."/>
-                                    </div>
-                                    <div className="bottom-text">
-                                        <h3>  Su pago está siendo procesado, chequee su correo electrónico para corroborar su estado final. En caso de ser aprobado nos contactaremos a la brevedad para seguir adelante con la operación.
-                                            Muchas gracias!</h3>
-                                    </div>
-                                </div>
-                                <div className="buttons">
-                                    <div className="button">
-                                        <Link to='/listings'><button>Volver al listado</button></Link>
-                                    </div>
-                                    <div className="button">
-                                        <Link to='/'><button>Página principal</button></Link>
-                                    </div>
-                                </div>
-                            </div>
-                        ) : 'Voce no ha traido nada manito...') 
-            } */}
-        // </div>
-    ;
 };

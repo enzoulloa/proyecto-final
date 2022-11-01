@@ -1,22 +1,24 @@
-const { DataTypes, ENUM } = require('sequelize');
+const { DataTypes, ENUM } = require("sequelize");
 module.exports = (sequelize) => {
-  sequelize.define('User', {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    email: {
+  sequelize.define(
+    "User",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
       },
-    password: {
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      password: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -30,18 +32,16 @@ module.exports = (sequelize) => {
         defaultValue: 1,
       },
       photo: {
-        type: DataTypes.STRING(512)
-      },
-      userFavotire:{
-        type: DataTypes.STRING
+        type: DataTypes.STRING(512),
       },
       userAuth0: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false
-      }
-  },
-  {
-    timestamps: false
-  });
+        defaultValue: false,
+      },
+    },
+    {
+      timestamps: false,
+    }
+  );
 };

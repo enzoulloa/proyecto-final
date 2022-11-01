@@ -1,16 +1,18 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { User, UserAuth0, Ownership} = require("../db.js");
+const { User, UserAuth0, Ownership } = require("../db.js");
 
 const app = express();
 
 app.post("/", async (req, res) => {
   const { email, password } = req.body;
-  let userDB = await User.findOne({ where: { email: email },
+  let userDB = await User.findOne({
+    where: { email: email },
     include: {
       model: Ownership,
-      attributes:["id",
+      attributes: [
+        "id",
         "name",
         "location",
         "rooms",
@@ -24,12 +26,13 @@ app.post("/", async (req, res) => {
         "state",
         "price",
         "floors",
-        "review",
-        "address"],
+        "address",
+      ],
       through: {
-          attributes: [],
+        attributes: [],
       },
-  }});
+    },
+  });
   if (!userDB) {
     return res.status(404).json({
       ok: false,
@@ -64,7 +67,7 @@ app.post("/", async (req, res) => {
       role: userDB.role,
       userAuth0: false,
       id: userDB.id,
-      favorites: userDB.Ownerships
+      favorites: userDB.Ownerships,
     });
   }
 });
@@ -72,10 +75,12 @@ app.post("/", async (req, res) => {
 app.post("/validate", async (req, res) => {
   const { password, email } = req.body;
   try {
-    const userEmail = await User.findOne({ where: { email: email },
+    const userEmail = await User.findOne({
+      where: { email: email },
       include: {
         model: Ownership,
-        attributes:["id",
+        attributes: [
+          "id",
           "name",
           "location",
           "rooms",
@@ -89,12 +94,13 @@ app.post("/validate", async (req, res) => {
           "state",
           "price",
           "floors",
-          "review",
-          "address"],
+          "address",
+        ],
         through: {
-            attributes: [],
+          attributes: [],
         },
-    } });
+      },
+    });
     if (!userEmail) {
       return res.json({ message: "Email or password incorrect" });
     } else {
@@ -113,27 +119,26 @@ app.post("/validate", async (req, res) => {
 app.post("/auth0", async (req, res) => {
   const { email, name, photo } = req.body;
 
-  const verification = await UserAuth0.findOne({where: {email: email}})
+  const verification = await UserAuth0.findOne({ where: { email: email } });
 
-  if(!verification){
+  if (!verification) {
     const createUser = await UserAuth0.create({
       email: email,
       name: name,
       photo: photo,
-    })
-    const newUser = await UserAuth0.findOne({where: {email: email}})
+    });
+    const newUser = await UserAuth0.findOne({ where: { email: email } });
 
     return res.status(201).json({
-        ok: true,
-        photo: newUser.photo,
-        name: newUser.name,
-        role: newUser.role,
-        userAuth0: true,
-        id: newUser.id,
-        favorites: newUser.Ownerships? newUser.Ownerships : []
-      });
-
-  }else{
+      ok: true,
+      photo: newUser.photo,
+      name: newUser.name,
+      role: newUser.role,
+      userAuth0: true,
+      id: newUser.id,
+      favorites: newUser.Ownerships ? newUser.Ownerships : [],
+    });
+  } else {
     return res.status(201).json({
       ok: true,
       photo: verification.photo,
@@ -141,9 +146,8 @@ app.post("/auth0", async (req, res) => {
       role: verification.role,
       userAuth0: true,
       id: verification.id,
-      favorites: verification.Ownerships ? verification.Ownerships : []
+      favorites: verification.Ownerships ? verification.Ownerships : [],
     });
   }
-
 });
 module.exports = app;
