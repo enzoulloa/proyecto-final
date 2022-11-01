@@ -34,7 +34,11 @@ export default function UserDetails() {
   return (
     <div className="userDetails">
       <div className="userNavBar">
-        <UserNavBar image={userInfo.photo} name={userInfo.name} userRole={3} />
+        <UserNavBar
+          image={userInfo.photo}
+          name={userInfo.name}
+          userRole={userInfo.role}
+        />
       </div>
       <div className="userView">
         <Outlet />

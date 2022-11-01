@@ -66,12 +66,12 @@ module.exports = (sequelize) => {
       },
       published: {
         type: DataTypes.ENUM(
-          "Revision_Pendiente",
+          "Revision Pendiente",
+          "En revision",
           "Publicada",
           "Cancelada",
           "Finalizada"
         ),
-        defaultValue: "Revision_Pendiente",
       },
       latitude: {
         type: DataTypes.FLOAT,
