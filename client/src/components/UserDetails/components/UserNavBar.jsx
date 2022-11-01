@@ -17,7 +17,7 @@ export default function UserNavBar({ page, image, name, userRole, selected }) {
         <Link to={`/user/${name}/modificar_info`} className="userNavLink">
           Modificar Info
         </Link>
-        <Link to={`/user/${name}/propiedades`} className='userNavLink'>
+        <Link to={`/user/${name}/propiedades`} className="userNavLink">
           Mis propiedades
         </Link>
 
@@ -29,9 +29,9 @@ export default function UserNavBar({ page, image, name, userRole, selected }) {
             >
               Formularios pendientes
             </Link>
-            <Link to={`/user/${name}/lista_pagos`} className="userNavLink">
+            {/* <Link to={`/user/${name}/lista_pagos`} className="userNavLink">
               Formularios señados
-            </Link>
+            </Link> */}
           </div>
         ) : null}
         {userRole === 3 && (

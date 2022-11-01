@@ -53,7 +53,7 @@ module.exports = (sequelize) => {
         type: DataTypes.ARRAY(DataTypes.STRING),
       },
       state: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM("Alquiler", "Venta"),
       },
       price: {
         type: DataTypes.BIGINT,
@@ -61,19 +61,24 @@ module.exports = (sequelize) => {
       floors: {
         type: DataTypes.INTEGER,
       },
-      review: {
-        type: DataTypes.ARRAY(DataTypes.TEXT),
-      },
       address: {
         type: DataTypes.STRING,
       },
-      // published:{
-      //  type: DataTypes.ENUM('Revision_Pendiente', 'Publicada', 'Cancelada', 'Finalizada'),
-      //  defaultValue: 'Revision_pendiente'
-      // },
-      // latitude: {
-      //   type: DataTypes.FLOAT,
-      // },
+      published: {
+        type: DataTypes.ENUM(
+          "Revision_Pendiente",
+          "Publicada",
+          "Cancelada",
+          "Finalizada"
+        ),
+        defaultValue: "Revision_Pendiente",
+      },
+      latitude: {
+        type: DataTypes.FLOAT,
+      },
+      longitude: {
+        type: DataTypes.FLOAT,
+      },
     },
     {
       timestamps: false,

@@ -16,8 +16,6 @@ export default function UserDetails() {
     ? window.location.search.split("=")[2].split("&")[0]
     : null;
 
-  console.log(idUser);
-
   useEffect(() => {
     if (!user1) {
       dispatch(getUserId(idUser));

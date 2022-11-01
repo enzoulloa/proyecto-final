@@ -37,7 +37,8 @@ import {
   GET_REVIEW,
   POST_REVIEW,
 } from "./common";
-const ACCESS_TOKEN = 'TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971';
+const ACCESS_TOKEN =
+  "TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971";
 
 const URL_SERVER = "https://proyecto-final.up.railway.app";
 
@@ -205,9 +206,9 @@ export function ExitSession() {
       payload: "USUARIO NO LOGUEADO",
     });
   };
-};
+}
 
-export function getUserId (userId) {
+export function getUserId(userId) {
   return async function (dispatch) {
     try {
       const user = await axios.get(`${URL_SERVER}/users/id/${userId}`);
@@ -216,17 +217,17 @@ export function getUserId (userId) {
         name: user.data.name,
         rol: user.data.rol,
         photo: user.data.photo,
-        Ownerships: user.data.Ownerships
+        Ownerships: user.data.Ownerships,
       };
-      localStorage.setItem('UserLogin', JSON.stringify(userObj));
+      localStorage.setItem("UserLogin", JSON.stringify(userObj));
       return dispatch({
-        type: 'USER_BY_ID',
-        payload: userObj
+        type: "USER_BY_ID",
+        payload: userObj,
       });
     } catch (error) {
       console.log(error);
-    };
-  }
+    }
+  };
 }
 
 export function mercadoPago(payload) {
@@ -246,17 +247,24 @@ export function mercadoPago(payload) {
 export function mercadoPagoId(ownershipId) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`${URL_SERVER}/payment/paymentId/${ownershipId}`);
+      const response = await axios.get(
+        `${URL_SERVER}/payment/paymentId/${ownershipId}`
+      );
       const paymentId = response.data;
-      const paymentStatus = await axios.get(`https://api.mercadopago.com/v1/payments/${paymentId}/?access_token=${ACCESS_TOKEN}`);
+      const paymentStatus = await axios.get(
+        `https://api.mercadopago.com/v1/payments/${paymentId}/?access_token=${ACCESS_TOKEN}`
+      );
       const state = paymentStatus.data.status;
       const state_detail = paymentStatus.data.status_detail;
-      const ownershipSale = await axios.put(`${URL_SERVER}/payment/editSale`, {state, state_detail, paymentId});
-
+      const ownershipSale = await axios.put(`${URL_SERVER}/payment/editSale`, {
+        state,
+        state_detail,
+        paymentId,
+      });
 
       return dispatch({
         type: MERCADO_PAGO_ID,
-        payload: ownershipSale.data
+        payload: ownershipSale.data,
       });
     } catch (error) {
       console.log(error);
@@ -272,8 +280,8 @@ export function getSales(userId) {
       console.log(userSales.data);
       return dispatch({
         type: USER_SALES,
-        payload: userSales.data
-      });  
+        payload: userSales.data,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -300,12 +308,12 @@ export function getSales(userId) {
 //   };
 // };
 
-export function clearStatus (status) {
+export function clearStatus(status) {
   return {
     type: CLEAR_STATUS,
-    payload: status
+    payload: status,
   };
-};
+}
 
 export function LoginUserAuth0(payload) {
   return async function (dispatch) {
@@ -536,7 +544,6 @@ export function updatePassword(payload) {
   };
 }
 
-
 export function updateUserData(payload) {
   return async function (dispatch) {
     try {
@@ -555,7 +562,7 @@ export function updateUserData(payload) {
       return dispatch({
         type: "UPDATE_USER",
         payload: response.data,
-      });;
+      });
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -563,15 +570,14 @@ export function updateUserData(payload) {
         text: err.response.data.message,
       });
     }
-  };;
+  };
 }
 
-export function statusUser(boolean){
-  return{
-    type:STATUS_USER,
-    payload: boolean
-
-  }
+export function statusUser(boolean) {
+  return {
+    type: STATUS_USER,
+    payload: boolean,
+  };
 }
 
 export function ModalSign(boolean) {

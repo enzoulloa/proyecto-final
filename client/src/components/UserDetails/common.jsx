@@ -38,9 +38,9 @@ export const columnsOwnerships = [
     key: "price",
   },
   {
-    title: "Pisos",
-    dataIndex: "floors",
-    key: "floors",
+    title: "Estado de la publicacion",
+    dataIndex: "pending",
+    key: "pending",
   },
 ];
 
@@ -91,11 +91,11 @@ export const columnSales = [
   {
     title: "Estado",
     dataIndex: "state",
-    key: "name"
+    key: "name",
   },
   {
     title: "Detalle del estado",
     dataIndex: "state_detail",
-    key:"state_detail"
-  }
-]
+    key: "state_detail",
+  },
+];
