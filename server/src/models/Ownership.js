@@ -66,8 +66,8 @@ module.exports = (sequelize) => {
       },
       published: {
         type: DataTypes.ENUM(
-          "Revision_Pendiente",
-          // "En revision",
+          "Revision Pendiente",
+          "En revision",
           "Publicada",
           "Cancelada",
           "Finalizada"
