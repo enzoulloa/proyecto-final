@@ -1,130 +1,101 @@
-/*.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  background-color: #0000006e;
-  background-size: cover;
-  padding-bottom: 100px;
-  padding-top: 100px;
-
-  .inner {
-    width: 600px;
-    border-radius: 29px;
-    border-radius: 29px;
-    background: #1aa090;
-
-    .h1 {
-      font-size: 40px;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .h4 {
-      font-size: 23px;
-      font-weight: 500;
-      margin-bottom: 8px;
-    }
-
-    .images {
-      display: flex;
-      justify-content: center;
-      justify-items: center;
-      align-items: center;
-    }
-    .images img {
-      width: 60%;
-      height: 60%;
-      max-width: 200px;
-      max-height: 200px;
-      margin: 20px;
-      border-radius: 10px;
-    }
-
-    .p {
-      color: black;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    .bt {
-      background-color: #2e466e;
-      border-radius: 42px;
-      border: 1px solid #1f2f47;
-      display: inline-block;
-      cursor: pointer;
-      color: #ffffff;
-      font-family: Times New Roman;
-      font-size: 20px;
-      font-weight: bold;
-      padding: 15px 52px;
-      text-decoration: none;
-      margin-bottom: 10px;
-    }
-
-    .bt:hover {
-      background-color: #415989;
-    }
-  }
-  .loading img {
-    border-radius: 75px;
-  }
-}
-*/
-
-.div-detail{
-  background-color: whitesmoke;
-  margin: 25px 75px 25px 75px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  color: black;
-  box-shadow: 0px 0px 5px black;
-}
-
-.row-detail{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  color: black;
-
-}
-
-.caract-detail {
+.container{
   display: flex;
   flex-direction: column;
-  align-items: baseline;
+  justify-content: center;
+  background-color: #f4f4f4;
+  width: 100%;
+  margin-bottom: -95px;
+  .row-photo-caract{
+    display: flex;
+    margin-left: 70px;
+    button{
+      border: 1px solid #3a4e7a;
+      color: #3a4e7a;
+      margin: 2px 2px;
+    }
+    button:hover{
+      border: 1px solid white;
+      color: white;
+      background-color: #3a4e7a;
+    }
+    .new-caract{
+      display: flex;
+      flex-direction: column  ;
+      justify-content: space-evenly;
+      align-items: center;
+      background-color: #f1f1f0;
+      color: #091d36;
+      box-shadow: 0px 0px 5px black;
+      width: 45%;
+      h2 {
+          color: #3a4e7a; 
+          border-color: black;
+        }
+      .row-detail {
+          display: flex;
+          flex-direction: row;
+          align-items: stretch;
+          justify-content: space-around;
+          width: 100%;
+          height: 70%;
+          margin-top: -15px;
+          .price-detail {
+            color: #5e83ba;
+          }
+          .caract-detail {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            
+            
+            h4{
+              font-size: 18px;
+            }
+            .par-caract{
+              display: flex;
+              flex-direction: row;
+            }
+          }
+        }
+    }
+
+  }
+  .div-titulo-detail {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;  
+    background-color: #091d36;
+    margin: 10px 75px;
+    font-size: 15px;
+    box-shadow: 0px 0px 2px black;
+    h2{
+      color: white;
+      margin: -3px 0px;
+    }
+  }
+
+  .div-detail {
+    display: flex ;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f1f1f0;
+    color: #091d36;
+    box-shadow: 0px 0px 5px black;
+    h2 {
+        color: #3a4e7a;
+        border-color: black;
+      }
+    p{
+      width: 90%;
+      font-size: 18px;
+      color: #091d36;
+    }
+  }
 }
 
-.titulo-detail{
-  background-color: black;
-  color: white;
-  margin-left: 75px;
-  margin-right: 75px;
-  margin-top: 10px;
-  font-size: 15px;
-  box-shadow: 0px 0px 5px white;
-}
 
-.hr-detail{
-  color: black;
-}
 
-.div-prop-detail{
-  margin: 5px 0px;
-}
 
-.price-detail{
-  color: red;
-}
 
-.div-titulo-detail{
-  padding: 5px 0px;
-  margin-bottom: -10px;
-}
+
+

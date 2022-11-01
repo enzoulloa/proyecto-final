@@ -129,8 +129,10 @@ export function getDetail(id) {
 export function clearDetail() {
   return {
     type: CLEAR_DETAIL,
+    payload: "asd"
   };
 }
+
 export function removeOwnership(id) {
   return async function (dispatch) {
     try {

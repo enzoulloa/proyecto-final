@@ -75,7 +75,11 @@ function rootReducer(state = initialState, action) {
         response: null,
         productId: null,
       };
-
+    case CLEAR_DETAIL:
+      return {
+        ...state,
+        ownershipDetail: []
+      }
     case GET_USERS:
       return {
         ...state,

@@ -56,15 +56,17 @@ export default function Detail() {
     auto_return: "approved",
   });
 
+  
   useEffect(() => {
-    setNewId(productId);
-  }, [productId]);
-
-  useEffect(() => {
+    dispatch(clearDetail())
     dispatch(getDetail(id));
-    dispatch(mercadoPago(product));
+    dispatch(mercadoPago(product)); 
   }, [dispatch]);
-
+  
+  useEffect(() => {
+    productId = productId
+  }, [productId]);
+  
   const handleDelete = () => {
     const id = ownership.id;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -122,80 +124,80 @@ export default function Detail() {
   return (
     <div className="container">
       {ownership.id ? (
-        <div className="inner">
-          <div className="row-detail titulo-detail div-titulo-detail ">
-            <h2 className="h1">{ownership.name}</h2>
+        <div>
+          <div className="div-titulo-detail">
+            <h2>{ownership.name}</h2>
             <h2>Precio:&nbsp;${price}</h2>
           </div>
-          <div className="div-detail">
-            <Carousel images={ownership.images} />
+          <div className="row-photo-caract">
+            <div className="div-carousel">
+              <Carousel images={ownership.images} />
+            </div>
+            <div className="new-caract">
+              <h2>Caracteristicas</h2>
+              <div className="row-detail">
+                <div className="caract-detail">
+                  <div className="par-caract">
+                    <h4>Precio:&nbsp;</h4>
+                    <h4 className="price-detail">${price}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4>Localidad:&nbsp;</h4>
+                    <h4>{ownership.location}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4 className="p">Direccion:&nbsp;</h4>
+                    <h4>{ownership.address}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4 className="p">Metros cuadrados:&nbsp;</h4>
+                    <h4>{ownership.m2}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4 className="p">Tipo de propiedad:&nbsp;</h4>
+                    <h4>{ownership.type}</h4>
+                  </div>
+                </div>
+                <div className="caract-detail">
+                  <div className="par-caract">
+                    <h4>Plantas:&nbsp;</h4>
+                    <h4>{ownership.floors}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4>Habitaciones:&nbsp;</h4>
+                    <h4>{ownership.rooms}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4 className="p">Cochera:&nbsp;</h4>
+                    <h4>{ownership.garage === true ? "Tiene" : "No tiene"}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4 className="p">Expensas:&nbsp;</h4>
+                    <h4>{ownership.expenses}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4 className="p">Vendedor:&nbsp;</h4>
+                    <h4>{ownership.seller}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4 className="p">Estado:&nbsp;</h4>
+                    <h4>{ownership.state}</h4>
+                  </div>
+                </div>
+            </div>
+          </div>
           </div>
           <div className="div-detail">
             <h2>Descripcion</h2>
-            <br />
             <p className="p">{ownership.description}</p>
           </div>
-          <div className="div-detail">
-            <h2>Caracteristicas</h2>
-            <hr className="hr-detail" />
-            <br />
-            <div className="row-detail">
-              <div className="caract-detail">
-                <div className="row-detail div-prop-detail">
-                  <h4>Precio:&nbsp;</h4>
-                  <h4 className="price-detail">${price}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="h4">Localidad:&nbsp;</h4>
-                  <h4>{ownership.location}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="p">Direccion:&nbsp;</h4>
-                  <h4>{ownership.address}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="p">Metros cuadrados:&nbsp;</h4>
-                  <h4>{ownership.m2}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="p">Tipo de propiedad:&nbsp;</h4>
-                  <h4>{ownership.type}</h4>
-                </div>
-              </div>
-              <div className="caract-detail">
-                <div className="row-detail div-prop-detail">
-                  <h4>Plantas:&nbsp;</h4>
-                  <h4>{ownership.floors}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="h4">Habitaciones:&nbsp;</h4>
-                  <h4>{ownership.rooms}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="p">Cochera:&nbsp;</h4>
-                  <h4>{ownership.garage === true ? "Tiene" : "No tiene"}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="p">Expensas:&nbsp;</h4>
-                  <h4>{ownership.expenses}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="p">Vendedor:&nbsp;</h4>
-                  <h4>{ownership.seller}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="p">Estado:&nbsp;</h4>
-                  <h4>{ownership.state}</h4>
-                </div>
-              </div>
-            </div>
-          </div>
+          
           <Payment productId={productId} />
           {/* {user.role >= 3 ? (
             <button onClick={handleDelete} className="bt">
               Remove ownership
             </button>
-          ) : null} */}
+          ) : null} */} 
           <Feedbacks ownerID={id} reviews={reviews} />
           <Review id={id} />
         </div>
