@@ -28,6 +28,7 @@ export default function Detail() {
   const localUser = JSON.parse(window.localStorage.getItem("UserLogin"));
   const reviews = useSelector((state) => state.reviews);
   const infoUser = JSON.parse(localStorage.getItem("UserLogin"));
+  console.log(infoUser.id);
   localStorage.setItem("LoginUser", JSON.stringify(infoUser));
   const userObj = {
     id,
@@ -45,25 +46,22 @@ export default function Detail() {
       },
     ],
     back_urls: {
-      success: `http://localhost:5173/user/${
-        infoUser ? infoUser.name : null
-      }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
+      success: `http://localhost:5173/user/${infoUser ? infoUser.name : null}/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
       failure: `http://localhost:5173/${id}/estado_de_pago`,
-      pending: `http://localhost:5173/user/${
-        infoUser ? infoUser.name : null
-      }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
+      pending: `http://localhost:5173/user/${infoUser ? infoUser.name : null}/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
     },
     auto_return: "approved",
   });
 
   useEffect(() => {
-    setNewId(productId);
-  }, [productId]);
-
-  useEffect(() => {
     dispatch(getDetail(id));
     dispatch(mercadoPago(product));
   }, [dispatch]);
+
+  useEffect(() => {
+    productId = productId;
+    console.log(productId);
+  }, [productId]);
 
   const handleDelete = () => {
     const id = ownership.id;

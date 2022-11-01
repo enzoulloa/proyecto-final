@@ -53,7 +53,7 @@ const initialState = {
   saleSate: "",
   // newUserInfo: {},
   userSales: [],
-  paymentStatus: null,
+  // paymentStatus: null,
   Details: [],
   user: "No Logueado",
   userFavorite: [],
@@ -210,10 +210,15 @@ function rootReducer(state = initialState, action) {
         ...state,
         userFavorite: action.payload,
       };
-    case MERCADO_PAGO_PAYMENT_SATUS:
+    case MERCADO_PAGO:
       return {
         ...state,
-        paymentStatus: action.payload,
+        productId: action.payload,
+      };
+    case MERCADO_PAGO_ID:
+      return {
+        ...state,
+        saleSate: action.payload
       };
     case GET_USER_INFO:
       return {

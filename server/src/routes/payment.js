@@ -13,6 +13,7 @@ const router = Router();
 
 router.post("/", async (req, res) => {
   const product = req.body;
+  console.log(product);
   try {
     const response = await mercadopago.preferences.create(product);
     // console.log(response);
@@ -61,49 +62,49 @@ router.post('/paymentId/:id/:idUser', async (req, res) => {
     };
 });
 
-router.get("/paymentId/:id", async (req, res) => {
-  const ownershipId = req.params.id;
-  console.log(ownershipId);
-  try {
-    // const response = await Ownership.findOne({
-    //     where: {id: ownershipId},
-    //     include: {
-    //         model: Sales,
-    //         attributes: ['paymentId'],
-    //         through: {
-    //             attributes: []
-    //         }
-    //     }
-    // });
-    // console.log(response);
-    const sales = await Sales.findAll({
-      include: { model: Ownership, where: { id: ownershipId } },
-    });
-    console.log(sales);
-    const paymentId = sales[0].dataValues.paymentId;
-    // const ownership = sales.
-    res.send(paymentId);
-  } catch (error) {
-    console.log(error);
-  }
+router.get('/paymentId/:id/:userId', async (req, res) => {
+    const ownershipId = req.params.id;
+    const userId = req.params.userId;
+    console.log(ownershipId);
+    try {
+        // const response = await Ownership.findOne({
+        //     where: {id: ownershipId},
+        //     include: {
+        //         model: Sales,
+        //         attributes: ['paymentId'],
+        //         through: {
+        //             attributes: []
+        //         }
+        //     }
+        // });
+        // console.log(response);
+        const sales = await Sales.findAll({include: {model: Ownership, where: {id: ownershipId}}});
+        console.log(sales);
+        const paymentId = sales[0].dataValues.paymentId;
+        const user = await User.findOne({where: {id: userId}, include: {model: Sales}});
+        // const ownership = sales.
+        res.send(paymentId);
+    } catch (error) {
+        console.log(error);
+    };
 });
 
 router.put("/editSale", async (req, res) => {
   const { state, state_detail, paymentId } = req.body;
   console.log(state, state_detail, paymentId);
   try {
-    const updatedSale = await Sales.update(
-      {
-        state: state,
-        state_detail: state_detail,
-      },
-      {
-        where: {
-          paymentId: paymentId,
-        },
-      }
-    );
-    return res.send("Venta actualizada!");
+    const sale = await Sales.findAll({where: {paymentId: `${paymentId}`}});
+    console.log(sale);
+    if(sale.length){
+      const updatedSale = await sale[0].update(
+        {
+          name: "wow",
+          state: state,
+          state_detail: state_detail,
+        }
+      );
+      return res.send("Venta actualizada!");
+    }
   } catch (error) {
     console.log(error);
     res
@@ -113,47 +114,55 @@ router.put("/editSale", async (req, res) => {
 });
 
 router.get("/getSales/:userId", async (req, res) => {
-  const userId = req.params.userId;
+  const userId = parseInt(req.params.userId);
   console.log(userId);
   try {
-    const sale = await Sales.findAll({
-      include: [
-        {
-          model: Ownership,
-        },
-        {
-          model: User,
-          where: {
-            id: userId,
+    if(userId) {
+      const sale = await Sales.findAll({
+        include: [
+          {
+            model: Ownership,
           },
-        },
-      ],
-    });
-    res.send(sale);
+          {
+            model: User,
+            where: {
+              id: userId,
+            },
+          },
+        ],
+      });
+      return res.send(sale);
+    }
+    console.log('no entró al if');
+    const sales = await Sales.findAll({include: [{model: Ownership}, {model: User}]});
+    return res.send(sales);
   } catch (error) {
     console.log(error);
   }
 });
 
-router.post("/createSales/:id", async (req, res) => {
+router.post("/createSales/:id/:userId", async (req, res) => {
   const body = req.body;
   const propId = parseInt(req.params.id);
+  const userId = req.params.userId;
   try {
     if (body.data) {
       let paymentId = body.data.id;
-
+      console.log(paymentId);
       const ownership = await Ownership.findOne({ where: { id: propId } });
-      if (ownership) {
+      const user = await User.findOne({where: {id: userId}});
+      if (ownership && user) {
         const newSale = await Sales.create({
           name: "Pending...",
           paymentId,
           state: "pending",
           state_detail: "pending",
         });
-
         const ownershipNewSale = await newSale.addOwnership(ownership.id);
-
-        console.log(ownershipNewSale);
+        const userSale = await user.addSales(newSale.id);
+        console.log(await User.findOne({where: {id: user.id}, include:{ model: Sales}}));
+        // const ownershipNewSale = await newSale.addOwnership(ownership.id);
+        // console.log(ownershipNewSale);
       }
       return res.send("Ok, me estás pasando la data, seguí asi...");
     }

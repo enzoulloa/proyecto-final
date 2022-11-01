@@ -42,6 +42,8 @@ const ACCESS_TOKEN =
 
 const URL_SERVER = "http://localhost:3001";
 
+const localHost = "http://localhost:3001";
+
 export function GetOwnerships(published) {
   return async function (dispatch) {
     dispatch({ type: LOADING });
@@ -213,6 +215,7 @@ export function ExitSession() {
 export function getUserId(userId) {
   return async function (dispatch) {
     try {
+      console.log(userId);
       const user = await axios.get(`${URL_SERVER}/users/id/${userId}`);
       const userObj = {
         id: user.data.id,
@@ -221,6 +224,7 @@ export function getUserId(userId) {
         photo: user.data.photo,
         Ownerships: user.data.Ownerships,
       };
+      localStorage.removeItem("UserLogin");
       localStorage.setItem("UserLogin", JSON.stringify(userObj));
       return dispatch({
         type: "USER_BY_ID",
@@ -236,6 +240,7 @@ export function mercadoPago(payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(`${URL_SERVER}/payment`, payload);
+      // const response = await axios.post(`${localHost}/payment`, payload);
       return dispatch({
         type: MERCADO_PAGO,
         payload: response.data.productId,
@@ -246,28 +251,41 @@ export function mercadoPago(payload) {
   };
 }
 
-export function mercadoPagoId(ownershipId) {
+export function mercadoPagoId(ownershipId, userId) {
   return async function (dispatch) {
     try {
+      console.log('entro a la action');
+      console.log(ownershipId);
       const response = await axios.get(
-        `${URL_SERVER}/payment/paymentId/${ownershipId}`
+        `${URL_SERVER}/payment/paymentId/${ownershipId}/${userId}`
+        //`${localHost}/payment/paymentId/${ownershipId}/${userId}`
       );
+      console.log(response.data);
       const paymentId = response.data;
       const paymentStatus = await axios.get(
         `https://api.mercadopago.com/v1/payments/${paymentId}/?access_token=${ACCESS_TOKEN}`
       );
       const state = paymentStatus.data.status;
       const state_detail = paymentStatus.data.status_detail;
-      const ownershipSale = await axios.put(`${URL_SERVER}/payment/editSale`, {
-        state,
-        state_detail,
-        paymentId,
+      const ownershipSale = await axios.put(
+        `${URL_SERVER}/payment/editSale`
+        // `${localHost}/payment/editSale`
+        , {
+          state,
+          state_detail,
+          paymentId,
       });
-
+      // const userSales = await axios.get(`${localHost}/payment/getSales/${userId}`);
+      const userSales = await axios.get(`${URL_SERVER}/payment/getSales/${userId}`);
+      console.log(userSales.data);
       return dispatch({
-        type: MERCADO_PAGO_ID,
-        payload: ownershipSale.data,
+        type: USER_SALES,
+        payload: userSales.data,
       });
+      // return dispatch({
+      //   type: MERCADO_PAGO_ID,
+      //   payload: ownershipSale.data,
+      // });
     } catch (error) {
       console.log(error);
     }
@@ -279,6 +297,7 @@ export function getSales(userId) {
   return async function (dispatch) {
     try {
       const userSales = await axios.get(`${URL_SERVER}/payment/getSales/${userId}`);
+      // const userSales = await axios.get(`${localHost}/payment/getSales/${userId}`);
       console.log(userSales.data);
       return dispatch({
         type: USER_SALES,
