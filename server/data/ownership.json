@@ -17,7 +17,7 @@
     "price": 52601,
     "floors": 1,
     "address": "Las dalias 825",
-    "pending": "Revision_Pendiente"
+    "published": "Revision_Pendiente"
   },
   {
     "id": 2,
@@ -37,7 +37,7 @@
     "price": 71249,
     "floors": 1,
     "address": "La pampa 6712",
-    "pending": "Publicada"
+    "published": "Publicada"
   },
   {
     "id": 3,
@@ -57,7 +57,7 @@
     "price": 34500,
     "floors": 1,
     "address": "La rioja 5643",
-    "pending": "Publicada"
+    "published": "Publicada"
   },
   {
     "id": 4,
@@ -77,7 +77,7 @@
     "price": 65325,
     "floors": 1,
     "address": "La rioja 3643",
-    "pending": "Publicada"
+    "published": "Publicada"
   },
   {
     "id": 5,
@@ -97,7 +97,7 @@
     "price": 89200,
     "floors": 1,
     "address": "La rioja 1643",
-    "pending": "Publicada"
+    "published": "Publicada"
   },
   {
     "id": 6,
@@ -119,7 +119,7 @@
     "price": 98000,
     "floors": 1,
     "address": "La rioja 743",
-    "pending": "Publicada"
+    "published": "Publicada"
   },
   {
     "id": 7,
@@ -139,7 +139,7 @@
     "price": 57300,
     "floors": 1,
     "address": "La rioja 643",
-    "pending": "Publicada"
+    "published": "Publicada"
   },
   {
     "id": 8,
@@ -159,7 +159,7 @@
     "price": 5120000,
     "floors": 1,
     "address": "La nortwheight 2643",
-    "pending": "Publicada"
+    "published": "Publicada"
   },
   {
     "id": 9,
@@ -238,7 +238,8 @@
     "state": "Alquiler",
     "price": 125000,
     "floors": 1,
-    "address": "La rioja 6403"
+    "address": "La rioja 6403",
+    "published": "Publicada"
   },
   {
     "id": 13,
@@ -257,7 +258,8 @@
     "state": "Alquiler",
     "price": 55000,
     "floors": 1,
-    "address": "La antartida 643"
+    "address": "La antartida 643",
+    "published": "Publicada"
   },
   {
     "id": 14,
@@ -276,7 +278,8 @@
     "state": "Alquiler",
     "price": 50000,
     "floors": 1,
-    "address": "La antartida 6143"
+    "address": "La antartida 6143",
+    "published": "Cancelada"
   },
   {
     "id": 15,
@@ -355,7 +358,8 @@
     "state": "Alquiler",
     "price": 76800,
     "floors": 12,
-    "address": "Av. Pablo Cabrera 1643"
+    "address": "Av. Pablo Cabrera 1643",
+    "published": "Publicada"
   },
   {
     "id": 19,
@@ -374,7 +378,8 @@
     "state": "Venta",
     "price": 1240000,
     "floors": 1,
-    "address": "Av. Pablo Cabrera 3643"
+    "address": "Av. Pablo Cabrera 3643",
+    "published": "Publicada"
   },
   {
     "id": 20,

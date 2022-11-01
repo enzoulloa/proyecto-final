@@ -39,26 +39,8 @@ export const columnsOwnerships = [
   },
   {
     title: "Estado de la publicacion",
-    dataIndex: "pending",
-    key: "pending",
-  },
-];
-
-export const columnsUsers = [
-  {
-    title: "Nombre",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-    key: "email",
-  },
-  {
-    title: "Rol",
-    dataIndex: "role",
-    key: "role",
+    dataIndex: "published",
+    key: "published",
   },
   {
     title: "Acciones",
@@ -66,26 +48,12 @@ export const columnsUsers = [
     render: (record) => {
       return (
         <>
-          <FaEdit />
-          <FaTrash color="red" onClick={() => deleteVisible(true)} />
+          <FaEdit color="green" onClick={() => modifyVisible(true)} />
         </>
       );
     },
   },
 ];
-
-const deleteVisible = (record) => {
-  Modal.confirm({
-    title: `Borramos ${record.name}?`,
-    okText: "Dale",
-    onCancel: () => {
-      console.log("deberia cerrarse.....");
-    },
-    onOk: () => {
-      console.log("lo borre ñeri");
-    },
-  });
-};
 
 export const columnSales = [
   {

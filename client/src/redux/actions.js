@@ -40,12 +40,12 @@ import {
 const ACCESS_TOKEN =
   "TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971";
 
-const URL_SERVER = "https://proyecto-final.up.railway.app";
+const URL_SERVER = "http://localhost:3001";
 
-export function GetOwnerships() {
+export function GetOwnerships(published) {
   return async function (dispatch) {
     dispatch({ type: LOADING });
-    const res = await axios.get(`${URL_SERVER}/ownerships`);
+    const res = await axios.get(`${URL_SERVER}/ownerships?${published}`);
     return dispatch({
       type: GET_OWNERSHIPS,
       payload: res.data,
@@ -162,7 +162,9 @@ export function GetStatusLogin(e) {
 export function filterCards(search) {
   return async function (dispatch) {
     try {
-      const newHouses = await axios.get(`${URL_SERVER}/ownerships?${search}`);
+      const newHouses = await axios.get(
+        `${URL_SERVER}/ownerships?${search}&published=Publicada`
+      );
       if (newHouses.data.length === 0)
         throw new Error("No se encontró ninguna casa");
       return dispatch({
