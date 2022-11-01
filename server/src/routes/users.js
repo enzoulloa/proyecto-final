@@ -8,8 +8,20 @@ const {
 } = require("../db.js");
 const bcrypt = require("bcryptjs");
 const { getUsers } = require("../../data/userData");
+const nodemailer = require("nodemailer");
 
 const router = Router();
+
+const transport = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: "enzo.ulloa.i@gmail.com",
+    pass: "koywxiscacvjrugy",
+  },
+});
+
 
 router.get("/", async (req, res) => {
   let users = await User.findAll({
@@ -31,6 +43,7 @@ router.get("/", async (req, res) => {
         "state",
         "price",
         "floors",
+        "review",
         "address",
       ],
       through: {
@@ -57,6 +70,7 @@ router.get("/", async (req, res) => {
         "state",
         "price",
         "floors",
+        "review",
         "address",
       ],
       through: {
@@ -90,6 +104,7 @@ router.get("/:name", async (req, res) => {
           "state",
           "price",
           "floors",
+          "review",
           "address",
         ],
         through: {
@@ -97,6 +112,34 @@ router.get("/:name", async (req, res) => {
         },
       },
     });
+    let findAuth0 = await UserAuth0.findOne({
+      where: { name: name },
+      include: {
+        model: Ownership,
+        attributes: [
+          "id",
+          "name",
+          "location",
+          "rooms",
+          "garage",
+          "m2",
+          "type",
+          "expenses",
+          "seller",
+          "description",
+          "images",
+          "state",
+          "price",
+          "floors",
+          "review",
+          "address",
+        ],
+        through: {
+          attributes: [],
+        },
+      },
+    });
+
     let findAuth0 = await UserAuth0.findOne({
       where: { name: name },
       include: {
@@ -163,6 +206,7 @@ router.get("/id/:id", async (req, res) => {
             "state",
             "price",
             "floors",
+            "review",
             "address",
           ],
           through: {
@@ -190,6 +234,7 @@ router.get("/id/:id", async (req, res) => {
             "state",
             "price",
             "floors",
+            "review",
             "address",
           ],
           through: {
@@ -210,11 +255,22 @@ router.post("/register", async (req, res) => {
   const { name, email, password, cel, photo } = req.body;
   let findName = await User.findAll({ where: { name: name } });
   let findEmail = await User.findAll({ where: { email: email } });
+
+  const registerMessage = {
+    from: "'Henry Inmobiliaria' <henryinmobiliaria@gmail.com>",
+    to: email,
+    subject: `Gracias por registrarte en Henry Inmobiliaria`,
+    text: `Bienvenido ${name} a Henry Inmobiliaria, su registro fue completado con exito`,
+    html: `<p style="text-align:center;">Bienvenido ${name} a Henry Inmobiliaria, su registro fue completado con exito</p>
+    </br>
+    <div style="text-align:center;">
+    <img src="https://isewa.org.in/wp-content/uploads/2021/06/success.gif" alt="thanks!" />
+    </div>`,
+  };
+
   try {
     if (!name || !email || !password) {
-      return res
-        .status(412)
-        .send("Parameters name, email and password cant be null");
+      return res.status(412).send("Parameters name, email and password cant be null");
     } else if (findName.length || findEmail.length) {
       return res.status(409).send("User already exist");
     } else {
@@ -224,10 +280,10 @@ router.post("/register", async (req, res) => {
         email,
         password: encrypted,
         cel,
-        photo: photo
-          ? photo
-          : "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg",
+        photo: photo ? photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg",
       });
+      const info = await transport.sendMail(registerMessage);
+      console.log("message send", info);
       return res.status(200).send("User created succeffully");
     }
   } catch (e) {
@@ -260,6 +316,7 @@ router.put("/addfavorite", async (req, res) => {
           "state",
           "price",
           "floors",
+          "review",
           "address",
         ],
         through: {
@@ -287,6 +344,7 @@ router.put("/addfavorite", async (req, res) => {
           "state",
           "price",
           "floors",
+          "review",
           "address",
         ],
         through: {
@@ -317,6 +375,7 @@ router.delete("/addfavorite", async (req, res) => {
     if (isNaN(idUser)) {
       const user = await UserAuth0.findOne({ where: { id: idUser } });
       if (user) {
+
         await UserAuth0Ownerships.destroy({
           where: { UserAuth0Id: idUser, OwnershipId: id },
         });
