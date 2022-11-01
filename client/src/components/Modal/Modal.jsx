@@ -1,11 +1,11 @@
 import React from 'react'
-import './index.css'
+import './Modal.scss'
 
 export default function Modal({children, onClose}){
     return (
         <div className='modal'>
             <div className='modal-content'>
-                <button className='btn' onClick={onClose}>❌</button>
+                <button className='btn' onClick={onClose}>x</button>
                 {children}
             </div>
         

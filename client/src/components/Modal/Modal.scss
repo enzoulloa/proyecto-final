@@ -23,3 +23,16 @@
     background-color: transparent;
     z-index: 999;
 }
+.btn{
+  margin: 0;
+  padding: 0;
+  font-size: 25px;
+  color: #000;
+  border: none;
+}
+.btn:hover{
+  border: none;
+}
+.btn:focus {
+  outline: none !important;
+}

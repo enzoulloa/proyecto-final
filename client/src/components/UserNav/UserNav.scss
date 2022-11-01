@@ -12,7 +12,7 @@
     height: 100%;
   }
   .header__menu:hover .list, list:hover {
-    display: flex;
+    display: block;
   }
   .profile {
     margin-right: 25%;
@@ -37,15 +37,33 @@
     display: none;
     position: absolute;
     right: 5%;
+    width: 10%;
+    background-color: rgba($color: #121b25, $alpha: 0.8);
+    right: 0;
   }
 
   .list button{
     font-size: 10px;
     border-color:#fff;
-    background-color: #121b25;
+    background-color: transparent;
     border: none;
+    width: 100%;
   }
-  .a{
+
+  .list button:hover{
+    border: solid 1px #fff;
+    border-radius: 0;
+  }
+  .button-User:hover{
+    color: #121b25;
+  }
+  .button-favorite:hover{
+    color: #ff0;
+  }
+  .a:hover{
+    color:  #f00;
+  }
+ /*  .a{
     position: absolute;
     z-index: 999;
     top: 25px;
@@ -74,4 +92,4 @@
     z-index: 1;
     position: absolute;
     right: 0;
-  }
+  } */

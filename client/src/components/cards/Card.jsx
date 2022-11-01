@@ -50,10 +50,10 @@ export default function Card({
           verificationUser && <BottonFavotire id={id}/>
         }
         {
-          !verificationUser && <button onClick={(e)=>handlerClose(true)} className='btn-favorite-userNoLogin'><img src="https://cdn-icons-png.flaticon.com/512/4208/4208394.png" /></button>
+          !verificationUser  &&  !stateModal && modal &&<button onClick={(e)=>handlerClose(true)} className='btn-favorite-userNoLogin'><img src="https://cdn-icons-png.flaticon.com/512/4208/4208394.png" /></button>
         }
         {
-          stateModal && modal && <Modal onClose={(e)=>handlerClose(false)}>
+          stateModal && modal && <Modal onClose={(e)=>handlerClose(false)} >
             <ModalUser/>
           </Modal>
         }

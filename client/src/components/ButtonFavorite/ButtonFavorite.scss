@@ -24,3 +24,7 @@
     width: 30px;
     height: 30px;
 }
+
+.cont_button_favorite button:focus {
+    outline: none !important;
+}
