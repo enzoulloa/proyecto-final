@@ -1,5 +1,11 @@
 const { Router } = require("express");
-const { User, UserAuth0, Ownership, UserOwnerships, UserAuth0Ownerships } = require("../db.js");
+const {
+  User,
+  UserAuth0,
+  Ownership,
+  UserOwnerships,
+  UserAuth0Ownerships,
+} = require("../db.js");
 const bcrypt = require("bcryptjs");
 const { getUsers } = require("../../data/userData");
 const nodemailer = require("nodemailer");
@@ -15,6 +21,7 @@ const transport = nodemailer.createTransport({
     pass: "koywxiscacvjrugy",
   },
 });
+
 
 router.get("/", async (req, res) => {
   let users = await User.findAll({
@@ -133,6 +140,33 @@ router.get("/:name", async (req, res) => {
       },
     });
 
+    let findAuth0 = await UserAuth0.findOne({
+      where: { name: name },
+      include: {
+        model: Ownership,
+        attributes: [
+          "id",
+          "name",
+          "location",
+          "rooms",
+          "garage",
+          "m2",
+          "type",
+          "expenses",
+          "seller",
+          "description",
+          "images",
+          "state",
+          "price",
+          "floors",
+          "address",
+        ],
+        through: {
+          attributes: [],
+        },
+      },
+    });
+
     if (find) {
       return res.status(200).send(find);
     } else if (findAuth0) {
@@ -142,7 +176,9 @@ router.get("/:name", async (req, res) => {
     }
   } catch (e) {
     console.log(e);
-    return res.status(500).send("Error de protocolo, mirar consola para mas detalle");
+    return res
+      .status(500)
+      .send("Error de protocolo, mirar consola para mas detalle");
   }
 });
 
@@ -209,7 +245,9 @@ router.get("/id/:id", async (req, res) => {
     }
     return res.status(200).send(findId);
   } catch (err) {
-    return res.status(500).send("Error de protocolo, mirar consola para mas detalle");
+    return res
+      .status(500)
+      .send("Error de protocolo, mirar consola para mas detalle");
   }
 });
 
@@ -322,7 +360,10 @@ router.put("/addfavorite", async (req, res) => {
       return res.status(201).send("Added to favotire");
     }
   }
-  return res.status(500).send({ Error: "Request error, wait and try again later, if problem persist contact admin" });
+  return res.status(500).send({
+    Error:
+      "Request error, wait and try again later, if problem persist contact admin",
+  });
 });
 
 router.delete("/addfavorite", async (req, res) => {
@@ -334,18 +375,26 @@ router.delete("/addfavorite", async (req, res) => {
     if (isNaN(idUser)) {
       const user = await UserAuth0.findOne({ where: { id: idUser } });
       if (user) {
-        await UserAuth0Ownerships.destroy({ where: { UserAuth0Id: idUser, OwnershipId: id } });
+
+        await UserAuth0Ownerships.destroy({
+          where: { UserAuth0Id: idUser, OwnershipId: id },
+        });
         return res.status(201).send("Favorite deleted");
       }
     } else {
       const user = await User.findOne({ where: { id: idUser } });
       if (user) {
-        await UserOwnerships.destroy({ where: { UserId: idUser, OwnershipId: id } });
+        await UserOwnerships.destroy({
+          where: { UserId: idUser, OwnershipId: id },
+        });
         return res.status(201).send("Favorite deleted");
       }
     }
   }
-  return res.status(500).send({ Error: "Request error, wait and try again later, if problem persist contact admin" });
+  return res.status(500).send({
+    Error:
+      "Request error, wait and try again later, if problem persist contact admin",
+  });
 });
 
 module.exports = router;

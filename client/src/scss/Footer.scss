@@ -70,6 +70,7 @@ footer {
 .div_Alquilar h2 {
   font-size: 24px;
   margin-bottom: 9px;
+  color: white;
 }
 .div_Alquilar li {
   list-style: none;
@@ -83,6 +84,7 @@ footer {
 .div_Comprar h2 {
   font-size: 24px;
   margin-bottom: 9px;
+  color: white;
 }
 .div_Comprar li {
   list-style: none;
@@ -99,6 +101,7 @@ footer {
 .div_Vender h2 {
   font-size: 24px;
   margin-bottom: 9px;
+  color: white;
 }
 .div_Vender li {
   list-style: none;
@@ -115,6 +118,7 @@ footer {
 }
 .div_Help h2 {
   font-size: 24px;
+  color: white;
   margin-bottom: 9px;
 }
 .div_Help li {
@@ -126,7 +130,7 @@ footer {
   text-decoration: none;
 }
 
-@media(max-width: 900px){
+@media (max-width: 900px) {
   footer {
     width: 100%;
     height: 2075px;
