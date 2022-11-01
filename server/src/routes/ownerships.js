@@ -130,4 +130,19 @@ router.post("/reviews", async (req, res) => {
   }
 });
 
+router.put("/updatestate/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { value } = req.body;
+    const ownership = await Ownership.findByPk(id);
+    if (!ownership) {
+      return res.status(404).send("Propiedad no encontrada");
+    }
+    await ownership.update({ published: value });
+    res.status(200).send("Actualizada correctamente");
+  } catch (e) {
+    console.log(e.message);
+  }
+});
+
 module.exports = router;

@@ -37,6 +37,7 @@ import {
   DELETE_USER,
   UPDATE_USERTYPE,
   NEW_PASSWORD,
+  UPDATE_OWNERSHIP_STATE,
 } from "./common";
 
 const initialState = {
@@ -83,6 +84,12 @@ function rootReducer(state = initialState, action) {
         loading: false,
         error: false,
         response: null,
+      };
+
+    case CLEAR_DETAIL:
+      return {
+        ...state,
+        ownershipDetail: [],
       };
 
     case LOADING:
@@ -259,6 +266,13 @@ function rootReducer(state = initialState, action) {
         ...state,
         modalSign: action.payload,
       };
+
+    case UPDATE_OWNERSHIP_STATE:
+      return {
+        ...state,
+        ownershipsFiltered: action.payload,
+      };
+
     default:
       return state;
   }
