@@ -40,7 +40,7 @@ import {
 const ACCESS_TOKEN =
   "TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971";
 
-const URL_SERVER = "http://localhost:3001";
+const URL_SERVER = "https://proyecto-final.up.railway.app/";
 
 const localHost = "http://localhost:3001";
 
