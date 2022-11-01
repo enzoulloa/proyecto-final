@@ -34,7 +34,7 @@ export default function UserOwnerships() {
 
     useEffect(() => {
         if(ownershipId){
-            dispatch(mercadoPagoId(ownershipId));
+            dispatch(mercadoPagoId(ownershipId, userId));
         };
     }, [ownershipId]);
 

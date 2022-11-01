@@ -61,8 +61,9 @@ router.post('/paymentId/:id/:idUser', async (req, res) => {
     };
 });
 
-router.get('/paymentId/:id', async (req, res) => {
+router.get('/paymentId/:id/:userId', async (req, res) => {
     const ownershipId = req.params.id;
+    const userId = req.params.userId;
     console.log(ownershipId);
     try {
         // const response = await Ownership.findOne({
@@ -79,8 +80,9 @@ router.get('/paymentId/:id', async (req, res) => {
         const sales = await Sales.findAll({include: {model: Ownership, where: {id: ownershipId}}});
         console.log(sales);
         const paymentId = sales[0].dataValues.paymentId;
+        const user = await User.findOne({where: {id: userId}, include: {model: Sales}});
         // const ownership = sales.
-        res.send(paymentId);
+        res.send(user.Sales[0].paymentId);
     } catch (error) {
         console.log(error);
     };

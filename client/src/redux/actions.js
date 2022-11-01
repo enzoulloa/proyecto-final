@@ -250,13 +250,13 @@ export function mercadoPago(payload) {
   };
 }
 
-export function mercadoPagoId(ownershipId) {
+export function mercadoPagoId(ownershipId, userId) {
   return async function (dispatch) {
     try {
       console.log('entro a la action');
       console.log(ownershipId);
       // const response = await axios.get("https://proyecto-final.up.railway.app/payment/paymentId", {id: ownershipId});
-      const response = await axios.get(`http://localhost:3001/payment/paymentId/${ownershipId}`);
+      const response = await axios.get(`http://localhost:3001/payment/paymentId/${ownershipId}/${userId}`);
       console.log(response.data);
       const paymentId = response.data;
       const paymentStatus = await axios.get(`https://api.mercadopago.com/v1/payments/${paymentId}/?access_token=${ACCESS_TOKEN}`);
