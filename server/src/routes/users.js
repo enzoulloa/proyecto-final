@@ -43,7 +43,6 @@ router.get("/", async (req, res) => {
         "state",
         "price",
         "floors",
-        "review",
         "address",
       ],
       through: {
@@ -70,7 +69,6 @@ router.get("/", async (req, res) => {
         "state",
         "price",
         "floors",
-        "review",
         "address",
       ],
       through: {
@@ -104,7 +102,6 @@ router.get("/:name", async (req, res) => {
           "state",
           "price",
           "floors",
-          "review",
           "address",
         ],
         through: {
@@ -112,34 +109,6 @@ router.get("/:name", async (req, res) => {
         },
       },
     });
-    let findAuth0 = await UserAuth0.findOne({
-      where: { name: name },
-      include: {
-        model: Ownership,
-        attributes: [
-          "id",
-          "name",
-          "location",
-          "rooms",
-          "garage",
-          "m2",
-          "type",
-          "expenses",
-          "seller",
-          "description",
-          "images",
-          "state",
-          "price",
-          "floors",
-          "review",
-          "address",
-        ],
-        through: {
-          attributes: [],
-        },
-      },
-    });
-
     let findAuth0 = await UserAuth0.findOne({
       where: { name: name },
       include: {
@@ -206,7 +175,6 @@ router.get("/id/:id", async (req, res) => {
             "state",
             "price",
             "floors",
-            "review",
             "address",
           ],
           through: {
@@ -234,7 +202,6 @@ router.get("/id/:id", async (req, res) => {
             "state",
             "price",
             "floors",
-            "review",
             "address",
           ],
           through: {
@@ -316,7 +283,6 @@ router.put("/addfavorite", async (req, res) => {
           "state",
           "price",
           "floors",
-          "review",
           "address",
         ],
         through: {
@@ -344,7 +310,6 @@ router.put("/addfavorite", async (req, res) => {
           "state",
           "price",
           "floors",
-          "review",
           "address",
         ],
         through: {
