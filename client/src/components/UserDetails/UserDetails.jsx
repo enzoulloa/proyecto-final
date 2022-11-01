@@ -4,7 +4,7 @@ import Loading from "../Loading";
 import UserNavBar from "./components/UserNavBar";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo } from "../../redux/actions";
+import { getUserId, getUserInfo } from "../../redux/actions";
 import "./UserDetails.scss";
 
 export default function UserDetails() {
@@ -23,7 +23,9 @@ export default function UserDetails() {
   }, [dispatch, user1]);
 
   useEffect(() => {
-    dispatch(getUserInfo(user1.name));
+    if (user1) {
+      dispatch(getUserInfo(user1.name));
+    }
   }, [dispatch]);
 
   if (isLoading) {
