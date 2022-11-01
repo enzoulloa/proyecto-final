@@ -54,9 +54,9 @@ export default function Review({ id }) {
   };
 
   return (
-    <div className="div-detail">
-      <strong className="strong-review">Deja tu comentario!</strong>
-      <div>
+    <div className="div-detail extra-review">
+      <h2 className="strong-review">Deja tu comentario!</h2>
+      <div className="div-review">
         <textarea
           name="message"
           className="textarea-review"
@@ -64,7 +64,7 @@ export default function Review({ id }) {
           value={review.message}
           placeholder="Escribe..."
         ></textarea>
-        <div>
+        <div className="stars">
           {stars.map((_, index) => {
             return (
               <FaStar
@@ -77,6 +77,7 @@ export default function Review({ id }) {
                 onClick={() => handleClick(index + 1)}
                 onMouseOver={() => handleMouseOver(index + 1)}
                 onMouseLeave={handleMouseLeave}
+                className="star"
               />
             );
           })}

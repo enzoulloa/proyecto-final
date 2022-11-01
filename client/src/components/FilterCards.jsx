@@ -88,8 +88,8 @@ export default function FiltersCards() {
           <option disabled="disabled" selected={true}>
             Operacion
           </option>
-          <option value="sell">Quiero comprar</option>
-          <option value="rent">Quiero alquilar</option>
+          <option value="Venta">Quiero comprar</option>
+          <option value="Alquiler">Quiero alquilar</option>
         </select>
 
         <select

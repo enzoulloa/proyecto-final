@@ -17,12 +17,13 @@ export default function Feedback({review}) {
             <div className="revInfo">
                 <div className="nameDiv">
                     <h2>{review.Users[0].name}</h2>
-                    <div>
+                    <div className="stars">
                         {
                         array.map((_, index) => {
                             return <FaStar
                                 key={index} 
-                                color={stars>index? colors.orange : colors.grey}
+                                color={stars > index ? colors.orange : colors.grey}
+                                className="star"
                             />
                             })
                         }

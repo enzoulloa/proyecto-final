@@ -21,6 +21,7 @@ async function getOwnerships() {
             price: ownership.price,
             floors: ownership.floors,
             address: ownership.address,
+            published: ownership.published,
           },
         });
       });

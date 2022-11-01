@@ -8,6 +8,7 @@ async function filterOwnerships({
   max,
   garage,
   state,
+  published,
 }) {
   let filter = {};
   parseInt(min);
@@ -21,6 +22,7 @@ async function filterOwnerships({
   if (max && max >= min) filter.price = { price: { [Op.lt]: max } };
   if (min && max) filter.price = { price: { [Op.between]: [min, max] } };
   if (garage) filter.garage = { garage };
+  if (published) filter.published = { published };
 
   let ownerships = await Ownership.findAll({
     where: {
@@ -30,6 +32,7 @@ async function filterOwnerships({
       ...filter.price,
       ...filter.garage,
       ...filter.state,
+      ...filter.published,
     },
   });
   return ownerships;

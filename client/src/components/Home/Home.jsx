@@ -12,7 +12,7 @@ export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(GetOwnerships());
+    dispatch(GetOwnerships(`published=Publicada`));
   }, []);
 
   const { isLoading, user } = useAuth0();

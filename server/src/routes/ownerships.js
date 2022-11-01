@@ -3,24 +3,40 @@ const { Ownership, Op, Sales, Review } = require("../db.js");
 const { filterOwnerships } = require("./functions/filterOwnerships.js");
 const { getOwnerships } = require("../../data/ownershipsData.js");
 const sales = require("../models/sales.js");
+const nodemailer = require("nodemailer");
 
 const router = Router();
 
+const transport = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: "enzo.ulloa.i@gmail.com",
+    pass: "koywxiscacvjrugy",
+  },
+});
+
 router.get("/", async (req, res) => {
   try {
-    const { state, rooms, location, type, min, max, garage } = req.query;
-    if (rooms || location || type || min || max || garage || state) {
+    const { state, rooms, location, type, min, max, garage, published } =
+      req.query;
+    console.log(published);
+    if (
+      rooms ||
+      location ||
+      type ||
+      min ||
+      max ||
+      garage ||
+      state ||
+      published
+    ) {
       let filteredOwnerships = await filterOwnerships(req.query);
-      filteredOwnerships.length
-        ? res.send(filteredOwnerships)
-        : res
-            .status(404)
-            .send("Couldn't find ownerships with that description");
+      filteredOwnerships.length ? res.send(filteredOwnerships) : res.status(404).send("Couldn't find ownerships with that description");
     } else {
       let ownerships = await Ownership.findAll();
-      ownerships.length
-        ? res.send(ownerships)
-        : res.status(404).send("Ownerships not found");
+      ownerships.length ? res.send(ownerships) : res.status(404).send("Ownerships not found");
     }
   } catch (error) {
     console.log(error);
@@ -52,29 +68,45 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+  const { name, location, rooms, garage, m2, type, expenses, seller, description, images, state, price, floors, address } = req.body;
+
+  const messageForRealState = {
+    from: `${name}`,
+    to: "enzo.ulloa.i@gmail.com",
+    subject: `Ventas - ${location} - ${price} - ${state}`,
+    text: `Formulario de peticion de ventas`,
+    html: `<div style="text-align:center;"><p>Nombre: ${name}</p>
+    </br>
+    <p>Localizacion: ${location}</p>
+    <p>Direccion: ${address}</p>
+    <p>Tipo: ${type}</p>
+    <p>Precio: ${price}</p>
+    <p>Para: ${state}</p>
+    <p>Habitaciones: ${rooms}</p>
+    <p>Pisos: ${floors}</p>
+    <p>Garage: ${garage}</p>
+    <p>M2: ${m2}</p>
+    <p>Descripcion: ${description}</p>
+    <p>Expensas: ${expenses}</p>
+    <p>Vendedor: ${seller}</p>
+   <div style="text-align:center;">
+    <img src=${images} alt="thanks!" />
+    </div>`,
+  };
+
+  const messageForClient = {
+    from: "'Henry Inmobiliaria' <henryinmobiliaria@gmail.com>",
+    to: "enzo.ulloa.i@gmail.com",
+    subject: `Gracias por registrarte en Henry Inmobiliaria`,
+    text: `Su formulario fu enviado con exito`,
+    html: `<p style="text-align:center;">Su formulario fu enviado con exito, muy pronto nos contactaremos con usted</p>
+    </br>
+    `,
+  };
+
   try {
-    const {
-      name,
-      location,
-      rooms,
-      garage,
-      m2,
-      type,
-      expenses,
-      seller,
-      description,
-      images,
-      state,
-      price,
-      floors,
-      address,
-    } = req.body;
     if (!location || !rooms || !type || !price || !name || !state) {
-      return res
-        .status(409)
-        .send(
-          "Error: location, rooms, type, price, name and state cant be null"
-        );
+      return res.status(409).send("Error: location, rooms, type, price, name and state cant be null");
     } else {
       let findName = Ownership.findAll({ where: { name: name } });
       if (findName.length && type != "department") {
@@ -96,6 +128,10 @@ router.post("/", async (req, res) => {
           floors,
           address,
         });
+        const state = await transport.sendMail(messageForRealState);
+        const client = await transport.sendMail(messageForClient);
+        console.log("message send", client);
+        console.log("message send", state);
         return res.status(200).send("Proccess complete succeffully");
       }
     }
