@@ -13,7 +13,7 @@ export default function Payment({ productId }) {
   const mp = useMercadopago.v2("TEST-4451a309-a6c0-4e53-8983-9e6f42531c98", {
     locale: "es-AR",
   });
-
+  console.log(productId);
   const user = JSON.parse(window.localStorage.getItem("UserLogin"));
 
   function handleClick() {
@@ -26,16 +26,20 @@ export default function Payment({ productId }) {
 
   useEffect(() => {
     if (mp && productId) {
-      mp.checkout({
-        preference: {
-          id: productId,
-        },
-        render: {
-          container: ".cho-container",
-          label: "Comprar",
-        },
-      });
-    }
+      try{
+        mp.checkout({
+          preference: {
+            id: productId,
+          },
+          render: {
+            container: ".cho-container",
+            label: "Comprar",
+          },
+        });
+      } catch(error) {
+        console.log(error);
+      };
+    };
   }, [mp, productId]);
 
   return (
