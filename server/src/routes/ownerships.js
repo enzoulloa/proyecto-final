@@ -8,8 +8,19 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const { state, rooms, location, type, min, max, garage } = req.query;
-    if (rooms || location || type || min || max || garage || state) {
+    const { state, rooms, location, type, min, max, garage, published } =
+      req.query;
+    console.log(published);
+    if (
+      rooms ||
+      location ||
+      type ||
+      min ||
+      max ||
+      garage ||
+      state ||
+      published
+    ) {
       let filteredOwnerships = await filterOwnerships(req.query);
       filteredOwnerships.length
         ? res.send(filteredOwnerships)

@@ -5,10 +5,12 @@ import { Table } from "antd";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import UserDeleteModal from "./UserDeleteModal";
 import UserUpdateModal from "./UserUpdateModal";
+import { Navigate } from "react-router-dom";
 
 export default function UserModerate() {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
+  const user = JSON.parse(window.localStorage.getItem("UserLogin"));
   const newUsers = users.map((u) => {
     if (u.role === 1) {
       u.role = "Usuario";
@@ -49,7 +51,8 @@ export default function UserModerate() {
         return (
           <>
             <FaEdit
-              style={{ marginLeft: "5px" }}
+              key={record.id}
+              style={{ marginLeft: "5px", cursor: "pointer" }}
               onClick={() => {
                 setUserToModify(record);
                 setModalUpdate(true);
@@ -61,7 +64,7 @@ export default function UserModerate() {
                 setUserToModify(record);
                 setModalDelete(true);
               }}
-              style={{ marginLeft: "15px" }}
+              style={{ marginLeft: "15px", cursor: "pointer" }}
             />
           </>
         );

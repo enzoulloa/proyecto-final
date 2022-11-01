@@ -60,3 +60,12 @@
   width: 60px;
   border-radius: 100%;
 }
+.ant-table-cell {
+  text-align: center;
+}
+
+.th {
+  .ant-table-cell {
+    text-align: center;
+  }
+}

@@ -14,7 +14,7 @@ import SignIn from "../Login/SignIn/SignIn";
 
 export default function Listing() {
   const dispatch = useDispatch();
-  const user = useSelector((state)=>state.user)
+  const user = useSelector((state) => state.user);
   const ownerships = useSelector((state) => state.ownershipsFiltered);
   const userFavorites = useSelector((state) => state.userFavorite);
   const loading = useSelector((state) => state.loading);
@@ -24,10 +24,10 @@ export default function Listing() {
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 9;
 
-   useEffect(() => {
-    if (ownerships.length === 0){
-    dispatch(GetOwnerships());
-    dispatch(userFavorite())
+  useEffect(() => {
+    if (ownerships.length === 0) {
+      dispatch(GetOwnerships(`published=Publicada`));
+      dispatch(userFavorite());
     }
   }, [dispatch, user]);
 
