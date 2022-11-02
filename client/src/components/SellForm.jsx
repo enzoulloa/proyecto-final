@@ -282,7 +282,7 @@ export default function SellForm() {
                               setFieldValue("imageLink", "");
                             }}
                           >
-                            +
+                            Añadir
                           </button>
                         </div>
                       </div>

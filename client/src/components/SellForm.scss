@@ -66,20 +66,32 @@
         justify-content: center;
         align-items: center;
 
-        .imageInput {
-          width: 100%;
-          height: 100%;
+        #imageLink.file-upload-button{
+          cursor: pointer;
         }
 
+        #imageLink:hover{
+          cursor: pointer;
+        }
+
+        // .imageInput {
+        //   width: 100%;
+        //   height: 100%;
+        // }
+
         .addButton {
-          // width: 5px;
-          // height: 30px;
+          width: 69px;
+          height: 27px;
+          font-size: 15px;
           background-color: #1aa090;
           margin-left: 2px;
           font-size: small;
           color: white;
-          // border: none;
-          // text-align: center;
+          // cursor: pointer;
+        }
+        .addButton:hover{
+          cursor: pointer;
+          background-color: #0a423c;
         }
       }
 
@@ -108,6 +120,13 @@
     .FormButton {
       background-color: #1aa090;
       color: white;
+      height: 30px;
+      width: 150px;
+      font-size: 20px;
+    }
+    .FormButton:hover {
+      cursor: pointer;
+      background-color: #0a423c;
     }
   }
 }
