@@ -33,10 +33,16 @@ router.get("/", async (req, res) => {
       published
     ) {
       let filteredOwnerships = await filterOwnerships(req.query);
-      filteredOwnerships.length ? res.send(filteredOwnerships) : res.status(404).send("Couldn't find ownerships with that description");
+      filteredOwnerships.length
+        ? res.send(filteredOwnerships)
+        : res
+            .status(404)
+            .send("Couldn't find ownerships with that description");
     } else {
       let ownerships = await Ownership.findAll();
-      ownerships.length ? res.send(ownerships) : res.status(404).send("Ownerships not found");
+      ownerships.length
+        ? res.send(ownerships)
+        : res.status(404).send("Ownerships not found");
     }
   } catch (error) {
     console.log(error);
@@ -68,7 +74,24 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { name, location, rooms, garage, m2, type, expenses, seller, description, images, state, price, floors, address } = req.body;
+  const {
+    name,
+    location,
+    rooms,
+    garage,
+    m2,
+    type,
+    expenses,
+    seller,
+    description,
+    images,
+    state,
+    price,
+    floors,
+    address,
+    published,
+  } = req.body;
+  console.log(req.body);
 
   const messageForRealState = {
     from: `${name}`,
@@ -106,7 +129,11 @@ router.post("/", async (req, res) => {
 
   try {
     if (!location || !rooms || !type || !price || !name || !state) {
-      return res.status(409).send("Error: location, rooms, type, price, name and state cant be null");
+      return res
+        .status(409)
+        .send(
+          "Error: location, rooms, type, price, name and state cant be null"
+        );
     } else {
       let findName = Ownership.findAll({ where: { name: name } });
       if (findName.length && type != "department") {
@@ -127,11 +154,12 @@ router.post("/", async (req, res) => {
           price,
           floors,
           address,
+          published,
         });
-        const state = await transport.sendMail(messageForRealState);
+        const stateMail = await transport.sendMail(messageForRealState);
         const client = await transport.sendMail(messageForClient);
         console.log("message send", client);
-        console.log("message send", state);
+        console.log("message send", stateMail);
         return res.status(200).send("Proccess complete succeffully");
       }
     }
