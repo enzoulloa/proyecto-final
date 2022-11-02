@@ -33,6 +33,7 @@ export default function Detail() {
     notification_url: `https://proyecto-final.up.railway.app/payment/paymentId/${id}/${
       infoUser ? infoUser.id : null
     }`,
+
     items: [
       {
         title: name,
@@ -51,6 +52,7 @@ export default function Detail() {
       pending: `https://proyecto-final-rosy.vercel.app/usuario/${
         infoUser ? infoUser.name : null
       }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
+
     },
     auto_return: "approved",
   });
