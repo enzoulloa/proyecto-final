@@ -23,9 +23,9 @@ export default function UserDetails() {
   }, [dispatch, user1]);
 
   useEffect(() => {
-    if(idUser === user1.id){
+    if (idUser === user1.id) {
       dispatch(getUserInfo(user1.name));
-    };
+    }
   }, [dispatch]);
 
   if (isLoading) {
@@ -41,7 +41,7 @@ export default function UserDetails() {
         />
       </div>
       <div className="userView">
-        {user1 ? <Outlet /> : <Navigate to="/singin" />}
+        {user1 ? <Outlet /> : <Navigate to="/ingresar" />}
       </div>
     </div>
   );

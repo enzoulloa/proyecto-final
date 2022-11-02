@@ -6,7 +6,6 @@ import buy from "../assets/buyHome.jpg";
 import rent from "../assets/rentHome.jpg";
 
 export default function HomeCards() {
-
   return (
     <section>
       <div className="containerE">
@@ -23,7 +22,7 @@ export default function HomeCards() {
                   la mayoría de los listados, incluidas cosas que no encontrarás
                   en ningún otro lugar.
                 </p>
-                <Link to="/listings">Buscar casas</Link>
+                <Link to="/listado">Buscar casas</Link>
               </div>
             </div>
           </li>
@@ -39,7 +38,7 @@ export default function HomeCards() {
                   comprar en la red de alquiler más grande hasta solicitar y
                   pagar el alquiler.
                 </p>
-                <Link to="listings">Encontrar alquileres</Link>
+                <Link to="listado">Encontrar alquileres</Link>
               </div>
             </div>
           </li>
@@ -54,7 +53,7 @@ export default function HomeCards() {
                   No importa qué camino tome para vender su casa, podemos
                   ayudarlo a lograr una venta exitosa.
                 </p>
-                <Link to='/sell'>Mire sus opciones</Link>
+                <Link to="/vender">Mire sus opciones</Link>
               </div>
             </div>
           </li>
