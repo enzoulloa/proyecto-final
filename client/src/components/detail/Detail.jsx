@@ -36,8 +36,8 @@ export default function Detail() {
 
     items: [
       {
-        title: name,
-        unit_price: parseInt(prodPrice),
+        title: name + ' (Seña 10%)',
+        unit_price: parseInt(prodPrice)*0.1,
         quantity: 1,
         picture_url: "",
       },
@@ -45,13 +45,13 @@ export default function Detail() {
     back_urls: {
       success: `https://proyecto-final-rosy.vercel.app/usuario/${
         infoUser ? infoUser.name : null
-      }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
+      }/propiedades/?ownershipId=${id}&iduser=${infoUser? infoUser.id : null}`,
       failure: `https://proyecto-final-rosy.vercel.app/usuario/${
         infoUser ? infoUser.name : null
-      }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
+      }/propiedades/?ownershipId=${id}&iduser=${infoUser ? infoUser.id : null}`,
       pending: `https://proyecto-final-rosy.vercel.app/usuario/${
         infoUser ? infoUser.name : null
-      }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
+      }/propiedades/?ownershipId=${id}&iduser=${infoUser ? infoUser.id : null}`,
 
     },
     auto_return: "approved",

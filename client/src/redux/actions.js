@@ -166,6 +166,14 @@ export function GetStatusLogin(e) {
   };
 }
 
+
+export function  clearFilter(){
+  return{
+    type:'CREAR_FILTER',
+    payload:[]
+  }
+}
+
 export function filterCards(search) {
   return async function (dispatch) {
     try {
