@@ -1,18 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, FieldArray } from "formik";
 import * as Yup from "yup";
 import { postProperty } from "../redux/actions";
 import "./SellForm.scss";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function SellForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const response = useSelector((state) => state.reponse);
-  //  const formik = useFormik({
+  const user = JSON.parse(localStorage.getItem("UserLogin"));
+  const [imageSelected, setImageSelected] = useState("");
+
+  async function uploadImage() {
+    console.log("a");
+    const formData = new FormData();
+    formData.append("file", imageSelected);
+    formData.append("upload_preset", "iu0b2lxj");
+    const response = await axios.post(
+      `http://api.cloudinary.com/v1_1/dtbxaawjp/image/upload`,
+      formData
+    );
+    setImageSelected(response.data.url);
+  }
+
   return (
-    // <div>
     <Formik
       initialValues={{
         name: "",
@@ -23,15 +37,16 @@ export default function SellForm() {
         m2: 0,
         rating: null,
         expenses: 0,
-        seller: "Enzo",
+        seller: user ? user.name : "Enzo",
         description: "",
         imageLink: "",
         images: [],
         state: "",
         price: 0,
         floors: 0,
-        reviews: [],
         address: "",
+        published: "Revision Pendiente",
+        imageSelected: "",
       }}
       validationSchema={Yup.object({
         name: Yup.string()
@@ -361,28 +376,31 @@ export default function SellForm() {
                   render={(arrayHelpers) => (
                     <div>
                       <div className="ImageField">
-                        <Field
+                        <input
                           name="imageLink"
-                          type="text"
+                          id="imageLink"
+                          type="file"
                           className="inputForm"
+                          onChange={(e) => setImageSelected(e.target.files[0])}
                         />
                         <div>
                           <button
                             type="button"
                             className="addButton"
-                            onClick={
-                              values.images.length < 3 && values.imageLink
-                                ? (e) => {
-                                    values.images.push(values.imageLink);
-                                    setFieldValue("imageLink", "");
-                                  }
-                                : null
-                            }
+                            onClick={(e) => {
+                              uploadImage();
+                              setFieldValue("imageLink", "");
+                            }}
                           >
                             +
                           </button>
                         </div>
                       </div>
+                      {imageSelected && (
+                        <div className="ImagePeview">
+                          <img width="200px" src={imageSelected} />
+                        </div>
+                      )}
                       {touched.imageLink &&
                       values.images.length < 3 &&
                       errors.imageLink ? (
@@ -398,20 +416,18 @@ export default function SellForm() {
                       ) : null}
                       {values.images.length > 0 ? (
                         <div className="ImagePeview">
-                          {values.images.map((image, index) => (
-                            <div key={index} className="eachImage">
-                              <img width="100px" src={image} />
-                              <div className="deleteButtonContainer">
-                                <button
-                                  type="button"
-                                  className="deleteButton"
-                                  onClick={() => arrayHelpers.remove(index)}
-                                >
-                                  x
-                                </button>
-                              </div>
+                          <div key={index} className="eachImage">
+                            <img width="100px" src={imageSelected} />
+                            <div className="deleteButtonContainer">
+                              <button
+                                type="button"
+                                className="deleteButton"
+                                onClick={() => arrayHelpers.remove(index)}
+                              >
+                                x
+                              </button>
                             </div>
-                          ))}
+                          </div>
                         </div>
                       ) : null}
                     </div>
