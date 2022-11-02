@@ -146,7 +146,7 @@ router.put("/editSale", async (req, res) => {
         html: `<p style="text-align:center;">Felicitaciones, su compra fue exitosa !!</p>
         </br>
          <h2>Recibo de pago</h2>
-         <p>Importe: ${ownership.price} </p>
+         <p>Importe: ${parseInt(ownership.price) * 0.1} </p>
          <p>Estado de pago: ${state}</p>
          <p>Detalle del pago: ${state_detail}</p>
          <p>Id del pago: ${paymentId}</p>
@@ -164,9 +164,9 @@ router.put("/editSale", async (req, res) => {
         const succes = await transport.sendMail(buySuccess);
         console.log("message send", succes);
       }
-      const toUpdateOwnership = await Ownership.findOne({where: {id: ownership.id}});
+      const toUpdateOwnership = await Ownership.findOne({ where: { id: ownership.id } });
       const updatedOwnership = await toUpdateOwnership.update({
-        published: "En revision"
+        published: "En revision",
       });
       return res.send("Venta actualizada!");
     }
