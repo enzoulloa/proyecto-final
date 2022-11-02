@@ -45,7 +45,7 @@ export default function UserModifyInfo() {
   return (
     <form className="form-update">
       <div className="div-update">
-        <p>Modificar nombre:</p>
+        <label>Modificar nombre:</label>
         <input
           type="text"
           name="name"
@@ -68,16 +68,14 @@ export default function UserModifyInfo() {
               alt="newProfileImg"
               className="newProfileImg photo-ubic"
             />
-          ) : (
-            <p>No hay foto seleccionada</p>
-          )}
+          ) : (imageSelected ? <p>Foto seleccionada</p> : <p>No hay foto seleccionada</p>)}
         </div>
-        <button type="button" onClick={uploadImage} className="btn-mas">
-          seleccionar imagen
+        <button type="button" onClick={uploadImage} className="btn-mas button-18">
+          Cargar imagen
         </button>
       </div>
       <div className="div-update">
-        <p>Modificar numero de telefono:</p>
+        <label>Modificar numero de telefono:</label>
         <input
           type="number"
           name="cel"
@@ -86,7 +84,7 @@ export default function UserModifyInfo() {
         />
       </div>
       <div className="div-update">
-        <p>Modificar email:</p>
+        <label>Modificar email:</label>
         <input
           type="text"
           name="email"
@@ -95,8 +93,8 @@ export default function UserModifyInfo() {
         />
       </div>
 
-      <button type="submit" onClick={submitNewInfo} className="input">
-        Enviar nueva info
+      <button type="submit" onClick={submitNewInfo} className="button-18">
+        Enviar nueva informacion
       </button>
     </form>
   );
