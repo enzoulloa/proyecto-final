@@ -6,8 +6,17 @@ export default function ModalPendingModify({
   onCancel,
   onOk,
   ownership,
-  setType,
+  setNewValue,
 }) {
+  const ownershipStates = [
+    "Revision Pendiente",
+    "En revision",
+    "Publicada",
+    "Cancelada",
+  ];
+  const ownershipStatesLeft = ownershipStates.filter((o) => {
+    return ownership.published !== o;
+  });
   return (
     <Modal
       onCancel={onCancel}
@@ -20,13 +29,15 @@ export default function ModalPendingModify({
       <p>Que modificacion desea aplicarle a {ownership.name}?</p>
       <label>Estado:</label>
       <select
-        name="role"
-        onChange={(value) => setType(value)}
+        name={ownership.id}
+        onChange={(e) => setNewValue(ownership.id, e.target.value)}
         style={{ marginLeft: "15px" }}
       >
-        <option value="En Revision">En Revision</option>
-        <option value="Publicada">Publicada</option>
-        <option value="Cancelada">Cancelada</option>
+        {ownership &&
+          ownershipStatesLeft.map((e) => {
+            console.log(e);
+            return <option value={e}>{e}</option>;
+          })}
       </select>
     </Modal>
   );
