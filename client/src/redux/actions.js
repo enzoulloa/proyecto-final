@@ -42,7 +42,7 @@ import {
 const ACCESS_TOKEN =
   "TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971";
 
-const URL_SERVER = "http://localhost:3001";
+const URL_SERVER = "https://proyecto-final.up.railway.app";
 
 const deploy = "https://proyecto-final.up.railway.app"
 const localHost = "http://localhost:3001";
@@ -198,7 +198,7 @@ export function UserRegister(payload) {
 export function LoginUser(payload) {
   return async function (dispatch) {
     const LoginUser = await axios.post(`${URL_SERVER}/login`, payload);
-    localStorage.setItem("UserLogin", JSON.stringify(LoginUser.data));
+    await localStorage.setItem("UserLogin", JSON.stringify(LoginUser.data));
     return dispatch({
       type: LOGIN_USER,
       payload: "USUARIO LOGUEADO",
@@ -210,6 +210,7 @@ export function ExitSession() {
   return async function (dispatch) {
     const ExitSession = await axios.get(`${URL_SERVER}/logout`);
     localStorage.removeItem("UserLogin");
+    localStorage.removeItem("UserFavorites");
     return dispatch({
       type: EXIT_SESSION,
       payload: "USUARIO NO LOGUEADO",

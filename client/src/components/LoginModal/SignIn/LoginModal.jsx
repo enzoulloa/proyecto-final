@@ -56,11 +56,12 @@ export default function LoginModal() {
 
   function handlerSubmit() {
     dispatch(LoginUser(signIn));
-    // dispatch(ModalSign(false));
+    console.log(signIn)
     setSignIn({
       email: "",
       password: "",
     });
+    navigate('/')
   }
 
   function handlerStatusUser() {
