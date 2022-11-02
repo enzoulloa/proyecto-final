@@ -49,6 +49,7 @@ export default function Paginated() {
         previousLinkClassName="page-num"
         nextLinkClassName="page-num"
         activeClassName="active"
+        initialPage={0}
       />
     </div>
   );

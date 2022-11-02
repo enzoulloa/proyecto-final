@@ -36,8 +36,8 @@ export default function Detail() {
 
     items: [
       {
-        title: name,
-        unit_price: parseInt(prodPrice),
+        title: name + ' (Seña 10%)',
+        unit_price: parseInt(prodPrice)*0.1,
         quantity: 1,
         picture_url: "",
       },
@@ -52,7 +52,6 @@ export default function Detail() {
       pending: `https://proyecto-final-rosy.vercel.app/usuario/${
         infoUser ? infoUser.name : null
       }/propiedades/?ownershipId=${id ? id : null}&iduser=${infoUser ? infoUser.id : null}`,
-
     },
     auto_return: "approved",
   });
