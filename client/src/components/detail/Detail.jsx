@@ -13,6 +13,7 @@ import Payment from "../Payment.jsx";
 import Carousel from "./Carousel.jsx";
 import Review from "../Review/Review.jsx";
 import Feedbacks from "../Feedback/Feedbacks.jsx";
+import Loading from "../Loading.jsx";
 
 export default function Detail() {
   const { id, name, prodPrice } = useParams();
@@ -204,10 +205,7 @@ export default function Detail() {
         </div>
       ) : (
         <div className="loading">
-          <img
-            src="https://www.bel-pa.com.tr/wp-content/plugins/wp-multi-store-locator-pro/assets/img/loader.gif"
-            alt="..loading"
-          />
+         <Loading />
         </div>
       )}
     </div>
