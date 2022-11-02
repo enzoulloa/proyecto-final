@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterBy, orderOwnerships, filterCards, toggleError, GetOwnerships } from "../redux/actions";
+import {
+  filterBy,
+  orderOwnerships,
+  filterCards,
+  toggleError,
+  GetOwnerships,
+} from "../redux/actions";
 import "../scss/filterCards.scss";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -8,12 +14,11 @@ import Swal from "sweetalert2";
 
 export default function FiltersCards() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const [filterParams, setFilterParams] = useState({ op: "", type: "" });
+  const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
   const [search, setSearch] = useState("");
   const ownerships = useSelector((state) => state.ownerships);
-  const error = useSelector((state)=>state.notFound)
+  const error = useSelector((state) => state.notFound);
   const prov = [...new Set(ownerships.map((item) => item.location))];
 
   const handleSearch = (e) => {
@@ -21,21 +26,21 @@ export default function FiltersCards() {
     setSearch(e.target.value);
   };
 
-  useEffect(()=>{
-    if (error){
+  useEffect(() => {
+    if (error) {
       Swal.fire({
         icon: "error",
         title: "Error 412",
-        text: "No se encontraron casas 🧐",
+        text: "No se encontraron casas",
       });
       dispatch(GetOwnerships());
     }
-  },[error])
+  }, [error]);
 
   const onSearch = (searchTerm) => {
-    console.log(searchTerm)
-    if(search === ""){
-      alert("ingrese un nombre válido")
+    console.log(searchTerm);
+    if (search === "") {
+      alert("ingrese un nombre válido");
     }
     setSearch(searchTerm);
     params.set("location", searchTerm);
@@ -56,6 +61,10 @@ export default function FiltersCards() {
     }
     params.set([e.target.name], e.target.value);
     dispatch(filterCards(params));
+  };
+
+  const cleanFilters = () => {
+    dispatch(GetOwnerships(`published=Publicada`));
   };
 
   return (
@@ -245,6 +254,7 @@ export default function FiltersCards() {
             7
           </option>
         </select>
+        <button onClick={cleanFilters}>Limpiar filtros</button>
       </div>
     </div>
   );

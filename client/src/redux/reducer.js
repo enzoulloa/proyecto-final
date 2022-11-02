@@ -81,8 +81,8 @@ function rootReducer(state = initialState, action) {
     case CLEAR_DETAIL:
       return {
         ...state,
-        ownershipDetail: []
-      }
+        ownershipDetail: [],
+      };
     case GET_USERS:
       return {
         ...state,
@@ -106,7 +106,10 @@ function rootReducer(state = initialState, action) {
 
     case FILTER_BY:
       const ownershipsToFilter = state.ownerships;
-      const ownershipsFilteredByType = filterBy(ownershipsToFilter, action.payload);
+      const ownershipsFilteredByType = filterBy(
+        ownershipsToFilter,
+        action.payload
+      );
       return {
         ...state,
         ownershipsFiltered: ownershipsFilteredByType,
@@ -206,7 +209,9 @@ function rootReducer(state = initialState, action) {
     case USER_FAVORITE:
       return {
         ...state,
-        userFavorite: action.payload.length ? action.payload : { Error: "No Tiene Favoritos" },
+        userFavorite: action.payload.length
+          ? action.payload
+          : { Error: "No Tiene Favoritos" },
       };
     case OWNERSHIP_FAVORITE:
       return {
@@ -226,7 +231,7 @@ function rootReducer(state = initialState, action) {
     case MERCADO_PAGO_ID:
       return {
         ...state,
-        saleSate: action.payload
+        saleSate: action.payload,
       };
     case GET_USER_INFO:
       return {
@@ -239,14 +244,12 @@ function rootReducer(state = initialState, action) {
         user: action.payload,
       };
     case DELETE_USER:
-      const users = state.users;
-      const usersLeft = users.filter((u) => u.id !== action.payload.userId);
       return {
         ...state,
-        response: action.payload.response,
-        users: usersLeft,
+        users: action.payload,
       };
     case UPDATE_USERTYPE:
+      console.log(action.payload);
       return {
         ...state,
         users: action.payload,

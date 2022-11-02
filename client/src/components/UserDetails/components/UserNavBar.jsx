@@ -8,7 +8,7 @@ export default function UserNavBar({ page, image, name, userRole, selected }) {
         <p className="userNavHeaderTitle">Bienvenido, {`${name}`}</p>
       </div>
       <div className="userNavBody">
-        <Link to={`/usuario/${name}/info`} className="userNavLink">
+        <Link to={`/usuario/${name}/informacion`} className="userNavLink">
           Informacion General
         </Link>
         <Link to={`/usuario/${name}/cambio_contraseña`} className="userNavLink">

@@ -39,6 +39,16 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: false,
       },
+      status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        get() {
+          if (this.getDataValue("status")) {
+            return "Suspendido";
+          }
+          return "Sin suspencion";
+        },
+      },
     },
     {
       timestamps: false,
