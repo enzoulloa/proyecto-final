@@ -11,22 +11,25 @@ export default function UserModerate() {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
   const user = JSON.parse(window.localStorage.getItem("UserLogin"));
-  const newUsers = users.map((u) => {
-    if (u.role === 1) {
-      u.role = "Usuario";
-    }
-    if (u.role === 2) {
-      u.role = "Vendedor";
-    }
-    if (u.role === 3) {
-      u.role = "Administrador";
-    }
-    return u;
-  });
+  const newUsers =
+    users &&
+    users.map((u) => {
+      if (u.role === 1) {
+        u.role = "Usuario";
+      }
+      if (u.role === 2) {
+        u.role = "Vendedor";
+      }
+      if (u.role === 3) {
+        u.role = "Administrador";
+      }
+      return u;
+    });
   const [modalDelete, setModalDelete] = useState(false);
   const [modalUpdate, setModalUpdate] = useState(false);
   const [userToModify, setUserToModify] = useState(null);
   const [userType, setUserType] = useState(1);
+  const [newUserStatus, setNewUserStatus] = useState(false);
 
   const columnsUsers = [
     {
@@ -50,6 +53,11 @@ export default function UserModerate() {
       key: "role",
     },
     {
+      title: "Estado",
+      dataIndex: "status",
+      key: "status",
+    },
+    {
       title: "Acciones",
       key: "acciones",
       render: (record) => {
@@ -67,6 +75,9 @@ export default function UserModerate() {
               color="red"
               onClick={() => {
                 setUserToModify(record);
+                setNewUserStatus(
+                  record.status === "Sin suspencion" ? true : false
+                );
                 setModalDelete(true);
               }}
               style={{ marginLeft: "15px", cursor: "pointer" }}
@@ -86,7 +97,9 @@ export default function UserModerate() {
   }
 
   function applyModeration(userId) {
-    dispatch(banUser(userId));
+    const moderation = { userId, newUserStatus };
+    console.log(moderation);
+    dispatch(banUser(moderation));
   }
 
   function applyNewRole(userId) {

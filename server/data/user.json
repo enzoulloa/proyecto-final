@@ -1,65 +1,154 @@
 [
-    {
-        "id":1,
-        "name":"Juan",
-        "email": "prueba.test1@mailk.com",
-        "password": "12345",
-        "role": 1,
-        "cel": 2235635871,
-        "photo": null
-    },
-    {
-        "id":2,
-        "name":"Bautista",
-        "email": "prueba.test2@mailk.com",
-        "password": "12345",
-        "role": 1,
-        "cel": 2236335225,
-        "photo": null
-    },
-    {
-        "id":3,
-        "name":"Manuel",
-        "email": "prueba.test3@mailk.com",
-        "password" : "Hola mundo",
-        "role": 1,
-        "cel": 2235635126,
-        "photo": "https://static.independent.co.uk/2021/11/10/08/ESP-CEL_PEOPLE-PAUL_RUUD_73783.jpg?width=1200"
-    },
-    {
-        "id":4,
-        "name":"Enzo",
-        "email": "prueba.test4@mailk.com",
-        "password" : "a77a4532ss",
-        "role": 2,
-        "cel": 2235825126,
-        "photo": null
-    },
-    {
-        "id":5,
-        "name":"Mariano",
-        "email": "prueba.test5@mailk.com",
-        "password" : "12www34ga5435ha443",
-        "role": 2,
-        "cel": 2234845126,
-        "photo": null
-    },
-    {
-        "id":6,
-        "name":"Agustina",
-        "email": "prueba.test6@mailk.com",
-        "password" : "34g23T4h32",
-        "role": 2,
-        "cel": 2234936191,
-        "photo": "https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/02/Female_Portrait_1296x728-header-1296x729.jpg?w=1155&h=2268"
-    },
-    {
-        "id":7,
-        "name":"Leonardo",
-        "email": "prueba.test7@mailk.com",
-        "password" : "g346ws5545",
-        "role": 3,
-        "cel": 2236635800,
-        "photo": null
-    }
+  {
+    "name": "Juan",
+    "email": "prueba.test1@mailk.com",
+    "password": "12345",
+    "role": 2,
+    "cel": 2235635871,
+    "photo": null
+  },
+  {
+    "name": "Bautista",
+    "email": "prueba.test2@mailk.com",
+    "password": "12345",
+    "role": 1,
+    "cel": 2236335225,
+    "photo": null
+  },
+  {
+    "name": "Manuel",
+    "email": "prueba.test3@mailk.com",
+    "password": "Hola mundo",
+    "role": 1,
+    "cel": 2235635126,
+    "photo": "https://static.independent.co.uk/2021/11/10/08/ESP-CEL_PEOPLE-PAUL_RUUD_73783.jpg?width=1200"
+  },
+  {
+    "name": "Enzo",
+    "email": "prueba.test4@mailk.com",
+    "password": "a77a4532ss",
+    "role": 2,
+    "cel": 2235825126,
+    "photo": null
+  },
+  {
+    "name": "Mariano",
+    "email": "prueba.test5@mailk.com",
+    "password": "12www34ga5435ha443",
+    "role": 2,
+    "cel": 2234845126,
+    "photo": null
+  },
+  {
+    "name": "Agustina",
+    "email": "prueba.test6@mailk.com",
+    "password": "34g23T4h32",
+    "role": 2,
+    "cel": 2234936191,
+    "photo": "https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/02/Female_Portrait_1296x728-header-1296x729.jpg?w=1155&h=2268"
+  },
+  {
+    "name": "Leonardo",
+    "email": "prueba.test7@mailk.com",
+    "password": "g346ws5545",
+    "role": 3,
+    "cel": 2236635800,
+    "photo": "https://i0.wp.com/post.healthline.com/wp-content/uploads/2021/02/Female_Portrait_1296x728-header-1296x729.jpg?w=1155&h=2268"
+  },
+  {
+    "name": "Marianito",
+    "email": "mariano@mail.com",
+    "password": "$2a$10$XyLv9LZK/oC9Wg/ZBdJ8jOUoA89x6YGHnOtiiGOjXQHQV8qTbwou.",
+    "cel": 1122333333,
+    "role": 3,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg"
+  },
+  {
+    "name": "Franco",
+    "email": "francocamuspp@gmail.com",
+    "password": "$2a$10$20SIfRXmw2CGH0M08VOOBuf.aC65R55mYU/yLCN6i2sckOLl1k.KS",
+    "cel": 3815273787,
+    "role": 3,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg"
+  },
+  {
+    "name": "agustin",
+    "email": "agus@mail.com",
+    "password": "$2a$10$gKz23dD25wBNv8DT5U1flu.3refPpyzN/en1xZXGlwPJNH3tGnV8K",
+    "cel": 3216498498,
+    "role": 3,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg"
+  },
+  {
+    "name": "Tomas",
+    "email": "tomyclementin7@gmail.com",
+    "password": "$2a$10$YJyqEgizuxexb1u5kYGRjewbIOTVMxpn8miKYs6MgoKlUnw0UjXCG",
+    "cel": 3428568975,
+    "role": 3,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg"
+  },
+  {
+    "name": "Juanito",
+    "email": "braianher2016@gmail.com",
+    "password": "$2a$10$v7fPqmzXre49Bn7HBaAqyeYFuflsYwudLg5xXY9rfHN/cNpOFQl46",
+    "cel": 267812428594,
+    "role": 3,
+    "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL7fHqxQ5GQ3HwUS5m4BE8e9dU7wNqtPptUhorEbL-8Q&s"
+  },
+  {
+    "name": "Enzo Ulloa",
+    "email": "enzo_ulloa@hotmail.com",
+    "password": "$2a$10$FoyczXh917lq.7hL/6ZAVeb5FXbU9nLCM2e1dZtaQpYbJn9qJQe4m",
+    "cel": 2132456977,
+    "role": 3,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg"
+  },
+  {
+    "name": "Pedro",
+    "email": "pedro@hotmail.com",
+    "password": "$2a$10$FoyczXh917lq.7hL/6ZAVeb5FXbU9nLCM2e1dZtaQpYbJn9qJQe4m",
+    "cel": 2132456978,
+    "role": 1,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg"
+  },
+  {
+    "name": "Laura",
+    "email": "Laura@hotmail.com",
+    "password": "$2a$10$FoyczXh917lq.7hL/6ZAVeb5FXbU9nLCM2e1dZtaQpYbJn9qJQe4m",
+    "cel": 2132456979,
+    "role": 1,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg"
+  },
+  {
+    "name": "Monica",
+    "email": "Monica@hotmail.com",
+    "password": "$2a$10$FoyczXh917lq.7hL/6ZAVeb5FXbU9nLCM2e1dZtaQpYbJn9qJQe4m",
+    "cel": 2132456970,
+    "role": 1,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg"
+  },
+  {
+    "name": "Ines",
+    "email": "Ines@hotmail.com",
+    "password": "$2a$10$FoyczXh917lq.7hL/6ZAVeb5FXbU9nLCM2e1dZtaQpYbJn9qJQe4m",
+    "cel": 2132456971,
+    "role": 1,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg"
+  },
+  {
+    "name": "Santiago",
+    "email": "Santiago@hotmail.com",
+    "password": "$2a$10$FoyczXh917lq.7hL/6ZAVeb5FXbU9nLCM2e1dZtaQpYbJn9qJQe4m",
+    "cel": 2132456961,
+    "role": 1,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg"
+  },
+  {
+    "name": "Sebastian",
+    "email": "Sebastian@hotmail.com",
+    "password": "$2a$10$FoyczXh917lq.7hL/6ZAVeb5FXbU9nLCM2e1dZtaQpYbJn9qJQe4m",
+    "cel": 2132256971,
+    "role": 1,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg"
+  }
 ]
