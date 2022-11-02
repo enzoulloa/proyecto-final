@@ -5,10 +5,13 @@ import "./review.scss";
 import { postReview } from "../../redux/actions.js";
 import { FaStar } from "react-icons/fa";
 import { startTransition } from "react";
+import ModalPortal from "../Modal/Modal";
+import ModalUser from "../LoginModal/ModalUser";
 
 export default function Review({ id }) {
   const dispatch = useDispatch();
   const [review, setReview] = useState({ message: "", stars: 0 });
+  const [showModal, setShowModal] = useState(false)
   const stars = Array(5).fill(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   let userInfo = JSON.parse(window.localStorage.getItem("UserLogin"));
@@ -42,11 +45,16 @@ export default function Review({ id }) {
   };
 
   const sendReview = (e) => {
+    if (!userInfo) return setShowModal(true)
     e.preventDefault();
     dispatch(postReview({ review, user, ownerID }));
     setReview({ message: "", stars: "0" });
     setHoverValue(undefined);
   };
+
+  const handleClose = () => {
+    setShowModal(false)
+  }
 
   const colors = {
     orange: "#FFBA5A",
@@ -85,6 +93,8 @@ export default function Review({ id }) {
       </div>
       <div>
         <button onClick={sendReview}>Enviar comentario</button>
+        {showModal && <ModalPortal onClose={()=>handleClose()}><ModalUser/></ModalPortal>}
+
       </div>
     </div>
   );

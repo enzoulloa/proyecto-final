@@ -10,8 +10,7 @@ module.exports = (sequelize) => {
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
+        allowNull: false, 
       },
       email: {
         type: DataTypes.STRING,
@@ -38,6 +37,16 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
+      },
+      status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        get() {
+          if (this.getDataValue("status")) {
+            return "Suspendido";
+          }
+          return "Sin suspencion";
+        },
       },
     },
     {

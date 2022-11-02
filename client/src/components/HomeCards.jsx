@@ -7,13 +7,13 @@ import rent from "../assets/rentHome.jpg";
 
 export default function HomeCards() {
   return (
-    <section>
+    <section className="section-container-homecards">
       <div className="containerE">
         <ul>
           <li>
             <div className="homecards">
               <div className="homecards-image">
-                <img src={buy} alt="Compra una casa" />
+                <img src="https://i.pinimg.com/564x/af/6d/c4/af6dc4e916c7d784768b57b242145255.jpg" alt="Compra una casa" />
               </div>
               <div className="homecards-text">
                 <h4>Comprar una casa</h4>
@@ -29,7 +29,7 @@ export default function HomeCards() {
           <li>
             <div className="homecards">
               <div className="homecards-image">
-                <img src={rent} alt="Alquila una casa" />
+                <img src="https://i.pinimg.com/564x/bf/4b/57/bf4b57cf3645de1e2a97421b48a22561.jpg" alt="Alquila una casa" />
               </div>
               <div className="homecards-text">
                 <h4>Alquilar una casa</h4>
@@ -45,13 +45,14 @@ export default function HomeCards() {
           <li>
             <div className="homecards">
               <div className="homecards-image">
-                <img src={sell} alt="Vende una casa" />
+                <img src="https://i.pinimg.com/564x/92/ec/b3/92ecb380299b4d6a86f8d39a9fcc1dce.jpg" alt="Vende una casa" />
               </div>
               <div className="homecards-text">
-                <h4>Vender una casa</h4>
+                <h4 className="h4-vender">Vender una casa</h4>
                 <p>
                   No importa qué camino tome para vender su casa, podemos
                   ayudarlo a lograr una venta exitosa.
+                  Es tan facil como completar nuestro fomulario.
                 </p>
                 <Link to="/vender">Mire sus opciones</Link>
               </div>

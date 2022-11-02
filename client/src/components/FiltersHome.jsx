@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { GetOwnerships, filterCards } from "../redux/actions"
+import { GetOwnerships, filterCards } from "../redux/actions";
 import Swal from "sweetalert2";
 import icon from "../assets/search.svg";
 import "../scss/filtersHome.scss";
@@ -12,8 +12,8 @@ export default function FiltersHome() {
   const [params, setParams] = useSearchParams();
   const [search, setSearch] = useState("");
   const ownerships = useSelector((state) => state.ownerships);
-  const error = useSelector((state)=>state.notFound)
-  const prov = [...new Set(ownerships.map(item=>item.location))]
+  const error = useSelector((state) => state.notFound);
+  const prov = [...new Set(ownerships.map((item) => item.location))];
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -26,25 +26,25 @@ export default function FiltersHome() {
     dispatch(filterCards(params));
   };
 
-  const handleButton = async (params) =>{
-    if(search === ""){
+  const handleButton = async (params) => {
+    if (search === "") {
       Swal.fire({
         icon: "error",
         title: "Error",
         text: "Introduce un nombre valido",
       });
     }
-    if( error=== false){
-     navigate("/listings")
-     setSearch("")
-    }else if(error === true){
-       Swal.fire({
+    if (error === false) {
+      navigate("/listado");
+      setSearch("");
+    } else if (error === true) {
+      Swal.fire({
         icon: "error",
         title: "Error",
         text: "No pudimos encontrar casas para ti",
       });
     }
-  }
+  };
 
   return (
     <>

@@ -9,7 +9,11 @@ export default function UserDeleteModal({ open, onCancel, onOk, user }) {
       title={"Eliminar usuario"}
       onOk={onOk}
     >
-      <p>Esta seguro que desea eliminar el usuario {user.name}?</p>
+      <p>Modificar estado de {user.name}?</p>
+      <p>
+        El nuevo estado sera:{" "}
+        {user.status === "Sin suspencion" ? "Suspendido" : "Sin suspencion"}
+      </p>
     </Modal>
   );
 }
