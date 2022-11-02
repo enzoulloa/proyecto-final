@@ -23,9 +23,9 @@ export default function UserDetails() {
   }, [dispatch, user1]);
 
   useEffect(() => {
-    if(idUser === user1.id){
+    if (user1) {
       dispatch(getUserInfo(user1.name));
-    };
+    }
   }, [dispatch]);
 
   if (isLoading) {
