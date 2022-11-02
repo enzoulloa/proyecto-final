@@ -40,8 +40,9 @@ import {
 } from "./common";
 const ACCESS_TOKEN = "TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971";
 
-const URL_SERVER = "https://proyecto-final.up.railway.app";
+const URL_SERVER = "http://localhost:3001";
 
+const deploy = "https://proyecto-final.up.railway.app"
 const localHost = "http://localhost:3001";
 
 export function GetOwnerships(published) {
@@ -177,10 +178,16 @@ export function filterCards(search) {
 }
 
 export function UserRegister(payload) {
-  return async function (dispatch) {
-    const newUser = await axios.post(`${URL_SERVER}/users/register`, payload);
-    return newUser;
-  };
+  try{
+    console.log(payload)
+    return async function (dispatch) {
+      const newUser = await axios.post(`${URL_SERVER}/users/register`, payload);
+      return newUser;
+    };
+  }catch(err){
+    console.log(err)
+  }
+  
 }
 
 export function LoginUser(payload) {
