@@ -37,23 +37,22 @@ export default function Detail() {
 
     items: [
       {
-        title: name,
-        unit_price: parseInt(prodPrice),
+        title: name + ' (Seña 10%)',
+        unit_price: parseInt(prodPrice)*0.1,
         quantity: 1,
         picture_url: "",
       },
     ],
     back_urls: {
-      success: `https://proyecto-final-rosy.vercel.app/usuario/${
+      success: `https://henrybienesraices.vercel.app/usuario/${
         infoUser ? infoUser.name : null
-      }/propiedades/?ownershipId=${id}&iduser=${infoUser ? infoUser.id : null}`,
-      failure: `https://proyecto-final-rosy.vercel.app/usuario/${
+      }/propiedades/?ownershipId=${id ? id : null}&iduser=${infoUser ? infoUser.id : null}`,
+      failure: `https://henrybienesraices.vercel.app/usuario/${
         infoUser ? infoUser.name : null
-      }/propiedades/?ownershipId=${id}&iduser=${infoUser ? infoUser.id : null}`,
-      pending: `https://proyecto-final-rosy.vercel.app/usuario/${
+      }/propiedades/?ownershipId=${id ? id : null}&iduser=${infoUser ? infoUser.id : null}`,
+      pending: `https://henrybienesraices.vercel.app/usuario/${
         infoUser ? infoUser.name : null
-      }/propiedades/?ownershipId=${id}&iduser=${infoUser ? infoUser.id : null}`,
-
+      }/propiedades/?ownershipId=${id ? id : null}&iduser=${infoUser ? infoUser.id : null}`,
     },
     auto_return: "approved",
   });
@@ -133,6 +132,9 @@ export default function Detail() {
           <div className="row-photo-caract">
             <div className="div-carousel">
               <Carousel images={ownership.images} />
+                <div className="payment-position">
+                  <Payment productId={productId}  />
+                </div>
             </div>
             <div className="new-caract">
               <h2>Caracteristicas</h2>
@@ -193,7 +195,6 @@ export default function Detail() {
             <p className="p">{ownership.description}</p>
           </div>
 
-          <Payment productId={productId} />
           {/* {user.role >= 3 ? (
             <button onClick={handleDelete} className="bt">
               Remove ownership

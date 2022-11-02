@@ -1,18 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, FieldArray } from "formik";
 import * as Yup from "yup";
 import { postProperty } from "../redux/actions";
 import "./SellForm.scss";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function SellForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const response = useSelector((state) => state.reponse);
-  //  const formik = useFormik({
+  const user = JSON.parse(localStorage.getItem("UserLogin"));
+  const [imageSelected, setImageSelected] = useState("");
+
+  async function uploadImage() {
+    const formData = new FormData();
+    formData.append("file", imageSelected);
+    formData.append("upload_preset", "iu0b2lxj");
+    const response = await axios.post(
+      `http://api.cloudinary.com/v1_1/dtbxaawjp/image/upload`,
+      formData
+    );
+    setImageSelected(response.data.url);
+  }
+
   return (
-    // <div>
     <Formik
       initialValues={{
         name: "",
@@ -21,17 +34,17 @@ export default function SellForm() {
         rooms: 0,
         garage: "",
         m2: 0,
-        rating: null,
         expenses: 0,
-        seller: "Enzo",
+        seller: user ? user.name : "Enzo",
         description: "",
         imageLink: "",
         images: [],
         state: "",
         price: 0,
         floors: 0,
-        reviews: [],
         address: "",
+        published: "Revision Pendiente",
+        imageSelected: "",
       }}
       validationSchema={Yup.object({
         name: Yup.string()
@@ -79,18 +92,18 @@ export default function SellForm() {
           .required("Este campo debe ser completado")
           .max(200, "La descripción no debe superar los 200 caracteres"),
         // images: Yup.string().url("Se debe introducir un link válido"),
-        images: Yup.array()
-          .required("Este campo debe ser completado")
-          .min(1, "Se requiere, como mínimo, una imagen")
-          .max(3, "Solo debe adjuntar un máximo de 3 imágenes")
-          .of(Yup.string().url("Este campo debe ser completado con urls")),
-        imageLink: Yup.string().url("Se requiere un link válido"),
+        // images: Yup.array()
+        //   .required("Este campo debe ser completado")
+        //   .min(1, "Se requiere, como mínimo, una imagen")
+        //   .max(3, "Solo debe adjuntar un máximo de 3 imágenes")
+        //   .of(Yup.string().url("Este campo debe ser completado con urls")),
+        // imageLink: Yup.string().url("Se requiere un link válido"),
       })}
       onSubmit={(values) => {
         values.garage === "true"
           ? (values.garage = true)
           : (values.garage = false);
-        dispatch(postProperty({ ...values, images: [values.images] }));
+        dispatch(postProperty({ ...values, images: [imageSelected] }));
         alert("Creado con exito");
         navigate("/listado");
       }}
@@ -111,15 +124,6 @@ export default function SellForm() {
                   Titulo de la publicacion
                 </label>
                 <Field name="name" className="inputForm" />
-                {/* <input
-                        id="name"
-                        name="name"
-                        type="text"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.name}
-                        className="inputForm"
-                    /> */}
                 {touched.name && errors.name ? (
                   <div className="errorForm">{errors.name}</div>
                 ) : null}
@@ -129,15 +133,6 @@ export default function SellForm() {
                   Tipo de propiedad{" "}
                 </label>
                 <Field name="type" className="inputForm" />
-                {/* <input
-                        id="type"
-                        name="type"
-                        type="text"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.type}
-                        className="inputForm"
-                    /> */}
                 {touched.type && errors.type ? (
                   <div className="errorForm">{errors.type}</div>
                 ) : null}
@@ -147,15 +142,6 @@ export default function SellForm() {
                   Localidad{" "}
                 </label>
                 <Field name="location" className="inputForm" />
-                {/* <input
-                        id="location"
-                        name="location"
-                        type="text"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.location}
-                        className="inputForm"
-                    /> */}
                 {touched.location && errors.location ? (
                   <div className="errorForm">{errors.location}</div>
                 ) : null}
@@ -165,15 +151,6 @@ export default function SellForm() {
                   Dirección{" "}
                 </label>
                 <Field name="address" className="inputForm" />
-                {/* <input
-                        id="address"
-                        name="address"
-                        type="text"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.address}
-                        className="inputForm"
-                    /> */}
                 {touched.address && errors.address ? (
                   <div className="errorForm">{errors.address}</div>
                 ) : null}
@@ -188,15 +165,6 @@ export default function SellForm() {
                   min="0"
                   className="inputForm"
                 />
-                {/* <input
-                        id="rooms"
-                        name="rooms"
-                        type="number"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.rooms}
-                        className="inputForm"
-                    /> */}
                 {touched.rooms && errors.rooms ? (
                   <div className="errorForm">{errors.rooms}</div>
                 ) : null}
@@ -211,15 +179,6 @@ export default function SellForm() {
                   min="0"
                   className="inputForm"
                 />
-                {/* <input
-                        id="floors"
-                        name="floors"
-                        type="number"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.floors}
-                        className="inputForm"
-                    /> */}
                 {touched.floors && errors.floors ? (
                   <div className="errorForm">{errors.floors}</div>
                 ) : null}
@@ -229,19 +188,10 @@ export default function SellForm() {
                   Cochera
                 </label>
                 <Field name="garage" as="select" className="inputForm">
-                  {/* <select
-                        id="garage"
-                        name="garage"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.garage}
-                        className="inputForm"
-                    > */}
                   <option>Seleccionar</option>
                   <option value={false}>No</option>
                   <option value={true}>Si</option>
                 </Field>
-                {/* </select> */}
                 {touched.garage && errors.garage ? (
                   <div className="errorForm">{errors.garage}</div>
                 ) : null}
@@ -251,15 +201,6 @@ export default function SellForm() {
                   Tamaño (m2){" "}
                 </label>
                 <Field name="m2" type="number" min="0" className="inputForm" />
-                {/* <input
-                        id="m2"
-                        name="m2"
-                        type="number"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.m2}
-                        className="inputForm"
-                    /> */}
                 {touched.m2 && errors.m2 ? (
                   <div className="errorForm">{errors.m2}</div>
                 ) : null}
@@ -269,20 +210,10 @@ export default function SellForm() {
                   Estado{" "}
                 </label>
                 <Field name="state" as="select" className="inputForm">
-                  {/* <select
-                        id="state"
-                        name="state"
-                        type="text"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.state}
-                        className="inputForm"
-                    > */}
                   <option>Seleccionar</option>
-                  <option value="for sale">En venta</option>
-                  <option value="for rent">En alquiler</option>
+                  <option value="Venta">En venta</option>
+                  <option value="Alquiler">En alquiler</option>
                 </Field>
-                {/* </select> */}
                 {touched.state && errors.state ? (
                   <div className="errorForm">{errors.state}</div>
                 ) : null}
@@ -297,15 +228,6 @@ export default function SellForm() {
                   min="0"
                   className="inputForm"
                 />
-                {/* <input
-                        id="price"
-                        name="price"
-                        type="number"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.price}
-                        className="inputForm"
-                    /> */}
                 {touched.price && errors.price ? (
                   <div className="errorForm">{errors.price}</div>
                 ) : null}
@@ -320,15 +242,6 @@ export default function SellForm() {
                   min="0"
                   className="inputForm"
                 />
-                {/* <input
-                        id="expenses"
-                        name="expenses"
-                        type="number"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.expenses}
-                        className="inputForm"
-                    /> */}
                 {touched.expenses && errors.expenses ? (
                   <div className="errorForm">{errors.expenses}</div>
                 ) : null}
@@ -338,15 +251,6 @@ export default function SellForm() {
                   Descripción{" "}
                 </label>
                 <Field name="description" className="inputForm" />
-                {/* <input
-                        id="description"
-                        name="description"
-                        type="text"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.description}
-                        className="inputForm"
-                    /> */}
                 {touched.description && errors.description ? (
                   <div className="errorForm">{errors.description}</div>
                 ) : null}
@@ -361,33 +265,38 @@ export default function SellForm() {
                   render={(arrayHelpers) => (
                     <div>
                       <div className="ImageField">
-                        <Field
+                        <input
                           name="imageLink"
-                          type="text"
-                          className="inputForm"
+                          id="imageLink"
+                          type="file"
+                          className="inputFormFiles"
+                          onChange={(e) => setImageSelected(e.target.files[0])}
+                          accept="image/*"
                         />
                         <div>
                           <button
                             type="button"
                             className="addButton"
-                            onClick={
-                              values.images.length < 3 && values.imageLink
-                                ? (e) => {
-                                    values.images.push(values.imageLink);
-                                    setFieldValue("imageLink", "");
-                                  }
-                                : null
-                            }
+                            onClick={(e) => {
+                              uploadImage();
+                              setFieldValue("imageLink", "");
+                            }}
                           >
                             +
                           </button>
                         </div>
                       </div>
-                      {touched.imageLink &&
-                      values.images.length < 3 &&
-                      errors.imageLink ? (
-                        <div className="errorForm">{errors.imageLink}</div>
+                      {imageSelected !== "" &&
+                      typeof imageSelected !== "object" ? (
+                        <div className="ImagePeview">
+                          <img
+                            width="200px"
+                            src={imageSelected}
+                            alt="uploadedImg"
+                          />
+                        </div>
                       ) : null}
+
                       {values.images.length === 0 ? (
                         <div className="errorForm">{errors.images}</div>
                       ) : null}
@@ -396,24 +305,22 @@ export default function SellForm() {
                           Advertencia: No se pueden adjuntar más de 3 imágenes
                         </div>
                       ) : null}
-                      {values.images.length > 0 ? (
+                      {/* {values.images.length > 0 ? (
                         <div className="ImagePeview">
-                          {values.images.map((image, index) => (
-                            <div key={index} className="eachImage">
-                              <img width="100px" src={image} />
-                              <div className="deleteButtonContainer">
-                                <button
-                                  type="button"
-                                  className="deleteButton"
-                                  onClick={() => arrayHelpers.remove(index)}
-                                >
-                                  x
-                                </button>
-                              </div>
+                          <div key={index} className="eachImage">
+                            <img width="100px" src={imageSelected} />
+                            <div className="deleteButtonContainer">
+                              <button
+                                type="button"
+                                className="deleteButton"
+                                onClick={() => arrayHelpers.remove(index)}
+                              >
+                                x
+                              </button>
                             </div>
-                          ))}
+                          </div>
                         </div>
-                      ) : null}
+                      ) : null} */}
                     </div>
                   )}
                 />

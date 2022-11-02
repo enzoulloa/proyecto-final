@@ -285,6 +285,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         ownershipsFiltered: action.payload,
       };
+    case 'CREAR_FILTER':
+      return{
+        ...state,
+        ownershipsFiltered: action.payload
+      }
     default:
       return state;
   }

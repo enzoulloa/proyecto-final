@@ -33,17 +33,17 @@ export default function Carousel(props) {
 
   return (
     <div>
-      {images.length > 1 ? (
+      {images.length >= 1 ? (
         <div className="div-column">
-          <button onClick={previous} className="btn-carousel">
-            {"<"}
-          </button>
           <img
             src={selectedImage}
             className="img-carousel"
             alt={`imagen ${selectedIndex}`}
           />
-          <div>
+          <div className="button-div">
+            <button onClick={previous} className="btn-carousel">
+              {"<"}
+            </button>
             <button onClick={next} className="btn-carousel">
               {">"}
             </button>

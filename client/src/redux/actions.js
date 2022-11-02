@@ -42,7 +42,7 @@ import {
 const ACCESS_TOKEN =
   "TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971";
 
-const URL_SERVER = "https://proyecto-final.up.railway.app";
+const URL_SERVER = "http://localhost:3001";
 
 const deploy = "https://proyecto-final.up.railway.app"
 const localHost = "http://localhost:3001";
@@ -91,20 +91,21 @@ export function postProperty(payload) {
   return async function (dispatch) {
     const response = await axios.post(`${URL_SERVER}/ownerships/`, {
       name: payload.name,
-      location: payload.location,
-      rooms: payload.rooms,
-      garage: payload.garage,
-      type: payload.type,
-      m2: payload.m2,
-      expenses: payload.expenses,
-      seller: payload.seller,
+      address: payload.address,
       description: payload.description,
+      expenses: payload.expenses,
+      floors: payload.floors,
+      garage: payload.garage,
+      location: payload.location,
+      m2: payload.m2,
+      price: payload.price,
+      rooms: payload.rooms,
+      type: payload.type,
+      published: payload.published,
+      seller: payload.seller,
       images: payload.images,
       state: payload.state,
-      price: payload.price,
-      floors: payload.floors,
-      address: payload.address,
-      seller: "Bautista",
+      seller: payload.seller,
     });
     return dispatch({
       type: POST_PROPERTY,
@@ -164,6 +165,14 @@ export function GetStatusLogin(e) {
     type: GET_STATUS_LOGIN,
     payload: e,
   };
+}
+
+
+export function  clearFilter(){
+  return{
+    type:'CREAR_FILTER',
+    payload:[]
+  }
 }
 
 export function filterCards(search) {

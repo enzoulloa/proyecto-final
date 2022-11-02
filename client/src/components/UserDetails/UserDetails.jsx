@@ -5,6 +5,7 @@ import UserNavBar from "./components/UserNavBar";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo, getUserId } from "../../redux/actions";
+import { Navigate } from "react-router-dom";
 import "./UserDetails.scss";
 
 export default function UserDetails() {

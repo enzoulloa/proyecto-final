@@ -16,6 +16,7 @@ export default function Home() {
   }, []);
 
   const { isLoading, user } = useAuth0();
+  //userStatus = 'suspendido' -> mostrar mensaje aca o en ingresar.
   return (
     <div className="home">
       <div className="containerI">
