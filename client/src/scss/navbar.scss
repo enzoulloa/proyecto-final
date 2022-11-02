@@ -26,9 +26,12 @@
 
 .linksContainer {
   display: flex;
+  width: 40%;
   align-items: center;
   font-size: 16px;
   line-height: 18.77px;
+  justify-content: space-evenly;
+  align-content: center;
 }
 
 .link {
@@ -88,4 +91,16 @@
   margin-left: 50%;
   width: 50px;
   height: 50px;
+}
+.linksCommonContainer{
+  text-decoration: none;
+  color:#d6d6d6;
+  width: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-right: #d6d6d6 solid thin;
+  a{
+    color:#d6d6d6;
+  }
 }

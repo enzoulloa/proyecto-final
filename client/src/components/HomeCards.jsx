@@ -1,11 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../scss/homecards.scss";
-import sell from "../assets/sellHome.jpg";
-import buy from "../assets/buyHome.jpg";
-import rent from "../assets/rentHome.jpg";
+import { useDispatch } from "react-redux";
+import { filterCards } from "../redux/actions";
 
 export default function HomeCards() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  function handleBuy(e){
+    e.preventDefault()
+    dispatch(filterCards("state=Venta"))
+    navigate("/listado")
+  }
+
+   function handleRent(e){
+    e.preventDefault()
+    dispatch(filterCards("state=Alquiler"))
+    navigate("/listado")
+  }
+
+
   return (
     <section className="section-container-homecards">
       <div className="containerE">
@@ -22,7 +37,7 @@ export default function HomeCards() {
                   la mayoría de los listados, incluidas cosas que no encontrarás
                   en ningún otro lugar.
                 </p>
-                <Link to="/listado">Buscar casas</Link>
+                <Link to="/listado" onClick={e=>handleBuy(e)}>Buscar casas</Link>
               </div>
             </div>
           </li>
@@ -38,7 +53,8 @@ export default function HomeCards() {
                   comprar en la red de alquiler más grande hasta solicitar y
                   pagar el alquiler.
                 </p>
-                <Link to="listado">Encontrar alquileres</Link>
+                {/* <button onClick={e=>handleBuy(e)}>Encontrar alquileres</button> */}
+                <Link to="/listado" onClick={e=>handleRent(e)}>Encontrar alquileres</Link>
               </div>
             </div>
           </li>

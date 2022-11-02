@@ -20,6 +20,7 @@ import UserModerate from "../components/UserDetails/components/UserModerate";
 import LoginModal from "../components/LoginModal/SignIn/LoginModal";
 import UserFavorite from "../components/Favorite/UserFavorite";
 import "antd/dist/antd.css";
+import "../scss/globals.scss"
 
 function App() {
   return (
