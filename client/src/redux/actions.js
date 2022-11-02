@@ -573,6 +573,7 @@ export function ModalSign(boolean) {
 export function toggleError() {
   return {
     type: "NOT_FOUND",
+  }
 }
 
 export function updateOwnershipState(ownershipInfo) {
