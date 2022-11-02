@@ -56,7 +56,7 @@ export default function LoginModal() {
 
   function handlerSubmit() {
     dispatch(LoginUser(signIn));
-    dispatch(ModalSign(false));
+    // dispatch(ModalSign(false));
     setSignIn({
       email: "",
       password: "",
