@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterBy, orderOwnerships, filterCards } from "../redux/actions";
+import { filterBy, orderOwnerships, filterCards, toggleError, GetOwnerships } from "../redux/actions";
 import "../scss/filterCards.scss";
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function FiltersCards() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [filterParams, setFilterParams] = useState({ op: "", type: "" });
   const [params, setParams] = useSearchParams();
   const [search, setSearch] = useState("");
   const ownerships = useSelector((state) => state.ownerships);
+  const error = useSelector((state)=>state.notFound)
   const prov = [...new Set(ownerships.map((item) => item.location))];
 
   const handleSearch = (e) => {
@@ -17,7 +21,22 @@ export default function FiltersCards() {
     setSearch(e.target.value);
   };
 
+  useEffect(()=>{
+    if (error){
+      Swal.fire({
+        icon: "error",
+        title: "Error 412",
+        text: "No se encontraron casas 🧐",
+      });
+      dispatch(GetOwnerships());
+    }
+  },[error])
+
   const onSearch = (searchTerm) => {
+    console.log(searchTerm)
+    if(search === ""){
+      alert("ingrese un nombre válido")
+    }
     setSearch(searchTerm);
     params.set("location", searchTerm);
     dispatch(filterCards(params));

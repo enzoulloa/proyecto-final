@@ -61,6 +61,7 @@ const initialState = {
   userInfo: {},
   reviews: [],
   modalSign: true,
+  notFound: false,
 };
 
 function rootReducer(state = initialState, action) {
@@ -75,6 +76,7 @@ function rootReducer(state = initialState, action) {
         error: false,
         response: null,
         productId: null,
+        notFound: false,
       };
     case CLEAR_DETAIL:
       return {
@@ -104,10 +106,7 @@ function rootReducer(state = initialState, action) {
 
     case FILTER_BY:
       const ownershipsToFilter = state.ownerships;
-      const ownershipsFilteredByType = filterBy(
-        ownershipsToFilter,
-        action.payload
-      );
+      const ownershipsFilteredByType = filterBy(ownershipsToFilter, action.payload);
       return {
         ...state,
         ownershipsFiltered: ownershipsFilteredByType,
@@ -207,9 +206,7 @@ function rootReducer(state = initialState, action) {
     case USER_FAVORITE:
       return {
         ...state,
-        userFavorite: action.payload.length
-          ? action.payload
-          : { Error: "No Tiene Favoritos" },
+        userFavorite: action.payload.length ? action.payload : { Error: "No Tiene Favoritos" },
       };
     case OWNERSHIP_FAVORITE:
       return {
@@ -275,13 +272,16 @@ function rootReducer(state = initialState, action) {
         ...state,
         modalSign: action.payload,
       };
-
+    case "NOT_FOUND":
+      return {
+        ...state,
+        notFound: !state.error,
+      };
     case UPDATE_OWNERSHIP_STATE:
       return {
         ...state,
         ownershipsFiltered: action.payload,
       };
-
     default:
       return state;
   }
