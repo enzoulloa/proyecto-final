@@ -43,13 +43,13 @@ export default function Detail() {
       },
     ],
     back_urls: {
-      success: `https://proyecto-final-rosy.vercel.app/usuario/${
+      success: `https://henrybienesraices.vercel.app/usuario/${
         infoUser ? infoUser.name : null
       }/propiedades/?ownershipId=${id ? id : null}&iduser=${infoUser ? infoUser.id : null}`,
-      failure: `https://proyecto-final-rosy.vercel.app/usuario/${
+      failure: `https://henrybienesraices.vercel.app/usuario/${
         infoUser ? infoUser.name : null
       }/propiedades/?ownershipId=${id ? id : null}&iduser=${infoUser ? infoUser.id : null}`,
-      pending: `https://proyecto-final-rosy.vercel.app/usuario/${
+      pending: `https://henrybienesraices.vercel.app/usuario/${
         infoUser ? infoUser.name : null
       }/propiedades/?ownershipId=${id ? id : null}&iduser=${infoUser ? infoUser.id : null}`,
     },

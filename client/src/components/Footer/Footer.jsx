@@ -1,9 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../scss/Footer.scss";
 import logo from "../../assets/LOGUITO-PF.svg";
+import { useDispatch } from "react-redux";
+import { filterCards } from "../../redux/actions";
 
 export default function Footer() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  function handleLocationRent(e,location){
+    e.preventDefault()
+    dispatch(filterCards(`state=Alquiler&location=${location}`))
+    navigate("/listado")
+  }
+
+   function handleLocationBuy(e,location){
+    e.preventDefault()
+    dispatch(filterCards(`state=Venta&location=${location}`))
+    navigate("/listado")
+  }
+
   return (
     <div>
       <footer>
@@ -46,16 +63,16 @@ export default function Footer() {
           <h2>Alquilar</h2>
           <ul>
             <li>
-              <Link to="/listado?location=buenos%aires">Buenos Aires</Link>
+              <Link to="/listado" onClick={(e)=>handleLocationRent(e,"Buenos Aires")}>Buenos Aires</Link>
             </li>
             <li>
-              <Link to="/listado?location=la%plata">La Plata</Link>
+              <Link to="/listado" onClick={(e)=>handleLocationRent(e,"La Plata")}>La Plata</Link>
             </li>
             <li>
-              <Link to="/listado?location=misiones">Misiones</Link>
+              <Link to="/listado" onClick={(e)=>handleLocationRent(e,"Misiones")}>Misiones</Link>
             </li>
             <li>
-              <Link to="/listado?location=neuquen">Neuquen</Link>
+              <Link to="/listado" onClick={(e)=>handleLocationRent(e,"Neuquen")}>Neuquen</Link>
             </li>
           </ul>
         </div>
@@ -63,16 +80,16 @@ export default function Footer() {
           <h2>Comprar</h2>
           <ul>
             <li>
-              <Link to="/listado?location=buenos%aires">Buenos Aires</Link>
+              <Link to="/listado?location=buenos%aires" onClick={(e)=>handleLocationBuy(e,"Buenos Aires")}>Buenos Aires</Link>
             </li>
             <li>
-              <Link to="/listado?location=la%plata">La Plata</Link>
+              <Link to="/listado?location=la%plata" onClick={(e)=>handleLocationBuy(e,"La Plata")}>La Plata</Link>
             </li>
             <li>
-              <Link to="/listado?location=misiones">Misiones</Link>
+              <Link to="/listado" onClick={(e)=>handleLocationBuy(e,"Misiones")}>Misiones</Link>
             </li>
             <li>
-              <Link to="/listado?location=neuquen">Neuquen</Link>
+              <Link to="/listado" onClick={(e)=>handleLocationBuy(e,"Neuquen")}>Neuquen</Link>
             </li>
           </ul>
         </div>
