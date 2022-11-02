@@ -164,6 +164,10 @@ router.put("/editSale", async (req, res) => {
         const succes = await transport.sendMail(buySuccess);
         console.log("message send", succes);
       }
+      const toUpdateOwnership = await Ownership.findOne({where: {id: ownership.id}});
+      const updatedOwnership = await toUpdateOwnership.update({
+        published: "En revision"
+      });
       return res.send("Venta actualizada!");
     }
   } catch (error) {

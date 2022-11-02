@@ -198,7 +198,7 @@ export function UserRegister(payload) {
 export function LoginUser(payload) {
   return async function (dispatch) {
     const LoginUser = await axios.post(`${URL_SERVER}/login`, payload);
-    localStorage.setItem("UserLogin", JSON.stringify(LoginUser.data));
+    await localStorage.setItem("UserLogin", JSON.stringify(LoginUser.data));
     return dispatch({
       type: LOGIN_USER,
       payload: "USUARIO LOGUEADO",
@@ -210,6 +210,7 @@ export function ExitSession() {
   return async function (dispatch) {
     const ExitSession = await axios.get(`${URL_SERVER}/logout`);
     localStorage.removeItem("UserLogin");
+    localStorage.removeItem("UserFavorites");
     return dispatch({
       type: EXIT_SESSION,
       payload: "USUARIO NO LOGUEADO",
