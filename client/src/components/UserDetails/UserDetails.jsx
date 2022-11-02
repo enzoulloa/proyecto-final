@@ -41,7 +41,7 @@ export default function UserDetails() {
         />
       </div>
       <div className="userView">
-        {user1 ? <Outlet /> : <Navigate to="/singin" />}
+        {user1 ? <Outlet /> : <Navigate to="/ingresar" />}
       </div>
     </div>
   );

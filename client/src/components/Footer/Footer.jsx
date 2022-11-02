@@ -46,16 +46,16 @@ export default function Footer() {
           <h2>Alquilar</h2>
           <ul>
             <li>
-              <Link to="/listings?ubication=buenos%aires">Buenos Aires</Link>
+              <Link to="/listado?location=buenos%aires">Buenos Aires</Link>
             </li>
             <li>
-              <Link to="/listings?ubication=la%plata">La Plata</Link>
+              <Link to="/listado?location=la%plata">La Plata</Link>
             </li>
             <li>
-              <Link to="/listings?ubication=misiones">Misiones</Link>
+              <Link to="/listado?location=misiones">Misiones</Link>
             </li>
             <li>
-              <Link to="/listings?ubication=neuquen">Neuquen</Link>
+              <Link to="/listado?location=neuquen">Neuquen</Link>
             </li>
           </ul>
         </div>
@@ -63,16 +63,16 @@ export default function Footer() {
           <h2>Comprar</h2>
           <ul>
             <li>
-              <Link to="/listings?ubication=buenos%aires">Buenos Aires</Link>
+              <Link to="/listado?location=buenos%aires">Buenos Aires</Link>
             </li>
             <li>
-              <Link to="/listings?ubication=la%plata">La Plata</Link>
+              <Link to="/listado?location=la%plata">La Plata</Link>
             </li>
             <li>
-              <Link to="/listings?ubication=misiones">Misiones</Link>
+              <Link to="/listado?location=misiones">Misiones</Link>
             </li>
             <li>
-              <Link to="/listings?ubication=neuquen">Neuquen</Link>
+              <Link to="/listado?location=neuquen">Neuquen</Link>
             </li>
           </ul>
         </div>
@@ -80,7 +80,7 @@ export default function Footer() {
           <h2>Ayuda</h2>
           <ul>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/sobre_nosotros">About</Link>
             </li>
             <li>
               <a href="mailto:soyhenrybienesraices@gmail.com?Subject=Consultas..">

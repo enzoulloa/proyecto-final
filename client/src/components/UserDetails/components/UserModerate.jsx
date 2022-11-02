@@ -94,7 +94,7 @@ export default function UserModerate() {
     setUserType(1);
   }
   if (user.role !== 3) {
-    return <Navigate to="/user/:name/info" />;
+    return <Navigate to={`/usuario/${user.name}/informacion`} />;
   }
   return (
     <>

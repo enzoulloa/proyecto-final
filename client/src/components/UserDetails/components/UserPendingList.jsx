@@ -101,7 +101,7 @@ export default function UserPendingList() {
     setNewValue(value);
   }
   if (user.role <= 2) {
-    return <Navigate to="/user/:name/info" />;
+    return <Navigate to={`/usuario/${user.name}/informacion`} />;
   }
   return (
     <div>
