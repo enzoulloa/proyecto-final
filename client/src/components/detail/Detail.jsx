@@ -28,15 +28,15 @@ export default function Detail() {
   const localUser = JSON.parse(window.localStorage.getItem("UserLogin"));
   const reviews = useSelector((state) => state.reviews);
   const infoUser = JSON.parse(localStorage.getItem("UserLogin"));
-  console.log(infoUser.id);
+  console.log(infoUser ? infoUser.id : null);
   localStorage.setItem("LoginUser", JSON.stringify(infoUser));
   const userObj = {
     id,
-    idUser: infoUser.id,
+    idUser: infoUser ? infoUser.id : null,
   };
   const [product, setProduct] = useState({
     // external_reference: "ABC",
-    notification_url: `https://proyecto-final.up.railway.app/payment/paymentId/${id}/${infoUser.id}`,
+    notification_url: `https://proyecto-final.up.railway.app/payment/paymentId/${id}/${infoUser ? infoUser.id : null}`,
     items: [
       {
         title: name,
@@ -46,9 +46,9 @@ export default function Detail() {
       },
     ],
     back_urls: {
-      success: `http://localhost:5173/user/${infoUser ? infoUser.name : null}/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
+      success: `http://localhost:5173/user/${infoUser ? infoUser.name : null}/propiedades/?ownershipId=${id}&iduser=${infoUser ? infoUser.id : null}`,
       failure: `http://localhost:5173/${id}/estado_de_pago`,
-      pending: `http://localhost:5173/user/${infoUser ? infoUser.name : null}/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
+      pending: `http://localhost:5173/user/${infoUser ? infoUser.name : null}/propiedades/?ownershipId=${id}&iduser=${infoUser ? infoUser.id : null}`,
     },
     auto_return: "approved",
   });

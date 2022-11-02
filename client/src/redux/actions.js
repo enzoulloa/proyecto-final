@@ -36,6 +36,7 @@ import {
   GET_USER_INFO,
   GET_REVIEW,
   POST_REVIEW,
+  UPDATE_OWNERSHIP_STATE,
 } from "./common";
 const ACCESS_TOKEN = "TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971";
 
@@ -568,8 +569,29 @@ export function ModalSign(boolean) {
     payload: boolean,
   };
 }
+
 export function toggleError() {
   return {
     type: "NOT_FOUND",
+}
+
+export function updateOwnershipState(ownershipInfo) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `${URL_SERVER}/ownerships/updatestate/${ownershipInfo.ownershipId}`,
+        { value: ownershipInfo.stateValue }
+      );
+      const ownerships = await axios.get(
+        `${URL_SERVER}/ownerships?published=Revision Pendiente/En revision/Cancelada`
+      );
+
+      return dispatch({
+        type: UPDATE_OWNERSHIP_STATE,
+        payload: ownerships.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 }

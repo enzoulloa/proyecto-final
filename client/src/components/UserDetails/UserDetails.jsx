@@ -9,7 +9,7 @@ import "./UserDetails.scss";
 
 export default function UserDetails() {
   const dispatch = useDispatch();
-  const { isLoading, user } = useAuth0();
+  const { isLoading } = useAuth0();
   const userInfo = useSelector((state) => state.userInfo);
   const user1 = JSON.parse(window.localStorage.getItem("UserLogin"));
   const idUser = window.location.search.split("=")[2]
@@ -23,9 +23,9 @@ export default function UserDetails() {
   }, [dispatch, user1]);
 
   useEffect(() => {
-    if(idUser === user1.id){
+    if (user1) {
       dispatch(getUserInfo(user1.name));
-    };
+    }
   }, [dispatch]);
 
   if (isLoading) {
@@ -37,11 +37,11 @@ export default function UserDetails() {
         <UserNavBar
           image={userInfo.photo}
           name={userInfo.name}
-          userRole={userInfo.role}
+          userRole={user1.role}
         />
       </div>
       <div className="userView">
-        <Outlet />
+        {user1 ? <Outlet /> : <Navigate to="/singin" />}
       </div>
     </div>
   );
