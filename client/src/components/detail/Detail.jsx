@@ -132,6 +132,9 @@ export default function Detail() {
           <div className="row-photo-caract">
             <div className="div-carousel">
               <Carousel images={ownership.images} />
+                <div className="payment-position">
+                  <Payment productId={productId}  />
+                </div>
             </div>
             <div className="new-caract">
               <h2>Caracteristicas</h2>
@@ -192,7 +195,6 @@ export default function Detail() {
             <p className="p">{ownership.description}</p>
           </div>
 
-          <Payment productId={productId} />
           {/* {user.role >= 3 ? (
             <button onClick={handleDelete} className="bt">
               Remove ownership
