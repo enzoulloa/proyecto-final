@@ -166,6 +166,97 @@ router.get('/id/:id', async (req,res) =>{
         "review",
         "address"],
       through: {
+<<<<<<< Updated upstream
+=======
+        attributes: [],
+      },
+    },
+  });
+  const allUsers = [...users, ...usersAuth0];
+  res.send(allUsers);
+});
+
+router.get("/:name", async (req, res) => {
+  const { name } = req.params;
+  try {
+    let find = await User.findOne({
+      where: { name: name },
+      include: {
+        model: Ownership,
+        attributes: [
+          "id",
+          "name",
+          "location",
+          "rooms",
+          "garage",
+          "m2",
+          "type",
+          "expenses",
+          "seller",
+          "description",
+          "images",
+          "state",
+          "price",
+          "floors",
+          "review",
+          "address",
+        ],
+        through: {
+          attributes: [],
+        },
+      },
+    });
+    // let findAuth0 = await UserAuth0.findOne({
+    //   where: { name: name },
+    //   include: {
+    //     model: Ownership,
+    //     attributes: [
+    //       "id",
+    //       "name",
+    //       "location",
+    //       "rooms",
+    //       "garage",
+    //       "m2",
+    //       "type",
+    //       "expenses",
+    //       "seller",
+    //       "description",
+    //       "images",
+    //       "state",
+    //       "price",
+    //       "floors",
+    //       "review",
+    //       "address",
+    //     ],
+    //     through: {
+    //       attributes: [],
+    //     },
+    //   },
+    // });
+
+    let findAuth0 = await UserAuth0.findOne({
+      where: { name: name },
+      include: {
+        model: Ownership,
+        attributes: [
+          "id",
+          "name",
+          "location",
+          "rooms",
+          "garage",
+          "m2",
+          "type",
+          "expenses",
+          "seller",
+          "description",
+          "images",
+          "state",
+          "price",
+          "floors",
+          "address",
+        ],
+        through: {
+>>>>>>> Stashed changes
           attributes: [],
       },
     }})
