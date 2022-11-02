@@ -28,7 +28,7 @@ export default function Detail() {
   const localUser = JSON.parse(window.localStorage.getItem("UserLogin"));
   const reviews = useSelector((state) => state.reviews);
   const infoUser = JSON.parse(localStorage.getItem("UserLogin"));
-  console.log(infoUser.id);
+  console.log(infoUser ? infoUser.id : null);
   localStorage.setItem("LoginUser", JSON.stringify(infoUser));
   const userObj = {
     id,
