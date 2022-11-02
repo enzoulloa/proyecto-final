@@ -45,14 +45,13 @@ export default function Detail() {
     back_urls: {
       success: `https://proyecto-final-rosy.vercel.app/usuario/${
         infoUser ? infoUser.name : null
-      }/propiedades/?ownershipId=${id}&iduser=${infoUser? infoUser.id : null}`,
+      }/propiedades/?ownershipId=${id ? id : null}&iduser=${infoUser ? infoUser.id : null}`,
       failure: `https://proyecto-final-rosy.vercel.app/usuario/${
         infoUser ? infoUser.name : null
-      }/propiedades/?ownershipId=${id}&iduser=${infoUser ? infoUser.id : null}`,
+      }/propiedades/?ownershipId=${id ? id : null}&iduser=${infoUser ? infoUser.id : null}`,
       pending: `https://proyecto-final-rosy.vercel.app/usuario/${
         infoUser ? infoUser.name : null
-      }/propiedades/?ownershipId=${id}&iduser=${infoUser ? infoUser.id : null}`,
-
+      }/propiedades/?ownershipId=${id ? id : null}&iduser=${infoUser ? infoUser.id : null}`,
     },
     auto_return: "approved",
   });
