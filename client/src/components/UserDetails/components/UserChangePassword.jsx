@@ -101,8 +101,8 @@ export default function UserChangePassword() {
           <p className="errors">{errors.newPwVerifier}</p>
         )}
       </div>
-      <button type="button" onClick={submitPwChange} className="input">
-        Submit
+      <button type="button" onClick={submitPwChange} className="button-18">
+        Enviar
       </button>
     </form>
   );

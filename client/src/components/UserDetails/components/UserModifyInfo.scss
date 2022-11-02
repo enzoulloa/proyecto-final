@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,700");
 .form-update{
     display: flex;
     flex-direction: column;
@@ -5,39 +6,79 @@
     align-items: center;
     height: 500px;
     width: 700px;
-    margin-left: 150px;
-    box-shadow: 0px 0px 5px white;
-    background-color: #0d2133;
+    box-shadow: 0px 0px 5px black;
+    background-color: #f1f1f0;
+    border-radius: 5px;
     .div-update{
         display: flex;
         flex-direction: column;
         width: 500px;
         align-items: center;
+        label {
+            font-family: "Poppins";
+            color: black;
+            width: 50%;
+        }
+        input {
+            font-family: "Poppins";
+            width: 50%;
+            border: 1px solid #5e83ba;
+            color: black;
+            font-size: 13px;
+            border-radius: 4px;
+            line-height: 1.5;
+            padding: 5px 10px;
+            transition: box-shadow 100ms ease-in,
+            border 100ms ease-in,
+            background-color 100ms ease-in;
+            border: 2px solid #dee1e2;
+            color: rgb(14, 14, 16);
+            background: #dee1e2;
+            display: block;
+            height: 30px;
+        }
+    
+        input:hover {
+            border-color: #ccc;
+        }
+        
+        input:focus {
+            border-color: #5e83ba;
+            background: #fff;
+        }
         .btn-mas{
                 width: 50%;
-                margin-top: 5px;
-                padding: 2px;
-                border-style: solid;
-                border-radius: 0px;
-                background-color: black;
-                color: white;
+                padding: -10px;
         }
                 .photo-row {
                     display: flex;
                     flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    margin-bottom: 8px;
+                    label{
+                        cursor: pointer;
+
+                    }
+                    label:hover{
+                        color: #5e83ba;
+                        text-shadow: 0px 0px 1px black;
+                    }
                 }
                 .div-file input{
                     display: none;
                     
                 }
-                
+                p{
+                    color: black;
+                    font-family: "Poppins";
+                }
                 .div-file label{
                     display: block;
                     width: 50%;
                     font-size: 50px;
-                    color: white;
+                    
                     font-size: 12px;
-                    margin-left: 24%;
                     
                 }
         
@@ -46,13 +87,51 @@
         display: flex;
         justify-content: space-evenly;
     }
-        .input {
-            height: 40px;
-            width: 50%;
-            border-style: solid;
-            border-radius: 0px;
-            background-color: black;
-            color: white
-        }
+    .button-18 {
+        width: 50%;
+        align-items: center;
+        background-color: #0A66C2;
+        border: 0;
+        border-radius: 100px;
+        box-sizing: border-box;
+        color: #ffffff;
+        cursor: pointer;
+        display: inline-flex;
+        font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        justify-content: center;
+        line-height: 20px;
+        max-width: 480px;
+        min-height: 40px;
+        min-width: 0px;
+        overflow: hidden;
+        padding: 0px;
+        padding-left: 20px;
+        padding-right: 20px;
+        text-align: center;
+        touch-action: manipulation;
+        transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+        user-select: none;
+        -webkit-user-select: none;
+        vertical-align: middle;
+    }
+
+    .button-18:hover,
+    .button-18:focus {
+        background-color: #16437E;
+        color: #ffffff;
+    }
+
+    .button-18:active {
+        background: #09223b;
+        color: rgb(255, 255, 255, .7);
+    }
+
+    .button-18:disabled {
+        cursor: not-allowed;
+        background: rgba(0, 0, 0, .08);
+        color: rgba(0, 0, 0, .3);
+    }
 }
 

@@ -33,7 +33,7 @@ export default function Carousel(props) {
 
   return (
     <div>
-      {images.length > 1 ? (
+      {images.length >= 1 ? (
         <div className="div-column">
           <img
             src={selectedImage}
