@@ -41,23 +41,21 @@ export default function NavBar() {
       </Link>
       <div className="linksContainer">
         <div className="loginContainer">
-          {userLogin ? (
-            <UserNav img={userLogin.photo} name={userLogin.name} />
-          ) : (
-            location.pathname !== "/ingresar" &&
-            location.pathname !== "/registrarse" && (
+
+          {
+            userLogin?
+            <UserNav img={userLogin.photo} name={userLogin.name}/>:
+            location.pathname !== '/ingresar' && location.pathname !== '/registrarse' &&
+            (
               <div className="div_register_cont">
-                <Link to="/ingresar" className="link">
-                  Ingresar
-                </Link>
+                <Link to='/ingresar' className="link">Ingresar</Link>
                 <div className="button">
-                  <Link to="/registrarse" className="link">
-                    Registrarse
-                  </Link>
+                  <Link to='/registrarse' className="link">Registrarse</Link>
+
                 </div>
               </div>
             )
-          )}
+          }
         </div>
       </div>
       <div className="line-nav"></div>
