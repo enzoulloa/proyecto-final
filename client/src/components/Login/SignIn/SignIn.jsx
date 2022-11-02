@@ -18,8 +18,6 @@ export default function SignIn() {
     password: "",
   });
 
-  
-
   useEffect(() => {
     dispatch(LoginStatus());
   }, [satusUser]);
@@ -67,7 +65,7 @@ export default function SignIn() {
             <div className="welcome">
               <h2>Bienvenido!!</h2>
               <p>Si no tienes un usurio podes registrarte.</p>
-              <Link to="/signup">
+              <Link to="/registrarse">
                 <button className="sign_in">Registrarme</button>
               </Link>
               <ButtonGoogle />

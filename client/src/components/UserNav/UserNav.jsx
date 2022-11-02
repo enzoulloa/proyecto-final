@@ -22,7 +22,7 @@ export default function UserNav({ img, name }) {
       localStorage.removeItem("UserLogin");
     } else {
       dispatch(ExitSession());
-      navigate("/signin");
+      navigate("/ingresar");
     }
     alert();
   }
@@ -31,16 +31,28 @@ export default function UserNav({ img, name }) {
     <nav className="header__menu">
       <div className="profile">
         <figure className="profile__img">
-          <Link to={`/user/${name}`}>
+          <Link to={`/usuario/${name}/informacion`}>
             <img src={img} alt="User" />
           </Link>
         </figure>
         <p>{nameOne[0]}</p>
       </div>
       <ul className="list">
-        <li><Link to={`/user/${name}`}><button className='button-User'>Usuario</button></Link></li>
-        <li><Link to='/favorite'><button className='button-favorite'>Favoritos</button></Link></li>
-        <li className="list__item"><button onClick={()=>handlerExitSession()} className='a'>salir</button></li>
+        <li>
+          <Link to={`/usuario/${name}/informacion`}>
+            <button className="button-User">Usuario</button>
+          </Link>
+        </li>
+        <li>
+          <Link to="/favoritos">
+            <button className="button-favorite">Favoritos</button>
+          </Link>
+        </li>
+        <li className="list__item">
+          <button onClick={() => handlerExitSession()} className="a">
+            salir
+          </button>
+        </li>
       </ul>
     </nav>
   );

@@ -92,7 +92,7 @@ export default function SellForm() {
           : (values.garage = false);
         dispatch(postProperty({ ...values, images: [values.images] }));
         alert("Creado con exito");
-        navigate("/listings");
+        navigate("/listado");
       }}
     >
       {({

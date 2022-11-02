@@ -8,35 +8,35 @@ export default function UserNavBar({ page, image, name, userRole, selected }) {
         <p className="userNavHeaderTitle">Bienvenido, {`${name}`}</p>
       </div>
       <div className="userNavBody">
-        <Link to={`/user/${name}/info`} className="userNavLink">
+        <Link to={`/usuario/${name}/info`} className="userNavLink">
           Informacion General
         </Link>
-        <Link to={`/user/${name}/cambio_contraseña`} className="userNavLink">
+        <Link to={`/usuario/${name}/cambio_contraseña`} className="userNavLink">
           Cambiar Contraseña
         </Link>
-        <Link to={`/user/${name}/modificar_info`} className="userNavLink">
+        <Link to={`/usuario/${name}/modificar_info`} className="userNavLink">
           Modificar Info
         </Link>
-        <Link to={`/user/${name}/propiedades`} className="userNavLink">
+        <Link to={`/usuario/${name}/propiedades`} className="userNavLink">
           Mis propiedades
         </Link>
 
         {userRole >= 2 ? (
           <div className="seller">
             <Link
-              to={`/user/${name}/formularios_pendientes`}
+              to={`/usuario/${name}/formularios_pendientes`}
               className="userNavLink"
             >
               Formularios pendientes
             </Link>
-            {/* <Link to={`/user/${name}/lista_pagos`} className="userNavLink">
+            {/* <Link to={`/usuario/${name}/lista_pagos`} className="userNavLink">
               Formularios señados
             </Link> */}
           </div>
         ) : null}
         {userRole === 3 && (
           <div className="admin">
-            <Link to={`/user/${name}/moderacion`} className="userNavLink">
+            <Link to={`/usuario/${name}/moderacion`} className="userNavLink">
               Moderacion
             </Link>
           </div>

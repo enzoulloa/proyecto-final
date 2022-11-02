@@ -42,13 +42,13 @@ export default function Detail() {
       },
     ],
     back_urls: {
-      success: `https://proyecto-final-rosy.vercel.app/user/${
+      success: `https://proyecto-final-rosy.vercel.app/usuario/${
         infoUser ? infoUser.name : null
       }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
-      failure: `https://proyecto-final-rosy.vercel.app/user/${
+      failure: `https://proyecto-final-rosy.vercel.app/usuario/${
         infoUser ? infoUser.name : null
       }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
-      pending: `https://proyecto-final-rosy.vercel.app/user/${
+      pending: `https://proyecto-final-rosy.vercel.app/usuario/${
         infoUser ? infoUser.name : null
       }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
     },
@@ -95,7 +95,7 @@ export default function Detail() {
             "Ownership deleted successfully",
             "success"
           );
-          navigate("/home");
+          navigate("/");
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire(
             "Cancelled",

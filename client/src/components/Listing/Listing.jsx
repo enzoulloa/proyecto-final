@@ -4,19 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetOwnerships, userFavorite, refresh } from "../../redux/actions";
 import Cards from "../cards/Cards";
 import Loading from "../Loading";
-import NavBar from "../NavBar/NavBar";
 import "../../scss/Listings.scss";
 import FiltersCards from "../FilterCards";
 import ReactPaginate from "react-paginate";
 import Error from "../Error";
-import Modal from "../Modal/Modal";
-import SignIn from "../Login/SignIn/SignIn";
 
 export default function Listing() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const ownerships = useSelector((state) => state.ownershipsFiltered);
-  const userFavorites = useSelector((state) => state.userFavorite);
   const loading = useSelector((state) => state.loading);
   const [modal, setModal] = useState(false);
   const [currentItems, setCurrentItems] = useState([]);
