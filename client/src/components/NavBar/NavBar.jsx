@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { useAuth0 } from "@auth0/auth0-react";
-import { LoginUserAuth0, LoginStatus } from "../../redux/actions";
+import { LoginUserAuth0, LoginStatus, filterCards } from "../../redux/actions";
 import UserNav from "../UserNav/UserNav";
 import img from "../../assets/LOGUITO-PF.svg";
 
@@ -34,14 +34,29 @@ export default function NavBar() {
     Swal.fire("Sesion Cerrada", "Sesion cerrada correctamente", "success");
   }
 
+  function handleBuy(e){
+    e.preventDefault()
+    dispatch(filterCards("state=Venta"))
+    navigate("/listado")
+  }
+
+  function handleRent(e){
+    e.preventDefault()
+    dispatch(filterCards("state=Alquiler"))
+    navigate("/listado")
+  }
+
   return (
     <div className="nav">
       <Link to="/">
         <img src={img} className="img-loguito" />
       </Link>
-      <div className="linksContainer">
+      <div className="linksContainer">  
+        <div className="linksCommonContainer">
+        <Link to="/listado" onClick={e=>handleBuy(e)}>Comprar</Link>
+        <Link to="/listado" onClick={e=>handleRent(e)}>Alquilar</Link>
+        </div>
         <div className="loginContainer">
-
           {
             userLogin?
             <UserNav img={userLogin.photo} name={userLogin.name}/>:
