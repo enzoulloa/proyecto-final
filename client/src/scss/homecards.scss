@@ -1,15 +1,15 @@
 .containerE {
   display: flex;
   flex-direction: row;
-  height: 800px;
-  background: #121b25;
-  padding: 25px;
+  background: #091d36;
+  padding: 10% 0;
   align-content: center;
   align-items: center;
+  text-align: center;
   justify-content: space-evenly;
   ul {
     width: 100%;
-    height: 600px;
+    height: 70%;
     display: flex;
     list-style-type: none;
     flex-direction: row;
@@ -26,7 +26,7 @@
     justify-items: center;
     align-items: center;
     flex-direction: column;
-    background-color: #ffffff;
+    background-color: #f1f1f0;
     color: #000;
     width: 100%;
     height: 100%;
@@ -37,7 +37,7 @@
     &-text {
       padding: 2%;
       width: 80%;
-      font-size: 1rem;
+      font-size: 0.8rem;
 
       h4 {
         font-weight: bold;
@@ -45,7 +45,7 @@
       }
 
       p {
-        padding: 3%;
+        padding: 2%;
       }
 
       a {
@@ -53,20 +53,22 @@
         border-radius: 8px;
         color: #fffffe;
         margin: 0 auto;
-        background-color: #1ba191;
+        background-color: #5e83ba;
         border: none;
         cursor: pointer;
+      }
+      a:hover{
+        background-color: #3a4e7a;
       }
     }
 
     &-image {
       width: 100%;
-      height: 100%;
-
+      height: 70%;
       img {
         border-radius: 5px;
         width: 100%;
-        height: 100%;
+        height: 50vh;
         object-fit: cover;
       }
     }
