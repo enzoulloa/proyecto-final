@@ -37,6 +37,10 @@
 .pagination .active {
   background-color: #5ab1bb;
 }
+.dis-cont-paginated{
+  display: flex;
+  justify-content: center;
+}
 
 @media (max-width: 1360px){
   .listings {

@@ -20,31 +20,48 @@ import {
   LOGIN_USER_AUTH0,
   MERCADO_PAGO_ID,
   MERCADO_PAGO_PAYMENT_SATUS,
+  CLEAR_STATUS,
   USER_STATUS,
+  USER_SALES,
+  // USER_STATUS,
   LOGIN_MODAL,
   USER_FAVORITE,
   OWNERSHIP_FAVORITE,
   OWNERSHIP_FAVORITE_DELETE,
   REFRESH_FAVORITES,
+  STATUS_USER,
+  MODAL_SIGN,
+  POST_REVIEW,
+  GET_REVIEW,
+  GET_USER_INFO,
+  DELETE_USER,
+  UPDATE_USERTYPE,
+  NEW_PASSWORD,
+  UPDATE_OWNERSHIP_STATE,
 } from "./common";
 
 const initialState = {
   ownerships: [],
   ownershipDetail: [],
   ownershipsFiltered: [],
+  users: [],
   loading: false,
   error: false,
   response: null,
   statuslogin: true,
   productId: "",
-  paymentId: "",
-  paymentStatus: "",
+  // paymentId: '',
+  saleSate: "",
+  // newUserInfo: {},
+  userSales: [],
+  // paymentStatus: null,
   Details: [],
   user: "No Logueado",
   userFavorite: [],
   userInfo: {},
-  // propertiesToCheck: [],
   reviews: [],
+  modalSign: true,
+  notFound: false,
 };
 
 function rootReducer(state = initialState, action) {
@@ -59,8 +76,13 @@ function rootReducer(state = initialState, action) {
         error: false,
         response: null,
         productId: null,
+        notFound: false,
       };
-
+    case CLEAR_DETAIL:
+      return {
+        ...state,
+        ownershipDetail: [],
+      };
     case GET_USERS:
       return {
         ...state,
@@ -70,19 +92,17 @@ function rootReducer(state = initialState, action) {
         response: null,
       };
 
+    case CLEAR_DETAIL:
+      return {
+        ...state,
+        ownershipDetail: [],
+      };
+
     case LOADING:
       return {
         ...state,
         loading: true,
       };
-
-    // case FILTER_BY:
-    //   const ownerships = state.ownerships;
-    //   const ownershipsFilteredByOp = filterByOp(ownerships, action.payload);
-    //   return {
-    //     ...state,
-    //     ownershipsFiltered: ownershipsFilteredByOp,
-    //   };
 
     case FILTER_BY:
       const ownershipsToFilter = state.ownerships;
@@ -153,23 +173,33 @@ function rootReducer(state = initialState, action) {
         ...state,
         user: action.payload,
       };
-    case "POST_REVIEW":
-      console.log(action.payload)
+    case USER_SALES:
       return {
         ...state,
-        reviews: [...state.reviews, action.payload]
-
+        userSales: action.payload,
+      };
+    case CLEAR_STATUS:
+      console.log(state[action.payload]);
+      return {
+        ...state,
+        [state[action.payload]]: null,
+      };
+    case POST_REVIEW:
+      return {
+        ...state,
+        reviews: [...state.reviews, action.payload],
       };
     case USER_STATUS:
       return {
         ...state,
-        user: action.payload
-      }
+        user: action.payload,
+      };
 
-    case 'GET_REVIEW':
+    case GET_REVIEW:
       return {
         ...state,
-        reviews: action.payload
+        reviews: action.payload,
+      };
 
     case LOGIN_MODAL:
       return {
@@ -183,16 +213,6 @@ function rootReducer(state = initialState, action) {
           ? action.payload
           : { Error: "No Tiene Favoritos" },
       };
-    case MERCADO_PAGO:
-      return {
-        ...state,
-        productId: action.payload,
-      };
-    case MERCADO_PAGO_ID:
-      return {
-        ...state,
-        paymentId: action.payload,
-      };
     case OWNERSHIP_FAVORITE:
       return {
         ...state,
@@ -203,17 +223,73 @@ function rootReducer(state = initialState, action) {
         ...state,
         userFavorite: action.payload,
       };
-    case MERCADO_PAGO_PAYMENT_SATUS:
+    case MERCADO_PAGO:
       return {
         ...state,
-        paymentStatus: action.payload,
+        productId: action.payload,
       };
-
-    case "GET_USER_INFO":
+    case MERCADO_PAGO_ID:
+      return {
+        ...state,
+        saleSate: action.payload,
+      };
+    case GET_USER_INFO:
       return {
         ...state,
         userInfo: action.payload,
       };
+    case "USER_BY_ID":
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case DELETE_USER:
+      return {
+        ...state,
+        users: action.payload,
+      };
+    case UPDATE_USERTYPE:
+      console.log(action.payload);
+      return {
+        ...state,
+        users: action.payload,
+      };
+    case NEW_PASSWORD:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case UPDATE_USERTYPE:
+      return {
+        ...state,
+        userInfo: action.payload,
+        user: "Cambio de usuario",
+      };
+    case STATUS_USER:
+      return {
+        ...state,
+        statuslogin: action.payload,
+      };
+    case MODAL_SIGN:
+      return {
+        ...state,
+        modalSign: action.payload,
+      };
+    case "NOT_FOUND":
+      return {
+        ...state,
+        notFound: !state.error,
+      };
+    case UPDATE_OWNERSHIP_STATE:
+      return {
+        ...state,
+        ownershipsFiltered: action.payload,
+      };
+    case 'CREAR_FILTER':
+      return{
+        ...state,
+        ownershipsFiltered: action.payload
+      }
     default:
       return state;
   }

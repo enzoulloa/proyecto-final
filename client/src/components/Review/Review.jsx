@@ -5,19 +5,23 @@ import "./review.scss";
 import { postReview } from "../../redux/actions.js";
 import { FaStar } from "react-icons/fa";
 import { startTransition } from "react";
-
+import ModalPortal from "../Modal/Modal";
+import ModalUser from "../LoginModal/ModalUser";
 
 export default function Review({ id }) {
   const dispatch = useDispatch();
   const [review, setReview] = useState({ message: "", stars: 0 });
+  const [showModal, setShowModal] = useState(false)
   const stars = Array(5).fill(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   let userInfo = JSON.parse(window.localStorage.getItem("UserLogin"));
-  const user = {
-    id: 1,
-    name: userInfo.name,
-    photo: userInfo.photo,
-  };
+  const user = userInfo
+    ? {
+        id: userInfo.id,
+        name: userInfo.name,
+        photo: userInfo.photo,
+      }
+    : null;
   const ownerID = id;
 
   const handleClick = (value) => {
@@ -41,12 +45,16 @@ export default function Review({ id }) {
   };
 
   const sendReview = (e) => {
+    if (!userInfo) return setShowModal(true)
     e.preventDefault();
-    /*review.userID = window.localStorage.getItem("UserLogin").id ? window.localStorage.getItem("UserLogin").id :*/
     dispatch(postReview({ review, user, ownerID }));
     setReview({ message: "", stars: "0" });
     setHoverValue(undefined);
   };
+
+  const handleClose = () => {
+    setShowModal(false)
+  }
 
   const colors = {
     orange: "#FFBA5A",
@@ -54,9 +62,9 @@ export default function Review({ id }) {
   };
 
   return (
-    <div className="div-detail">
-      <strong className="strong-review">Deja tu comentario!</strong>
-      <div>
+    <div className="div-detail extra-review">
+      <h2 className="strong-review">Deja tu comentario!</h2>
+      <div className="div-review">
         <textarea
           name="message"
           className="textarea-review"
@@ -64,7 +72,7 @@ export default function Review({ id }) {
           value={review.message}
           placeholder="Escribe..."
         ></textarea>
-        <div>
+        <div className="stars">
           {stars.map((_, index) => {
             return (
               <FaStar
@@ -77,6 +85,7 @@ export default function Review({ id }) {
                 onClick={() => handleClick(index + 1)}
                 onMouseOver={() => handleMouseOver(index + 1)}
                 onMouseLeave={handleMouseLeave}
+                className="star"
               />
             );
           })}
@@ -84,6 +93,8 @@ export default function Review({ id }) {
       </div>
       <div>
         <button onClick={sendReview}>Enviar comentario</button>
+        {showModal && <ModalPortal onClose={()=>handleClose()}><ModalUser/></ModalPortal>}
+
       </div>
     </div>
   );

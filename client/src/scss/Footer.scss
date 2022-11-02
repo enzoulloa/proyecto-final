@@ -2,11 +2,13 @@
   margin: 0;
   padding: 0;
 }
+
+
 footer {
-  margin-top: 200px;
+  // margin-top: 200px;
   width: 100%;
   height: 300px;
-  background-color: #1a242f;
+  background-color: #0c1b2b;
   color: #d6d6d6;
   display: flex;
   justify-content: space-evenly;
@@ -31,16 +33,17 @@ footer {
   margin-bottom: 15px;
 }
 .redes_ul {
-  background-color: #1a242f;
+  background-color: #0c1b2b;
   height: 10%;
 }
 .redes_cont img {
-  background-color: #1a242f;
+  background-color: #0c1b2b;
   width: 15px;
   height: 15px;
 }
 .redes_cont a {
-  background-color: #1a242f;
+  background-color: #0c1b2b;
+  color: #f1f1f0;
   padding: 5px;
 }
 .redes_cont a:hover {
@@ -49,11 +52,12 @@ footer {
 }
 .copiRight-cont {
   width: 100%;
-  background-color: #1a242f;
+  background-color: #0c1b2b;
   border-top: #303a44 solid 1px;
   font-size: 10px;
   display: flex;
   justify-content: space-between;
+  color: #fff;
 }
 .copiRight-cont p {
   margin: 0 10%;
@@ -65,6 +69,7 @@ footer {
 .div_Alquilar h2 {
   font-size: 24px;
   margin-bottom: 9px;
+  color: white;
 }
 .div_Alquilar li {
   list-style: none;
@@ -74,10 +79,14 @@ footer {
 .div_Alquilar Link {
   text-decoration: none;
 }
+.div_Alquilar a{
+  color: #fff;
+}
 
 .div_Comprar h2 {
   font-size: 24px;
   margin-bottom: 9px;
+  color: white;
 }
 .div_Comprar li {
   list-style: none;
@@ -87,6 +96,9 @@ footer {
 .div_Comprar Link {
   text-decoration: none;
 }
+.div_Comprar a{
+  color: #fff;
+}
 
 .div_Vender {
   padding-bottom: 56px;
@@ -94,6 +106,7 @@ footer {
 .div_Vender h2 {
   font-size: 24px;
   margin-bottom: 9px;
+  color: white;
 }
 .div_Vender li {
   list-style: none;
@@ -103,6 +116,9 @@ footer {
 .div_Vender Link {
   text-decoration: none;
 }
+.div_Vender a{
+  color: #fff;
+}
 
 .div_Help {
   top: 120px;
@@ -110,6 +126,7 @@ footer {
 }
 .div_Help h2 {
   font-size: 24px;
+  color: white;
   margin-bottom: 9px;
 }
 .div_Help li {
@@ -120,8 +137,11 @@ footer {
 .div_Help Link {
   text-decoration: none;
 }
+.div_Help a{
+  color: #fff;
+}
 
-@media(max-width: 900px){
+@media (max-width: 900px) {
   footer {
     width: 100%;
     height: 2075px;

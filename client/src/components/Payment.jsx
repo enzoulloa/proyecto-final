@@ -4,38 +4,40 @@ import { useDispatch, useSelector } from "react-redux";
 import { useMercadopago } from "react-sdk-mercadopago";
 import "./payment.scss";
 import Swal from "sweetalert2";
-import Modal from "./Modal/Modal";
-import SignIn from "./Login/SignIn/SignIn";
-
+import ModalPortal from "./Modal/Modal";
+import ModalUser from "./LoginModal/ModalUser";
 
 export default function Payment({ productId }) {
-  console.log(productId);
   const [showModal, setShowModal] = useState(false);
   const mp = useMercadopago.v2("TEST-4451a309-a6c0-4e53-8983-9e6f42531c98", {
     locale: "es-AR",
   });
-
+  console.log(productId);
   const user = JSON.parse(window.localStorage.getItem("UserLogin"));
 
   function handleClick() {
-    if (!user) return setShowModal(true)
+    if (!user) return setShowModal(true);
   }
 
   function handleClose() {
-    setShowModal(false)
+    setShowModal(false);
   }
 
   useEffect(() => {
     if (mp && productId) {
-      mp.checkout({
-        preference: {
-          id: productId,
-        },
-        render: {
-          container: ".cho-container",
-          label: "Comprar",
-        },
-      });
+      try {
+        mp.checkout({
+          preference: {
+            id: productId,
+          },
+          render: {
+            container: ".cho-container",
+            label: "Señar",
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   }, [mp, productId]);
 
@@ -44,9 +46,13 @@ export default function Payment({ productId }) {
       {user ? (
         productId && <div className="cho-container"></div>
       ) : (
-        <button onClick={() => handleClick()}>Comprar</button>
+        <button onClick={() => handleClick()}>Señar</button>
       )}
-      {showModal && <Modal onClose={()=>handleClose()}><SignIn/></Modal>}
+      {showModal && (
+        <ModalPortal onClose={() => handleClose()}>
+          <ModalUser />
+        </ModalPortal>
+      )}
     </div>
   );
 }

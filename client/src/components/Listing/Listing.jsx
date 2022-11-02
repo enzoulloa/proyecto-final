@@ -4,39 +4,49 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetOwnerships, userFavorite, refresh } from "../../redux/actions";
 import Cards from "../cards/Cards";
 import Loading from "../Loading";
-import NavBar from "../NavBar/NavBar";
 import "../../scss/Listings.scss";
 import FiltersCards from "../FilterCards";
 import ReactPaginate from "react-paginate";
 import Error from "../Error";
+import Paginated from "./Paginated/Paginated";
 
 export default function Listing() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const ownerships = useSelector((state) => state.ownershipsFiltered);
-  const userFavorites = useSelector((state) => state.userFavorite);
   const loading = useSelector((state) => state.loading);
-  const [currentItems, setCurrentItems] = useState([]);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 9;
 
-   useEffect(() => {
-    if (ownerships.length === 0){
-    dispatch(GetOwnerships());
-    dispatch(userFavorite())
-    }
-  }, [dispatch]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ownershipsPerPage, setOwnershipsPerPage] = useState(9);
+  const indexOfLastOwnerships = currentPage * ownershipsPerPage;
+  const indexOfFirstOwnerships = indexOfLastOwnerships - ownershipsPerPage;
+
+  const currentOwnerships = ownerships.slice(indexOfFirstOwnerships, indexOfLastOwnerships);
+
+  const pagination = pageNumber => {
+    setCurrentPage(pageNumber);
+}
 
   useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(ownerships?.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(ownerships?.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, ownerships]);
+    if (ownerships.length === 0) {
+      dispatch(GetOwnerships(`published=Publicada`));
+      dispatch(userFavorite());
+    }
+    setCurrentPage(1)
+  }, [dispatch, user, ownerships]);
 
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % ownerships.length;
-    setItemOffset(newOffset);
-  };
+  function handlerNext(pageNumbers){
+    if(pageNumbers > currentPage){
+      setCurrentPage(currentPage+1)
+    }
+  }
+  function handlerPrevius(){
+    if(currentPage > 1){
+      setCurrentPage(currentPage-1)
+    }
+      
+  }
+ 
 
   return (
     <div className="listings">
@@ -48,21 +58,17 @@ export default function Listing() {
           <Error />
         ) : (
           <div>
-            <Cards ownerships={currentItems} />
-            <ReactPaginate
-              breakLabel="..."
-              nextLabel="next >"
-              onPageChange={handlePageClick}
-              pageRangeDisplayed={3}
-              pageCount={pageCount}
-              previousLabel="< previous"
-              renderOnZeroPageCount={null}
-              containerClassName="pagination"
-              pageLinkClassName="page-num"
-              previousLinkClassName="page-num"
-              nextLinkClassName="page-num"
-              activeClassName="active"
+            <Cards ownerships={currentOwnerships} />
+            <div className="dis-cont-paginated">
+            <Paginated 
+              ownershipsPerPage={ownershipsPerPage}
+              allOwnerships={ownerships.length}
+              pagination={pagination}
+              currentPage={currentPage}
+              next={handlerNext}
+              previus={handlerPrevius}
             />
+            </div>
           </div>
         )}
       </div>

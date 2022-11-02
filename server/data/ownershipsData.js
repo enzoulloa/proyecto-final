@@ -20,14 +20,14 @@ async function getOwnerships() {
             state: ownership.state,
             price: ownership.price,
             floors: ownership.floors,
-            review: ownership.review,
             address: ownership.address,
+            published: ownership.published,
           },
         });
       });
-      console.log("Propiedades cargadas a la db")
+      console.log("Propiedades cargadas a la db");
     } else {
-      console.log("Propiedades obtenidas")
+      console.log("Propiedades obtenidas");
     }
   } catch (e) {
     console.log(e);

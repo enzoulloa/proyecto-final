@@ -13,21 +13,29 @@ export const EXIT_SESSION = "EXIT_SESSION";
 export const LOGIN_USER_AUTH0 = "LOGIN_USER_AUTH0";
 export const USER_STATUS = "USER_STATUS";
 export const LOGIN_MODAL = "LOGIN_MODAL";
-export const USER_FAVORITE = "USER_FAVERITE";
+export const USER_FAVORITE = "USER_FAVORITE";
 export const OWNERSHIP_FAVORITE = "OWNERSHIP_FAVORITE";
 export const OWNERSHIP_FAVORITE_DELETE = "OWNERSHIP_FAVORITE_DELETE";
-export const REFRESH_FAVORITES = "REFRESH_FAVORITES"
-// export const FILTER_BY_TYPE = "FILTER_BY_TYPE";
+export const REFRESH_FAVORITES = "REFRESH_FAVORITES";
+export const STATUS_USER = "STATUS_USER";
+export const MODAL_SIGN = "MODAL_SIGN";
 export const ORDER_OWNERSHIPS = "ORDER_OWNERSHIPS";
 export const GET_STATUS_LOGIN = "GET_STATUS_LOGIN";
 export const REGISTER_USER = "REGISTER_USER";
 export const MERCADO_PAGO = "MERCADO_PAGO";
 export const MERCADO_PAGO_ID = "MERCADO_PAGO_ID";
 export const MERCADO_PAGO_PAYMENT_SATUS = "MERCADO_PAGO_PAYMENT_STATUS";
+export const CLEAR_STATUS = "CLEAR_STATUS";
 export const FILTER_CARDS = "FILTER_CARDS";
-
+export const NEW_PASSWORD = "NEW_PASSWORD";
+export const UPDATE_USERTYPE = "UPDATE_USERTYPE";
+export const GET_USER_INFO = "GET_USER_INFO";
+export const DELETE_USER = "DELETE_USER";
+export const GET_REVIEW = "GET_REVIEW";
+export const POST_REVIEW = "POST_REVIEW";
+export const USER_SALES = "USER_SALES";
+export const UPDATE_OWNERSHIP_STATE = "UPDATE_OWNERSHIP_STATE";
 export function filterBy(ownerships, filters) {
-  console.log(filters);
   const newOwnerships = ownerships.filter((o) => {
     if (filters.type && filters.op) {
       return o.type === filters.type && o.state === filters.op;
@@ -36,7 +44,6 @@ export function filterBy(ownerships, filters) {
     }
     return o.state === filters.op;
   });
-  console.log(newOwnerships);
   return newOwnerships;
 }
 

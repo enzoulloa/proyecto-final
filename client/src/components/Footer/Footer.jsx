@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../scss/Footer.scss";
-import logo from "../../assets/LOGUITO-PF.svg"
+import logo from "../../assets/LOGUITO-PF.svg";
 
 export default function Footer() {
   return (
@@ -46,16 +46,16 @@ export default function Footer() {
           <h2>Alquilar</h2>
           <ul>
             <li>
-              <Link to='/listings?ubication=buenos%aires'>Buenos Aires</Link>
+              <Link to="/listado?location=buenos%aires">Buenos Aires</Link>
             </li>
             <li>
-              <Link to='/listings?ubication=la%plata'>La Plata</Link>
+              <Link to="/listado?location=la%plata">La Plata</Link>
             </li>
             <li>
-              <Link to='/listings?ubication=misiones'>Misiones</Link>
+              <Link to="/listado?location=misiones">Misiones</Link>
             </li>
             <li>
-              <Link to='/listings?ubication=neuquen'>Neuquen</Link>
+              <Link to="/listado?location=neuquen">Neuquen</Link>
             </li>
           </ul>
         </div>
@@ -63,16 +63,16 @@ export default function Footer() {
           <h2>Comprar</h2>
           <ul>
             <li>
-              <Link to='/listings?ubication=buenos%aires'>Buenos Aires</Link>
+              <Link to="/listado?location=buenos%aires">Buenos Aires</Link>
             </li>
             <li>
-              <Link to='/listings?ubication=la%plata'>La Plata</Link>
+              <Link to="/listado?location=la%plata">La Plata</Link>
             </li>
             <li>
-              <Link to='/listings?ubication=misiones'>Misiones</Link>
+              <Link to="/listado?location=misiones">Misiones</Link>
             </li>
             <li>
-              <Link to='/listings?ubication=neuquen'>Neuquen</Link>
+              <Link to="/listado?location=neuquen">Neuquen</Link>
             </li>
           </ul>
         </div>
@@ -80,13 +80,20 @@ export default function Footer() {
           <h2>Ayuda</h2>
           <ul>
             <li>
-              <Link to='/about'>About</Link>
+              <Link to="/sobre_nosotros">About</Link>
             </li>
             <li>
-            <a href="mailto:soyhenrybienesraices@gmail.com?Subject=Consultas..">Mail</a>
+              <a href="mailto:soyhenrybienesraices@gmail.com?Subject=Consultas..">
+                Mail
+              </a>
             </li>
             <li>
-              <a href="https://api.whatsapp.com/send/?phone=%2B542972527935&text&type=phone_number&app_absent=0">Celular</a>
+              <a href="https://api.whatsapp.com/send/?phone=%2B542972527935&text&type=phone_number&app_absent=0">
+                Celular
+              </a>
+            </li>
+            <li>
+              <a href="Instagram.com">Instagram</a>
             </li>
           </ul>
         </div>

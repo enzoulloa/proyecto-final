@@ -5,7 +5,7 @@ import {
   getDetail,
   clearDetail,
   removeOwnership,
-  mercadoPago
+  mercadoPago,
 } from "../../redux/actions.js";
 import Swal from "sweetalert2";
 import "./detail.scss";
@@ -16,10 +16,6 @@ import Feedbacks from "../Feedback/Feedbacks.jsx";
 
 export default function Detail() {
   const { id, name, prodPrice } = useParams();
-  console.log(name, prodPrice);
-  // console.log(window.location.search);
-  const { paymentStatus } = useSearchParams();
-  // console.log(name, prodPrice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = {
@@ -27,59 +23,49 @@ export default function Detail() {
     name: "admin",
     role: 4,
   };
-  const reviews = useSelector(state => state.reviews)
-  // async function setProd(productName, productPrice) {
-  //   await setProduct({
-  //     ...product,
-  //     [product.items[0].title]: productName,
-  //     [product.items[0].unit_price]: parseInt(productPrice),
-  //   });
-  // };
-
-  // useEffect(() => {
-    
-  // }, [product]);
-
   const ownership = useSelector((state) => state.ownershipDetail);
   let productId = useSelector((state) => state.productId);
-  const [newId, setNewId] = useState('');
-  const [paymentState, setPaymentState] = useState('');
-  
+  const localUser = JSON.parse(window.localStorage.getItem("UserLogin"));
+  const reviews = useSelector((state) => state.reviews);
+  const infoUser = JSON.parse(localStorage.getItem("UserLogin"));
+  localStorage.setItem("LoginUser", JSON.stringify(infoUser));
   const [product, setProduct] = useState({
-    external_reference: "ABC",
-    notification_url: "http://localhost:3001/payment/paymentId",
+    notification_url: `https://proyecto-final.up.railway.app/payment/paymentId/${id}/${
+      infoUser ? infoUser.id : null
+    }`,
+
     items: [
       {
-        title: name,
-        unit_price: parseInt(prodPrice),
+        title: name + ' (Seña 10%)',
+        unit_price: parseInt(prodPrice)*0.1,
         quantity: 1,
-        picture_url: ""
+        picture_url: "",
       },
     ],
     back_urls: {
-      success: "http://localhost:5173/estado_de_pago",
-      failure: "http://localhost:5173/estado_de_pago",
-      pending: "http://localhost:5173/estado_de_pago",
+      success: `https://proyecto-final-rosy.vercel.app/usuario/${
+        infoUser ? infoUser.name : null
+      }/propiedades/?ownershipId=${id ? id : null}&iduser=${infoUser ? infoUser.id : null}`,
+      failure: `https://proyecto-final-rosy.vercel.app/usuario/${
+        infoUser ? infoUser.name : null
+      }/propiedades/?ownershipId=${id ? id : null}&iduser=${infoUser ? infoUser.id : null}`,
+      pending: `https://proyecto-final-rosy.vercel.app/usuario/${
+        infoUser ? infoUser.name : null
+      }/propiedades/?ownershipId=${id ? id : null}&iduser=${infoUser ? infoUser.id : null}`,
     },
     auto_return: "approved",
   });
 
   useEffect(() => {
-    // paymentId = paymentId;
-    // console.log(paymentId);
-    setNewId(productId);
-  },[productId]);
-
-  useEffect(() => {
+    dispatch(clearDetail());
     dispatch(getDetail(id));
     dispatch(mercadoPago(product));
-    // return setPayment();
   }, [dispatch]);
 
   useEffect(() => {
-    setNewId(null);
-  }, []);
-  console.log(newId, productId);
+    productId = productId;
+  }, [productId]);
+
   const handleDelete = () => {
     const id = ownership.id;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -110,7 +96,7 @@ export default function Detail() {
             "Ownership deleted successfully",
             "success"
           );
-          navigate("/home");
+          navigate("/");
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire(
             "Cancelled",
@@ -134,88 +120,80 @@ export default function Detail() {
 
   const price = convertir();
 
-
-  // useEffect(() => {
-  //   if(paymentStatus === 'approved') return alert('Pago acreditado!');
-  //   if(paymentStatus === 'failure') return alert('Pago fallido');
-  //   // if(pending) return alert('Pago pendiente...');
-  // }, [paymentStatus]);
-
   return (
     <div className="container">
       {ownership.id ? (
-        <div className="inner">
-          <div className="row-detail titulo-detail div-titulo-detail ">
-            <h2 className="h1">{ownership.name}</h2>
+        <div>
+          <div className="div-titulo-detail">
+            <h2>{ownership.name}</h2>
             <h2>Precio:&nbsp;${price}</h2>
           </div>
-          <div className="div-detail">
-            <Carousel images={ownership.images} />
-            {/*ownership.images?.map((imgSrc, index) => (
-              <img src={imgSrc} key={index} alt={index + "img"} />
-            ))*/}
-          </div>
-          <div className="div-detail">
-            <h2>Descripcion</h2>
-            <br />
-            <p className="p">{ownership.description}</p>
-          </div>
-          <div className="div-detail">
-            <h2>Caracteristicas</h2>
-            <hr className="hr-detail" />
-            <br />
-            <div className="row-detail">
-              <div className="caract-detail">
-                <div className="row-detail div-prop-detail">
-                  <h4>Precio:&nbsp;</h4>
-                  <h4 className="price-detail">${price}</h4>
+          <div className="row-photo-caract">
+            <div className="div-carousel">
+              <Carousel images={ownership.images} />
+                <div className="payment-position">
+                  <Payment productId={productId}  />
                 </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="h4">Localidad:&nbsp;</h4>
-                  <h4>{ownership.location}</h4>
+            </div>
+            <div className="new-caract">
+              <h2>Caracteristicas</h2>
+              <div className="row-detail">
+                <div className="caract-detail">
+                  <div className="par-caract">
+                    <h4>Precio:&nbsp;</h4>
+                    <h4 className="price-detail">${price}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4>Localidad:&nbsp;</h4>
+                    <h4>{ownership.location}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4 className="p">Direccion:&nbsp;</h4>
+                    <h4>{ownership.address}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4 className="p">Metros cuadrados:&nbsp;</h4>
+                    <h4>{ownership.m2}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4 className="p">Tipo de propiedad:&nbsp;</h4>
+                    <h4>{ownership.type}</h4>
+                  </div>
                 </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="p">Direccion:&nbsp;</h4>
-                  <h4>{ownership.address}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="p">Metros cuadrados:&nbsp;</h4>
-                  <h4>{ownership.m2}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="p">Tipo de propiedad:&nbsp;</h4>
-                  <h4>{ownership.type}</h4>
-                </div>
-              </div>
-              <div className="caract-detail">
-                <div className="row-detail div-prop-detail">
-                  <h4>Plantas:&nbsp;</h4>
-                  <h4>{ownership.floors}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="h4">Habitaciones:&nbsp;</h4>
-                  <h4>{ownership.rooms}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="p">Cochera:&nbsp;</h4>
-                  <h4>{ownership.garage === true ? "Tiene" : "No tiene"}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="p">Expensas:&nbsp;</h4>
-                  <h4>{ownership.expenses}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="p">Vendedor:&nbsp;</h4>
-                  <h4>{ownership.seller}</h4>
-                </div>
-                <div className="row-detail div-prop-detail">
-                  <h4 className="p">Estado:&nbsp;</h4>
-                  <h4>{ownership.state}</h4>
+                <div className="caract-detail">
+                  <div className="par-caract">
+                    <h4>Plantas:&nbsp;</h4>
+                    <h4>{ownership.floors}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4>Habitaciones:&nbsp;</h4>
+                    <h4>{ownership.rooms}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4 className="p">Cochera:&nbsp;</h4>
+                    <h4>{ownership.garage === true ? "Tiene" : "No tiene"}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4 className="p">Expensas:&nbsp;</h4>
+                    <h4>{ownership.expenses}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4 className="p">Vendedor:&nbsp;</h4>
+                    <h4>{ownership.seller}</h4>
+                  </div>
+                  <div className="par-caract">
+                    <h4 className="p">Estado:&nbsp;</h4>
+                    <h4>{ownership.state}</h4>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <Payment paymentId={paymentId} />
+          <div className="div-detail">
+            <h2>Descripcion</h2>
+            <p className="p">{ownership.description}</p>
+          </div>
+
           {/* {user.role >= 3 ? (
             <button onClick={handleDelete} className="bt">
               Remove ownership

@@ -1,3 +1,6 @@
+import { Modal } from "antd";
+import React from "react";
+import { FaEdit, FaTrash } from "react-icons/fa";
 export const columnsOwnerships = [
   {
     title: "Nombre",
@@ -35,36 +38,32 @@ export const columnsOwnerships = [
     key: "price",
   },
   {
-    title: "Pisos",
-    dataIndex: "floors",
-    key: "floors",
+    title: "Estado de la publicacion",
+    dataIndex: "published",
+    key: "published",
+  },
+  {
+    title: "Acciones",
+    key: "acciones",
+    render: (record) => {
+      return (
+        <>
+          <FaEdit color="green" onClick={() => modifyVisible(true)} />
+        </>
+      );
+    },
   },
 ];
 
-export const columnsUsers = [
+export const columnSales = [
   {
-    title: "Nombre",
-    dataIndex: "name",
+    title: "Estado",
+    dataIndex: "state",
     key: "name",
   },
   {
-    title: "Email",
-    dataIndex: "email",
-    key: "email",
-  },
-  {
-    title: "Celular",
-    dataIndex: "cel",
-    key: "cel",
-  },
-  {
-    title: "Rol",
-    dataIndex: "role",
-    key: "role",
-  },
-  {
-    title: "Imagen de perfil",
-    dataIndex: "photo",
-    key: "photo",
+    title: "Detalle del estado",
+    dataIndex: "state_detail",
+    key: "state_detail",
   },
 ];

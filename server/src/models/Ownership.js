@@ -1,16 +1,18 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
-  sequelize.define('Ownership', {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    location: {
+  sequelize.define(
+    "Ownership",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      location: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
@@ -27,7 +29,14 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       type: {
-        type: DataTypes.ENUM('Casa','PH','Departamento','Duplex','Terreno','Cochera'),
+        type: DataTypes.ENUM(
+          "Casa",
+          "PH",
+          "Departamento",
+          "Duplex",
+          "Terreno",
+          "Cochera"
+        ),
         allowNull: false,
       },
       expenses: {
@@ -44,7 +53,7 @@ module.exports = (sequelize) => {
         type: DataTypes.ARRAY(DataTypes.STRING),
       },
       state: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM("Alquiler", "Venta"),
       },
       price: {
         type: DataTypes.BIGINT,
@@ -52,14 +61,27 @@ module.exports = (sequelize) => {
       floors: {
         type: DataTypes.INTEGER,
       },
-      review: {
-        type: DataTypes.ARRAY(DataTypes.TEXT),
-      },
       address: {
         type: DataTypes.STRING,
-      }
-  },
-  {
-    timestamps: false
-  });
+      },
+      published: {
+        type: DataTypes.ENUM(
+          "Revision Pendiente",
+          "En revision",
+          "Publicada",
+          "Cancelada",
+          "Finalizada"
+        ),
+      },
+      latitude: {
+        type: DataTypes.FLOAT,
+      },
+      longitude: {
+        type: DataTypes.FLOAT,
+      },
+    },
+    {
+      timestamps: false,
+    }
+  );
 };
