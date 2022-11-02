@@ -2,19 +2,17 @@ import { Table } from "antd";
 import { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { GetOwnerships } from "../../../redux/actions";
-import { columnsOwnerships } from "../common";
+import { Navigate } from "react-router-dom";
+import { GetOwnerships, updateOwnershipState } from "../../../redux/actions";
 import ModalPendingModify from "./ModalPendingModify";
 
 export default function UserPendingList() {
   const dispatch = useDispatch();
-  const ownerships = useSelector((state) => state.ownerships);
+  const user = JSON.parse(localStorage.getItem("UserLogin"));
+  const ownerships = useSelector((state) => state.ownershipsFiltered);
   const [modifyVisible, setModifyVisible] = useState(false);
   const [ownershipToModify, setOwnershipToModify] = useState(null);
   const ownershipsFixed = ownerships?.map((o) => {
-    if (o.published === "Revision_Pendiente") {
-      o.published = "Revision Pendiente";
-    }
     if (o.garage === true) {
       o.garage = "Tiene";
     } else {
@@ -23,7 +21,10 @@ export default function UserPendingList() {
     o.price = "$" + parseInt(o.price).toLocaleString();
     return o;
   });
-
+  const [newValue, setNewValue] = useState({
+    ownershipId: null,
+    stateValue: null,
+  });
   const columnsOwnerships = [
     {
       title: "Nombre",
@@ -72,10 +73,14 @@ export default function UserPendingList() {
         return (
           <>
             <FaEdit
-              color="green"
+              color="lightgreen"
               onClick={() => {
                 setModifyVisible(true);
                 setOwnershipToModify(record);
+                setNewValue({
+                  ownershipId: record.id,
+                  stateValue: "En Revision",
+                });
               }}
               style={{ cursor: "pointer" }}
             />
@@ -86,8 +91,18 @@ export default function UserPendingList() {
   ];
 
   useEffect(() => {
-    dispatch(GetOwnerships(`published=Revision_Pendiente`));
+    dispatch(
+      GetOwnerships("published=Revision Pendiente/En revision/Cancelada")
+    );
   }, [dispatch]);
+
+  function handleNewValue(id, selectValue) {
+    const value = { ownershipId: id, stateValue: selectValue };
+    setNewValue(value);
+  }
+  if (user.role <= 2) {
+    return <Navigate to="/user/:name/info" />;
+  }
   return (
     <div>
       {modifyVisible && (
@@ -100,16 +115,13 @@ export default function UserPendingList() {
           }}
           onOk={() => {
             setModifyVisible(false);
-            console.log("lo cambie vieja");
+            dispatch(updateOwnershipState(newValue));
           }}
+          setNewValue={handleNewValue}
         />
       )}
 
-      <Table
-        dataSource={ownershipsFixed}
-        columns={columnsOwnerships}
-        size="large"
-      />
+      <Table dataSource={ownerships} columns={columnsOwnerships} size="large" />
     </div>
   );
 }

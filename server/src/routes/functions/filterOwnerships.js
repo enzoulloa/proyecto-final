@@ -13,6 +13,15 @@ async function filterOwnerships({
   let filter = {};
   parseInt(min);
   parseInt(max);
+  let a = published.split("/");
+  if (a.length) {
+    filter.published = {
+      published: { [Op.or]: a },
+    };
+    console.log(filter.published);
+  } else {
+    filter.published = { published };
+  }
 
   if (rooms) filter.rooms = { rooms };
   if (state) filter.state = { state };
@@ -22,7 +31,7 @@ async function filterOwnerships({
   if (max && max >= min) filter.price = { price: { [Op.lt]: max } };
   if (min && max) filter.price = { price: { [Op.between]: [min, max] } };
   if (garage) filter.garage = { garage };
-  if (published) filter.published = { published };
+  // if (published) filter.published = { published };
 
   let ownerships = await Ownership.findAll({
     where: {

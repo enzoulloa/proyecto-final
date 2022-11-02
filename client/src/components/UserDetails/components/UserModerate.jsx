@@ -40,6 +40,11 @@ export default function UserModerate() {
       key: "email",
     },
     {
+      title: "Numero de Celular",
+      dataIndex: "cel",
+      key: "cel",
+    },
+    {
       title: "Rol",
       dataIndex: "role",
       key: "role",
@@ -87,6 +92,9 @@ export default function UserModerate() {
   function applyNewRole(userId) {
     dispatch(updateRole({ userId, userType }));
     setUserType(1);
+  }
+  if (user.role !== 3) {
+    return <Navigate to="/user/:name/info" />;
   }
   return (
     <>
