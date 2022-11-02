@@ -35,15 +35,16 @@ export default function Listing() {
     setCurrentPage(1)
   }, [dispatch, user, ownerships]);
 
-  function handlerNext(number){
-    if(number < currentPage){
+  function handlerNext(pageNumbers){
+    if(pageNumbers > currentPage){
       setCurrentPage(currentPage+1)
     }
   }
   function handlerPrevius(){
-    if(currentPage < 1){
+    if(currentPage > 1){
       setCurrentPage(currentPage-1)
     }
+      
   }
  
 
