@@ -28,15 +28,11 @@ export default function Detail() {
   const localUser = JSON.parse(window.localStorage.getItem("UserLogin"));
   const reviews = useSelector((state) => state.reviews);
   const infoUser = JSON.parse(localStorage.getItem("UserLogin"));
-  console.log(infoUser.id);
   localStorage.setItem("LoginUser", JSON.stringify(infoUser));
-  const userObj = {
-    id,
-    idUser: infoUser.id,
-  };
   const [product, setProduct] = useState({
-    // external_reference: "ABC",
-    notification_url: `https://proyecto-final.up.railway.app/payment/paymentId/${id}/${infoUser.id}`,
+    notification_url: `https://proyecto-final.up.railway.app/payment/paymentId/${id}/${
+      infoUser ? infoUser.id : null
+    }`,
     items: [
       {
         title: name,
@@ -46,24 +42,29 @@ export default function Detail() {
       },
     ],
     back_urls: {
-      success: `http://localhost:5173/user/${infoUser ? infoUser.name : null}/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
-      failure: `http://localhost:5173/${id}/estado_de_pago`,
-      pending: `http://localhost:5173/user/${infoUser ? infoUser.name : null}/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
+      success: `https://proyecto-final-rosy.vercel.app/user/${
+        infoUser ? infoUser.name : null
+      }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
+      failure: `https://proyecto-final-rosy.vercel.app/user/${
+        infoUser ? infoUser.name : null
+      }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
+      pending: `https://proyecto-final-rosy.vercel.app/user/${
+        infoUser ? infoUser.name : null
+      }/propiedades/?ownershipId=${id}&iduser=${infoUser.id}`,
     },
     auto_return: "approved",
   });
 
-  
   useEffect(() => {
-    dispatch(clearDetail())
+    dispatch(clearDetail());
     dispatch(getDetail(id));
-    dispatch(mercadoPago(product)); 
+    dispatch(mercadoPago(product));
   }, [dispatch]);
-  
+
   useEffect(() => {
-    productId = productId
+    productId = productId;
   }, [productId]);
-  
+
   const handleDelete = () => {
     const id = ownership.id;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -181,20 +182,20 @@ export default function Detail() {
                     <h4>{ownership.state}</h4>
                   </div>
                 </div>
+              </div>
             </div>
-          </div>
           </div>
           <div className="div-detail">
             <h2>Descripcion</h2>
             <p className="p">{ownership.description}</p>
           </div>
-          
+
           <Payment productId={productId} />
           {/* {user.role >= 3 ? (
             <button onClick={handleDelete} className="bt">
               Remove ownership
             </button>
-          ) : null} */} 
+          ) : null} */}
           <Feedbacks ownerID={id} reviews={reviews} />
           <Review id={id} />
         </div>
