@@ -37,7 +37,7 @@ export default function UserDetails() {
         <UserNavBar
           image={userInfo.photo}
           name={userInfo.name}
-          userRole={user1.role}
+          userRole={userInfo.role}
         />
       </div>
       <div className="userView">
