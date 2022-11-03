@@ -23,7 +23,6 @@ import {
   CLEAR_STATUS,
   USER_STATUS,
   USER_SALES,
-  // USER_STATUS,
   LOGIN_MODAL,
   USER_FAVORITE,
   OWNERSHIP_FAVORITE,
@@ -38,6 +37,7 @@ import {
   UPDATE_USERTYPE,
   NEW_PASSWORD,
   UPDATE_OWNERSHIP_STATE,
+  UPDATE_USER,
 } from "./common";
 
 const initialState = {
@@ -216,7 +216,7 @@ function rootReducer(state = initialState, action) {
     case OWNERSHIP_FAVORITE:
       return {
         ...state,
-        userFavorite: [...state.userFavorite, ...action.payload],
+        userFavorite: action.payload,
       };
     case OWNERSHIP_FAVORITE_DELETE:
       return {
@@ -249,7 +249,6 @@ function rootReducer(state = initialState, action) {
         users: action.payload,
       };
     case UPDATE_USERTYPE:
-      console.log(action.payload);
       return {
         ...state,
         users: action.payload,
@@ -259,7 +258,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         error: action.payload,
       };
-    case UPDATE_USERTYPE:
+    case UPDATE_USER:
       return {
         ...state,
         userInfo: action.payload,
@@ -285,11 +284,16 @@ function rootReducer(state = initialState, action) {
         ...state,
         ownershipsFiltered: action.payload,
       };
-    case 'CREAR_FILTER':
-      return{
+    case "CREAR_FILTER":
+      return {
         ...state,
-        ownershipsFiltered: action.payload
-      }
+        ownershipsFiltered: action.payload,
+      };
+    case "POST_PROPERTY_ERROR":
+      return {
+        ...state,
+        error: action.payload,
+      };
     default:
       return state;
   }
