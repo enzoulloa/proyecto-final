@@ -216,7 +216,7 @@ function rootReducer(state = initialState, action) {
     case OWNERSHIP_FAVORITE:
       return {
         ...state,
-        userFavorite: [...state.userFavorite, ...action.payload],
+        userFavorite: action.payload,
       };
     case OWNERSHIP_FAVORITE_DELETE:
       return {
