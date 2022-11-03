@@ -11,7 +11,7 @@ export default function UserDashboard({ userInfo }) {
       <img src={user.photo} alt="UserProfileImg" className="userImg" />
       <div className="divInfo">
         <div>
-          <h2 className="text-sub">Name:</h2>
+          <h2 className="text-sub">Nombre:</h2>
           <h2>{`${user.name}`}</h2>
         </div>
         <div>
