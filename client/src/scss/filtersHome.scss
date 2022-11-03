@@ -74,12 +74,12 @@
   }
 
   .dropdown-container{
-    margin-top: 85px;
+    margin-top: 55px;
     display: flex;
     width: 50%;
     justify-content: center;
-    align-items: center;
-    
+    align-items: flex-start;
+    max-height: 300px;
   }
 
   .dropdown {
@@ -87,7 +87,7 @@
     font-size: 1rem;
     color: #8a8a8a;
     width: 70%;
-    max-height: 300px;
+    
     overflow-y:auto ;
     background-color: rgb(216, 216, 216);
     display: flex;
