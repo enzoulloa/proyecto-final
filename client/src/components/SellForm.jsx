@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, FieldArray } from "formik";
 import * as Yup from "yup";
@@ -6,11 +6,15 @@ import { postProperty } from "../redux/actions";
 import "./SellForm.scss";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function SellForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const response = useSelector((state) => state.reponse);
+  const error = useSelector((state) => {
+    state.error;
+  });
   const user = JSON.parse(localStorage.getItem("UserLogin"));
   const [imageSelected, setImageSelected] = useState("");
 
@@ -24,6 +28,23 @@ export default function SellForm() {
     );
     setImageSelected(response.data.url);
   }
+
+  useEffect(() => {
+    if (response) {
+      Swal.fire({
+        icon: "success",
+        title: "Formulario Enviado",
+        text: "En breve recibiras un correo electronico con la informacion del mismo.",
+      });
+    }
+    if (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Ocurrio un error",
+        text: "No se puedo enviar el formulario. Revise los campos y vuelva a intentarlo",
+      });
+    }
+  }, [response, error]);
 
   return (
     <Formik
@@ -104,7 +125,6 @@ export default function SellForm() {
           ? (values.garage = true)
           : (values.garage = false);
         dispatch(postProperty({ ...values, images: [imageSelected] }));
-        alert("Creado con exito");
         navigate("/listado");
       }}
     >
@@ -282,7 +302,7 @@ export default function SellForm() {
                               setFieldValue("imageLink", "");
                             }}
                           >
-                            +
+                            Añadir
                           </button>
                         </div>
                       </div>

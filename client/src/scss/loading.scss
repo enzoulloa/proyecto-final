@@ -5,13 +5,13 @@
   justify-content: center;
   align-items: center;
   background: #121b25;
-  z img {
+  img {
     width: 8%;
   }
 
   &-label {
     padding-left: 30px;
-    font-size: 8rem;
+    font-size: 4rem;
     color: #e4e4e2;
     margin-left: 12px;
     animation: fade 1s ease-in infinite;
@@ -22,6 +22,18 @@
   .loading-label {
     color: #111823;
   }
+}
+
+@media(max-width: 740px){
+  .loading{
+    img{
+      width: 30px;
+    }
+    &-label {
+   font-size: 50px;
+    }
+  }
+
 }
 
 @keyframes fade {

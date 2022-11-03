@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
+import "./UserNavBar.scss";
 
 export default function UserNavBar({ page, image, name, userRole, selected }) {
   return (
-    <div>
+    <div className="containerNav">
       <div className="userNavHeader">
-        <img src={image} alt="UserProfileImg" className="userImg" />
-        <p className="userNavHeaderTitle">Bienvenido, {`${name}`}</p>
+        <h2>Bienvenido al panel de usuario!</h2>
       </div>
       <div className="userNavBody">
         <Link to={`/usuario/${name}/informacion`} className="userNavLink">
@@ -13,9 +13,6 @@ export default function UserNavBar({ page, image, name, userRole, selected }) {
         </Link>
         <Link to={`/usuario/${name}/cambio_contraseña`} className="userNavLink">
           Cambiar Contraseña
-        </Link>
-        <Link to={`/usuario/${name}/modificar_info`} className="userNavLink">
-          Modificar Info
         </Link>
         <Link to={`/usuario/${name}/propiedades`} className="userNavLink">
           Mis propiedades

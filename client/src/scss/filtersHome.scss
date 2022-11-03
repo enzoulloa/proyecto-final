@@ -119,11 +119,11 @@ input:focus {
 }
 @media(max-width: 900px){
   .filters {
+    width: 80%;
     &-input {
       width: 90%;
-      background-color: #ffffff;
       border: none;
-      margin-right: 22px;
+      margin-right: 20px;
       
       input {
         text-align: center;

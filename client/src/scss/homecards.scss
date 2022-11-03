@@ -75,23 +75,33 @@
   }
 }
 
-@media(max-width: 900px){
+@media(max-width: 740px){
   .containerE {
     display: flex;
-    height: 1450px;
     background: #121b25;
     ul {
       width: 100%;
-      height: 600px;
       display: flex;
       list-style-type: none;
       flex-direction: column;
       align-items: center;
 
       li {
-        width: 70%;
+        width: 95%;
         margin-bottom: 50px;
       }
     }
+
+    .homecards {
+      &-text {
+        a {
+          padding: 2% 1.15%;
+          border-radius: 6px;
+          margin: 0%;
+          font-size: 19px;
+        }
+      }
+    }
 }
+
 }
