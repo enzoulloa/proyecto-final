@@ -5,14 +5,17 @@
   border: 1px solid #d6d6d6;
   border-radius: 8px;
   color: black;
-}
-.img-card {
-  width: 250px;
-  height: 200px;
+  a {
+    .img-card {
+      width: 290px;
+      height: 210px;
+    }
+  }
 }
 #card-container h2 {
   font-size: 26px;
   color: black;
+  margin-top: 10px;
 }
 .description-card {
   margin-top: 5px;
@@ -21,12 +24,12 @@
 }
 .ico-card {
   display: flex;
-  align-items: center;
-  margin: 15px 0;
+  align-items: flex-start;
+  margin: 15px 0px 1px;
   color: black;
 }
 .ico-card img {
-  width: 19px;
+  width: 33px;
   height: 15px;
   padding: 0 8px;
 }
