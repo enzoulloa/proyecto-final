@@ -9,7 +9,8 @@
     padding: 10px 10px;
     width: 90%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    flex-direction: column;
     align-items: center;
     .ant-table-wrapper {
       .ant-table {
@@ -36,63 +37,7 @@
     }
   }
 
-  .userNavBar {
-    width: 15%;
-    border-right: 1px solid white;
-    // padding-left: 15px;
-    display: flex;
-    flex-direction: column;
-    background-color: rgba(255, 255, 255, 5%);
-    .userNavHeader {
-      padding-top: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      .userImg {
-        border-radius: 100%;
-        height: 60px;
-        width: 60px;
-      }
-      .title {
-        margin: 5px;
-      }
-    }
-
-    .userNavBody {
-      margin-top: 50px;
-      display: flex;
-      flex-direction: column;
-      .userNavLink {
-        height: 40px;
-        width: 100%;
-        background-color: antiquewhite;
-        font-size: 25px;
-        text-align: center;
-        margin-top: 25px;
-      }
-
-      .userNavLink:hover {
-        background-color: red;
-      }
-      .seller {
-        margin-top: 30px;
-        display: flex;
-        flex-direction: column;
-        .userNavLink {
-          text-align: center;
-        }
-      }
-
-      .admin {
-        margin-top: 30px;
-        display: flex;
-        flex-direction: column;
-        .userNavLink {
-          text-align: center;
-        }
-      }
-    }
-  }
+  
 }
 
 .newProfileImg {
