@@ -66,4 +66,9 @@ export const columnSales = [
     dataIndex: "state_detail",
     key: "state_detail",
   },
+  {
+    title: "Nombre de la propiedad",
+    dataIndex: "Ownerships[0].name",
+    key: "Ownerships[0].name",
+  },
 ];

@@ -1,12 +1,37 @@
-.About {
-  background: #121b25;
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,700");
 
+.About {
+  background: #091d36;
+  
+  .TitleAbout{
+    color: #f1f1f0;
+    font-family: "Poppins";
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  .TextAbout{
+    text-indent: 30px;
+    color: #f1f1f0;
+    font-family: "Poppins";
+    font-size: 20px;
+  }
+
+  h1{
+    color:black;
+    font-family: "Poppins";
+
+  }
+  h3{
+    color:black;
+    font-family: "Poppins";
+  }
   .Head {
     display: flex;
     flex-direction: row;
-
+    
     column-gap: 50px;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: space-around;
     padding: 10px;
 
     .Logo {
@@ -19,26 +44,36 @@
     }
 
     .Text {
+      font-family: "Poppins";
       width: 100%;
+      height: 100%;
       color: #ffffff;
       font-family: Work Sans;
-      text-align: left;
       display: flex;
       flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
 
       h1 {
-        margin: 0;
+        margin-bottom: 10px;
       }
     }
   }
 
   .Staff {
     color: #ffffff;
-    font-family: Work Sans;
+    font-family: "Poppins";
+    text-align: center;
+
+    .StaffText{
+      color: #f1f1f0;
+        font-family: "Poppins";
+        font-size: 2rem;
+    }
 
     .Members {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 2fr);
       row-gap: 1px;
       justify-content: space-evenly;
       height: 50%;
@@ -49,14 +84,19 @@
         column-gap: 20px;
         align-items: flex-start;
         padding: 1rem;
-        border: 1px solid gray;
+        background-color: #f1f1f0;
+        box-shadow: 0px 0px 5px black;
+        color: #091d36;
+        border-radius: 10px;
         margin: 10px;
         margin-bottom: 0;
-        height: 80%;
+        height: auto;
 
         img {
           width: 40%;
           height: 100%;
+          border-radius: 5px;
+          object-fit: cover;
         }
 
         .Member-Text {
@@ -65,11 +105,13 @@
           text-align: left;
 
           h1 {
+            font-family: "Poppins";
             margin: 0;
             font-size: 40px;
           }
 
           h3 {
+            font-family: "Poppins";
             width: 100%;
             height: 100%;
             margin: 0;

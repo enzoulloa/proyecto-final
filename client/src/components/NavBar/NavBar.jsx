@@ -36,13 +36,13 @@ export default function NavBar() {
 
   function handleBuy(e){
     e.preventDefault()
-    dispatch(filterCards("state=Venta"))
+    dispatch(filterCards("state=Venta&published=Publicada"))
     navigate("/listado")
   }
 
   function handleRent(e){
     e.preventDefault()
-    dispatch(filterCards("state=Alquiler"))
+    dispatch(filterCards("state=Alquiler&published=Publicada"))
     navigate("/listado")
   }
 
