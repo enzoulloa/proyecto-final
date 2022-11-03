@@ -8,9 +8,8 @@ import Cards from "../cards/Cards";
 import FiltersCards from "../FilterCards";
 import './UserFavorite.scss'
 import Paginated from "../Listing/Paginated/Paginated";
-import favorite from "./favorite";
 
-export default function UserFavorite(){
+export default function favorite(){
 
   const dispatch = useDispatch()
   const userFavorites = useSelector((state)=>state.userFavorite)
@@ -26,21 +25,14 @@ export default function UserFavorite(){
   const indexOfLastOwnerships = currentPage * ownershipsPerPage;
   const indexOfFirstOwnerships = indexOfLastOwnerships - ownershipsPerPage;
 
-  let currentOwnerships = []
-  
-  if(userFavorites.length > 0){
-    currentOwnerships = userFavorites.slice(indexOfFirstOwnerships, indexOfLastOwnerships)
-  }
 
+    
+  const currentOwnerships = userFavorites.slice(indexOfFirstOwnerships, indexOfLastOwnerships)
+  
   const pagination = pageNumber => {
     setCurrentPage(pageNumber);
   }
 
-  useEffect(()=>{
-    if(userFavorites.length <= 9){
-      setCurrentPage(1)
-    }
-  },[userFavorites])
   function handlerNext(pageNumbers){
     if(pageNumbers > currentPage){
       setCurrentPage(currentPage+1)
@@ -56,13 +48,11 @@ export default function UserFavorite(){
 
 
   return(
-    <div className="cont-cont-favorite">
-      {
-        userFavorites.length? 
-        <div className="cont-favorite-listing">
+    <div>
+      <div className="cont-favorite-listing">
           <h2>Mis Favoritas</h2>
           <Cards ownerships={currentOwnerships} />
-            <Paginated 
+          <Paginated 
               ownershipsPerPage={ownershipsPerPage}
               allOwnerships={userFavorites.length}
               pagination={pagination}
@@ -70,13 +60,7 @@ export default function UserFavorite(){
               next={handlerNext}
               previus={handlerPrevius}
             />
-        </div>:
-        <div className="error-no-favorite">
-        <h1>No Posees Favoritos</h1>
-        <Link to='/listado'><p>Ver Todas Las Propiedades</p></Link>
         </div>
-      }
-      
     </div>
   )
 }

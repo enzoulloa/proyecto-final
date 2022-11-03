@@ -1,0 +1,34 @@
+.error-no-favorite{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 40vw;
+    background-color: #121b25;
+    align-items: center;
+    justify-content: center;
+    h1{
+        color: rgba($color: #f1f1f0, $alpha: 0.5);
+        text-decoration: underline;
+        margin: 0;
+    }
+    p{
+       color: #5e83ba; 
+    }
+    p:hover{
+        color: #979797; 
+    }
+}
+.cont-cont-favorite{    
+    .cont-favorite-listing{
+        width: 100%;
+        background-color: #121b25;
+        text-align: center;
+        h2{
+            color: #f1f1f0;
+            font-size: 25px;
+            padding-top: 2%;
+            text-decoration: underline;
+            margin: 0;
+        }
+    }
+}
