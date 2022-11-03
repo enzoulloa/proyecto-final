@@ -23,7 +23,7 @@ export default function SellForm() {
     formData.append("file", imageSelected);
     formData.append("upload_preset", "iu0b2lxj");
     const response = await axios.post(
-      `http://api.cloudinary.com/v1_1/dtbxaawjp/image/upload`,
+      `https://api.cloudinary.com/v1_1/dtbxaawjp/image/upload`,
       formData
     );
     setImageSelected(response.data.url);
