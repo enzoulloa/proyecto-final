@@ -9,7 +9,6 @@ export default function Cards({ ownerships }) {
   const filter = useSelector((state)=>state.ownershipsFiltered)
 
 useEffect(()=>{
-  console.log('hola')
 },[filter,ownerships])
 
   return (

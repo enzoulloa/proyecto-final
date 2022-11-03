@@ -30,10 +30,10 @@ export default function FiltersCards() {
     if (error) {
       Swal.fire({
         icon: "error",
-        title: "Error 412",
+        title: "Error",
         text: "No se encontraron casas",
       });
-      dispatch(GetOwnerships());
+      dispatch(filterCards("published=Publicada"));
     }
   }, [error]);
 
@@ -74,6 +74,7 @@ export default function FiltersCards() {
           <input
             type="text"
             name="location"
+            autoComplete="off"
             value={search}
             placeholder="¿Donde queres mudarte?"
             onChange={(e) => handleSearch(e)}
@@ -254,7 +255,7 @@ export default function FiltersCards() {
             7
           </option>
         </select>
-        <button onClick={cleanFilters}>Limpiar filtros</button>
+        <button className="cleanFilters" onClick={cleanFilters}>Limpiar filtros</button>
       </div>
     </div>
   );

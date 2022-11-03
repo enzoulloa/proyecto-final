@@ -11,13 +11,13 @@ export default function Footer() {
 
   function handleLocationRent(e,location){
     e.preventDefault()
-    dispatch(filterCards(`state=Alquiler&location=${location}`))
+    dispatch(filterCards(`state=Alquiler&location=${location}&published=Publicada`))
     navigate("/listado")
   }
 
    function handleLocationBuy(e,location){
     e.preventDefault()
-    dispatch(filterCards(`state=Venta&location=${location}`))
+    dispatch(filterCards(`state=Venta&location=${location}&published=Publicada`))
     navigate("/listado")
   }
 
