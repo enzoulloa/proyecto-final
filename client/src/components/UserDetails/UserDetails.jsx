@@ -34,7 +34,7 @@ export default function UserDetails() {
   }
   return (
     <div className="userDetails">
-      <div className="userNavBar">
+      <div>
         <UserNavBar
           image={userInfo.photo}
           name={userInfo.name}

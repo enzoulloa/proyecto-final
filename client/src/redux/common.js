@@ -35,6 +35,7 @@ export const GET_REVIEW = "GET_REVIEW";
 export const POST_REVIEW = "POST_REVIEW";
 export const USER_SALES = "USER_SALES";
 export const UPDATE_OWNERSHIP_STATE = "UPDATE_OWNERSHIP_STATE";
+export const UPDATE_USER = "UPDATE_USER";
 export function filterBy(ownerships, filters) {
   const newOwnerships = ownerships.filter((o) => {
     if (filters.type && filters.op) {

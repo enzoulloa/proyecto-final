@@ -38,6 +38,7 @@ import {
   POST_REVIEW,
   UPDATE_OWNERSHIP_STATE,
   DELETE_USER,
+  UPDATE_USER
 } from "./common";
 const ACCESS_TOKEN =
   "TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971";
@@ -582,7 +583,7 @@ export function updatePassword(payload) {
       console.log(err.response.data);
       Swal.fire({
         icon: "error",
-        title: "Error 412",
+        title: "Error",
         text: err.response.data.message,
       });
     }
@@ -604,15 +605,22 @@ export function updateUserData(payload) {
         `${URL_SERVER}/create/update/${payload.userID}`,
         payload.newInfo
       );
+      if (response.status === 200) {
+        const user = await axios.get(`${URL_SERVER}/users/${userLogin.name}`);
+        return dispatch({
+          type: UPDATE_USER,
+          payload: user.data,
+        });
+      }
       return dispatch({
-        type: "UPDATE_USER",
-        payload: response.data,
+        type: UPDATE_USER,
+        payload: "",
       });
     } catch (err) {
       Swal.fire({
         icon: "error",
-        title: "Error 412",
-        text: err.response.data.message,
+        title: "Error",
+        text: err.response.data.message
       });
     }
   };
