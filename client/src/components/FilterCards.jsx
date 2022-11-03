@@ -67,6 +67,11 @@ export default function FiltersCards() {
     dispatch(GetOwnerships(`published=Publicada`));
     document.getElementById("minPrice").selectedIndex = 0
     document.getElementById("maxPrice").selectedIndex = 0
+    document.getElementById("operacion").selectedIndex = 0
+    document.getElementById("propiedad").selectedIndex = 0
+    document.getElementById("ordenarPorPrecio").selectedIndex = 0
+    document.getElementById("cochera").selectedIndex = 0
+    document.getElementById("rooms").selectedIndex = 0
   };
 
   return (
@@ -80,6 +85,7 @@ export default function FiltersCards() {
             value={search}
             placeholder="¿Donde queres mudarte?"
             onChange={(e) => handleSearch(e)}
+            id="buscar"
           ></input>
           <button type="submit" onClick={(e) => handleParams(e)}>
             Buscar
@@ -113,12 +119,10 @@ export default function FiltersCards() {
         <select
           className="Operation-select"
           name="state"
-          id=""
+          id="operacion"
           onChange={(e) => handleParams(e)}
         >
-          <option disabled="disabled" selected={true}>
-            Operacion
-          </option>
+          <option hidden>Operacion</option>
           <option value="Venta">Quiero comprar</option>
           <option value="Alquiler">Quiero alquilar</option>
         </select>
@@ -126,10 +130,10 @@ export default function FiltersCards() {
         <select
           className="type-select"
           name="type"
-          id=""
+          id="propiedad"
           onChange={(e) => handleParams(e)}
         >
-          <option disabled="disabled" selected={true}>
+          <option hidden>
             Propiedad
           </option>
           <option name="type" value="Casa">
@@ -151,8 +155,8 @@ export default function FiltersCards() {
             Cochera
           </option>
         </select>
-        <select className="price-order" name="" id="" onChange={handleOrder}>
-          <option selected={true} disabled="disabled">
+        <select className="price-order" name="" id="ordenarPorPrecio" onChange={handleOrder}>
+          <option hidden>
             Ordenar por
           </option>
           <option value="ASC">Menor precio</option>
@@ -213,10 +217,10 @@ export default function FiltersCards() {
         <select
           className="garage-select"
           name="garage"
-          id=""
+          id="cochera"
           onChange={(e) => handleParams(e)}
         >
-          <option selected={true} disabled="disabled">
+          <option hidden>
             Cochera
           </option>
           <option name="garage" value="0">
@@ -229,10 +233,10 @@ export default function FiltersCards() {
         <select
           className="rooms-select"
           name="rooms"
-          id=""
+          id="rooms"
           onChange={(e) => handleParams(e)}
         >
-          <option selected={true} disabled="disabled">
+          <option hidden>
             Habitaciones
           </option>
           <option name="rooms" value="1">
