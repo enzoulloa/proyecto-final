@@ -34,8 +34,8 @@ export default function UserOwnerships() {
         userSales.map((s, i) => {
           return (
             <div class="wrap-collabsible">
-              <input id="collapsible" class="toggle" type="checkbox" />
-              <label for="collapsible" class="lbl-toggle">
+              <input id={`collapsible${i}`} class="toggle" type="checkbox" />
+              <label for={`collapsible${i}`} class="lbl-toggle">
                 {s.Ownerships[0].name}
               </label>
               <div class="collapsible-content">
@@ -48,7 +48,8 @@ export default function UserOwnerships() {
                     <b>{s.state === "approved" ? "Aprobado" : "En proceso"}</b>
                   </p>
                   <p>
-                    Valor de la seña: <b>${s.Ownerships[0].price * 0.1}</b>
+                    Valor de la seña:{" "}
+                    <b>${Math.round(s.Ownerships[0].price * 0.1, 2)}</b>
                   </p>
                 </div>
               </div>

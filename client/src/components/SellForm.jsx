@@ -29,23 +29,6 @@ export default function SellForm() {
     setImageSelected(response.data.url);
   }
 
-  useEffect(() => {
-    if (response) {
-      Swal.fire({
-        icon: "success",
-        title: "Formulario Enviado",
-        text: "En breve recibiras un correo electronico con la informacion del mismo.",
-      });
-    }
-    if (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Ocurrio un error",
-        text: "No se puedo enviar el formulario. Revise los campos y vuelva a intentarlo",
-      });
-    }
-  }, [response, error]);
-
   return (
     <Formik
       initialValues={{
@@ -125,6 +108,11 @@ export default function SellForm() {
           ? (values.garage = true)
           : (values.garage = false);
         dispatch(postProperty({ ...values, images: [imageSelected] }));
+        Swal.fire({
+          icon: "success",
+          title: "Formulario Enviado",
+          text: "En breve recibiras un correo electronico con la informacion del mismo.",
+        });
         navigate("/listado");
       }}
     >

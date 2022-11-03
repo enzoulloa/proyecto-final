@@ -28,7 +28,7 @@ export default function FiltersHome() {
 
   const handleButton = async (params) => {
     if (search === "") {
-      Swal.fire({
+      return Swal.fire({
         icon: "error",
         title: "Error",
         text: "Introduce un nombre valido",
