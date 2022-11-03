@@ -65,6 +65,8 @@ export default function FiltersCards() {
 
   const cleanFilters = () => {
     dispatch(GetOwnerships(`published=Publicada`));
+    document.getElementById("minPrice").selectedIndex = 0
+    document.getElementById("maxPrice").selectedIndex = 0
   };
 
   return (
@@ -159,7 +161,7 @@ export default function FiltersCards() {
 
         <div className="price-select">
           <span>Desde: </span>
-          <select name="min" id="" onChange={(e) => handleParams(e)}>
+          <select name="min" id="minPrice" onChange={(e) => handleParams(e)}>
             <option name="min" value="0">
               0
             </option>
@@ -183,7 +185,7 @@ export default function FiltersCards() {
             </option>
           </select>
           <span>Hasta: </span>
-          <select name="max" id="" onChange={(e) => handleParams(e)}>
+          <select name="max" id="maxPrice" onChange={(e) => handleParams(e)}>
             <option name="max" value="0">
               0
             </option>
