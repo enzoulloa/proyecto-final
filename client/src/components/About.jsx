@@ -10,25 +10,20 @@ const img =
 export default function About() {
   return (
     <div className="About">
-      {/* <div className="Logo">
-                <img src="https://res.cloudinary.com/dwgp6lmlt/image/upload/v1665608338/photo_dbm6i5.jpg"/>
-            </div> */}
       <div className="Head">
         <div className="Logo">
           <img src={logo} />
         </div>
         <div className="Text">
-          <h1>¿Quienes somos?</h1>
-          <h3>{text}</h3>
-          {/* <h3>  Somos una empresa inmobiliaria con años de trayectoria. Nos dedicamos a brindar servicios complementarios a la actividad inmobiliaria con un fuerte foco en el cliente. 
-                    Nuestro objetivo es brindarle la mayor calidad de servicio posible, a través de una atención cálida y personalizada. La misión de nuestros equipos no es venderle una propiedad; su misión consiste en ayudarlos a encontrar lo que están buscando y asesorarlos para que puedan tomar la mejor decisión. Conocer sus deseos, sus necesidades, contenerlo, educarlo y acompañarlo durante todo el proceso que implica una decisión tan importante en sus vidas, como es la búsqueda de un nuevo hogar. </h3>  */}
+          <h1 className="TitleAbout">¿Quienes somos?</h1>
+          <h3 className="TextAbout">{text}</h3>
         </div>
       </div>
       <div className="Staff">
-        <h1>Nuestro Staff...</h1>
+        <h1 className="StaffText">Nuestro Staff...</h1>
         <div className="Members">
           <div className="Member">
-            <img src={img} />
+            <img src={"https://miro.medium.com/max/1400/1*OBZJJYHDPSWnsGxa3DLxIg.jpeg"} />
             <div className="Member-Text">
               <h1>Mariano</h1>
               <h3>
@@ -40,7 +35,7 @@ export default function About() {
             </div>
           </div>
           <div className="Member">
-            <img src={img} />
+            <img src={"https://www.emprendedores.es/wp-content/uploads/2021/05/De-emprendedor-a-empresario.jpg"} />
             <div className="Member-Text">
               <h1>Enzo </h1>
               <h3>
@@ -52,7 +47,7 @@ export default function About() {
             </div>
           </div>
           <div className="Member">
-            <img src={img} />
+            <img src={"https://frasesdelavida.com/wp-content/uploads/2022/03/handsome-young-business-man-standing-confident-in-the-office-picture-id1324904314.jpg"} />
             <div className="Member-Text">
               <h1>Agustín</h1>
               <h3>
@@ -64,7 +59,7 @@ export default function About() {
             </div>
           </div>
           <div className="Member">
-            <img src={img} />
+            <img src={"https://cdn.masmovil.es/embed/99970c12b9cc790832d681b046f1600774017/Empresarios-de-exito-a-los-que-deberias-seguir-en-Instagram.jpg?imagick=1&size=750"} />
             <div className="Member-Text">
               <h1>Tomás </h1>
               <h3>
@@ -76,7 +71,7 @@ export default function About() {
             </div>
           </div>
           <div className="Member">
-            <img src={img} />
+            <img src={"https://www.euroresidentes.com/empresa/gestion/wp-content/uploads/sites/15/2007/10/empresarios-mediaticos.jpg"} />
             <div className="Member-Text">
               <h1>Juan</h1>
               <h3>
@@ -88,7 +83,7 @@ export default function About() {
             </div>
           </div>
           <div className="Member">
-            <img src={img} />
+            <img src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgVSIjyGCPy5-BKnZkQcCrGLWGiqt9I7K6sJODk-BDpUJDk7mOg-nxqXq1oQgpB0Apy9A&usqp=CAU"} />
             <div className="Member-Text">
               <h1>Bautista</h1>
               <h3>
@@ -100,7 +95,7 @@ export default function About() {
             </div>
           </div>
           <div className="Member">
-            <img src={img} />
+            <img src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV26eKPcB-oSoJ5cCV8ipBjGJpgLccaxs2_LNKq-cbuKylYw3mO_AtuTPccKII8vk1S4w&usqp=CAU"} />
             <div className="Member-Text">
               <h1>Franco</h1>
               <h3>
@@ -112,7 +107,7 @@ export default function About() {
             </div>
           </div>
           <div className="Member">
-            <img src={img} />
+            <img src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSrTiq71o4qv9Crbw5iS_v7x-ASYn4wYsWcIdAF2E4aAAvzcJgitVlWuLQ8ssImlgbkBc&usqp=CAU"} />
             <div className="Member-Text">
               <h1>Juan</h1>
               <h3>
