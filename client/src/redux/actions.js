@@ -38,14 +38,15 @@ import {
   POST_REVIEW,
   UPDATE_OWNERSHIP_STATE,
   DELETE_USER,
-  UPDATE_USER
+  UPDATE_USER,
+
 } from "./common";
 const ACCESS_TOKEN =
   "TEST-7893132721883360-101817-34c31b28ae790652f296a05af3cf9adf-1078900971";
 
-const URL_SERVER = "http://localhost:3001";
+// const URL_SERVER = "http://localhost:3001";
 
-const deploy = "https://proyecto-final.up.railway.app"
+const URL_SERVER = "https://proyecto-final.up.railway.app";
 const localHost = "http://localhost:3001";
 
 export function GetOwnerships(published) {
@@ -90,28 +91,35 @@ export function orderOwnerships(payload) {
 
 export function postProperty(payload) {
   return async function (dispatch) {
-    const response = await axios.post(`${URL_SERVER}/ownerships/`, {
-      name: payload.name,
-      address: payload.address,
-      description: payload.description,
-      expenses: payload.expenses,
-      floors: payload.floors,
-      garage: payload.garage,
-      location: payload.location,
-      m2: payload.m2,
-      price: payload.price,
-      rooms: payload.rooms,
-      type: payload.type,
-      published: payload.published,
-      seller: payload.seller,
-      images: payload.images,
-      state: payload.state,
-      seller: payload.seller,
-    });
-    return dispatch({
-      type: POST_PROPERTY,
-      payload: response.data,
-    });
+    try {
+      const response = await axios.post(`${URL_SERVER}/ownerships/`, {
+        name: payload.name,
+        address: payload.address,
+        description: payload.description,
+        expenses: payload.expenses,
+        floors: payload.floors,
+        garage: payload.garage,
+        location: payload.location,
+        m2: payload.m2,
+        price: payload.price,
+        rooms: payload.rooms,
+        type: payload.type,
+        published: payload.published,
+        seller: payload.seller,
+        images: payload.images,
+        state: payload.state,
+        seller: payload.seller,
+      });
+      return dispatch({
+        type: POST_PROPERTY,
+        payload: response.data,
+      });
+    } catch (e) {
+      return dispatch({
+        type: "POST_PROPERTY_ERROR",
+        payload: e.message,
+      });
+    }
   };
 }
 
@@ -168,12 +176,11 @@ export function GetStatusLogin(e) {
   };
 }
 
-
-export function  clearFilter(){
-  return{
-    type:'CREAR_FILTER',
-    payload:[]
-  }
+export function clearFilter() {
+  return {
+    type: "CREAR_FILTER",
+    payload: [],
+  };
 }
 
 export function filterCards(search) {
@@ -193,16 +200,15 @@ export function filterCards(search) {
 }
 
 export function UserRegister(payload) {
-  try{
-    console.log(payload)
+  try {
+    console.log(payload);
     return async function (dispatch) {
       const newUser = await axios.post(`${URL_SERVER}/users/register`, payload);
       return newUser;
     };
-  }catch(err){
-    console.log(err)
+  } catch (err) {
+    console.log(err);
   }
-  
 }
 
 export function LoginUser(payload) {
@@ -615,6 +621,7 @@ export function updateUserData(payload) {
       return dispatch({
         type: UPDATE_USER,
         payload: "",
+
       });
     } catch (err) {
       Swal.fire({
