@@ -14,11 +14,13 @@
 }
 .botton_favorite img{
     position: absolute;
+    background-color: #f1f1f0a6;
+    border-radius: 50%;
     left: 50%;
     top: 10%;
     width: 25px;
     height: 25px;
-    padding: 0;
+    padding: 5px;
 }
 .botton_favorite img:hover{
     width: 30px;
