@@ -301,6 +301,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         error: action.payload,
       };
+    case 'AUTH_REFRESH':
+      return{
+        ...state,
+        user: action.payload
+      }
     default:
       return state;
   }
