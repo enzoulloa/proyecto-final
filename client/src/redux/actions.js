@@ -367,10 +367,10 @@ export function LoginUserAuth0(payload) {
       payload
     );
     localStorage.setItem("UserLogin", JSON.stringify(LoginUserAuth0.data));
-    return {
+    return dispatch({
       type: LOGIN_USER_AUTH0,
       payload: "USUARIO AUTH0 LOGUEADO",
-    };
+    });
   };
 }
 export function LoginStatus() {
@@ -473,6 +473,14 @@ export function addfavorite(payload) {
       });
     }
   };
+}
+
+export function RefreshAuth0(){
+  const userLogin = JSON.parse(localStorage.getItem("UserLogin"));
+  return{
+    type:'AUTH_REFRESH',
+    payload: userLogin? userLogin : 'no hay user'
+  }
 }
 
 export function deleteFavorite(payload) {
