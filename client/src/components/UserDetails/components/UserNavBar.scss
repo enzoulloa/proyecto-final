@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,700");
+.containerNav{
+    background-color: #f1f1f0;
+    height: 80%;
+    margin-top: 10px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 5px;
+    .userNavHeader {
+        padding-top: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h2{
+            font-weight: bold;
+            text-align: center;
+            margin-top: 5px;
+            font-family: "Poppins";
+        }
+    }
+
+    .userNavBody {
+        display: flex;
+        flex-direction: column;
+
+        .userNavLink {
+            height: 40px;
+            width: 80%;
+            margin-left: 10%;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 5px;
+        }
+
+        .userNavLink:hover {
+            background-color: #0A66C2;
+            border-radius: 99px;
+            color: white;
+        }
+
+        .seller {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+
+            .userNavLink {
+                text-align: center;
+            }
+        }
+        .admin {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+
+            .userNavLink {
+                text-align: center;
+            }
+        }
+    }
+}

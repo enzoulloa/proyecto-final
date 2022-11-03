@@ -37,7 +37,8 @@ import {
   UPDATE_USERTYPE,
   NEW_PASSWORD,
   UPDATE_OWNERSHIP_STATE,
-  UPDATE_USER,
+  UPDATE_USER
+
 } from "./common";
 
 const initialState = {
@@ -259,6 +260,12 @@ function rootReducer(state = initialState, action) {
         error: action.payload,
       };
     case UPDATE_USER:
+      return {
+        ...state,
+        userInfo: action.payload,
+        user: "Cambio de usuario",
+      };
+    case UPDATE_USERTYPE:
       return {
         ...state,
         userInfo: action.payload,

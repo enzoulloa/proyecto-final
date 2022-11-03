@@ -54,7 +54,7 @@ export default function UserChangePassword() {
     ) {
       Swal.fire({
         icon: "error",
-        title: "Error 412",
+        title: "Error",
         text: "Complete los datos",
       });
       return;
@@ -69,6 +69,7 @@ export default function UserChangePassword() {
 
   return (
     <form className="formPasswords">
+      <h2 className="text-pass">Cambiar contraseña</h2>
       <div className="div-password">
         <label>Ingresa tu contraseña actual:</label>
         <input
