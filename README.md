@@ -58,7 +58,7 @@ Este Proyecto fue realizado por un grupo de ocho integrantes.
 - <a href="">Bautista Moreiro.</a>
 - <a href="https://www.linkedin.com/in/agustin-benitez-271b94241/">Agustin Benitez.</a>
 
-__Herramienta Utilizadas para oden Grupal__:
+__Herramientas Utilizadas para orden Grupal__:
 
 <a href="https://www.figma.com/"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="trello" width="40" height="40"></a>
 <a href="https://trello.com/"><img src="https://cdn-icons-png.flaticon.com/512/174/174874.png" alt="trello" width="40" height="40"></a>
