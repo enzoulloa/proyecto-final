@@ -13,14 +13,14 @@ const transport = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: "enzo.ulloa.i@gmail.com",
+    user: "user@mail.com",
     pass: "koywxiscacvjrugy",
   },
 });
 
 const buyPending = {
   from: "'Henry Inmobiliaria' <henryinmobiliaria@gmail.com>",
-  to: "enzo.ulloa.i@gmail.com",
+  to: "user@mail.com",
   subject: `Gracias por registrarte en Henry Inmobiliaria`,
   text: `Bienvenido Pepe a Henry Inmobiliaria, su registro fue completado con exito`,
   html: `<p style="text-align:center;">Bienvenido Pepe a Henry Inmobiliaria, su registro fue completado con exito</p>
